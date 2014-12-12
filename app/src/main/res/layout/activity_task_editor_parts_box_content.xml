@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/card_background"
+        android:baselineAligned="true"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/editTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/task_editor_parts_layout_margin_Top_Bottom"
+            android:layout_marginLeft="@dimen/task_editor_parts_layout_margin_Left_Right"
+            android:layout_marginRight="@dimen/task_editor_parts_layout_margin_Left_Right"
+            android:layout_marginTop="@dimen/task_editor_parts_layout_margin_Top_Bottom"
+            android:background="?android:attr/editTextBackground"
+            android:ems="10"
+            android:gravity="top"
+            android:hint="@string/TaskEditor_Field_Content_Hint"
+            android:inputType="textMultiLine|textImeMultiLine"
+            android:maxLength="255" >
+
+        </EditText>
+
+    </LinearLayout>
+    

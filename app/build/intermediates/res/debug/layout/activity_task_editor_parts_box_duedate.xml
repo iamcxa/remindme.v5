@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/actionbar_text"
+            android:orientation="horizontal" xmlns:tools="http://schemas.android.com/tools">
+
+            <EditText
+                android:id="@+id/editTextDueDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/task_editor_parts_layout_margin_Top_Bottom"
+                android:layout_marginLeft="@dimen/task_editor_parts_layout_margin_Left_Right"
+                android:layout_marginStart="@dimen/task_editor_parts_layout_margin_Left_Right"
+                android:layout_marginTop="@dimen/task_editor_parts_layout_margin_Top_Bottom"
+                android:layout_weight="2.5"
+                android:contentDescription="@string/TaskEditor_Field_DueDate_Hint"
+                android:ems="10"
+                android:height="@dimen/task_editor_parts_EditText_Height"
+                tools:ignore="TextFields" >
+  
+            </EditText>
+
+            <ImageButton
+                android:id="@+id/imageButtonResetDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/task_editor_parts_layout_margin_Left_Right"
+                android:layout_marginRight="@dimen/task_editor_parts_layout_margin_Left_Right"
+                android:layout_weight="9"
+                android:background="@null"
+                android:contentDescription="@string/TaskEditor_Field_Location"
+                android:scaleType="centerInside"
+                android:src="@drawable/taskeditor_btn_duedate_background"
+                android:visibility="visible" >
+
+            </ImageButton>
+</LinearLayout>
+
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/layout/activity_task_editor_parts_box_duedate.xml -->

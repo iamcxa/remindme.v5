@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/remove" android:title="移除卡片"/>
+
+</menu><!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/menu/card_popup.xml -->

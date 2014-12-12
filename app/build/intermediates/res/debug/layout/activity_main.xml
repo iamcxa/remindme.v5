@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize" >
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar" >
+
+        <FrameLayout
+            android:id="@+id/loading_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:overScrollMode="always"
+            android:visibility="visible" >
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/content_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:overScrollMode="always" >
+        </FrameLayout>
+
+        <ListView
+            android:id="@+id/left_drawer"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/task_editor_parts_layout_textview_color"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp" />
+    </android.support.v4.widget.DrawerLayout>
+
+</RelativeLayout><!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/layout/activity_main.xml -->

@@ -1,0 +1,7 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="180dp"
+    android:layout_height="180dp"
+    android:layout_gravity="center" >
+
+</RelativeLayout><!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/layout/alertdialoglayout.xml -->

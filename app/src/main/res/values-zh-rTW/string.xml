@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Basic theme information -->
+    <string name="app_name">智慧提醒</string>
+    
+    <string name="TaskEditor_ActionBar_Title">建立待辦事項</string>
+    
+
+    <string-array name="PowerUsageOptionString">
+        <item>精準</item>
+        <item>平衡</item>
+        <item>省電</item>
+    </string-array>
+    <string-array name="PowerUsageOptionValue">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="PowerUsageOptionDefaultValue">0</string>
+    <string name="PowerUsageOptionTittle">位置偵測模式</string>
+
+    <string-array name="drawer_array_CHT">
+        <item>任務盒</item>
+        <item>◎今天</item>
+        <item>一週檢視</item>
+    </string-array>
+
+
+    <!-- Card Long Clcik Menu -->
+    <!-- String -->
+    <string-array name="Array_Task_List_Card_Long_Clcik_String">
+        <item>修改</item>
+        <item>刪除</item>
+    </string-array>
+    <!-- Value -->
+    <string-array name="Array_Task_List_Card_Long_Clcik_Value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+  
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_websearch">Web search</string>
+    <string name="action_setting">設定</string>
+    <string name="app_not_available">Sorry, there\'s no web browser available</string>
+
+</resources>

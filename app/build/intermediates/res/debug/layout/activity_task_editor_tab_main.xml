@@ -1,0 +1,106 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_scrollview"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <FrameLayout
+        android:id="@+id/FrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background_window"
+            android:orientation="vertical"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical"
+            android:windowSoftInputMode="stateHidden"
+            tools:context="me.iamcxa.remindme.ActivityEditor" >
+
+            <FrameLayout
+                android:id="@+id/frameTabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0" >
+            </FrameLayout>
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/activity_task_editor_parts_box_title" />
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/activity_task_editor_parts_box_content" />
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/activity_task_editor_parts_box_duedate" />
+
+            <!-- <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/activity_task_editor_parts_box_alarm" /> -->
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/activity_task_editor_parts_box_location" />
+
+            <include
+                android:id="@+id/layout_editor_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/activity_task_editor_parts_box_category" />
+
+            <include
+                android:id="@+id/layout_editor_priority"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/activity_task_editor_parts_box_priority" />
+
+            <include
+                android:id="@+id/layout_editor_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/activity_task_editor_parts_box_project" />
+
+            <include
+                android:id="@+id/layout_editor_tag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/activity_task_editor_parts_box_tag" />
+
+            <include
+                android:id="@+id/layout_editor_btnMore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/activity_task_editor_parts_box_btnmore" />
+        </LinearLayout>
+
+        <GridLayout
+            android:id="@+id/loadingLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnCount="1"
+            android:overScrollMode="always" >
+
+            <ProgressBar
+                android:id="@+id/loading"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="match_parent"
+                android:layout_column="0"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginBottom="20dp"
+                android:layout_row="0"
+                android:visibility="gone" />
+        </GridLayout>
+    </FrameLayout>
+
+</ScrollView><!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/layout/activity_task_editor_tab_main.xml -->

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/TabHost01"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center|fill"
+            android:layout_weight="1" >
+
+            <CalendarView
+                android:id="@+id/calendarView01"
+                android:layout_width="400dp"
+                android:layout_height="288dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp" />
+
+            <TimePicker
+                android:id="@+id/timePicker01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" />
+
+            <ListView
+                android:id="@+id/listView01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollbarFadeDuration="1000000"
+                android:scrollbars="vertical" />
+
+            <ListView
+                android:id="@+id/listView02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollbarFadeDuration="1000000"
+                android:scrollbars="vertical" />
+        </FrameLayout>
+    </LinearLayout>
+
+</TabHost>
