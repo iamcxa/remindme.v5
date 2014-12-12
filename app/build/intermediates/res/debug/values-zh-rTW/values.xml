@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values-zh-rTW/string_Parts_Task_Editor.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values-zh-rTW/string_Parts_Task_Editor.xml -->
     <eat-comment/>
     <string-array name="Array_TaskEditor_btnTaskDueDate_String">
         <item>今天</item>
@@ -41,7 +41,7 @@
         <item>下</item>
         <item>每</item>
     </string-array>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values-zh-rTW/string.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values-zh-rTW/string.xml -->
     <eat-comment/>
     <string-array name="Array_Task_List_Card_Long_Clcik_String">
         <item>修改</item>
@@ -71,7 +71,7 @@
     </string-array>
     <string name="PowerUsageOptionDefaultValue">0</string>
     <string name="PowerUsageOptionTittle">位置偵測模式</string>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values-zh-rTW/string_Parts_Task_Editor.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values-zh-rTW/string_Parts_Task_Editor.xml -->
     <eat-comment/>
     <string name="String_Task_Editor_Date_Day">日</string>
     <string name="String_Task_Editor_Date_Month">月</string>
@@ -80,10 +80,10 @@
     <string name="String_Task_Editor_Dialog_BUTTON_NEUTRAL">不要時間</string>
     <string name="String_Task_Editor_Dialog_BUTTON_POSITIVE">我決定了</string>
     <string name="String_Task_Editor_Dialog_Pick_A_Time">挑個時間</string>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values-zh-rTW/string.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values-zh-rTW/string.xml -->
     <eat-comment/>
     <string name="TaskEditor_ActionBar_Title">建立待辦事項</string>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values-zh-rTW/string_Parts_Task_Editor.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values-zh-rTW/string_Parts_Task_Editor.xml -->
     <eat-comment/>
     <string name="TaskEditor_Field_Alarm">設定提醒時間</string>
     <string name="TaskEditor_Field_Category_Hint">類別</string>
@@ -101,7 +101,7 @@
     <string name="TaskEditor_Field_Title_Hint">任務</string>
     <string name="TaskEditor_Title_Is_Empty">您需要輸入任務名稱。</string>
     <string name="TaskEditor_btnTaskDueDate_Title">請選擇日期</string>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values-zh-rTW/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values-zh-rTW/values.xml -->
     <eat-comment/>
     <string msgid="4600421777120114993" name="abc_action_bar_home_description">"瀏覽首頁"</string>
     <string msgid="1397052879051804371" name="abc_action_bar_home_description_format">"%1$s：%2$s"</string>
@@ -118,17 +118,17 @@
     <string msgid="893419373245838918" name="abc_searchview_description_voice">"語音搜尋"</string>
     <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"選擇分享對象"</string>
     <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"與「%s」分享"</string>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values-zh-rTW/string.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values-zh-rTW/string.xml -->
     <eat-comment/>
     <string name="action_setting">設定</string>
     <string name="action_websearch">Web search</string>
     <string name="app_name">智慧提醒</string>
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values-zh-rTW/string_Parts_Task_Editor.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values-zh-rTW/string_Parts_Task_Editor.xml -->
     <eat-comment/>
     <string name="btnMore_Less">較少</string>
     <string name="btnMore_More">更多</string>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rTW/common_strings.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rTW/common_strings.xml -->
     <eat-comment/>
     <string msgid="473679118463211576" name="common_android_wear_notification_needs_update_text">"有一個應用程式要求更新 Android Wear 應用程式。"</string>
     <string msgid="3046420540094071256" name="common_android_wear_update_text">"您必須更新 Android Wear 應用程式，這個應用程式才能運作。"</string>
@@ -158,7 +158,7 @@
     <string msgid="411506735369601515" name="common_open_on_phone">"在手機上開啟"</string>
     <string msgid="9071884888741449141" name="common_signin_button_text">"登入"</string>
     <string msgid="2429381841831957106" name="common_signin_button_text_long">"使用 Google 帳戶登入"</string>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values-zh-rTW/string.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values-zh-rTW/string.xml -->
     <eat-comment/>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="drawer_open">Open navigation drawer</string>

@@ -22,4 +22,4 @@
        android:shape="rectangle">
     <solid android:color="@color/demo_card_background_color5"/>
     <corners android:radius="@dimen/card_background_default_radius"/>
-</shape><!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/drawable/demo_card_background_color5.xml -->
+</shape><!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/drawable/demo_card_background_color5.xml -->

@@ -5,4 +5,4 @@
     <item android:drawable="@drawable/ic_action_add_alarm_pressed"  android:state_focused="true"/>
     <item android:drawable="@drawable/ic_action_add_alarm"/>
 
-</selector><!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/drawable/taskeditor_btn_alarm_background.xml -->
+</selector><!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/drawable/taskeditor_btn_alarm_background.xml -->

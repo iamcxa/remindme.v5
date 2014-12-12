@@ -13,4 +13,4 @@
         android:right="@dimen/floating_action_button_shadow_radius"
         android:bottom="@dimen/floating_action_button_shadow_radius"/>
 </shape>
-<!-- From: file:/home/main/Projects/shamanland/ok/floating-action-button/lib/src/main/res/drawable/com_shamanland_fab_shadow.xml --><!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.shamanland/fab/0.0.6/res/drawable/com_shamanland_fab_shadow.xml -->
+<!-- From: file:/home/main/Projects/shamanland/ok/floating-action-button/lib/src/main/res/drawable/com_shamanland_fab_shadow.xml --><!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.shamanland/fab/0.0.6/res/drawable/com_shamanland_fab_shadow.xml -->

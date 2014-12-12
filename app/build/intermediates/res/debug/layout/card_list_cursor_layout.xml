@@ -26,4 +26,4 @@
     android:layout_height="wrap_content"
     style="@style/list_card"
     card:card_layout_resourceID="@layout/card_cursor_layout"
-    /><!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/layout/card_list_cursor_layout.xml -->
+    /><!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/layout/card_list_cursor_layout.xml -->

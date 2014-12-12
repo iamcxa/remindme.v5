@@ -9,4 +9,4 @@
     android:paddingRight="16dp"
     android:textColor="#fff"
     android:background="?android:attr/activatedBackgroundIndicator"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall"/><!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/layout/activity_main_drawer_list_item.xml -->
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"/><!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/layout/activity_main_drawer_list_item.xml -->

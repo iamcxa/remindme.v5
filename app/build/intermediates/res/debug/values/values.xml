@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/dock_pack.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/dock_pack.xml -->
     <eat-comment/>
     <string-array name="dock_pack" translatable="false">
 			    	<item>dock_touch_of_color</item>		    	
     </string-array>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/icon_pack.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/icon_pack.xml -->
     <eat-comment/>
     <string-array name="gamesicons">
         <item>games_templerun</item>
@@ -35,18 +35,18 @@
         <item>system_browser</item>
         <item>system_gallery</item>
     </string-array>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/wallpapers.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/wallpapers.xml -->
     <eat-comment/>
     <string-array name="wallpapers" translatable="false">
         <item>wallpaper_designrifts</item>    
     </string-array>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <attr format="reference" name="drawerArrowStyle"/>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.shamanland/fab/0.0.6/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.shamanland/fab/0.0.6/res/values/values.xml -->
     <eat-comment/>
     <attr format="reference" name="floatingActionButtonStyle"/>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <attr format="dimension" name="height"/>
     <attr format="boolean" name="isLightTheme"/>
@@ -57,21 +57,21 @@
     <bool name="abc_config_actionMenuItemAllCaps">true</bool>
     <bool name="abc_config_allowActionMenuItemTextWithIcon">false</bool>
     <bool name="abc_config_showMenuShortcutsWhenKeyboardPresent">false</bool>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/bools.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/bools.xml -->
     <eat-comment/>
     <bool name="config_apexskin">true</bool>
     <bool name="config_iconpack">true</bool>
     <bool name="dock_reflections">false</bool>
     <bool name="enableDockPack">false</bool>
     <bool name="enableIconPack">true</bool>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="Button_Off">#FF3F9FE0</color>
     <color name="Button_On">#667AA821</color>
     <color name="PagerSlidingTabStrip_dividerColor">#668ABD25</color>
     <color name="PagerSlidingTabStrip_indicatorColor">#FF95C821</color>
     <color name="PagerSlidingTabStrip_underlineColor">#667AA821</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="abc_input_method_navigation_guard">@android:color/black</color>
     <color name="abc_search_url_text_normal">#7fa87f</color>
@@ -79,22 +79,22 @@
     <color name="abc_search_url_text_selected">@android:color/black</color>
     <color name="accent_material_dark">@color/material_deep_teal_200</color>
     <color name="accent_material_light">@color/material_deep_teal_500</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="actionbar">#FF7AA821</color>
     <color name="actionbar_text">#FFFFFFFF</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="background_floating_material_dark">#ff424242</color>
     <color name="background_floating_material_light">#ffeeeeee</color>
     <color name="background_material_dark">#ff303030</color>
     <color name="background_material_light">#ffeeeeee</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="background_tab_pressed">#667AA821</color>
     <color name="background_tabs">#FFE5E5E5</color>
     <color name="background_window">#FFDEDEDE</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="bright_foreground_disabled_material_dark">#80ffffff</color>
     <color name="bright_foreground_disabled_material_light">#80000000</color>
@@ -104,7 +104,7 @@
     <color name="bright_foreground_material_light">@android:color/black</color>
     <color name="button_material_dark">#ff5a595b</color>
     <color name="button_material_light">#ffd6d7d7</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="card_SubTittle">#333333</color>
     <color name="card_ThirdTittle">#969696</color>
@@ -116,36 +116,36 @@
     <color name="card_background_gray">#e0e0e0</color>
     <color name="card_background_header">#FFF</color>
     <color name="card_background_white">#FFF</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
     <eat-comment/>
     <color name="card_base_cardwithlist_background_list_color">#10000000</color>
     <color name="card_base_cardwithlist_divider_color">#E5E5E5</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="card_expand_title_color">#B3B2B2</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
     <eat-comment/>
     <color name="card_foreground_activated">#99CFE9F3</color>
     <color name="card_foreground_activated_kitkat">#99ADE1F4</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="card_pressed">#668ABD25</color>
     <color name="card_pressed_kitkat">#10000000</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
     <eat-comment/>
     <color name="card_section_container_color">@android:color/transparent</color>
     <color name="card_section_title_color">@android:color/black</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="card_text_color_header">#FF3F9FE0</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
     <eat-comment/>
     <color name="card_undobar_material_background_color">#323232</color>
     <color name="card_undobar_material_text_color">#4CAF50</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="card_unpressed">#FFFFFFFF</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_colors.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_colors.xml -->
     <eat-comment/>
     <color name="common_action_bar_splitter">#d2d2d2</color>
     <color name="common_signin_btn_dark_text_default">@android:color/white</color>
@@ -157,14 +157,14 @@
     <color name="common_signin_btn_light_text_disabled">#FFAAAAAA</color>
     <color name="common_signin_btn_light_text_focused">#FF737373</color>
     <color name="common_signin_btn_light_text_pressed">@android:color/white</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="demo_card_background_color1">#FFBB33</color>
     <color name="demo_card_background_color2">#98CC00</color>
     <color name="demo_card_background_color3">#A966CC</color>
     <color name="demo_card_background_color4">#33B4E4</color>
     <color name="demo_card_background_color5">#FF4343</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="dim_foreground_disabled_material_dark">#80bebebe</color>
     <color name="dim_foreground_disabled_material_light">#80323232</color>
@@ -195,19 +195,19 @@
     <color name="secondary_text_default_material_light">#8a000000</color>
     <color name="secondary_text_disabled_material_dark">#36ffffff</color>
     <color name="secondary_text_disabled_material_light">#24000000</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="smart_ampm">#FF3F9FE0</color>
     <color name="smart_date">#FF3F9FE0</color>
     <color name="smart_hour">#FF3F9FE0</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="switch_thumb_normal_material_dark">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="task_editor_parts_layout_textview_color">#88333333</color>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_colors.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_colors.xml -->
     <eat-comment/>
     <color name="wallet_bright_foreground_disabled_holo_light">#ffb2b2b2</color>
     <color name="wallet_bright_foreground_holo_dark">#fff3f3f3</color>
@@ -254,7 +254,7 @@
     <declare-styleable name="WalletFragmentStyle"><attr format="dimension" name="buyButtonHeight"><enum name="match_parent" value="-1"/><enum name="wrap_content" value="-2"/></attr><attr format="dimension" name="buyButtonWidth"><enum name="match_parent" value="-1"/><enum name="wrap_content" value="-2"/></attr><attr format="enum" name="buyButtonText"><enum name="buy_with_google" value="1"/><enum name="buy_now" value="2"/><enum name="book_now" value="3"/><enum name="donate_with_google" value="4"/></attr><attr format="enum" name="buyButtonAppearance"><enum name="classic" value="1"/><enum name="grayscale" value="2"/><enum name="monochrome" value="3"/></attr><attr format="reference" name="maskedWalletDetailsTextAppearance"/><attr format="reference" name="maskedWalletDetailsHeaderTextAppearance"/><attr format="reference|color" name="maskedWalletDetailsBackground"/><attr format="reference" name="maskedWalletDetailsButtonTextAppearance"/><attr format="reference|color" name="maskedWalletDetailsButtonBackground"/><attr format="color" name="maskedWalletDetailsLogoTextColor"/><attr format="enum" name="maskedWalletDetailsLogoImageType"><enum name="classic" value="1"/><enum name="monochrome" value="2"/></attr></declare-styleable>
     <declare-styleable name="card_listItem"><attr format="dimension" name="card_list_item_dividerHeight"/></declare-styleable>
     <declare-styleable name="card_options"><attr format="reference" name="card_layout_resourceID"/><attr format="reference" name="card_shadow_layout_resourceID"/><attr format="reference" name="card_header_layout_resourceID"/><attr format="reference" name="card_thumbnail_layout_resourceID"/><attr format="reference" name="list_card_layout_resourceID"/></declare-styleable>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <dimen name="abc_action_bar_default_height_material">56dp</dimen>
     <dimen name="abc_action_bar_default_padding_material">4dp</dimen>
@@ -293,19 +293,19 @@
     <dimen name="abc_text_size_subtitle_material_toolbar">16dp</dimen>
     <dimen name="abc_text_size_title_material">20sp</dimen>
     <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="card_background_default_radius">2dip</dimen>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
     <eat-comment/>
     <dimen name="card_base_cardwithlist_dividerHeight">1dp</dimen>
     <dimen name="card_base_cardwithlist_layout_leftmargin">0dp</dimen>
     <dimen name="card_base_cardwithlist_layout_rightmargin">0dp</dimen>
     <dimen name="card_base_cardwithlist_list_margin_left">0dp</dimen>
     <dimen name="card_base_cardwithlist_list_margin_top">10dp</dimen>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="card_base_empty_height">24dp</dimen>
     <dimen name="card_content_outer_view_margin_bottom">0dp</dimen>
@@ -337,13 +337,13 @@
     <dimen name="card_main_layout_view_margin_top">0dp</dimen>
     <dimen name="card_main_simple_title_margin_left">5dp</dimen>
     <dimen name="card_main_simple_title_margin_top">0dp</dimen>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
     <eat-comment/>
     <dimen name="card_section_container_padding_left">15dp</dimen>
     <dimen name="card_section_container_padding_right">15dp</dimen>
     <dimen name="card_section_title">18sp</dimen>
     <dimen name="card_section_title_margin_top">10dp</dimen>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="card_shadow_height">2dp</dimen>
     <dimen name="card_shadow_view_margin_bottom">0dp</dimen>
@@ -352,7 +352,7 @@
     <dimen name="card_shadow_view_margin_top">0dp</dimen>
     <dimen name="card_thumbnail_height">24dp</dimen>
     <dimen name="card_thumbnail_width">24dp</dimen>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <item name="dialog_fixed_height_major" type="dimen">80%</item>
     <item name="dialog_fixed_height_minor" type="dimen">100%</item>
@@ -360,7 +360,7 @@
     <item name="dialog_fixed_width_minor" type="dimen">320dp</item>
     <item format="float" name="disabled_alpha_material_dark" type="dimen">0.30</item>
     <item format="float" name="disabled_alpha_material_light" type="dimen">0.26</item>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.shamanland/fab/0.0.6/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.shamanland/fab/0.0.6/res/values/values.xml -->
     <eat-comment/>
     <dimen name="floating_action_button_elevation">4dp</dimen>
     <dimen name="floating_action_button_margin_mini">26dp</dimen>
@@ -370,7 +370,7 @@
     <dimen name="floating_action_button_shadow_radius">6dp</dimen>
     <dimen name="floating_action_button_size_mini">40dp</dimen>
     <dimen name="floating_action_button_size_normal">56dp</dimen>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="grid_card_padding_bottom">2dp</dimen>
     <dimen name="grid_card_padding_left">2dp</dimen>
@@ -388,7 +388,7 @@
     <dimen name="task_editor_parts_layout_margin_Top_Bottom">10dp</dimen>
     <dimen name="task_editor_parts_layout_mini_Height_button">32dip</dimen>
     <dimen name="task_editor_parts_layout_mini_Right_imagebutton">10dp</dimen>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <item name="action_bar_activity_content" type="id"/>
     <item name="action_bar_spinner" type="id"/>
@@ -400,20 +400,20 @@
     <item name="split_action_bar" type="id"/>
     <item name="up" type="id"/>
     <integer name="abc_max_action_buttons">2</integer>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/theme.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/theme.xml -->
     <eat-comment/>
     <integer name="bubblepadding">24</integer>
     <integer name="drawer_background">0x99000000</integer>
     <integer name="drawer_titlecolor">0xFF7AA821</integer>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/version.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/version.xml -->
     <eat-comment/>
     <integer name="google_play_services_version">6587000</integer>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/theme.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/theme.xml -->
     <eat-comment/>
     <integer name="home_background">0x22000000</integer>
     <integer name="icon_shadowcolor">0xff000000</integer>
     <integer name="icon_textcolor">0xffffffff</integer>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
     <eat-comment/>
     <integer name="list_card_swipe_distance_divisor">2</integer>
     <integer name="list_card_undobar_hide_delay">5000</integer>
@@ -425,7 +425,7 @@
         <item quantity="one">1 card removed</item>
         <item quantity="other">%d cards removed</item>
     </plurals>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <string name="abc_action_bar_home_description">Navigate home</string>
     <string name="abc_action_bar_home_description_format">%1$s, %2$s</string>
@@ -443,18 +443,18 @@
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="accept">Accept</string>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
     <eat-comment/>
     <string name="card_empty_cardwithlist_text">No data....</string>
     <string name="card_progressbar_cardwithlist_text">Loading data...</string>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/theme.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/theme.xml -->
     <eat-comment/>
     <string name="clockcolor">#FF3F9FE0</string>
     <string name="clockshadow">3/0/0/#55000000</string>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_strings.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_strings.xml -->
     <eat-comment/>
     <string name="common_android_wear_notification_needs_update_text">An application requires an update to the Android Wear app.</string>
     <string name="common_android_wear_update_text">This app won\'t run unless you update the Android Wear app.</string>
@@ -484,27 +484,27 @@
     <string name="common_open_on_phone">Open on phone</string>
     <string name="common_signin_button_text">Sign in</string>
     <string name="common_signin_button_text_long">Sign in with Google</string>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="create_calendar_message">Allow Ad to create a calendar event?</string>
     <string name="create_calendar_title">Create calendar event</string>
     <string name="decline">Decline</string>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/wallpapers.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/wallpapers.xml -->
     <eat-comment/>
     <string name="default_wallpaper">wallpaper_default</string>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
     <eat-comment/>
     <string name="font_fontFamily_medium">sans-serif</string>
     <string name="font_fontFamily_regular">sans-serif</string>
     <string name="list_card_undo_title">Undo</string>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="store_picture_message">"Allow Ad to store image in Picture gallery?"</string>
     <string name="store_picture_title">Save image</string>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_strings.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_strings.xml -->
     <eat-comment/>
     <string name="wallet_buy_button_place_holder" translation_description="Text on a button that allows a user to make a payment with Google Wallet [CHAR LIMIT=30]">Buy with Google</string>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/styles_irdark.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/styles_irdark.xml -->
     <eat-comment/>
     <style name="ActionBar.Solid.Irdark" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
         <item name="android:background">@drawable/ab_background_textured_irdark</item>
@@ -518,7 +518,7 @@
         <item name="android:progressBarStyle">@style/ProgressBar.Irdark</item>
         <item name="android:titleTextStyle">@style/ActionButton.TitleTextStyle.Irdark</item>
     </style>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/actionbar</item>
@@ -526,7 +526,7 @@
     <style name="ActionBarTabStyle" parent="@android:style/Widget.Holo.ActionBar.TabView">
         <item name="android:background">@drawable/tab_indicator_ab</item>
     </style>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/styles_irdark.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/styles_irdark.xml -->
     <eat-comment/>
     <style name="ActionBarTabStyle.Irdark" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">
         <item name="android:background">@drawable/tab_indicator_ab_irdark</item>
@@ -537,10 +537,10 @@
     <style name="ActionButton.TitleTextStyle.Irdark" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">@color/actionbar_text</item>
     </style>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppTheme" parent="MaterialBlack"/>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="Base.TextAppearance.AppCompat" parent="android:TextAppearance">
         <item name="android:textColor">?android:textColorPrimary</item>
@@ -1294,7 +1294,7 @@
         <item name="android:scaleType">center</item>
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/styles_irdark.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/styles_irdark.xml -->
     <eat-comment/>
     <style name="DropDownListView.Irdark" parent="@android:style/Widget.Holo.Light.ListView.DropDown">
         <item name="android:listSelector">@drawable/selectable_background_irdark</item>
@@ -1304,7 +1304,7 @@
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_irdark</item>
         <item name="android:dropDownSelector">@drawable/selectable_background_irdark</item>
     </style>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.shamanland/fab/0.0.6/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.shamanland/fab/0.0.6/res/values/values.xml -->
     <eat-comment/>
     <style name="FloatingActionButton" parent="android:Widget.ImageButton">
         <item name="floatingActionButtonSize">normal</item>
@@ -1324,7 +1324,7 @@
     <style name="FloatingActionButton.Mini" parent="FloatingActionButton">
         <item name="floatingActionButtonSize">mini</item>
     </style>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="MaterialBlack" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -1340,7 +1340,7 @@
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="Platform.AppCompat" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>
@@ -1467,7 +1467,7 @@
         <item name="android:listChoiceIndicatorMultiple">@drawable/abc_btn_check_material</item>
     </style>
     <style name="Platform.AppCompat.Light.Dialog" parent="Platform.AppCompat.Dialog"/>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/styles_irdark.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/styles_irdark.xml -->
     <eat-comment/>
     <style name="PopupMenu.Irdark" parent="@android:style/Widget.Holo.Light.ListPopupWindow">
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_irdark</item>	
@@ -1475,7 +1475,7 @@
     <style name="ProgressBar.Irdark" parent="@android:style/Widget.Holo.Light.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_irdark</item>
     </style>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="RtlOverlay.Widget.AppCompat.ActionBar.TitleItem" parent="android:Widget">
         <item name="android:layout_gravity">center_vertical|left</item>
@@ -1578,7 +1578,7 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_iap_style.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_iap_style.xml -->
     <eat-comment/>
     <style name="Theme.IAPTheme" parent="android:Theme">
     <item name="android:windowIsTranslucent">true</item>
@@ -1588,7 +1588,7 @@
     <item name="android:windowIsFloating">true</item>
     <item name="android:backgroundDimEnabled">false</item>
   </style>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/styles_irdark.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/styles_irdark.xml -->
     <eat-comment/>
     <style name="Theme.Irdark" parent="@android:style/Theme.Holo.Light">
         <item name="android:actionBarItemBackground">@drawable/selectable_background_irdark</item>
@@ -1606,7 +1606,7 @@
         <item name="android:popupMenuStyle">@style/PopupMenu.Irdark</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Irdark</item>
     </style>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="Theme.Transparent" parent="android:Theme">
         <item name="android:windowIsTranslucent">true</item>
@@ -1616,14 +1616,14 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="ThemeOverlay.AppCompat" parent="Base.ThemeOverlay.AppCompat"/>
     <style name="ThemeOverlay.AppCompat.ActionBar" parent="Base.ThemeOverlay.AppCompat.ActionBar"/>
     <style name="ThemeOverlay.AppCompat.Dark" parent="Base.ThemeOverlay.AppCompat.Dark"/>
     <style name="ThemeOverlay.AppCompat.Dark.ActionBar" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="ThemeOverlay.AppCompat.Light" parent="Base.ThemeOverlay.AppCompat.Light"/>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_styles.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_styles.xml -->
     <eat-comment/>
     <style name="WalletFragmentDefaultButtonTextAppearance">
         <item name="android:textColor">@color/wallet_primary_text_holo_light</item>
@@ -1657,7 +1657,7 @@
         <item name="maskedWalletDetailsLogoTextColor">@color/wallet_bright_foreground_holo_dark</item>
         <item name="maskedWalletDetailsLogoImageType">classic</item>
     </style>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="Widget.AppCompat.ActionBar" parent="Base.Widget.AppCompat.ActionBar"/>
     <style name="Widget.AppCompat.ActionBar.Solid" parent="Base.Widget.AppCompat.ActionBar.Solid"/>
@@ -1712,7 +1712,7 @@
     <style name="Widget.AppCompat.Spinner.DropDown.ActionBar" parent="Base.Widget.AppCompat.Spinner.DropDown.ActionBar"/>
     <style name="Widget.AppCompat.Toolbar" parent="Base.Widget.AppCompat.Toolbar"/>
     <style name="Widget.AppCompat.Toolbar.Button.Navigation" parent="Base.Widget.AppCompat.Toolbar.Button.Navigation"/>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="about">
         <item name="android:textColor">#FF3F9FE0</item>
@@ -1744,7 +1744,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">fill_parent</item>
     </style>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
     <eat-comment/>
     <style name="card"/>
     <style name="card.base_simple_title">
@@ -1780,12 +1780,12 @@
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_marginRight">@dimen/card_header_button_margin_right</item>
     </style>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="card.header_button_base.expand">
         <item name="android:background">@drawable/card_menu_button_expand</item>
     </style>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
     <eat-comment/>
     <style name="card.header_button_base.other"/>
     <style name="card.header_button_base.overflow">
@@ -1834,7 +1834,7 @@
     <style name="card.main_layout_foreground.kitkat">
         <item name="android:foreground">@drawable/card_foreground_kitkat_selector</item>
     </style>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="card.shadow_image">
         <item name="android:layout_width">match_parent</item>
@@ -1848,7 +1848,7 @@
         <item name="android:layout_marginLeft">@dimen/card_shadow_view_margin_left</item>
         <item name="android:layout_marginRight">@dimen/card_shadow_view_margin_right</item>
     </style>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.9.1/res/values/values.xml -->
     <eat-comment/>
     <style name="card.thumbnail_compound_view"/>
     <style name="card_section_container">
@@ -2024,7 +2024,7 @@
         <item name="android:background">@color/card_undobar_material_background_color</item>
         <item name="android:clickable">true</item>
     </style>
-    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="scan_description">
         <item name="android:textColor">#FF3F9FE0</item>

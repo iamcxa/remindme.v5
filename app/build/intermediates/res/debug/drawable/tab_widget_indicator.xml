@@ -16,4 +16,4 @@
     <item android:state_focused="true" android:state_selected="false" android:state_pressed="true" android:drawable="@drawable/tab_unselected_pressed_focused_holo" />
     <item android:state_focused="true" android:state_selected="true" android:state_pressed="true" android:drawable="@drawable/tab_selected_pressed_focused_holo" />
 </selector>
-<!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/drawable/tab_widget_indicator.xml -->
+<!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/drawable/tab_widget_indicator.xml -->

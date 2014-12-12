@@ -22,4 +22,4 @@
                      android:exitFadeDuration="@android:integer/config_mediumAnimTime">
 <item android:state_pressed="true" android:drawable="@drawable/pressed_background_card"/>
 <item android:drawable="@drawable/demo_card_background_color2"/>
-</selector><!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/drawable/demo_card_selector_color2.xml -->
+</selector><!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/drawable/demo_card_selector_color2.xml -->

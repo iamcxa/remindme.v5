@@ -33,4 +33,4 @@
             android:id="@+id/carddemo_list_colors"
             card:list_card_layout_resourceID="@layout/list_card_layout"/>
 
-</LinearLayout><!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v53/app/src/main/res/layout/demo_fragment_colors.xml -->
+</LinearLayout><!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/layout/demo_fragment_colors.xml -->
