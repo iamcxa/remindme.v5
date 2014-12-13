@@ -3,16 +3,6 @@
  */
 package me.iamcxa.remindme.cardfragment;
 
-import tw.remindme.common.function.MyDebug;
-
-import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardCursorAdapter;
-import it.gmariotti.cardslib.library.internal.CardExpand;
-import it.gmariotti.cardslib.library.internal.CardHeader;
-import it.gmariotti.cardslib.library.internal.CardThumbnail;
-import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
-import it.gmariotti.cardslib.library.view.component.CardHeaderView;
-import me.iamcxa.remindme.R;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -26,9 +16,18 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import me.iamcxa.remindme.cardfragment.SetCardFromCursor;
+
+import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.internal.CardCursorAdapter;
+import it.gmariotti.cardslib.library.internal.CardExpand;
+import it.gmariotti.cardslib.library.internal.CardHeader;
+import it.gmariotti.cardslib.library.internal.CardThumbnail;
+import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
+import it.gmariotti.cardslib.library.view.component.CardHeaderView;
+import me.iamcxa.remindme.R;
 import me.iamcxa.remindme.database.columns.ColumnAlert;
 import me.iamcxa.remindme.database.columns.ColumnTask;
+import tw.remindme.common.function.MyDebug;
 
 /**
  * @author cxa
@@ -211,17 +210,17 @@ public class MyCursorCardAdapter extends CardCursorAdapter {
 
 		}
 
-		@Override
-		public OnClickListener getOnClickExpandCollapseActionListener() {
-			// TODO Auto-generated method stub
-			ViewToClickToExpand viewToClickToExpand = ViewToClickToExpand
-					.builder().highlightView(true)
-					.setupView(getImageButtonOther());
-			getCardFromCursor(getCursor()).setViewToClickToExpand(
-					viewToClickToExpand);
-
-			return super.getOnClickExpandCollapseActionListener();
-		}
+//		@Override
+//		public OnClickListener getOnClickExpandCollapseActionListener() {
+//			// TODO Auto-generated method stub
+//			ViewToClickToExpand viewToClickToExpand = ViewToClickToExpand
+//					.builder().highlightView(true)
+//					.setupView(getImageButtonOther());
+//			getCardFromCursor(getCursor()).setViewToClickToExpand(
+//					viewToClickToExpand);
+//
+//			return super.getOnClickExpandCollapseActionListener();
+//		}
 
 		@Override
 		public ImageButton getImageButtonOverflow() {

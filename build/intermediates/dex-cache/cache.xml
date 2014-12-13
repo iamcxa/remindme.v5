@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\adt23\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-3e4f7df7a72bc145fc68536aa7be4e7a6fce2054.jar" />
+    </item>
+    <item
+        jar="C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\6.5.87\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
+        <dex dex="C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\pre-dexed\debug\classes-857f7593a71dc476911bd9fcf7f6258d2fce0f9e.jar" />
+    </item>
+    <item
+        jar="C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\pre-dexed\debug\classes-211946fcf23c914cf68f0d8f4fc0cd0a375c7956.jar" />
+    </item>
+    <item
+        jar="C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\pre-dexed\debug\classes-cdcb8f14b125c31a1308c80eec348c6da0424fa6.jar" />
+    </item>
+    <item
+        jar="C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\exploded-aar\com.shamanland\fab\0.0.6\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e388595587aab9cb9f919f90de90b1831db908f5">
+        <dex dex="C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\pre-dexed\debug\classes-268f9e5382f06272b25023f1ca183c42a71ac835.jar" />
+    </item>
+    <item
+        jar="C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\exploded-aar\com.github.gabrielemariotti.cards\library\1.9.1\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a64671bd87b29748d87865871cc95147b89a2192">
+        <dex dex="C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\pre-dexed\debug\classes-0fc35828b5a1205d516c141f53aee5b02905c11a.jar" />
+    </item>
+    <item
+        jar="C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\exploded-aar\com.github.johnkil.android-progressfragment\progressfragment\1.4.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="8de4e8b73125d261ce4ab4a369a49c3fb4a7ab1d">
+        <dex dex="C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\pre-dexed\debug\classes-3eb0af7a1e1dba240f0c7e65978f7b7feb6b3248.jar" />
+    </item>
+    <item
+        jar="C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-ed311af1274a61d3713f6774af89309a2dce52d6.jar" />
+    </item>
+
+</items>
