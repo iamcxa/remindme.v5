@@ -25,14 +25,18 @@ proguard/
 *.log
 
 # Android Studio
-.idea
-#.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
-build/
-
 # Gradle files
+.idea
+/build
+build/
 .gradle
+*~
+*.swp
+local.properties
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
 .DS_Store
-/build
+*.iml
+*.iws
+*.ipr
