@@ -25,8 +25,8 @@ import it.gmariotti.cardslib.library.internal.CardThumbnail;
 import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
 import it.gmariotti.cardslib.library.view.component.CardHeaderView;
 import me.iamcxa.remindme.R;
-import me.iamcxa.remindme.database.columns.ColumnAlert;
-import me.iamcxa.remindme.database.columns.ColumnTask;
+import tw.remindme.database.columns.ColumnAlert;
+import tw.remindme.database.columns.ColumnTask;
 import tw.remindme.common.function.MyDebug;
 
 /**

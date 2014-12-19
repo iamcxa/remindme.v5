@@ -12,8 +12,8 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 
 import me.iamcxa.remindme.R;
-import me.iamcxa.remindme.database.columns.ColumnLocation;
-import me.iamcxa.remindme.database.columns.ColumnTask;
+import tw.remindme.database.columns.ColumnLocation;
+import tw.remindme.database.columns.ColumnTask;
 import tw.remindme.common.function.MyDebug;
 
 

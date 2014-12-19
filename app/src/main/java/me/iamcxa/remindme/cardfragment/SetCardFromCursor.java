@@ -6,8 +6,8 @@ import android.database.Cursor;
 
 import me.iamcxa.remindme.R;
 import me.iamcxa.remindme.cardfragment.MyCursorCardAdapter.MyCursorCard;
-import me.iamcxa.remindme.database.columns.ColumnLocation;
-import me.iamcxa.remindme.database.columns.ColumnTask;
+import tw.remindme.database.columns.ColumnLocation;
+import tw.remindme.database.columns.ColumnTask;
 import tw.remindme.common.function.MyCalendar;
 import tw.remindme.common.function.MyDebug;
 

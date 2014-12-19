@@ -1,9 +1,0 @@
-C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\classes\debug
-C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-3e4f7df7a72bc145fc68536aa7be4e7a6fce2054.jar
-C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\pre-dexed\debug\classes-268f9e5382f06272b25023f1ca183c42a71ac835.jar
-C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\pre-dexed\debug\classes-3eb0af7a1e1dba240f0c7e65978f7b7feb6b3248.jar
-C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\pre-dexed\debug\classes-0fc35828b5a1205d516c141f53aee5b02905c11a.jar
-C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-ed311af1274a61d3713f6774af89309a2dce52d6.jar
-C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\pre-dexed\debug\classes-211946fcf23c914cf68f0d8f4fc0cd0a375c7956.jar
-C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\pre-dexed\debug\classes-cdcb8f14b125c31a1308c80eec348c6da0424fa6.jar
-C:\Users\dan\Documents\GitHub\remindme.v5\app\build\intermediates\pre-dexed\debug\classes-857f7593a71dc476911bd9fcf7f6258d2fce0f9e.jar

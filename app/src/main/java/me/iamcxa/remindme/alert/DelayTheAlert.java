@@ -1,10 +1,5 @@
 package me.iamcxa.remindme.alert;
 
-import java.util.Calendar;
-
-import tw.remindme.common.function.MyDebug;
-
-import me.iamcxa.remindme.editor.Act_SetAlarm;
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -13,6 +8,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
+
+import java.util.Calendar;
+
+import me.iamcxa.remindme.editor.Act_SetAlarm;
+import tw.remindme.common.function.MyDebug;
 
 public class DelayTheAlert extends IntentService {
 

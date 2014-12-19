@@ -1,6 +1,5 @@
 package me.iamcxa.remindme.fragment;
 
-import me.iamcxa.remindme.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -10,6 +9,8 @@ import android.preference.PreferenceScreen;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import me.iamcxa.remindme.R;
 
 /**
  * @author cxa

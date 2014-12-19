@@ -20,9 +20,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import me.iamcxa.remindme.R;
-import me.iamcxa.remindme.database.columns.ColumnLocation;
-import me.iamcxa.remindme.database.columns.ColumnTask;
-import me.iamcxa.remindme.database.helper.DBLocationHelper;
+import tw.remindme.database.columns.ColumnLocation;
+import tw.remindme.database.columns.ColumnTask;
+import tw.remindme.database.helper.DBLocationHelper;
 import tw.remindme.common.function.CommonVar;
 import tw.remindme.common.function.MyDebug;
 

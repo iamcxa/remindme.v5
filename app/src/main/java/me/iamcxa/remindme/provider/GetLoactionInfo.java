@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import me.iamcxa.remindme.database.LocationDbEditor;
+import tw.remindme.database.editor.LocationDbEditor;
 
 public class GetLoactionInfo {
 	//設定容忍偏移距離 單位 公里

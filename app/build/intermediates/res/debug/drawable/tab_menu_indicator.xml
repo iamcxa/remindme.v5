@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_checked="true" android:drawable="@drawable/tab_menu_selected_holo" />
-    <item android:drawable="@android:color/transparent" />
-</selector>
-<!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/drawable/tab_menu_indicator.xml -->

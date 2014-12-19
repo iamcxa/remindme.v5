@@ -1,11 +1,5 @@
 package me.iamcxa.remindme.alert;
 
-import tw.remindme.common.function.MyDebug;
-import tw.remindme.common.function.MyPreferences;
-import me.iamcxa.remindme.R;
-import me.iamcxa.remindme.RemindmeMainActivity;
-import me.iamcxa.remindme.database.columns.ColumnTask;
-
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -21,6 +15,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
+
+import me.iamcxa.remindme.R;
+import me.iamcxa.remindme.RemindmeMainActivity;
+import tw.remindme.database.columns.ColumnTask;
+import tw.remindme.common.function.MyDebug;
+import tw.remindme.common.function.MyPreferences;
 
 public class AlertHandler extends IntentService {
 

@@ -7,7 +7,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 
 import it.gmariotti.cardslib.library.internal.Card;
-import me.iamcxa.remindme.database.columns.ColumnTask;
+import tw.remindme.database.columns.ColumnTask;
 import me.iamcxa.remindme.editor.TaskEditorTab;
 import tw.remindme.common.function.CommonVar;
 import tw.remindme.common.function.MyDebug;

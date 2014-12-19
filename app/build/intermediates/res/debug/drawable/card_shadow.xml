@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-    <shape xmlns:android="http://schemas.android.com/apk/res/android">
-        <gradient
-            android:startColor="#33333333"
-            android:centerColor="#33333333"
-            android:endColor="#33333333"
-            android:angle="90" />
-    </shape><!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/drawable/card_shadow.xml -->

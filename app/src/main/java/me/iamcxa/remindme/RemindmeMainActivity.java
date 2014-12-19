@@ -3,21 +3,9 @@
  */
 package me.iamcxa.remindme;
 
-import tw.remindme.common.function.MyDebug;
-import tw.remindme.common.function.MyPreferences;
-
-import com.shamanland.fab.ShowHideOnScroll;
-
-
-import me.iamcxa.remindme.cardfragment.ListCursorCardFragment;
-import me.iamcxa.remindme.editor.Act_SetAlarm;
-import me.iamcxa.remindme.editor.CommonEditorVar;
-import me.iamcxa.remindme.editor.TaskEditorTab;
-import me.iamcxa.remindme.provider.LocationGetter;
-import me.iamcxa.remindme.service.TaskSortingService;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
-import android.content.Intent;   
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -31,11 +19,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;	
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import me.iamcxa.remindme.cardfragment.ListCursorCardFragment;
+import me.iamcxa.remindme.editor.Act_SetAlarm;
+import me.iamcxa.remindme.editor.CommonEditorVar;
+import me.iamcxa.remindme.editor.TaskEditorTab;
+import me.iamcxa.remindme.provider.LocationGetter;
+import me.iamcxa.remindme.service.TaskSortingService;
+import tw.remindme.common.function.MyDebug;
+import tw.remindme.common.function.MyPreferences;
 
 
 /**

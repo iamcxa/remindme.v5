@@ -1,13 +1,13 @@
 package me.iamcxa.remindme.provider;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.content.Context;
+import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import android.content.Context;
-import android.util.Log;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class GeocodingAPIJsonDecode {
 	String Json;

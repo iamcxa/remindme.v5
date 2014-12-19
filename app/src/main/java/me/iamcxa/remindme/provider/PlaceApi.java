@@ -3,7 +3,7 @@ package me.iamcxa.remindme.provider;
 import android.content.Context;
 import android.util.Log;
 
-import me.iamcxa.remindme.database.LocationDbEditor;
+import tw.remindme.database.editor.LocationDbEditor;
 
 public class PlaceApi {
 	

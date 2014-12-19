@@ -1,6 +1,0 @@
-<!-- From: file:/Users/johnkil/Documents/Android-ProgressFragment/progressfragment-native/AndroidManifest.xml --><manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="6" android:versionName="1.4.0" package="com.devspark.progressfragment">
-    <uses-sdk android:minSdkVersion="13" android:targetSdkVersion="19"/>
-
-    <application/>
-
-</manifest>

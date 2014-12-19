@@ -1,6 +1,6 @@
 package me.iamcxa.remindme.editor;
 
-import me.iamcxa.remindme.database.TaskDbProvider;
+import tw.remindme.database.contentProvider.TaskDbProvider;
 
 /**
  * @author Kent

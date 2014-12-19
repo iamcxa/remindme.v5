@@ -12,9 +12,9 @@ import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
-import me.iamcxa.remindme.database.TaskDbEditor;
-import me.iamcxa.remindme.database.columns.ColumnLocation;
-import me.iamcxa.remindme.database.columns.ColumnTask;
+import tw.remindme.database.editor.TaskDbEditor;
+import tw.remindme.database.columns.ColumnLocation;
+import tw.remindme.database.columns.ColumnTask;
 import tw.remindme.common.function.MyCalendar;
 import tw.remindme.common.function.MyDebug;
 

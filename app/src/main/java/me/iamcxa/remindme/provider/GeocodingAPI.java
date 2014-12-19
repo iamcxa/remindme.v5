@@ -1,12 +1,12 @@
 package me.iamcxa.remindme.provider;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import android.content.Context;
+import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import android.content.Context;
-import android.util.Log;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class GeocodingAPI {
 	Context context;

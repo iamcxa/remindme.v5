@@ -1,6 +1,5 @@
 package me.iamcxa.remindme;
 
-import me.iamcxa.remindme.fragment.RemindmePreferenceFragment;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -8,6 +7,8 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import me.iamcxa.remindme.fragment.RemindmePreferenceFragment;
 
 /**
  * @author cxa

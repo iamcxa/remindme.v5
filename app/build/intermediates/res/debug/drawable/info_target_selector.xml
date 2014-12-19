@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<transition xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/ic_launcher_info_normal_holo" />
-    <item android:drawable="@drawable/ic_launcher_info_active_holo" />
-</transition>
-<!-- From: file:/C:/Users/dan/Documents/GitHub/remindme.v5/app/src/main/res/drawable/info_target_selector.xml -->

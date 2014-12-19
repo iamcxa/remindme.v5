@@ -1,28 +1,25 @@
 package me.iamcxa.remindme.editor;
 
-import java.util.ArrayList;
-
-import tw.remindme.common.function.MyDebug;
-import tw.remindme.common.function.MyTabListener;
-import tw.remindme.common.view.SlidingTabLayout;
-import tw.remindme.taskeditor.adapter.TaskEditorFragmentPagerAdapter;
-
-import me.iamcxa.remindme.R;
-import me.iamcxa.remindme.database.columns.ColumnLocation;
-import me.iamcxa.remindme.database.columns.ColumnTask;
 import android.database.Cursor;
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import me.iamcxa.remindme.R;
+import tw.remindme.database.columns.ColumnLocation;
+import tw.remindme.database.columns.ColumnTask;
+import tw.remindme.common.function.MyDebug;
+import tw.remindme.common.view.SlidingTabLayout;
+import tw.remindme.taskEditor.adapter.TaskEditorFragmentPagerAdapter;
 
 public class TaskEditorTab extends ActionBarActivity 
 implements

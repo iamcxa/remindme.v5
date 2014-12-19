@@ -8,9 +8,9 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
-import me.iamcxa.remindme.database.columns.ColumnAlert;
-import me.iamcxa.remindme.database.columns.ColumnLocation;
-import me.iamcxa.remindme.database.columns.ColumnTask;
+import tw.remindme.database.columns.ColumnAlert;
+import tw.remindme.database.columns.ColumnLocation;
+import tw.remindme.database.columns.ColumnTask;
 import tw.remindme.common.function.MyCalendar;
 import tw.remindme.common.function.MyDebug;
 
