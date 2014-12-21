@@ -21,15 +21,12 @@ import tw.geodoer.common.view.SlidingTabLayout;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskEditor.adapter.TaskEditorFragmentPagerAdapter;
-import tw.geodoer.main.taskEditor.controller.Act_SaveToDb;
-import tw.geodoer.main.taskEditor.controller.ReadDB_BeforeSaveDB;
-import tw.geodoer.main.taskEditor.view.fragment.TaskEditorMain;
 
 public class TaskEditorTab extends ActionBarActivity 
 implements
 OnMenuItemClickListener{
 
-	private static CommonEditorVar mEditorVar=CommonEditorVar.GetInstance();
+ CommonEditorVar mEditorVar=CommonEditorVar.GetInstance();
 	protected static Act_SaveToDb mSaveOrUpdate;
 	private ReadDB_BeforeSaveDB readDB;
 
@@ -148,7 +145,7 @@ OnMenuItemClickListener{
 
 				mSaveOrUpdate=new Act_SaveToDb(
 						getApplicationContext()
-						,mEditorVar.Task.getTaskId()
+						,0//mEditorVar.Task.
 						,lastTaskID(),lastLocID());
 
 				finish();

@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
-import tw.geodoer.mDatabase.editor.TaskDbEditor;
+import tw.geodoer.mDatabase.controller.TaskDbEditor;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.common.function.MyCalendar;

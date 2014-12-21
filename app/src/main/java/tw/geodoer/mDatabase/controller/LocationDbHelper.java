@@ -1,4 +1,4 @@
-package tw.geodoer.mDatabase.editor;
+package tw.geodoer.mDatabase.controller;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

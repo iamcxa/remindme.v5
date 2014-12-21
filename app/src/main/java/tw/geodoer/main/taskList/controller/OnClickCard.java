@@ -11,7 +11,6 @@ import tw.geodoer.common.function.CommonVar;
 import tw.geodoer.common.function.MyDebug;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskEditor.TaskEditorTab;
-import tw.geodoer.main.taskList.adapter.MyCursorCardAdapter;
 
 public class OnClickCard {
 	Context context;

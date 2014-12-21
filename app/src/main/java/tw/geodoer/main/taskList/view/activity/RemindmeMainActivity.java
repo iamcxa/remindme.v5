@@ -31,7 +31,7 @@ import tw.geodoer.main.taskPreference.view.RemindmePreference;
 import tw.geodoer.mPriority.service.TaskSortingService;
 import tw.geodoer.common.function.MyDebug;
 import tw.geodoer.common.function.MyPreferences;
-import tw.geodoer.main.taskEditor.controller.Act_SetAlarm;
+import tw.geodoer.main.taskEditor.Act_SetAlarm;
 import tw.geodoer.main.taskEditor.CommonEditorVar;
 import tw.geodoer.main.taskEditor.TaskEditorTab;
 import tw.geodoer.main.taskList.view.fragment.ListCursorCardFragment;

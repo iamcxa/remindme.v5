@@ -1,4 +1,4 @@
-package tw.geodoer.main.taskEditor.controller;
+package tw.geodoer.main.taskEditor;
 //package me.iamcxa.remindme.editor;
 //
 //import me.iamcxa.remindme.R;

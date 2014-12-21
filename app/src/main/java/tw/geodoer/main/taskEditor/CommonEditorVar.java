@@ -12,22 +12,20 @@ public class CommonEditorVar {
 	//public final int DATE_DIALOG_ID = 0;
 	//public final int TIME_DIALOG_ID = 1;
 
+    private CommonEditorVar(){}
 
 	//切割分類
-	public DateFields TaskDate = new DateFields();
-	public LocationFields TaskLocation = new LocationFields();
-	public TaskFields Task = new TaskFields();
-	public AlertFields TaskAlert= new AlertFields();
-	public TaskColorFields TaskCardColor= new TaskColorFields();
-	public GetDBdata getDBdata=new GetDBdata();
+	public static DateFields TaskDate = new DateFields();
+	public static LocationFields TaskLocation = new LocationFields();
+	public static TaskFields Task = new TaskFields();
+	public static AlertFields TaskAlert= new AlertFields();
+	public static TaskColorFields TaskCardColor= new TaskColorFields();
+	public static GetDBdata getDBdata=new GetDBdata();
 
-	private CommonEditorVar(){}
-
-	public static CommonEditorVar EditorVarInstance = new CommonEditorVar();
-
-	public static CommonEditorVar GetInstance(){
-		return EditorVarInstance;
-	}
+    public static CommonEditorVar EditorVarInstance = new CommonEditorVar();
+    public static CommonEditorVar GetInstance(){
+        return EditorVarInstance;
+    }
 
 }
 
@@ -39,7 +37,7 @@ class TaskFields {
 	public final int TASK_STATUS_FINISHED=1;
 	
 	// 1 - ID
-	private int taskId=0;
+    private static int taskId=0;
 	// 2 - 標題 
 	private String title ="null";
 	// 3 - 狀態  - 0未完成 - 1完成
@@ -258,7 +256,7 @@ class TaskFields {
  */
 class LocationFields {
 	// 1 - 任務地點id
-	private int locationId=0;
+    public int locationId=0;
 	// 2 - 地點名稱字串
 	private String name ="null";
 	// 3 - 4 - 經緯度
@@ -285,7 +283,7 @@ class LocationFields {
 		return locationId;
 	}
 	/**
-	 * @param LocationId the LocationId to set
+	 * @param locationId the LocationId to set
 	 */
 	public void setLocationId(int _id) {
 		this.locationId = _id;
@@ -625,7 +623,7 @@ class TaskColorFields{
 		return taskDefaultColor;
 	}
 	/**
-	 * @param taskDefault the taskDefault to set
+	 * @param taskDefaultColor the taskDefault to set
 	 */
 	public void setTaskDefaultColor(int taskDefaultColor) {
 		this.taskDefaultColor = taskDefaultColor;

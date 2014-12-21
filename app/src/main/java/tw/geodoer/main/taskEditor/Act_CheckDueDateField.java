@@ -1,4 +1,4 @@
-package tw.geodoer.main.taskEditor.controller;
+package tw.geodoer.main.taskEditor;
 
 import tw.geodoer.common.function.CommonVar;
 import tw.geodoer.common.function.MyDebug;

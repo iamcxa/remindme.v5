@@ -1,4 +1,4 @@
-package tw.geodoer.main.taskEditor.view.fragment;
+package tw.geodoer.main.taskEditor;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -26,8 +26,6 @@ import tw.geodoer.common.function.MyDebug;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.mDatabase.API.DBLocationHelper;
-import tw.geodoer.main.taskEditor.CommonEditorVar;
-import tw.geodoer.main.taskEditor.view.dialog.CustomDialog_DueDate;
 
 public class TaskEditorMain extends Fragment implements
 OnClickListener

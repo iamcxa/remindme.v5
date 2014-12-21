@@ -1,4 +1,4 @@
-package tw.geodoer.main.taskEditor.controller;
+package tw.geodoer.main.taskEditor;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package tw.geodoer.main.taskList.adapter;
+package tw.geodoer.main.taskList.controller;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -28,8 +28,6 @@ import me.iamcxa.remindme.R;
 import tw.geodoer.common.function.MyDebug;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.main.taskList.controller.OnClickCard;
-import tw.geodoer.main.taskList.controller.SetCardFromCursor;
 
 /**
  * @author cxa
@@ -252,7 +250,7 @@ public class MyCursorCardAdapter extends CardCursorAdapter {
 	/************************/
 	/** Class MyCursorCard **/
 	/************************/
-	class MyCursorCard extends Card {
+    public class MyCursorCard extends Card {
 
 		String DateTime;
 		String LocationName;

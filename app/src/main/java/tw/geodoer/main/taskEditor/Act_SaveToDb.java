@@ -1,4 +1,4 @@
-package tw.geodoer.main.taskEditor.controller;
+package tw.geodoer.main.taskEditor;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -13,8 +13,6 @@ import tw.geodoer.common.function.MyDebug;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.main.taskEditor.CommonEditorVar;
-import tw.geodoer.main.taskEditor.view.fragment.TaskEditorMain;
 
 /**
  * @author Kent

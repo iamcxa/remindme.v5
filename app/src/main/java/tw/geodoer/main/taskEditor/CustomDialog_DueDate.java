@@ -1,4 +1,4 @@
-package tw.geodoer.main.taskEditor.view.dialog;
+package tw.geodoer.main.taskEditor;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -33,8 +33,6 @@ import java.util.Calendar;
 import me.iamcxa.remindme.R;
 import tw.geodoer.common.function.MyCalendar;
 import tw.geodoer.common.function.MyDebug;
-import tw.geodoer.main.taskEditor.CommonEditorVar;
-import tw.geodoer.main.taskEditor.view.fragment.TaskEditorMain;
 
 /**
  * This is a custom dialog class that will hold a tab view with 2 tabs.
@@ -187,8 +185,7 @@ OnTabChangeListener
 		mEditorVar.TaskDate.setmOnlyDateMillis(getDatePicker().getDate());
 
 		// transform Millisecond to MMYYDD  
-		String YYMMDD=MyCalendar.getDate_From_TimeMillis
-				(false, mEditorVar.TaskDate.getmOnlyDateMillis());
+		String YYMMDD=MyCalendar.getDate_From_TimeMillis(false, mEditorVar.TaskDate.getmOnlyDateMillis());
 		String YYMMDD_Array[]=YYMMDD.split("/");
 
 		int mYear=Integer.valueOf(YYMMDD_Array[0]);

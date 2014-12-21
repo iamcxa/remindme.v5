@@ -1,4 +1,4 @@
-package tw.geodoer.main.taskEditor.view.dialog;
+package tw.geodoer.main.taskEditor.view;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;

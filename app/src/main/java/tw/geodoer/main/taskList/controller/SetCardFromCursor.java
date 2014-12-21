@@ -9,13 +9,13 @@ import tw.geodoer.common.function.MyCalendar;
 import tw.geodoer.common.function.MyDebug;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.main.taskList.adapter.MyCursorCardAdapter.MyCursorCard;
+import tw.geodoer.main.taskList.controller.MyCursorCardAdapter.MyCursorCard;
 
 public class SetCardFromCursor {
 
 	private Context context;
 	private Cursor cursor;
-	private MyCursorCard card;
+	public MyCursorCard card;
 
 	public SetCardFromCursor(Context context, Cursor cursor, MyCursorCard card) {
 		this.context = context;

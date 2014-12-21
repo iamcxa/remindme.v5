@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import tw.geodoer.mDatabase.editor.LocationDbEditor;
+import tw.geodoer.mDatabase.controller.LocationDbEditor;
 
 public class GetLoactionInfo {
 	//設定容忍偏移距離 單位 公里

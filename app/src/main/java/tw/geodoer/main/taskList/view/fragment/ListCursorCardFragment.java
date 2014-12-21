@@ -41,7 +41,7 @@ import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskEditor.TaskEditorTab;
-import tw.geodoer.main.taskList.adapter.MyCursorCardAdapter;
+import tw.geodoer.main.taskList.controller.MyCursorCardAdapter;
 
 /**
  * List with Cursor Example

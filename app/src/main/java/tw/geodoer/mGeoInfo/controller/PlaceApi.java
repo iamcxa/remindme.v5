@@ -3,7 +3,7 @@ package tw.geodoer.mGeoInfo.controller;
 import android.content.Context;
 import android.util.Log;
 
-import tw.geodoer.mDatabase.editor.LocationDbEditor;
+import tw.geodoer.mDatabase.controller.LocationDbEditor;
 
 public class PlaceApi {
 	
