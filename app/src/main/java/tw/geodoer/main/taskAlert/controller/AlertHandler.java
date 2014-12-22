@@ -17,10 +17,10 @@ import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import me.iamcxa.remindme.R;
-import tw.geodoer.common.function.MyDebug;
-import tw.geodoer.common.function.MyPreferences;
+import tw.geodoer.common.controller.MyDebug;
+import tw.geodoer.common.controller.MyPreferences;
 import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.main.taskList.view.activity.RemindmeMainActivity;
+import tw.geodoer.main.taskList.view.AppMainActivity;
 import tw.geodoer.main.taskAlert.view.dialog.AlertNotiDialog;
 
 public class AlertHandler extends IntentService {
@@ -72,25 +72,25 @@ public class AlertHandler extends IntentService {
 	//
 	public void setNotification(Context context, String taskID){
 
-		Intent intentMain = new Intent(context, RemindmeMainActivity.class);
+		Intent intentMain = new Intent(context, AppMainActivity.class);
 		intentMain.putExtra("taskID", taskID);
 		PendingIntent pedingIntentMain = PendingIntent.getActivity(context, 0,
-				intentMain, Intent.FLAG_ACTIVITY_NEW_TASK);
+				intentMain,PendingIntent.FLAG_ONE_SHOT );
 
 		Intent intentDialog = new Intent(context, AlertNotiDialog.class);
 		intentDialog.putExtra("taskID", taskID);
 		PendingIntent pedingIntentDialog = PendingIntent.getActivity(context, 0,
-				intentDialog, Intent.FLAG_ACTIVITY_NEW_TASK);
+				intentDialog, PendingIntent.FLAG_ONE_SHOT);
 
-		Intent intentDelay = new Intent(context, DelayTheAlert.class);
+		Intent intentDelay = new Intent(context, ActionDelayTheAlert.class);
 		intentDelay.putExtra("taskID", taskID);
 		PendingIntent pedingIntentDelay = PendingIntent.getService(context, 0,
-				intentDelay, Intent.FLAG_ACTIVITY_NEW_TASK);
+				intentDelay, PendingIntent.FLAG_ONE_SHOT);
 
-		Intent intentFinish = new Intent(context, FinishTheAlert.class);
+		Intent intentFinish = new Intent(context, ActionFinishTheAlert.class);
 		intentFinish.putExtra("taskID", taskID);
 		PendingIntent pedingIntentFinish = PendingIntent.getService(context, 0,
-				intentFinish, Intent.FLAG_ACTIVITY_NEW_TASK);
+				intentFinish, PendingIntent.FLAG_ONE_SHOT);
 		
 		MyPreferences.mPreferences= PreferenceManager.getDefaultSharedPreferences(context);
 

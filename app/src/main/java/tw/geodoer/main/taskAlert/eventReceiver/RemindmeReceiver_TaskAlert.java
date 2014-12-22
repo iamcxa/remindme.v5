@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import tw.geodoer.common.function.MyDebug;
+import tw.geodoer.common.controller.MyDebug;
 import tw.geodoer.main.taskAlert.controller.AlertHandler;
 
 /**

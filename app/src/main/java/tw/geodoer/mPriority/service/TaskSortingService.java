@@ -18,9 +18,9 @@ import android.preference.PreferenceManager;
 import me.iamcxa.remindme.R;
 import tw.geodoer.mGeoInfo.controller.LocationGetter;
 import tw.geodoer.mPriority.controller.PriorityCalculator;
-import tw.geodoer.common.function.MyDebug;
-import tw.geodoer.common.function.MyPreferences;
-import tw.geodoer.main.taskList.view.activity.RemindmeMainActivity;
+import tw.geodoer.common.controller.MyDebug;
+import tw.geodoer.common.controller.MyPreferences;
+import tw.geodoer.main.taskList.view.AppMainActivity;
 
 /**
  * @author cxa
@@ -75,7 +75,7 @@ public class TaskSortingService extends Service {
 		NotificationManager nNotificationManager = (NotificationManager) getSystemService(ns);
 		CharSequence tickertextr = "remindme is running";
 		long when = System.currentTimeMillis();
-		Intent intent = new Intent(this, RemindmeMainActivity.class);
+		Intent intent = new Intent(this, AppMainActivity.class);
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
 				intent, 0);
 		Bitmap bm = BitmapFactory.decodeResource(getResources(),

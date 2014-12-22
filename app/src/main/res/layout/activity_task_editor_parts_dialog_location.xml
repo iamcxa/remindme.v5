@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <!-- class="me.iamcxa.remindme.provider.WorkaroundMapFragment" /> -->
+    <!-- class="tw.geodoer.mGeoInfo.view.WorkaroundMapFragment" /> -->
 	
     <com.google.android.gms.maps.MapView
         android:id="@+id/map"

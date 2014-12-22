@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/activity_task_editor_parts_dialog_location_parts_search" />
-    <!-- class="me.iamcxa.remindme.provider.WorkaroundMapFragment" /> -->
+        <!-- class="tw.geodoer.mGeoInfo.view.WorkaroundMapFragment" /> -->
 
     <include
         android:id="@+id/includeB"

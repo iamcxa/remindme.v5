@@ -12,7 +12,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
-import tw.geodoer.common.function.MyDebug;
+import tw.geodoer.common.controller.MyDebug;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 
 /**

@@ -23,7 +23,7 @@ public class AlertNotiDialog extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.alertdialoglayout);
 
-//		Intent intentmain = new Intent(this, RemindmeMainActivity.class);
+//		Intent intentmain = new Intent(this, AppMainActivity.class);
 //		
 //		PendingIntent contentIntentmain = PendingIntent.getActivity(this, 0,
 //				intentmain, Intent.FLAG_ACTIVITY_NEW_TASK);

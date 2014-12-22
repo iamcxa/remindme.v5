@@ -45,7 +45,7 @@
         
    		<!--==================================================================-->
         <activity
-            android:name="tw.geodoer.main.taskList.view.activity.RemindmeMainActivity"
+            android:name="tw.geodoer.main.taskList.view.AppMainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" android:hardwareAccelerated="true">
             <intent-filter>
@@ -57,7 +57,7 @@
         
    		<!--==================================================================-->
         <activity
-            android:name="tw.geodoer.main.taskEditor.TaskEditorTab"
+            android:name="tw.geodoer.main.taskEditor.TaskEditorTabFragment"
             android:screenOrientation="portrait" android:hardwareAccelerated="true">
             <intent-filter>
                 <action android:name="android.intent.action.new" />
@@ -73,7 +73,7 @@
 
    		<!--==================================================================-->
         <activity
-            android:name="tw.geodoer.main.taskPreference.view.RemindmePreference"
+            android:name="tw.geodoer.main.taskPreference.view.AppPreferenceActivity"
             android:screenOrientation="portrait" >
         </activity>
 
@@ -116,8 +116,8 @@
             </intent-filter>
         </activity>
         <service android:name="tw.geodoer.main.taskAlert.controller.AlertHandler"></service>
-        <service android:name="tw.geodoer.main.taskAlert.controller.DelayTheAlert"></service>
-        <service android:name="tw.geodoer.main.taskAlert.controller.FinishTheAlert"></service>
+        <service android:name="tw.geodoer.main.taskAlert.controller.ActionDelayTheAlert"></service>
+        <service android:name="tw.geodoer.main.taskAlert.controller.ActionFinishTheAlert"></service>
     </application>
 
 </manifest>
