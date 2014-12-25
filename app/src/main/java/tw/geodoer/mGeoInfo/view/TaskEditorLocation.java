@@ -1,13 +1,12 @@
 package tw.geodoer.mGeoInfo.view;
 
 import me.iamcxa.remindme.R;
-import tw.geodoer.main.taskEditor.CommonEditorVar;
+import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.common.controller.MyDebug;
 
 import com.devspark.progressfragment.ProgressFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;

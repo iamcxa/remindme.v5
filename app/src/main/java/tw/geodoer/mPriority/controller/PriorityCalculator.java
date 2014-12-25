@@ -157,7 +157,7 @@ public class PriorityCalculator {
 
 			values.clear();
 
-			values.put(ColumnLocation.KEY.dintance,
+			values.put(ColumnLocation.KEY.distance,
 					((Distance)));
 			values.put(ColumnTask.KEY.priority,
 					newPriorityWeight);

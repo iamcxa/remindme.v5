@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import me.iamcxa.remindme.R;
 import tw.geodoer.common.controller.MyCalendar;
-import tw.geodoer.main.taskEditor.CommonEditorVar;
+import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 
 /**
  * This is a custom dialog class that will hold a tab view with 2 tabs.

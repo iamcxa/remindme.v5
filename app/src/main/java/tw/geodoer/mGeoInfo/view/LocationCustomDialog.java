@@ -15,7 +15,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import me.iamcxa.remindme.R;
 import tw.geodoer.mGeoInfo.controller.GeocodingAPI;
-import tw.geodoer.main.taskEditor.CommonEditorVar;
+import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;

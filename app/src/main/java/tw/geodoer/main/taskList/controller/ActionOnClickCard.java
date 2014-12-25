@@ -10,7 +10,7 @@ import it.gmariotti.cardslib.library.internal.Card;
 import tw.geodoer.common.controller.CommonVar;
 import tw.geodoer.common.controller.MyDebug;
 import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.main.taskEditor.TaskEditorTabFragment;
+import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
 import tw.geodoer.main.taskList.adapter.MyCursorCardAdapter;
 
 public class ActionOnClickCard {

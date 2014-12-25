@@ -1,4 +1,4 @@
-package tw.geodoer.main.taskEditor;
+package tw.geodoer.main.taskEditor.view;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -22,6 +22,8 @@ import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskEditor.adapter.MyFragmentPagerAdapter;
 import tw.geodoer.main.taskEditor.controller.ActionReadDbBeforeSaveDb;
+import tw.geodoer.main.taskEditor.controller.ActionSaveDataToDb;
+import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 
 public class TaskEditorTabFragment extends ActionBarActivity
 implements

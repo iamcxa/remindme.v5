@@ -1,4 +1,4 @@
-package tw.geodoer.main.taskEditor;
+package tw.geodoer.main.taskEditor.view;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -33,6 +33,7 @@ import java.util.Calendar;
 import me.iamcxa.remindme.R;
 import tw.geodoer.common.controller.MyCalendar;
 import tw.geodoer.common.controller.MyDebug;
+import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 
 /**
  * This is a custom dialog class that will hold a tab view with 2 tabs.

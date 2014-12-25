@@ -52,7 +52,7 @@ public final class ColumnAlert implements BaseColumns {
                     +KEY.loc_on + " TEXT,"
                     +KEY.loc_radius +  " INTEGER,"
                     // 其他欄位
-                    +KEY.other + " TEXT,"
+                    +KEY.other + " TEXT"
                     + ");";
 
     // 查詢欄位陣列

@@ -33,7 +33,7 @@ public final class ColumnLocation implements BaseColumns {
 					+KEY.name  + " TEXT,"
 					+KEY.lat + " TEXT,"
 					+KEY.lon + " TEXT,"
-					// +KEY.dintance + " INTEGER,"
+					+KEY.distance + " INTEGER,"
 					+KEY.lastUsedTime +" INTEGER,"
 					+KEY.weight +" INTEGER,"
 					+KEY.type +" INTEGER,"
@@ -45,7 +45,7 @@ public final class ColumnLocation implements BaseColumns {
 		KEY.name ,
 		KEY.lat,
 		KEY.lon,
-		KEY.dintance,
+		KEY.distance,
 		KEY.lastUsedTime,
 		KEY.weight,
 		KEY.type,
@@ -60,7 +60,7 @@ public final class ColumnLocation implements BaseColumns {
 		public static final String name = "name";
 		public static final String lat = "lat";
 		public static final String lon = "lon";
-		public static final String dintance = "dintance";
+		public static final String distance = "distance";
 		public static final String lastUsedTime ="lastUsedTime";
 		public static final String weight ="weight";
 		public static final String type ="type";
@@ -73,7 +73,7 @@ public final class ColumnLocation implements BaseColumns {
 			public static final int name = 1;
 			public static final int lat = 2;
 			public static final int lon = 3;
-			public static final int dintance = 4;
+			public static final int distance = 4;
 			public static final int lastUsedTime = 5;
 			public static final int weight = 6;
 			public static final int type = 7;

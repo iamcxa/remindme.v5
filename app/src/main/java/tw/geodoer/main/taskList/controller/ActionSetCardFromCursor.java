@@ -101,7 +101,7 @@ public class ActionSetCardFromCursor {
 				ColumnLocation.DEFAULT_SORT_ORDER);
 		String dintence;
 		if(cursorLocation.getCount()>0){
-			 dintence=String.valueOf(cursorLocation.getLong(ColumnLocation.KEY.INDEX.dintance));
+			 dintence=String.valueOf(cursorLocation.getLong(ColumnLocation.KEY.INDEX.distance));
 		}else {
 			 dintence="null";
 		}

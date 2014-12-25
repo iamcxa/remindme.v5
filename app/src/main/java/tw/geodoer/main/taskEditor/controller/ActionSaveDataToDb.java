@@ -1,4 +1,4 @@
-package tw.geodoer.main.taskEditor;
+package tw.geodoer.main.taskEditor.controller;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -13,7 +13,8 @@ import tw.geodoer.common.controller.MyDebug;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.main.taskEditor.controller.ActionSetAlarm;
+import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
+import tw.geodoer.main.taskEditor.view.TaskEditorMainFragment;
 
 /**
  * @author Kent
@@ -279,7 +280,7 @@ class setTableLocation{
 		values.put(ColumnLocation.KEY.lat,mEditorVar.TaskLocation.getLat());
 		values.put(ColumnLocation.KEY.lon,mEditorVar.TaskLocation.getLon());
 		// 5 - 與上次偵測地點之距離
-		values.put(ColumnLocation.KEY.dintance,mEditorVar.TaskLocation.getDistance());
+		values.put(ColumnLocation.KEY.distance,mEditorVar.TaskLocation.getDistance());
 		// 6 - 上次使用時間
 		values.put(ColumnLocation.KEY.lastUsedTime,mEditorVar.TaskLocation.getLastUsedTime());
 

@@ -5,7 +5,6 @@
     <string name="app_name">智慧提醒</string>
     
     <string name="TaskEditor_ActionBar_Title">建立待辦事項</string>
-    
 
     <string-array name="PowerUsageOptionString">
         <item>精準</item>
@@ -22,9 +21,9 @@
     <string name="PowerUsageOptionTittle">位置偵測模式</string>
 
     <string-array name="drawer_array_CHT">
-        <item>任務盒</item>
-        <item>◎今天</item>
-        <item>一週檢視</item>
+        <item>待辦清單</item>
+        <item>靠近我的事項</item>
+        <item>已完成</item>
     </string-array>
 
 

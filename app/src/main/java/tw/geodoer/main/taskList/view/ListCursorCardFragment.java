@@ -40,7 +40,7 @@ import tw.geodoer.common.controller.MyDebug;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.main.taskEditor.TaskEditorTabFragment;
+import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
 import tw.geodoer.main.taskList.adapter.MyCursorCardAdapter;
 
 /**
@@ -89,7 +89,8 @@ LoaderManager.LoaderCallbacks<Cursor> {
 
 		switch (filter) {
 		case 0:// 任務盒
-			setTaskSelection("due_date_string = 'null'");
+            //setTaskSelection("due_date_string = 'null'");
+            setTaskSelection("checked != 1");
 			break;
 		case 1:// 今天
 			Toast.makeText(getActivity(), 
@@ -97,7 +98,7 @@ LoaderManager.LoaderCallbacks<Cursor> {
 			setTaskSelection("due_date_string = '"+todayString+"'");
 			break;
 		case 2://未來七天
-			setTaskSelection("due_date_string IS NOT 'null'");
+			setTaskSelection("checked = 1");
 			break;
 		case 3://專案
 

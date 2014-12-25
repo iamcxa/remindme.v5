@@ -199,7 +199,7 @@ public class DBLocationHelper {
 		values.put(ColumnLocation.KEY.lat,lat);
 		values.put(ColumnLocation.KEY.lon,lon);
 		// 4 - 與上次偵測地點之距離
-		values.put(ColumnLocation.KEY.dintance,distance);
+		values.put(ColumnLocation.KEY.distance,distance);
 		// 5 - 上次使用時間
 		values.put(ColumnLocation.KEY.lastUsedTime,lastUsedTime);
 		// 6 - 上次使用時間

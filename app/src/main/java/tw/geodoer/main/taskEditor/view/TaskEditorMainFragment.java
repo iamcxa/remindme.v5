@@ -1,4 +1,4 @@
-package tw.geodoer.main.taskEditor;
+package tw.geodoer.main.taskEditor.view;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -26,6 +26,7 @@ import tw.geodoer.common.controller.MyDebug;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.mDatabase.API.DBLocationHelper;
+import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 
 public class TaskEditorMainFragment extends Fragment implements
 OnClickListener
@@ -172,7 +173,7 @@ OnClickListener
 		dbLocationHelper.deleteItem(4);
 		
 		// 修改物件
-		dbLocationHelper.setItem(2, ColumnLocation.KEY.dintance,123123.2);
+		dbLocationHelper.setItem(2, ColumnLocation.KEY.distance,123123.2);
 		
 		// 取得物件
 		// 預設cursor
@@ -185,7 +186,7 @@ OnClickListener
 		// 取得id=0欄位之地點名稱
 		String locNameString=dbLocationHelper.getItemString(0, ColumnLocation.KEY.name);
 		// 取得id=0欄位之地點距離
-		Double locDistance=dbLocationHelper.getItemDouble(0, ColumnLocation.KEY.dintance);
+		Double locDistance=dbLocationHelper.getItemDouble(0, ColumnLocation.KEY.distance);
 		// 取得id=0欄位之地點類型
 		int locType=dbLocationHelper.getItemInt(0, ColumnLocation.KEY.type);
 		
