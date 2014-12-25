@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import tw.geodoer.common.controller.MyDebug;
+import tw.geodoer.utils.MyDebug;
 
 /**
  * @author iamcxa 定時提醒廣播

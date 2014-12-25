@@ -18,8 +18,8 @@ import android.preference.PreferenceManager;
 import me.iamcxa.remindme.R;
 import tw.geodoer.mGeoInfo.controller.LocationGetter;
 import tw.geodoer.mPriority.controller.PriorityCalculator;
-import tw.geodoer.common.controller.MyDebug;
-import tw.geodoer.common.controller.MyPreferences;
+import tw.geodoer.utils.MyDebug;
+import tw.geodoer.main.taskPreference.controller.MyPreferences;
 import tw.geodoer.main.taskList.view.AppMainActivity;
 
 /**

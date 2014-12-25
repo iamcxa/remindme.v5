@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.devspark.progressfragment.ProgressFragment;
 
 import me.iamcxa.remindme.R;
-import tw.geodoer.common.controller.MyDebug;
+import tw.geodoer.utils.MyDebug;
 
 
 /**

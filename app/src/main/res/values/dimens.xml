@@ -6,7 +6,7 @@
     <dimen name="tabPaddingLeftRight">50dp</dimen>
 
     <!-- Card -->
-    <dimen name="card_base_empty_height">24dp</dimen>
+    <dimen name="card_base_empty_height">40dp</dimen>
     <dimen name="card_background_default_radius">2dip</dimen>
 
     <!-- Main -->
@@ -14,13 +14,13 @@
     <dimen name="card_main_layout_view_margin_left">0dp</dimen>
     <dimen name="card_main_layout_view_margin_bottom">0dp</dimen>
     <dimen name="card_main_layout_view_margin_right">0dp</dimen>
-    
+
     <!-- Header -->
     <dimen name="card_header_outer_view_margin_top">8dp</dimen>
     <dimen name="card_header_outer_view_margin_left">0dp</dimen>
     <dimen name="card_header_outer_view_margin_bottom">0dp</dimen>
     <dimen name="card_header_outer_view_margin_right">0dp</dimen>
-    
+
     <!-- Title Header -->
     <dimen name="card_header_simple_title_margin_left">10dp</dimen>
     <dimen name="card_header_simple_title_margin_top">0dp</dimen>
@@ -45,8 +45,8 @@
     <dimen name="card_main_simple_title_margin_top">0dp</dimen>
 
     <!-- Thumbnail -->
-    <dimen name="card_thumbnail_width">24dp</dimen>
-    <dimen name="card_thumbnail_height">24dp</dimen>
+    <dimen name="card_thumbnail_width">50dp</dimen>
+    <dimen name="card_thumbnail_height">50dp</dimen>
 
     <!-- Expand -->
     <dimen name="card_expand_layout_padding">5dp</dimen>

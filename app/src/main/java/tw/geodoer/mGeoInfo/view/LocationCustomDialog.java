@@ -79,7 +79,7 @@ public class LocationCustomDialog extends DialogFragment implements
 	    	SearchText = (EditText) mContentView.findViewById(R.id.SearchText);
 	    	Search = (Button) mContentView.findViewById(R.id.Search);
 			Search.setOnClickListener(SearchPlace);
-	    	 MapsInitializer.initialize(getActivity());
+	    	 MapsInitializer.initialize(getActivity().getApplicationContext());
 	    	 
 	    	 switch (GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity()) )
 	         {

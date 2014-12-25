@@ -4,8 +4,8 @@ import android.content.Context;
 import android.location.Location;
 import android.os.Handler;
 
-import tw.geodoer.common.controller.MyDebug;
-import tw.geodoer.common.controller.MyPreferences;
+import tw.geodoer.utils.MyDebug;
+import tw.geodoer.main.taskPreference.controller.MyPreferences;
 import tw.geodoer.mPriority.controller.PriorityCalculator;
 
 public class LocationGetter implements GPSCallback {

@@ -31,8 +31,8 @@ import java.lang.reflect.Field;
 import java.util.Calendar;
 
 import me.iamcxa.remindme.R;
-import tw.geodoer.common.controller.MyCalendar;
-import tw.geodoer.common.controller.MyDebug;
+import tw.geodoer.utils.MyCalendar;
+import tw.geodoer.utils.MyDebug;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 
 /**

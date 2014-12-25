@@ -3,16 +3,17 @@ package tw.geodoer.mDatabase.columns;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-import tw.geodoer.common.controller.CommonVar;
+import tw.geodoer.utils.CommonVar;
 
 /**
  * @author Kent
- * @category database
  * @version 20141224
+ * @category database
  */
 public final class ColumnTask implements BaseColumns {
 
-    private ColumnTask() {}
+    private ColumnTask() {
+    }
 
     // 預設排序常數
     public static final String DEFAULT_SORT_ORDER = "created DESC";
@@ -24,34 +25,35 @@ public final class ColumnTask implements BaseColumns {
     public static final Uri URI =
             Uri.parse("content://" + CommonVar.AUTHORITY + "/" + TABLE_NAME);
 
-    public static final String exec_SQL_Statment=
+    public static final String exec_SQL_Statment =
             "CREATE TABLE "
                     + TABLE_NAME
                     + " ("
                     // Task ID
-                    +KEY._id + " INTEGER PRIMARY KEY autoincrement,"
+                    + KEY._id + " INTEGER PRIMARY KEY autoincrement,"
                     //主要內容
-                    +KEY.title + " TEXT,"
-                    +KEY.status + " TEXT,"
-                    +KEY.content + " TEXT,"
-                    +KEY.due_date_millis + " INTEGER,"
-                    +KEY.due_date_string + " TEXT,"
-                    +KEY.color + " INTEGER,"
-                    +KEY.priority + " INTEGER,"
-                    +KEY.created + " INTEGER,"
+                    + KEY.title + " TEXT,"
+                    + KEY.status + " TEXT,"
+                    + KEY.content + " TEXT,"
+                    + KEY.due_date_millis + " INTEGER,"
+                    + KEY.due_date_string + " TEXT,"
+                    + KEY.color + " INTEGER,"
+                    + KEY.priority + " INTEGER,"
+                    + KEY.created + " INTEGER,"
                     //分類 + " TEXT,"標籤與優先
-                    +KEY.category_id + " INTEGER,"
-                    +KEY.tag_id + " INTEGER,"
-                    +KEY.project_id + " INTEGER,"
-                    +KEY.collaborator_id + " INTEGER,"
-                    +KEY.sync_id + " INTEGER,"
-                    +KEY.location_id + " INTEGER,"
+                    + KEY.category_id + " INTEGER,"
+                    + KEY.tag_id + " INTEGER,"
+                    + KEY.project_id + " INTEGER,"
+                    + KEY.collaborator_id + " INTEGER,"
+                    + KEY.sync_id + " INTEGER,"
+                    + KEY.location_id + " INTEGER,"
                     // 已完成
-                    +KEY.checked + " INTEGER"
+                    + KEY.checked + " INTEGER,"
+                    + " created_at DATETIME DEFAULT CURRENT_TIMESTAMP"
                     + ");";
 
     // 查詢欄位陣列
-    public static final String[] PROJECTION = new String[] {
+    public static final String[] PROJECTION = new String[]{
             KEY._id,
             //主要內容
             KEY.title,
@@ -74,7 +76,7 @@ public final class ColumnTask implements BaseColumns {
     };
 
     // 查詢欄位陣列
-    public static final int[] ALL_COLUMN_INDEX = new int[] {
+    public static final int[] ALL_COLUMN_INDEX = new int[]{
             KEY.INDEX._id,
             //主要內容
             KEY.INDEX.title,
@@ -113,7 +115,7 @@ public final class ColumnTask implements BaseColumns {
         public static final String priority = "priority";
         public static final String created = "created";
         // 分類,標籤與優先
-        public static final String category_id= "category_id";
+        public static final String category_id = "category_id";
         public static final String tag_id = "tag_id";
         public static final String project_id = "project_id";
         public static final String collaborator_id = "collaborator_id";
@@ -139,7 +141,7 @@ public final class ColumnTask implements BaseColumns {
             public static final int priority = 7;
             public static final int created = 8;
             //分類,標籤與優先
-            public static final int category_id= 9;
+            public static final int category_id = 9;
             public static final int tag_id = 10;
             public static final int project_id = 11;
             public static final int collaborator_id = 12;

@@ -1,7 +1,7 @@
 package tw.geodoer.main.taskEditor.controller;
 
-import tw.geodoer.common.controller.CommonVar;
-import tw.geodoer.common.controller.MyDebug;
+import tw.geodoer.utils.CommonVar;
+import tw.geodoer.utils.MyDebug;
 
 
 public class ActionCheckDueDateField {

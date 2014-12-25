@@ -1,5 +1,13 @@
 <resources>
 
+    <style name="card">
+        <!-- this style should be empty -->
+    </style>
+
+    <style name="card.native">
+        <!-- this style should be empty -->
+    </style>
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="MaterialBlack"></style>
 

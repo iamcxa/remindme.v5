@@ -10,7 +10,7 @@
         android:minHeight="?attr/actionBarSize" >
     </android.support.v7.widget.Toolbar>
 
-    <tw.geodoer.common.view.MySlidingTabLayout
+    <tw.geodoer.utils.view.MySlidingTabLayout
         android:id="@+id/taskeditor_tab"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />

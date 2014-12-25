@@ -3,7 +3,7 @@ package tw.geodoer.mDatabase.columns;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-import tw.geodoer.common.controller.CommonVar;
+import tw.geodoer.utils.CommonVar;
 
 /**
  * @author Kent

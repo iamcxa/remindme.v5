@@ -42,8 +42,17 @@ public class TaskFields {
     private int location_id=0;
     // 15- 標籤id - 分割字串
     private String tag_id="null";
+    // 16 checked
+    private int checked=0;
 
     //---------------Getter/Setter-----------------//
+
+    public int getChecked() {
+        return checked;
+    }
+    public void setChecked(int checked) {
+        this.checked = checked;
+    }
 
     /**
      * @return the taskId

@@ -2,7 +2,7 @@ package tw.geodoer.mGeoInfo.view;
 
 import me.iamcxa.remindme.R;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
-import tw.geodoer.common.controller.MyDebug;
+import tw.geodoer.utils.MyDebug;
 
 import com.devspark.progressfragment.ProgressFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;

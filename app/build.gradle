@@ -3,17 +3,18 @@ android {
     compileSdkVersion 21
     buildToolsVersion '21.1.2'
     defaultConfig {
-        applicationId "me.iamcxa.remindme"
+        applicationId 'tw.moretion.godoer'
         minSdkVersion 16
         targetSdkVersion 18
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
 
         }
+    }
+    productFlavors {
     }
 }
 

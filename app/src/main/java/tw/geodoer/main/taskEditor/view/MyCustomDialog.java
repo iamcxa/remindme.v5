@@ -22,7 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import me.iamcxa.remindme.R;
-import tw.geodoer.common.controller.MyCalendar;
+import tw.geodoer.utils.MyCalendar;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 
 /**

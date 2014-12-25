@@ -5,11 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 
 import me.iamcxa.remindme.R;
-import tw.geodoer.common.controller.MyCalendar;
-import tw.geodoer.common.controller.MyDebug;
+import tw.geodoer.main.taskList.cardsui.MyCursorCard;
+import tw.geodoer.utils.MyCalendar;
+import tw.geodoer.utils.MyDebug;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.main.taskList.adapter.MyCursorCardAdapter.MyCursorCard;
 
 public class ActionSetCardFromCursor {
 
@@ -52,13 +52,14 @@ public class ActionSetCardFromCursor {
 		card.setId(String.valueOf(cursor.getPosition()));
 
 		// 卡片標題 - first line
-		MyDebug.MakeLog(0, "cardID="+CID + " set Tittle="+title);	
+		// MyDebug.MakeLog(0, "cardID="+CID + " set Tittle="+title);
 		card.mainHeader = title;
 
 		// 時間日期 - sec line
-		MyDebug.MakeLog(0, CID + " set Date/Time...");
-		card.DateTime=due_date_string;
-		MyDebug.MakeLog(0, CID + " dayleft=" + dayLeft);
+		// MyDebug.MakeLog(0, CID + " set Date/Time...");
+		card.dueDate=due_date_string;
+
+		// MyDebug.MakeLog(0, CID + " dayleft=" + dayLeft);
 //		if ((180 > dayLeft) && (dayLeft > 14)) {
 //			card.DateTime = "再 " + (int) Math.floor(dayLeft) / 30 + " 個月 - "
 //					+ due_date_string + " - " + due_date_millis;
@@ -73,70 +74,70 @@ public class ActionSetCardFromCursor {
 //		} else {
 //			card.DateTime = due_date_string + " - " + due_date_millis;
 //		}
+//
+//		// 小圖標顯示 - 判斷是否存有地點資訊
+//		MyDebug.MakeLog(0, "Location=\"" + location_id + "\"");
+//
+//		if (location_id != 0) {
+//			card.resourceIdThumb = R.drawable.map_marker;
+//		} else {
+//			card.resourceIdThumb = R.drawable.tear_of_calendar;
+//			card.LocationName = "沒有任務地點";
+//		}
+//
+//		// set color
+//		if(cursor.getString(ColumnTask.KEY.INDEX.status).equalsIgnoreCase("0"))
+//			card.setBackgroundResourceId(R.drawable.card_background);
+//		if(cursor.getString(ColumnTask.KEY.INDEX.status).equalsIgnoreCase("1"))
+//			card.setBackgroundResourceId(R.drawable.card_background_gray);
+//
+//
+//		// 距離與地點資訊
+//		ContentResolver resolverLocation =context.getContentResolver();
 
-		// 小圖標顯示 - 判斷是否存有地點資訊
-		MyDebug.MakeLog(0, "Location=\"" + location_id + "\"");
-
-		if (location_id != 0) {
-			card.resourceIdThumb = R.drawable.map_marker;
-		} else {
-			card.resourceIdThumb = R.drawable.tear_of_calendar;
-			card.LocationName = "沒有任務地點";
-		}
-		
-		// set color
-		if(cursor.getString(ColumnTask.KEY.INDEX.status).equalsIgnoreCase("0")) 
-			card.setBackgroundResourceId(R.drawable.card_background);
-		if(cursor.getString(ColumnTask.KEY.INDEX.status).equalsIgnoreCase("1")) 
-			card.setBackgroundResourceId(R.drawable.card_background_gray);
-
-
-		// 距離與地點資訊	
-		ContentResolver resolverLocation =context.getContentResolver();
-
-		Cursor cursorLocation=resolverLocation.query(ColumnLocation.URI, 
-				null, 
-				ColumnLocation.KEY._id+" = ? ",
-				new String[] { ColumnTask.KEY.location_id },
-				ColumnLocation.DEFAULT_SORT_ORDER);
-		String dintence;
-		if(cursorLocation.getCount()>0){
-			 dintence=String.valueOf(cursorLocation.getLong(ColumnLocation.KEY.INDEX.distance));
-		}else {
-			 dintence="null";
-		}
-		MyDebug.MakeLog(0, "dintence=" +dintence);
-		if (dintence == "") {
-			card.LocationName = cursorLocation.getString(ColumnLocation.KEY.INDEX.name);
-		} else {
-			//			if (Double.valueOf(dintence) < 1) {
-			//				card.LocationName = LocationName + " - 距離 "
-			//						+ Double.valueOf(dintence) * 1000 + " 公尺";
-			//			} else {
-			card.LocationName = location_id + " - 距離 " + dintence + " 公里";
-
-			//			}
-		}
+//		Cursor cursorLocation=resolverLocation.query(ColumnLocation.URI,
+//				null,
+//				ColumnLocation.KEY._id+" = ? ",
+//				new String[] { ColumnTask.KEY.location_id },
+//				ColumnLocation.DEFAULT_SORT_ORDER);
+//		String dintence;
+//		if(cursorLocation.getCount()>0){
+//			 dintence=String.valueOf(cursorLocation.getLong(ColumnLocation.KEY.INDEX.distance));
+//		}else {
+//			 dintence="null";
+//		}
+	// 	MyDebug.MakeLog(0, "dintence=" +dintence);
+//		if (dintence == "") {
+//			card.LocationName = cursorLocation.getString(ColumnLocation.KEY.INDEX.name);
+//		} else {
+//			//			if (Double.valueOf(dintence) < 1) {
+//			//				card.LocationName = LocationName + " - 距離 "
+//			//						+ Double.valueOf(dintence) * 1000 + " 公尺";
+//			//			} else {
+//			card.LocationName = location_id + " - 距離 " + dintence + " 公里";
+//
+//			//			}
+//		}
 
 		// 可展開額外資訊欄位
-		MyDebug.MakeLog(0, "isExtrainfo=" + Extrainfo);
-		 card.Notifications = "dbId="
-		 + cursor.getString(0)
-		 + ",priority="
-		 + cursor.getString(ColumnTask.KEY.INDEX.priority);
-		if (!Extrainfo) {
-			card.resourceIdThumb = R.drawable.outline_star_act;
-			// 額外資訊提示 - 第四行
+//		MyDebug.MakeLog(0, "isExtrainfo=" + Extrainfo);
+//		 card.Notifications = "dbId="
+//		 + cursor.getString(0)
+//		 + ",priority="
+//		 + cursor.getString(ColumnTask.KEY.INDEX.priority);
+//		if (!Extrainfo) {
+//			card.resourceIdThumb = R.drawable.outline_star_act;
+//			// 額外資訊提示 - 第四行
+//
+//		}
+//		card.Notifications = cursor.getString(0);
 
-		}
-		card.Notifications = cursor.getString(0);
-
-		// 依照權重給予卡片顏色
-		if (cursor.getInt(ColumnTask.KEY.INDEX.priority) > 6000) {
-			card.setBackgroundResourceId(R.drawable.demo_card_selector_color5);
-		} else if (cursor.getInt(ColumnTask.KEY.INDEX.priority) > 3000) {
-			card.setBackgroundResourceId(R.drawable.demo_card_selector_color3);
-		}
+//		// 依照權重給予卡片顏色
+//		if (cursor.getInt(ColumnTask.KEY.INDEX.priority) > 6000) {
+//			card.setBackgroundResourceId(R.drawable.demo_card_selector_color5);
+//		} else if (cursor.getInt(ColumnTask.KEY.INDEX.priority) > 3000) {
+//			card.setBackgroundResourceId(R.drawable.demo_card_selector_color3);
+//		}
 	}
 
 }

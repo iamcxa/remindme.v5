@@ -37,7 +37,7 @@ public abstract class MyBaseFragment extends Fragment {
 	}
 
 	protected void setTitle() {
-		getActivity().setTitle(getTitleResourceId());
+		//getActivity().setTitle(getTitleResourceId());
 	}
 
 	public abstract int getTitleResourceId();

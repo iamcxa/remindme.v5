@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 import me.iamcxa.remindme.R;
 import tw.geodoer.mGeoInfo.view.TaskEditorLocation;
-import tw.geodoer.common.controller.MyDebug;
-import tw.geodoer.common.view.MySlidingTabLayout;
+import tw.geodoer.utils.MyDebug;
+import tw.geodoer.utils.view.MySlidingTabLayout;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskEditor.adapter.MyFragmentPagerAdapter;

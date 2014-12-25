@@ -12,7 +12,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 
 import me.iamcxa.remindme.R;
-import tw.geodoer.common.controller.MyDebug;
+import tw.geodoer.utils.MyDebug;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 

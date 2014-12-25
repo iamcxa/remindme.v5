@@ -21,11 +21,13 @@
     <!-- color card -->
     <color name="card_background_white">#FFF</color>
     <color name="card_background_gray">#e0e0e0</color>
-    <color name="demo_card_background_color1">#FFBB33</color>
-    <color name="demo_card_background_color2">#98CC00</color>
-    <color name="demo_card_background_color3">#A966CC</color>
-    <color name="demo_card_background_color4">#33B4E4</color>
-    <color name="demo_card_background_color5">#FF4343</color>
+    <color name="card_background_color1">#FFBB33</color>
+    <color name="card_background_color2">#98CC00</color>
+    <color name="card_background_color3">#A966CC</color>
+    <color name="card_background_color4">#33B4E4</color>
+    <color name="card_background_color_red_light">#FF4343</color>
+    <color name="card_background_color_red_normal">#E40000</color>
+    <color name="card_background_color_red_deep">#AE0909</color>
 
     <!-- Card Color -->
     <color name="card_background">#FFF</color>

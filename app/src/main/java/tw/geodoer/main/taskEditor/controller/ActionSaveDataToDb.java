@@ -8,8 +8,8 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
-import tw.geodoer.common.controller.MyCalendar;
-import tw.geodoer.common.controller.MyDebug;
+import tw.geodoer.utils.MyCalendar;
+import tw.geodoer.utils.MyDebug;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
@@ -182,22 +182,21 @@ class setTableTasks{
 		mEditorVar.Task.setDue_date_millis(mEditorVar.TaskDate.getmDatePulsTimeMillis());
 
 		//---------------------------- IDs -------------------------//
-		// TODO "分類"與"專案"分野未決定
-		// TODO 設定優先權  - spinner - 預計直接取 index 0(高)~4（低)
 		mEditorVar.Task.setPriority(TaskEditorMainFragment.getTaskPriority().getSelectedItemPosition());
-		// TODO 設定分類id  - spinner - 預計直接取 index(0~最後)
+
 		mEditorVar.Task.setCategory_id(TaskEditorMainFragment.getTaskCategory().getSelectedItemPosition());
-		// TODO 設定專案  - spinner - 預計直接取 index(0~最後) 
+
 		mEditorVar.Task.setPriority(TaskEditorMainFragment.getTaskPriority().getSelectedItemPosition());
-		// TODO 設定卡片顏色 - 預計與分類或專案搭配
+
 		mEditorVar.Task.setColor(mEditorVar.TaskCardColor.getTaskDefaultColor());
-		// TODO 設定標籤  - 未確定
+
 		mEditorVar.Task.setTag_id("null");
 
-		// TODO 設定協作人員id
 		mEditorVar.Task.setCollaborator_id("null");
-		// TODO 設定任務同步id
+
 		mEditorVar.Task.setSync_id(0);
+
+        mEditorVar.Task.setChecked(0);
 	}
 
 
@@ -233,7 +232,9 @@ class setTableTasks{
 		// 14- 任務地點id
 		values.put(ColumnTask.KEY.location_id,mEditorVar.Task.getLocation_id());
 		// 15- 標籤id
-		values.put(ColumnTask.KEY.tag_id,mEditorVar.Task.getTag_id());
+        values.put(ColumnTask.KEY.tag_id,mEditorVar.Task.getTag_id());
+        // checked
+        values.put(ColumnTask.KEY.checked,mEditorVar.Task.getChecked());
 	}
 }
 

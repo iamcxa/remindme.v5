@@ -7,7 +7,7 @@ import android.content.Intent;
 
 import java.util.Calendar;
 
-import tw.geodoer.common.controller.MyDebug;
+import tw.geodoer.utils.MyDebug;
 import tw.geodoer.main.taskAlert.eventReceiver.RemindmeReceiver_TaskAlert;
 
 public class ActionSetAlarm {

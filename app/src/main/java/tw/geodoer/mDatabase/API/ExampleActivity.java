@@ -6,7 +6,7 @@ package tw.geodoer.mDatabase.API;
 import android.app.Activity;
 import android.database.Cursor;
 
-import tw.geodoer.common.controller.MyDebug;
+import tw.geodoer.utils.MyDebug;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 
 /**

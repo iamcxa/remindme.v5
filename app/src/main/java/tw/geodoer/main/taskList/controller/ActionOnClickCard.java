@@ -7,8 +7,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 
 import it.gmariotti.cardslib.library.internal.Card;
-import tw.geodoer.common.controller.CommonVar;
-import tw.geodoer.common.controller.MyDebug;
+import tw.geodoer.utils.CommonVar;
+import tw.geodoer.utils.MyDebug;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
 import tw.geodoer.main.taskList.adapter.MyCursorCardAdapter;

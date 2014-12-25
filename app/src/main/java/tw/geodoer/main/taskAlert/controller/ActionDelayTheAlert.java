@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
-import tw.geodoer.common.controller.MyDebug;
+import tw.geodoer.utils.MyDebug;
 import tw.geodoer.main.taskEditor.controller.ActionSetAlarm;
 
 public class ActionDelayTheAlert extends IntentService {

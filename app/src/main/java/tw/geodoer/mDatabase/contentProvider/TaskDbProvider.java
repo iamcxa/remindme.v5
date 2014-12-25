@@ -19,7 +19,7 @@ import android.text.TextUtils;
 
 import java.util.HashMap;
 
-import tw.geodoer.common.controller.CommonVar;
+import tw.geodoer.utils.CommonVar;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;

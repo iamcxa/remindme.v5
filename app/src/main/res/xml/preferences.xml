@@ -35,6 +35,13 @@
             android:summary="輸入智慧優先排序偵測間距(毫秒"
             android:title="Edit Text" />
 
+        <EditTextPreference
+            android:name="多近才算靠近我？"
+            android:defaultValue="1000"
+            android:key="valueRadiatedDistance"
+            android:summary="輸入距離（公尺）"
+            android:title="多近才算靠近我？" />
+
         <PreferenceScreen
             android:key="secondPrefScreenPref"
             android:summary="Click here to go to the second Preference Screen"

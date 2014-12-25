@@ -25,8 +25,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import me.iamcxa.remindme.R;
-import tw.geodoer.common.controller.MyDebug;
-import tw.geodoer.common.controller.MyPreferences;
+import tw.geodoer.utils.MyDebug;
+import tw.geodoer.main.taskPreference.controller.MyPreferences;
 import tw.geodoer.mGeoInfo.controller.LocationGetter;
 import tw.geodoer.mPriority.service.TaskSortingService;
 import tw.geodoer.main.taskEditor.controller.ActionSetAlarm;

@@ -15,8 +15,8 @@ import java.text.DecimalFormat;
 import tw.geodoer.mDatabase.controller.TaskDbEditor;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.common.controller.MyCalendar;
-import tw.geodoer.common.controller.MyDebug;
+import tw.geodoer.utils.MyCalendar;
+import tw.geodoer.utils.MyDebug;
 import tw.geodoer.mGeoInfo.controller.DistanceCalculator;
 
 /**
