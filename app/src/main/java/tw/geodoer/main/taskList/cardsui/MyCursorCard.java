@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import it.gmariotti.cardslib.library.internal.Card;
-import me.iamcxa.remindme.R;
+import tw.moretion.geodoer.R;
 
 /**
  * Class MyCursorCard *

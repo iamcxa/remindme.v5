@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import me.iamcxa.remindme.R;
 import tw.geodoer.mGeoInfo.view.TaskEditorLocation;
 import tw.geodoer.utils.MyDebug;
 import tw.geodoer.utils.view.MySlidingTabLayout;
@@ -24,6 +23,7 @@ import tw.geodoer.main.taskEditor.adapter.MyFragmentPagerAdapter;
 import tw.geodoer.main.taskEditor.controller.ActionReadDbBeforeSaveDb;
 import tw.geodoer.main.taskEditor.controller.ActionSaveDataToDb;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
+import tw.moretion.geodoer.R;
 
 public class TaskEditorTabFragment extends ActionBarActivity
 implements

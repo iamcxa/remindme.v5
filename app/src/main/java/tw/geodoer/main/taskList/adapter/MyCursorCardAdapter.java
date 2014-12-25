@@ -16,7 +16,6 @@ import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardCursorAdapter;
 import it.gmariotti.cardslib.library.internal.CardExpand;
 import it.gmariotti.cardslib.library.internal.CardHeader;
-import me.iamcxa.remindme.R;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskList.cardsui.CardThumbnailCircle;
@@ -24,6 +23,7 @@ import tw.geodoer.main.taskList.cardsui.MyCursorCard;
 import tw.geodoer.main.taskList.controller.ActionOnClickCard;
 import tw.geodoer.main.taskList.controller.ActionSetCardFromCursor;
 import tw.geodoer.utils.MyDebug;
+import tw.moretion.geodoer.R;
 
 /**
  * @author Kent

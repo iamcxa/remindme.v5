@@ -5,7 +5,8 @@ import android.app.ActionBar.Tab;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 
-import me.iamcxa.remindme.R;
+import tw.moretion.geodoer.R;
+
 
 public class MyTabListener implements  ActionBar.TabListener {
 

@@ -21,9 +21,9 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import me.iamcxa.remindme.R;
 import tw.geodoer.utils.MyCalendar;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
+import tw.moretion.geodoer.R;
 
 /**
  * This is a custom dialog class that will hold a tab view with 2 tabs.

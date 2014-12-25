@@ -35,7 +35,6 @@ import android.widget.Toast;
 import com.shamanland.fab.ShowHideOnScroll;
 
 import it.gmariotti.cardslib.library.view.CardListView;
-import me.iamcxa.remindme.R;
 import tw.geodoer.utils.MyCalendar;
 import tw.geodoer.utils.MyDebug;
 import tw.geodoer.main.taskPreference.controller.MyPreferences;
@@ -44,6 +43,7 @@ import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
 import tw.geodoer.main.taskList.adapter.MyCursorCardAdapter;
+import tw.moretion.geodoer.R;
 
 /**
  * List with Cursor Example

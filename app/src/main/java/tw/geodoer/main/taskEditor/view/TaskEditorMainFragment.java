@@ -19,7 +19,6 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import me.iamcxa.remindme.R;
 import tw.geodoer.mGeoInfo.view.LocationCustomDialog;
 import tw.geodoer.utils.CommonVar;
 import tw.geodoer.utils.MyDebug;
@@ -27,6 +26,7 @@ import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.mDatabase.API.DBLocationHelper;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
+import tw.moretion.geodoer.R;
 
 public class TaskEditorMainFragment extends Fragment implements
 OnClickListener

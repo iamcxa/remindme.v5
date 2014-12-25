@@ -1,6 +1,5 @@
 package tw.geodoer.mGeoInfo.view;
 
-import me.iamcxa.remindme.R;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.utils.MyDebug;
 
@@ -13,6 +12,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import tw.geodoer.mGeoInfo.controller.GeocodingAPI;
+import tw.moretion.geodoer.R;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;

@@ -31,7 +31,7 @@ import tw.geodoer.mDatabase.columns.ColumnTask;
 
 public class TaskDbProvider extends ContentProvider {
 	// 資料庫名稱常數
-	public static final String DATABASE_NAME = "Remindme_Task.db";
+	public static final String DATABASE_NAME = "geodoerDB.db";
 	// 資料庫版本常數
 	public static final int DATABASE_VERSION = 3;
 	// 查詢、更新條件

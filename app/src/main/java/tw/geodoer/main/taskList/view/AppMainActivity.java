@@ -24,7 +24,6 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import me.iamcxa.remindme.R;
 import tw.geodoer.utils.MyDebug;
 import tw.geodoer.main.taskPreference.controller.MyPreferences;
 import tw.geodoer.mGeoInfo.controller.LocationGetter;
@@ -33,6 +32,7 @@ import tw.geodoer.main.taskEditor.controller.ActionSetAlarm;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
 import tw.geodoer.main.taskPreference.view.AppPreferenceActivity;
+import tw.moretion.geodoer.R;
 
 
 /**

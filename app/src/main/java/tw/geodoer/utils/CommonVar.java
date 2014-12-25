@@ -17,7 +17,7 @@ public class CommonVar {
 	public static final String BundleName = "Bundle"; 
 
 	// 授權常數
-	public static final String AUTHORITY = "me.iamcxa.remindme";
+	public static final String AUTHORITY = "tw.moretion.geodoer";
 
 	// URI常數
 	public static final String TASKLIST = "remindmetasklist";

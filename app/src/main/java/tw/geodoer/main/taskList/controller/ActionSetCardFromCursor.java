@@ -4,7 +4,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 
-import me.iamcxa.remindme.R;
 import tw.geodoer.main.taskList.cardsui.MyCursorCard;
 import tw.geodoer.utils.MyCalendar;
 import tw.geodoer.utils.MyDebug;

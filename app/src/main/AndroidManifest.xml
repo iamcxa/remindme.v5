@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="me.iamcxa.remindme"
+<manifest package="tw.moretion.geodoer"
     android:installLocation="internalOnly"
     android:versionCode="20141112"
     android:versionName="智慧提醒" xmlns:android="http://schemas.android.com/apk/res/android">
@@ -72,7 +72,7 @@
    		<!--==================================================================-->
         <provider
             android:name="tw.geodoer.mDatabase.contentProvider.TaskDbProvider"
-            android:authorities="me.iamcxa.remindme"
+            android:authorities="tw.moretion.geodoer"
             android:exported="false" >
         </provider>
 

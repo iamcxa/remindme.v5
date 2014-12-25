@@ -5,7 +5,8 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.os.Bundle;
 
-import me.iamcxa.remindme.R;
+import tw.moretion.geodoer.R;
+
 
 /**
  * @author iamcxa 提醒方法

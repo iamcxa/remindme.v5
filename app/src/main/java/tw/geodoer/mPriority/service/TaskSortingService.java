@@ -15,12 +15,12 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 
-import me.iamcxa.remindme.R;
 import tw.geodoer.mGeoInfo.controller.LocationGetter;
 import tw.geodoer.mPriority.controller.PriorityCalculator;
 import tw.geodoer.utils.MyDebug;
 import tw.geodoer.main.taskPreference.controller.MyPreferences;
 import tw.geodoer.main.taskList.view.AppMainActivity;
+import tw.moretion.geodoer.R;
 
 /**
  * @author cxa

@@ -8,7 +8,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import me.iamcxa.remindme.R;
+import tw.moretion.geodoer.R;
+
 
 /**
  * @author cxa

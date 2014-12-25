@@ -13,9 +13,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import me.iamcxa.remindme.R;
 import tw.geodoer.mGeoInfo.controller.GeocodingAPI;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
+import tw.moretion.geodoer.R;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;

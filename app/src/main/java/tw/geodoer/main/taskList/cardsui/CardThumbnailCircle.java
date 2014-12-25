@@ -13,10 +13,10 @@ import android.widget.Toast;
 import java.util.Locale;
 
 import it.gmariotti.cardslib.library.internal.CardThumbnail;
-import me.iamcxa.remindme.R;
 import tw.geodoer.mDatabase.API.DBLocationHelper;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.utils.drawable.CircleDrawable;
+import tw.moretion.geodoer.R;
 
 /**
  * Created by Kent on 2014/12/25.

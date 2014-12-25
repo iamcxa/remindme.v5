@@ -10,7 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.iamcxa.remindme.R;
+import tw.moretion.geodoer.R;
+
 
 /**
  * @author cxa

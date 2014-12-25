@@ -11,10 +11,10 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 
-import me.iamcxa.remindme.R;
 import tw.geodoer.utils.MyDebug;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
+import tw.moretion.geodoer.R;
 
 
 public class ActionReadDbBeforeSaveDb {
