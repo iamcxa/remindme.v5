@@ -31,7 +31,7 @@ public class MyPreferences {
 
     // 讀取設定值valueRadiatedDistance 定義靠近距離(公尺)
     public static int getValueOfRadiatedDistance() {
-        return mPreferences.getInt("valueRadiatedDistance",500);
+        return Integer.valueOf(mPreferences.getString("valueRadiatedDistance","500"));
     }
 
 

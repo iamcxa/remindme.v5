@@ -95,8 +95,8 @@ public class MyCursorCardAdapter extends CardCursorAdapter {
         card.setOnClickListener(new Card.OnCardClickListener() {
             @Override
             public void onClick(Card card, View view) {
-                Toast.makeText(getContext(), "Clickable card", Toast.LENGTH_LONG).show();
-            //  mReadCardOnClick.readIt(card.getId());
+            //    Toast.makeText(getContext(), "Clickable card", Toast.LENGTH_LONG).show();
+              mReadCardOnClick.readIt(card.getId());
             }
         });
 
