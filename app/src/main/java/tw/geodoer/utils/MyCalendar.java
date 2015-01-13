@@ -18,6 +18,8 @@ public class MyCalendar {
 	public static long getDaysLeft(String TaskDate, int Option) {
 		// 定義時間格式
 		// java.text.SimpleDateFormat sdf = new
+
+        
 		SimpleDateFormat sdf = null;
 		if (Option == 1) {
 			sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm",Locale.getDefault());
@@ -62,6 +64,11 @@ public class MyCalendar {
 		return NextFewDays;
 
 	}
+
+
+    String array[];
+
+
 	
 	/**
 	 * @return 取得現在當下的毫秒數
