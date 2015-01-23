@@ -112,8 +112,9 @@
 
         
    		<!--==================================================================-->
-        <service android:name="tw.geodoer.mPriority.service.TaskSortingService" >
-        </service>
+        <service android:name="tw.geodoer.mPriority.service.GeoServiceRegister" ></service>
+        <service android:name="tw.geodoer.mPriority.service.GeoServiceNotification" />
+        <service android:name="tw.geodoer.mPriority.service.GeoServicePosition" ></service>
         
         <activity android:name="tw.geodoer.main.taskAlert.view.dialog.AlertNotiDialog" android:theme="@style/MyDialogStyle" android:uiOptions="none">
             <intent-filter>
