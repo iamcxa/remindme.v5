@@ -57,8 +57,8 @@ public class GeoServicePosition extends Service
 
     public boolean position_updater()
     {
-        double NData[] = {22 ,23 ,24 ,25 };
-        double WData[] = {120,121,122,123};
+        double NData[] = {22 ,23 ,24 ,25 ,26};
+        double WData[] = {120,121,122,123,124};
         Random ran = new Random();
         this.Now_Lat = NData[ran.nextInt()%NData.length];
         this.Now_Lon = WData[ran.nextInt()%WData.length];
