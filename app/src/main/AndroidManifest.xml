@@ -95,7 +95,7 @@
 
    		<!--==================================================================-->
         <receiver
-            android:name="tw.geodoer.main.taskAlert.eventReceiver.RemindmeReceiver_TaskAlert"
+            android:name="tw.geodoer.mPriority.eventReceiver.GeoBroadcastReceiver_TaskAlert"
             android:exported="false" >
             <intent-filter>
 
@@ -115,12 +115,14 @@
         <service android:name="tw.geodoer.mPriority.service.GeoServiceRegister" ></service>
         <service android:name="tw.geodoer.mPriority.service.GeoServiceNotification" />
         <service android:name="tw.geodoer.mPriority.service.GeoServicePosition" ></service>
+        <service android:name="tw.geodoer.mPriority.service.GeoServiceWeight" ></service>
         
         <activity android:name="tw.geodoer.main.taskAlert.view.dialog.AlertNotiDialog" android:theme="@style/MyDialogStyle" android:uiOptions="none">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
+
         <service android:name="tw.geodoer.main.taskAlert.controller.AlertHandler"></service>
         <service android:name="tw.geodoer.main.taskAlert.controller.ActionDelayTheAlert"></service>
         <service android:name="tw.geodoer.main.taskAlert.controller.ActionFinishTheAlert"></service>

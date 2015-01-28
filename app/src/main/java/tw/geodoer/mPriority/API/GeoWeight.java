@@ -1,6 +1,6 @@
 package tw.geodoer.mPriority.API;
 
-public class RemindWeight
+public class GeoWeight
 {
 	private int meanW;
 	private int mean;
@@ -39,14 +39,14 @@ public class RemindWeight
 	{
 		return this.mean;
 	}
-	public RemindWeight(int mW, int m, int T, int L)
+	public GeoWeight(int mW, int m, int T, int L)
 	{
 		this.setmeanW(mW);
 		this.setmean(m);
 		this.setTw(T);
 		this.setLw(L);
 	}
-	public RemindWeight()
+	public GeoWeight()
 	{
 		this.setmeanW(10000);
 		this.setmean(5);

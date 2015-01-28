@@ -1,4 +1,4 @@
-package tw.geodoer.main.taskAlert.eventReceiver;
+package tw.geodoer.mPriority.eventReceiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,7 +11,7 @@ import tw.geodoer.main.taskAlert.controller.AlertHandler;
 /**
  * @author iamcxa 定時提醒廣播
  */
-public class RemindmeReceiver_TaskAlert extends BroadcastReceiver {
+public class GeoBroadcastReceiver_TaskAlert extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 

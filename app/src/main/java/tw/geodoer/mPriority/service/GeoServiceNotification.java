@@ -11,7 +11,6 @@ import android.graphics.BitmapFactory;
 import android.os.IBinder;
 
 import tw.geodoer.main.taskList.view.AppMainActivity;
-import tw.geodoer.utils.MyDebug;
 import tw.moretion.geodoer.R;
 
 /**
@@ -20,7 +19,7 @@ import tw.moretion.geodoer.R;
 public class GeoServiceNotification extends Service
 {
     private static final int ID_My_Notification = 1;
-
+    public static final String MESSAGE = "Message";
     @Override
     public void onCreate()
     {
@@ -29,7 +28,7 @@ public class GeoServiceNotification extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-        this.noti("智慧提醒", intent.getExtras().getString("content"));
+        this.noti("智慧提醒", intent.getExtras().getString(this.MESSAGE));
         stopSelf();
         return flags;
     }
@@ -37,7 +36,6 @@ public class GeoServiceNotification extends Service
     @Override
     public void onDestroy()
     {
-        //this.noty("結束事件", "Service 被河蟹了");
         super.onDestroy();
     }
 

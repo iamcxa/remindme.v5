@@ -6,7 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
 
-import tw.geodoer.mPriority.broadcastreceiver.GeoBroadcastReceiver;
+import tw.geodoer.mPriority.eventReceiver.GeoBroadcastReceiver;
+import tw.geodoer.utils.MyDebug;
 
 /**
  * @Murakumo
@@ -35,21 +36,24 @@ public class GeoServiceRegister extends Service
     {
 		super.onCreate();
 
+        /*
         IntentFilter itfilter =new IntentFilter();
         itfilter.addAction("tw.geodoer.mPriority.service.RemainBroadcast");
         GeoBroadcastReceiver myReceiver = new GeoBroadcastReceiver();
-        registerReceiver(myReceiver,itfilter);
-
+        try
+        {
+            registerReceiver(myReceiver, itfilter);
+        }
+        catch(IllegalArgumentException  e)
+        {
+            MyDebug.MakeLog(2,"Receiver has been registed");
+        }
         //send a message
         Intent it =new Intent("tw.geodoer.mPriority.service.RemainBroadcast");
-        it.putExtra("Command", GeoBroadcastReceiver.BROADCAST_COMMAND_NOTI
-                             + GeoBroadcastReceiver.BROADCAST_COMMAND_POSITON
-                             + GeoBroadcastReceiver.BROADCAST_COMMAND_DISTANCE
-                             + GeoBroadcastReceiver.BROADCAST_COMMAND_WEIGHT
-                             );
-        it.putExtra("content","Notification send success");
+        it.putExtra("Command", GeoBroadcastReceiver.BROADCAST_COMMAND_POSITON);
+        //it.putExtra(GeoServiceNotification.MESSAGE,"Notification send success");
         sendBroadcast(it);
-
+*/
 
         Stopself();
 	}

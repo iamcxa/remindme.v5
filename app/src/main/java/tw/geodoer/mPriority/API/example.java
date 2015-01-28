@@ -4,7 +4,7 @@ public class example
 {
     public static void main(String[] args)
     {
-        RemindWeight fun = new RemindWeight(1000,5,60,10);
+        GeoWeight fun = new GeoWeight(1000,5,60,10);
         //new remindweight(最大指數(int) , 斜率(int) , 時間單位(分鐘)(int) , 距離單位(公尺)(int))
 
         // .getweight(時間(int),距離(int))   (int)

@@ -4,11 +4,10 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import java.util.Random;
-
 import tw.geodoer.mDatabase.API.DBLocationHelper;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mGeoInfo.API.DistanceCalculator;
+import tw.geodoer.mPriority.eventReceiver.GeoBroadcastReceiver;
 import tw.geodoer.utils.MyDebug;
 
 /**
@@ -34,35 +33,48 @@ public class GeoServicePosition extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-        GetlastPos();
-        MyDebug.MakeLog(2,"GetlastPos success");
+        MyDebug.MakeLog(2,"Position Service Start");
 
-
-        if( this.position_updater() )
+        boolean check;
+        check = this.GetlastPos();
+        if (check)
         {
-            this.distance_updater();
+            check = this.position_updater();
+            MyDebug.MakeLog(2,"position_updater success");
+        }
+        if( check)
+        {
+            check = this.distance_updater();
             MyDebug.MakeLog(2,"distance_updater success");
         }
-
+        if( check)
+        {
+            MyDebug.MakeLog(2,"call out Service Weight");
+            Intent it =new Intent("tw.geodoer.mPriority.service.RemainBroadcast");
+            it.putExtra("Command", GeoBroadcastReceiver.BROADCAST_COMMAND_WEIGHT);
+            sendBroadcast(it);
+        }
 
         stopSelf();
         return flags;
     }
-    public void GetlastPos()
+    public boolean GetlastPos()
     {
         //Load the last position from database
         this.Last_Lat = 22.0;
         this.Last_Lon = 120.0;
+        return  true;
     }
 
     public boolean position_updater()
     {
-        double NData[] = {22 ,23 ,24 ,25 ,26};
-        double WData[] = {120,121,122,123,124};
-        Random ran = new Random();
-        this.Now_Lat = NData[ran.nextInt()%NData.length];
-        this.Now_Lon = WData[ran.nextInt()%WData.length];
-
+        //double NData[] = {22.0 ,23.0 ,24.0};
+        //double WData[] = {120.0,121.0,122.0};
+        //Random ran = new Random();
+        //this.Now_Lat = NData[ran.nextInt()%NData.length];
+        //this.Now_Lon = WData[ran.nextInt()%WData.length];
+        this.Now_Lat = 23.0;
+        this.Now_Lon = 121.0;
         // true = update success  / false = at the same position
         if(this.Last_Lat == this.Now_Lat && this.Last_Lon ==this.Now_Lon)
         {
