@@ -46,12 +46,12 @@ public class ActionSetAlarm {
 		
 		// 設定Intent action屬性
 		intent.setAction(BC_ACTION);
-		intent.putExtra("msg", BC_ACTION);
+		intent.putExtra("msg", "me.iamcxa.remindme.alarm");
 		intent.putExtra("taskID", taskID);
 
 		// 實例化PendingIntent
 		final PendingIntent pi =
-				PendingIntent.getBroadcast(context, 1, intent,PendingIntent.FLAG_ONE_SHOT);
+				PendingIntent.getBroadcast(context, 1, intent,PendingIntent.FLAG_CANCEL_CURRENT);
 
 		
 		Calendar cal = Calendar.getInstance();

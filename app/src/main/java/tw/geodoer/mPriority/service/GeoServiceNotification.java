@@ -68,7 +68,7 @@ public class GeoServiceNotification extends Service
 				.setContentIntent(contentIntent)
                 .build();
 
-        notification.flags =Notification.FLAG_NO_CLEAR;
+        //notification.flags =Notification.FLAG_NO_CLEAR;
 
         nNotificationManager.notify(ID_My_Notification, notification);
 

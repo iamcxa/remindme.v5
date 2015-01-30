@@ -1,13 +1,27 @@
 package tw.geodoer.mPriority.service;
 
 
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.LocationManager;
+
 import android.os.IBinder;
 
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import tw.geodoer.mPriority.eventReceiver.GeoBroadcastReceiver;
+import tw.geodoer.main.taskList.view.AppMainActivity;
 import tw.geodoer.utils.MyDebug;
+import tw.moretion.geodoer.R;
 
 /**
  * @Murakumo
@@ -54,6 +68,14 @@ public class GeoServiceRegister extends Service
         //it.putExtra(GeoServiceNotification.MESSAGE,"Notification send success");
         sendBroadcast(it);
 */
+
+
+
+
+
+
+
+
 
         Stopself();
 	}
