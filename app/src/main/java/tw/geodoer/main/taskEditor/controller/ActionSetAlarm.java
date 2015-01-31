@@ -7,8 +7,8 @@ import android.content.Intent;
 
 import java.util.Calendar;
 
+import tw.geodoer.mPriority.eventReceiver.GeoBroadcastReceiver_TaskAlert;
 import tw.geodoer.utils.MyDebug;
-import tw.geodoer.main.taskAlert.eventReceiver.RemindmeReceiver_TaskAlert;
 
 public class ActionSetAlarm {
 	Context context;
@@ -19,9 +19,7 @@ public class ActionSetAlarm {
 	int mMinute;
 	long alertTime,taskID;
 
-	public ActionSetAlarm(Context context
-            , long alertTime
-            , int taskID) {
+	public ActionSetAlarm(Context context, long alertTime, int taskID) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.context = context;
@@ -44,16 +42,16 @@ public class ActionSetAlarm {
 				.getSystemService(Context.ALARM_SERVICE);
 
 		// 實例化Intent
-		Intent intent = new Intent(context,RemindmeReceiver_TaskAlert.class);
+		Intent intent = new Intent(context,GeoBroadcastReceiver_TaskAlert.class);
 		
 		// 設定Intent action屬性
 		intent.setAction(BC_ACTION);
-		intent.putExtra("msg", BC_ACTION);
+		intent.putExtra("msg", "me.iamcxa.remindme.alarm");
 		intent.putExtra("taskID", taskID);
 
 		// 實例化PendingIntent
 		final PendingIntent pi =
-				PendingIntent.getBroadcast(context, 1, intent,PendingIntent.FLAG_ONE_SHOT);
+				PendingIntent.getBroadcast(context, 1, intent,PendingIntent.FLAG_CANCEL_CURRENT);
 
 		
 		Calendar cal = Calendar.getInstance();

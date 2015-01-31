@@ -1,4 +1,4 @@
-package tw.geodoer.mGeoInfo.controller;
+package tw.geodoer.mGeoInfo.API;
 
 public class DistanceCalculator {
 	public static final double R = 6372.8; // In kilometers

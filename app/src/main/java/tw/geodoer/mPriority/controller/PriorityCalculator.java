@@ -17,7 +17,7 @@ import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.utils.MyCalendar;
 import tw.geodoer.utils.MyDebug;
-import tw.geodoer.mGeoInfo.controller.DistanceCalculator;
+import tw.geodoer.mGeoInfo.API.DistanceCalculator;
 
 /**
  * @author cxa

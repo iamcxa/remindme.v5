@@ -24,10 +24,10 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import tw.geodoer.mPriority.service.GeoServiceRegister;
 import tw.geodoer.utils.MyDebug;
 import tw.geodoer.main.taskPreference.controller.MyPreferences;
 import tw.geodoer.mGeoInfo.controller.LocationGetter;
-import tw.geodoer.mPriority.service.TaskSortingService;
 import tw.geodoer.main.taskEditor.controller.ActionSetAlarm;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
@@ -220,15 +220,15 @@ public class AppMainActivity extends ActionBarActivity {
     /**
      * ******************
      */
-    public void StartService() {
-        MyPreferences.mPreferences = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
+    public void StartService()
+    {
+        //MyPreferences.mPreferences = PreferenceManager
+        //        .getDefaultSharedPreferences(getApplicationContext());
 
-        if (MyPreferences.IS_SERVICE_ON()) {
-            Intent intent = new Intent(this, TaskSortingService.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startService(intent);
-        }
+        Intent intent = new Intent(this, GeoServiceRegister.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startService(intent);
+
     }
 
     /*************************/

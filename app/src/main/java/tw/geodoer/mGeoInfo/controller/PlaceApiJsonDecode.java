@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import java.text.NumberFormat;
 
-import tw.geodoer.mGeoInfo.controller.DistanceCalculator;
+import tw.geodoer.mGeoInfo.API.DistanceCalculator;
 
 public class PlaceApiJsonDecode {
 	String Json;
