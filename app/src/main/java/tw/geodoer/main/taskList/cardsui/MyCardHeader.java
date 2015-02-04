@@ -12,6 +12,11 @@ import it.gmariotti.cardslib.library.view.component.CardHeaderView;
 // implment the clickable card thumbnail.
 public class MyCardHeader extends CardHeaderView {
 
+    public MyCardHeader(Context context) {
+        super(context);
+        // TODO Auto-generated constructor stub
+    }
+
     @Override
     @SuppressLint("NewApi")
     protected void setupButtons() {
@@ -42,11 +47,6 @@ public class MyCardHeader extends CardHeaderView {
     public ImageButton getImageButtonOther() {
         // TODO Auto-generated method stub
         return super.getImageButtonOther();
-    }
-
-    public MyCardHeader(Context context) {
-        super(context);
-        // TODO Auto-generated constructor stub
     }
 
 }

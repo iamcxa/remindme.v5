@@ -35,7 +35,7 @@ import android.graphics.drawable.Drawable;
 
 /**
  * Image with rounded corners
- *
+ * <p/>
  * You can find the original source here:
  * http://www.curious-creature.org/2012/12/11/android-recipe-1-image-with-rounded-corners/
  *
@@ -72,7 +72,7 @@ public class RoundCornersDrawable extends Drawable {
         if (USE_VIGNETTE) {
             RadialGradient vignette = new RadialGradient(
                     mRect.centerX(), mRect.centerY() * 1.0f / 0.7f, mRect.centerX() * 1.3f,
-                    new int[] { 0, 0, 0x7f000000 }, new float[] { 0.0f, 0.7f, 1.0f },
+                    new int[]{0, 0, 0x7f000000}, new float[]{0.0f, 0.7f, 1.0f},
                     Shader.TileMode.CLAMP);
 
             Matrix oval = new Matrix();

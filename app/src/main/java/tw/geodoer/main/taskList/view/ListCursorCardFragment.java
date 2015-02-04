@@ -30,19 +30,18 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.shamanland.fab.ShowHideOnScroll;
 
 import it.gmariotti.cardslib.library.view.CardListView;
-import tw.geodoer.utils.MyCalendar;
-import tw.geodoer.utils.MyDebug;
-import tw.geodoer.main.taskPreference.controller.MyPreferences;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
 import tw.geodoer.main.taskList.adapter.MyCursorCardAdapter;
+import tw.geodoer.main.taskPreference.controller.MyPreferences;
+import tw.geodoer.utils.MyCalendar;
+import tw.geodoer.utils.MyDebug;
 import tw.moretion.geodoer.R;
 
 /**
@@ -55,7 +54,6 @@ public class ListCursorCardFragment extends MyBaseFragment implements
     // getArguments().getInt(FILTER_STRING)
     public static final String FILTER_STRING = "FILTER_STRING";
     private static int position;
-    private Handler mHandler;
     private static MyCursorCardAdapter mAdapter;
     private static CardListView mListView;
     private static String[] projectionTask = ColumnTask.PROJECTION;
@@ -71,15 +69,76 @@ public class ListCursorCardFragment extends MyBaseFragment implements
     private static String LocSortOrder = ColumnLocation.DEFAULT_SORT_ORDER;
     private static String[] selectionArgs;
     private static String todayString = MyCalendar.getTodayString(0);
+    private Handler mHandler;
+    private Runnable newInit = new Runnable() {
+
+        @Override
+        public void run() {
+            //setContentShown(true);
+
+            init();
+
+        }
+
+        ;
+    };
+
+
+    /********************/
+    /** Initialization **/
 
     public static ListCursorCardFragment newInstance() {
         ListCursorCardFragment fragment = new ListCursorCardFragment();
         return fragment;
     }
 
+    //-------------------------------------------------//
+    public static MyCursorCardAdapter getmAdapter() {
+        return mAdapter;
+    }
 
-    /********************/
-    /** Initialization **/
+    public static void setmAdapter(MyCursorCardAdapter mAdapter) {
+        ListCursorCardFragment.mAdapter = mAdapter;
+    }
+
+    public static String getTaskSelection() {
+        return taskSelection;
+    }
+
+    public static void setTaskSelection(String taskSelection) {
+        ListCursorCardFragment.taskSelection = taskSelection;
+    }
+
+    public static String getAlertSelection() {
+        return alertSelection;
+    }
+
+    public static void setAlertSelection(String alertSelection) {
+        ListCursorCardFragment.alertSelection = alertSelection;
+    }
+
+    public static String getLocSelection() {
+        return LocSelection;
+    }
+
+    public static void setLocSelection(String locSelection) {
+        LocSelection = locSelection;
+    }
+
+    /**
+     * @return the position
+     */
+    public static int getPosition() {
+        return position;
+    }
+
+    /**
+     * @param position the position to set
+     */
+    public static void setPosition(int position) {
+        ListCursorCardFragment.position = position;
+    }
+
     /**
      * ****************
      */
@@ -100,8 +159,9 @@ public class ListCursorCardFragment extends MyBaseFragment implements
                 MyPreferences.mPreferences = PreferenceManager
                         .getDefaultSharedPreferences(getActivity());
 
-                int val_radiated_distance =  MyPreferences.getValueOfRadiatedDistance();;
-               // setTaskSelection("distance <= '" + val_radiated_distance + "' ");
+                int val_radiated_distance = MyPreferences.getValueOfRadiatedDistance();
+                ;
+                // setTaskSelection("distance <= '" + val_radiated_distance + "' ");
                 break;
             case 2:// 已完成
                 setTaskSelection("checked = 1");
@@ -160,7 +220,6 @@ public class ListCursorCardFragment extends MyBaseFragment implements
         LoaderManager.enableDebugLogging(true);
     }
 
-
     @Override
     public int getTitleResourceId() {
         return R.string.app_name;
@@ -184,7 +243,6 @@ public class ListCursorCardFragment extends MyBaseFragment implements
         //getLoaderManager().initLoader(301, null, this);
         init();
     }
-
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -224,68 +282,6 @@ public class ListCursorCardFragment extends MyBaseFragment implements
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mAdapter.swapCursor(null);
-    }
-
-    private Runnable newInit = new Runnable() {
-
-        @Override
-        public void run() {
-            //setContentShown(true);
-
-            init();
-
-        }
-
-        ;
-    };
-
-    //-------------------------------------------------//
-    public static MyCursorCardAdapter getmAdapter() {
-        return mAdapter;
-    }
-
-    public static void setmAdapter(MyCursorCardAdapter mAdapter) {
-        ListCursorCardFragment.mAdapter = mAdapter;
-    }
-
-    public static String getTaskSelection() {
-        return taskSelection;
-    }
-
-    public static void setTaskSelection(String taskSelection) {
-        ListCursorCardFragment.taskSelection = taskSelection;
-    }
-
-    public static String getAlertSelection() {
-        return alertSelection;
-    }
-
-    public static void setAlertSelection(String alertSelection) {
-        ListCursorCardFragment.alertSelection = alertSelection;
-    }
-
-    public static String getLocSelection() {
-        return LocSelection;
-    }
-
-    public static void setLocSelection(String locSelection) {
-        LocSelection = locSelection;
-    }
-
-
-    /**
-     * @return the position
-     */
-    public static int getPosition() {
-        return position;
-    }
-
-
-    /**
-     * @param position the position to set
-     */
-    public static void setPosition(int position) {
-        ListCursorCardFragment.position = position;
     }
 
 

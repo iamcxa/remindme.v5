@@ -10,7 +10,6 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.view.View;
-import android.widget.Toast;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardCursorAdapter;
@@ -95,8 +94,8 @@ public class MyCursorCardAdapter extends CardCursorAdapter {
         card.setOnClickListener(new Card.OnCardClickListener() {
             @Override
             public void onClick(Card card, View view) {
-            //    Toast.makeText(getContext(), "Clickable card", Toast.LENGTH_LONG).show();
-              mReadCardOnClick.readIt(card.getId());
+                //    Toast.makeText(getContext(), "Clickable card", Toast.LENGTH_LONG).show();
+                mReadCardOnClick.readIt(card.getId());
             }
         });
 

@@ -6,38 +6,35 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import tw.geodoer.mPriority.service.GeoServiceNotification;
-import tw.geodoer.utils.MyDebug;
 import tw.geodoer.main.taskAlert.controller.AlertHandler;
+import tw.geodoer.utils.MyDebug;
 
 /**
  * @author iamcxa 定時提醒廣播
  */
 public class GeoBroadcastReceiver_TaskAlert extends BroadcastReceiver {
-	@Override
-	public void onReceive(Context context, Intent intent) {
+    @Override
+    public void onReceive(Context context, Intent intent) {
 
-		MyDebug.MakeLog(2, "@RemindmeReceiver_TaskAlert");
+        MyDebug.MakeLog(2, "@RemindmeReceiver_TaskAlert");
 
-		Bundle b = intent.getExtras();
-		
-		Bundle newB = new Bundle();
+        Bundle b = intent.getExtras();
 
-		if(b.get("msg").equals("me.iamcxa.remindme.alarm"))
-		{
-			//intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			//
-			intent.setClass(context, AlertHandler.class);
-			//
+        Bundle newB = new Bundle();
 
-			newB.putString("taskID", b.get("taskID").toString());
+        if (b.get("msg").equals("me.iamcxa.remindme.alarm")) {
+            //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //
+            intent.setClass(context, AlertHandler.class);
+            //
 
-		    intent.putExtras(newB);
+            newB.putString("taskID", b.get("taskID").toString());
 
-			context.startService(intent);
+            intent.putExtras(newB);
 
-		}
-        else if(b.get("msg").equals("me.iamcxa.remindme.location"))
-        {
+            context.startService(intent);
+
+        } else if (b.get("msg").equals("me.iamcxa.remindme.location")) {
 
             //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -45,7 +42,7 @@ public class GeoBroadcastReceiver_TaskAlert extends BroadcastReceiver {
             //------------------------------------------------------------------------
 
             //set location handler
-            intent.setClass(context,GeoServiceNotification.class);
+            intent.setClass(context, GeoServiceNotification.class);
 
             //------------------------------------------------------------------------
 
@@ -58,5 +55,5 @@ public class GeoBroadcastReceiver_TaskAlert extends BroadcastReceiver {
 
 
         }
-	}
+    }
 }

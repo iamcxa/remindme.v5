@@ -8,30 +8,30 @@ import android.app.FragmentTransaction;
 import tw.moretion.geodoer.R;
 
 
-public class MyTabListener implements  ActionBar.TabListener {
+public class MyTabListener implements ActionBar.TabListener {
 
-	private Fragment mFragment;
+    private Fragment mFragment;
 
-	public MyTabListener(Fragment fragment) {
-		mFragment = fragment;
-	}
+    public MyTabListener(Fragment fragment) {
+        mFragment = fragment;
+    }
 
-	@Override
-	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void onTabReselected(Tab tab, FragmentTransaction ft) {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		ft.add(R.id.frameLayout, mFragment, null);
-	}
+    }
 
-	@Override
-	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		ft.remove(mFragment);
-	}
+    @Override
+    public void onTabSelected(Tab tab, FragmentTransaction ft) {
+        // TODO Auto-generated method stub
+        ft.add(R.id.frameLayout, mFragment, null);
+    }
+
+    @Override
+    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+        // TODO Auto-generated method stub
+        ft.remove(mFragment);
+    }
 
 }

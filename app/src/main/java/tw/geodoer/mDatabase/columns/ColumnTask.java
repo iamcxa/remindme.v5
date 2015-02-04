@@ -12,19 +12,13 @@ import tw.geodoer.utils.CommonVar;
  */
 public final class ColumnTask implements BaseColumns {
 
-    private ColumnTask() {
-    }
-
     // 預設排序常數
     public static final String DEFAULT_SORT_ORDER = "created DESC";
-
     // 資料表名稱常數
     public static final String TABLE_NAME = "tasks";
-
     // 存取Uri
     public static final Uri URI =
             Uri.parse("content://" + CommonVar.AUTHORITY + "/" + TABLE_NAME);
-
     public static final String exec_SQL_Statment =
             "CREATE TABLE "
                     + TABLE_NAME
@@ -51,7 +45,6 @@ public final class ColumnTask implements BaseColumns {
                     + KEY.checked + " INTEGER,"
                     + " created_at DATETIME DEFAULT CURRENT_TIMESTAMP"
                     + ");";
-
     // 查詢欄位陣列
     public static final String[] PROJECTION = new String[]{
             KEY._id,
@@ -74,7 +67,6 @@ public final class ColumnTask implements BaseColumns {
             // 已完成
             KEY.checked
     };
-
     // 查詢欄位陣列
     public static final int[] ALL_COLUMN_INDEX = new int[]{
             KEY.INDEX._id,
@@ -97,6 +89,9 @@ public final class ColumnTask implements BaseColumns {
             // 已完成
             KEY.INDEX.checked
     };
+
+    private ColumnTask() {
+    }
 
     /*
      *  ColumnNames - 欄位名稱

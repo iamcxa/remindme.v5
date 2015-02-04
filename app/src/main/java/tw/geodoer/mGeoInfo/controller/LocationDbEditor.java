@@ -6,22 +6,23 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class LocationDbEditor {
-	private Context context;
-	private LocationDbHelper DH = null;
-	private SQLiteDatabase db;
-	public LocationDbEditor(Context context){
-		this.context=context;
-	}
-	
-	public void openDB(){
-    	DH = new LocationDbHelper(context);  
+    private Context context;
+    private LocationDbHelper DH = null;
+    private SQLiteDatabase db;
+
+    public LocationDbEditor(Context context) {
+        this.context = context;
     }
-	
-    public void closeDB(){
-    	DH.close();    	
+
+    public void openDB() {
+        DH = new LocationDbHelper(context);
     }
-    
-    public void add(String Json,float lat,float lng,String keyword,String type){
+
+    public void closeDB() {
+        DH.close();
+    }
+
+    public void add(String Json, float lat, float lng, String keyword, String type) {
         db = DH.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("_lat", lat);
@@ -31,77 +32,77 @@ public class LocationDbEditor {
         values.put("_ApiJson", Json);
         db.insert(LocationDbHelper._TableName, null, values);
     }
-    
+
     public Cursor getAll() {
-    	db = DH.getWritableDatabase();
-		return db.query(LocationDbHelper._TableName,		//資料表名稱
-		new String[] {"_ID", "_lat", "_lng","_keyword","_type","_ApiJson"},	//欄位名稱
-		null, // WHERE
-		null, // WHERE 的參數
-		null, // GROUP BY
-		null, // HAVING
-		null  // ORDOR BY
-		);
-	}
-    
+        db = DH.getWritableDatabase();
+        return db.query(LocationDbHelper._TableName,        //資料表名稱
+                new String[]{"_ID", "_lat", "_lng", "_keyword", "_type", "_ApiJson"},    //欄位名稱
+                null, // WHERE
+                null, // WHERE 的參數
+                null, // GROUP BY
+                null, // HAVING
+                null  // ORDOR BY
+        );
+    }
+
     public Cursor get(long rowId) {
-    	db = DH.getWritableDatabase();
-		Cursor cursor = db.query(true,
-		LocationDbHelper._TableName,				//資料表名稱
-		new String[] {"_ID", "_lat", "_lng","_keyword","_type","_ApiJson"},	//欄位名稱
-		"_ID="+rowId,				//WHERE
-		null, // WHERE 的參數
-		null, // GROUP BY
-		null, // HAVING
-		null, // ORDOR BY
-		null  // 限制回傳的rows數量
-		);
- 
-		// 注意：不寫會出錯
-		if (cursor != null) {
-			cursor.moveToFirst();	//將指標移到第一筆資料
-		}
-		return cursor;
-	}
-   
+        db = DH.getWritableDatabase();
+        Cursor cursor = db.query(true,
+                LocationDbHelper._TableName,                //資料表名稱
+                new String[]{"_ID", "_lat", "_lng", "_keyword", "_type", "_ApiJson"},    //欄位名稱
+                "_ID=" + rowId,                //WHERE
+                null, // WHERE 的參數
+                null, // GROUP BY
+                null, // HAVING
+                null, // ORDOR BY
+                null  // 限制回傳的rows數量
+        );
+
+        // 注意：不寫會出錯
+        if (cursor != null) {
+            cursor.moveToFirst();    //將指標移到第一筆資料
+        }
+        return cursor;
+    }
+
     public Cursor getKeywordLocation(String keyword) {
-    	db = DH.getWritableDatabase();
-		Cursor cursor = db.query(true,
-		LocationDbHelper._TableName,				//資料表名稱
-		new String[] {"_ID", "_lat", "_lng","_keyword","_type","_ApiJson"},	//欄位名稱
-		"_keyword=?",				//WHERE
-		new String[] {keyword}, // WHERE 的參數
-		null, // GROUP BY
-		null, // HAVING
-		null, // ORDOR BY
-		null  // 限制回傳的rows數量
-		);
- 
-		// 注意：不寫會出錯
-		if (cursor != null) {
-			cursor.moveToFirst();	//將指標移到第一筆資料
-		}
-		return cursor;
-	}
-    
+        db = DH.getWritableDatabase();
+        Cursor cursor = db.query(true,
+                LocationDbHelper._TableName,                //資料表名稱
+                new String[]{"_ID", "_lat", "_lng", "_keyword", "_type", "_ApiJson"},    //欄位名稱
+                "_keyword=?",                //WHERE
+                new String[]{keyword}, // WHERE 的參數
+                null, // GROUP BY
+                null, // HAVING
+                null, // ORDOR BY
+                null  // 限制回傳的rows數量
+        );
+
+        // 注意：不寫會出錯
+        if (cursor != null) {
+            cursor.moveToFirst();    //將指標移到第一筆資料
+        }
+        return cursor;
+    }
+
     public Cursor getTypedLocation(String type) {
-    	db = DH.getWritableDatabase();
-		Cursor cursor = db.query(true,
-		LocationDbHelper._TableName,				//資料表名稱
-		new String[] {"_ID", "_lat", "_lng","_keyword","_type","_ApiJson"},	//欄位名稱
-		"_type=?",				//WHERE
-		new String[] {type}, // WHERE 的參數
-		null, // GROUP BY
-		null, // HAVING
-		null, // ORDOR BY
-		null  // 限制回傳的rows數量
-		);
- 
-		// 注意：不寫會出錯
-		if (cursor != null) {
-			cursor.moveToFirst();	//將指標移到第一筆資料
-		}
-		return cursor;
-	}
-   
+        db = DH.getWritableDatabase();
+        Cursor cursor = db.query(true,
+                LocationDbHelper._TableName,                //資料表名稱
+                new String[]{"_ID", "_lat", "_lng", "_keyword", "_type", "_ApiJson"},    //欄位名稱
+                "_type=?",                //WHERE
+                new String[]{type}, // WHERE 的參數
+                null, // GROUP BY
+                null, // HAVING
+                null, // ORDOR BY
+                null  // 限制回傳的rows數量
+        );
+
+        // 注意：不寫會出錯
+        if (cursor != null) {
+            cursor.moveToFirst();    //將指標移到第一筆資料
+        }
+        return cursor;
+    }
+
 }

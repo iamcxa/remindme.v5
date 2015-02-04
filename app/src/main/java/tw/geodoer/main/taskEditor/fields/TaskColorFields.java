@@ -3,10 +3,11 @@ package tw.geodoer.main.taskEditor.fields;
 /**
  * Created by Kent on 2014/12/24.
  */
-public class TaskColorFields{
-    public TaskColorFields(){}
+public class TaskColorFields {
+    private int taskDefaultColor = 0;
 
-    private int taskDefaultColor=0;
+    public TaskColorFields() {
+    }
 
     //---------------Getter/Setter-----------------//
 
@@ -16,6 +17,7 @@ public class TaskColorFields{
     public int getTaskDefaultColor() {
         return taskDefaultColor;
     }
+
     /**
      * @param taskDefaultColor the taskDefault to set
      */
