@@ -15,14 +15,26 @@ import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.utils.MyDebug;
 
 /**
- * @version 0.3
- * @since 20150204
+ * @version 0.4
+ * @since 20150205
  */
 public class DBLocationHelper {
 
     private Context context;
     private Uri mUri = ColumnLocation.URI;
-    private String className = this.getClass().getName().getClass().toString();
+
+
+    /**
+     * 此方法為 API 內部統一 Log 輸出規格之用。
+     * @param methodName 發出訊息的 Method 名稱
+     * @param msg        訊息
+     */
+    private void logOut(String methodName,String msg) {
+            String newMsg = Thread.currentThread().getStackTrace()[1].getMethodName()
+                    +"." + methodName + ":" + msg;
+            MyDebug.MakeLog(2, newMsg);
+
+    }
 
 
     /**
@@ -35,16 +47,6 @@ public class DBLocationHelper {
         this.context = context;
     }
 
-    /**
-     * 此方法為 API 內部統一 Log 輸出規格之用。
-     *
-     * @param methodName method名稱
-     * @param msg        錯誤訊息
-     */
-    private void msgOut(String methodName, String msg) {
-        String newMsg = className + "." + methodName + ":" + msg;
-        MyDebug.MakeLog(2, newMsg);
-    }
 
     /**
      * 檢查傳入的 Cursor 是否已經關閉；如果尚未關閉則關閉它。
@@ -58,7 +60,7 @@ public class DBLocationHelper {
             if (!cursor.isClosed()) cursor.close();
             return true;
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
             return false;
         }
     }
@@ -109,7 +111,7 @@ public class DBLocationHelper {
                             selectionArgs,
                             shortOrder);
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
             return null;
         }
     }
@@ -156,7 +158,7 @@ public class DBLocationHelper {
                 return "error";
             }
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
             return "error";
         }
     }
@@ -188,7 +190,7 @@ public class DBLocationHelper {
                 return -1;
             }
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
             return -1;
         }
     }
@@ -220,7 +222,7 @@ public class DBLocationHelper {
                 return -1d;
             }
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
             return -1d;
         }
     }
@@ -252,7 +254,7 @@ public class DBLocationHelper {
                 return -1l;
             }
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
             return -1l;
         }
     }
@@ -300,7 +302,7 @@ public class DBLocationHelper {
             context.getContentResolver().insert(mUri, values);
             return true;
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
             return false;
         }
     }
@@ -328,7 +330,7 @@ public class DBLocationHelper {
 
             return true;
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
             return false;
         }
     }
@@ -356,7 +358,7 @@ public class DBLocationHelper {
 
             return true;
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
             return false;
         }
     }
@@ -377,7 +379,7 @@ public class DBLocationHelper {
 
             return true;
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
             return false;
         }
     }

@@ -8,6 +8,8 @@ import android.database.Cursor;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.utils.MyCalendar;
 import tw.geodoer.utils.MyDebug;
@@ -108,24 +110,30 @@ public class Example_DBAlertHelper implements View.OnClickListener {
         MyDebug.MakeLog(2, "dbAlertHelper.getCount=" + count);
 
         // 取得未完成的任務總數量
-        int countUunfinished=dbAlertHelper.getCountByUnFinishedTask();
-        MyDebug.MakeLog(2, "dbAlertHelper.getCountByUnFinishedTask=" + countUunfinished);
+        int countUnfinished=dbAlertHelper.getCountOfUnFinishedTask();
+        MyDebug.MakeLog(2, "dbAlertHelper.getCountOfUnFinishedTask=" + countUnfinished);
+
+        // 取得未完成的任務ID陣列
+        ArrayList<Integer> idArrayUnfinished=dbAlertHelper.getIDArrayListOfUnFinishedTask();
+        MyDebug.MakeLog(2, "dbAlertHelper.getIDArrayListOfUnFinishedTask="
+                + idArrayUnfinished);
+
 
         // 取得已完成的任務總數量
-        int countFinished=dbAlertHelper.getCountByFinishedTask();
-        MyDebug.MakeLog(2, "dbAlertHelper.getCountByFinishedTask=" + countFinished);
+        int countFinished=dbAlertHelper.getCountOfFinishedTask();
+        MyDebug.MakeLog(2, "dbAlertHelper.getCountOfFinishedTask=" + countFinished);
 
         // 取得地點提醒的任務總數量
-        int countLocationAlertTask=dbAlertHelper.getCountByLocationAlertTask();
-        MyDebug.MakeLog(2, "dbAlertHelper.getCountByLocationAlertTask=" + countLocationAlertTask);
+        int countLocationAlertTask=dbAlertHelper.getCountOfLocationAlertTask();
+        MyDebug.MakeLog(2, "dbAlertHelper.getCountOfLocationAlertTask=" + countLocationAlertTask);
 
         // 取得到期提醒的任務總數量
-        int countTimeAlertTask=dbAlertHelper.getCountByTimeAlertTask();
-        MyDebug.MakeLog(2, "dbAlertHelper.getCountByTimeAlertTask=" + countTimeAlertTask);
+        int countTimeAlertTask=dbAlertHelper.getCountOfTimeAlertTask();
+        MyDebug.MakeLog(2, "dbAlertHelper.getCountOfTimeAlertTask=" + countTimeAlertTask);
 
         // 取得啟用智慧提醒的任務總數量
-        int smartCount=dbAlertHelper.getCountBySmartAlertTask();
-        MyDebug.MakeLog(2, "dbAlertHelper.getCountBySmartAlertTask=" + smartCount);
+        int smartCount=dbAlertHelper.getCountOfSmartAlertTask();
+        MyDebug.MakeLog(2, "dbAlertHelper.getCountOfSmartAlertTask=" + smartCount);
 
         Toast.makeText(context, "this.getClass().getName()=\n" +
                 this.getClass().getName(), Toast.LENGTH_LONG).show();
