@@ -11,18 +11,32 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
+import java.util.ArrayList;
+
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.utils.MyDebug;
 
 /**
- * @version 0.2
- * @since 20150204
+ * @version 0.3
+ * @since 20150205
  */
 public class DBAlertHelper {
 
     private Context context;
     private Uri mUri = ColumnAlert.URI;
-    private String className = this.getClass().getName().getClass().toString();
+
+
+    /**
+     * 此方法為 API 內部統一 Log 輸出規格之用。
+     * @param methodName 發出訊息的 Method 名稱
+     * @param msg        訊息
+     */
+    private void logOut(String methodName,String msg) {
+        String newMsg = Thread.currentThread().getStackTrace()[1].getMethodName()
+                +"." + methodName + ":" + msg;
+        MyDebug.MakeLog(2, newMsg);
+
+    }
 
 
     /**
@@ -35,16 +49,6 @@ public class DBAlertHelper {
         this.context = context;
     }
 
-    /**
-     * 此方法為 API 內部統一 Log 輸出規格之用。
-     *
-     * @param methodName method名稱
-     * @param msg        錯誤訊息
-     */
-    private void msgOut(String methodName, String msg) {
-        String newMsg = className + "." + methodName + ":" + msg;
-        MyDebug.MakeLog(2, newMsg);
-    }
 
     /**
      * 檢查傳入的 Cursor 是否已經關閉；如果尚未關閉則關閉它。
@@ -58,7 +62,7 @@ public class DBAlertHelper {
             if (!cursor.isClosed()) cursor.close();
             return true;
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return false;
         }
     }
@@ -107,7 +111,7 @@ public class DBAlertHelper {
                             selectionArgs,
                             shortOrder);
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return null;
         }
     }
@@ -135,7 +139,7 @@ public class DBAlertHelper {
      * @return (int) a count of "UnFinished" Task of the table "task_alerts"..
      * <br> (int) -1, if any error was occurred.
      */
-    public int getCountByUnFinishedTask() {
+    public int getCountOfUnFinishedTask() {
         String[] projection = {"_id", "state"};
         // 0-> 未完成 1->已完成
         try {
@@ -146,8 +150,42 @@ public class DBAlertHelper {
             else
                 return -1;
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1;
+        }
+    }
+
+
+    /**
+     * 此方法可取得資料表 task_alerts 之"未完成"任務之 ID 陣列。
+     *
+     * @return (ArrayList) a ID ArrayList of "UnFinished" Task of the table "task_alerts"..
+     * <br> (int) null, if any error was occurred.
+     */
+    public ArrayList<Integer> getIDArrayListOfUnFinishedTask() {
+        String[] projection = {"_id", "state"};
+        // 0-> 未完成 1->已完成
+        try {
+            Cursor thisCursor = getCursor(projection, "state == 0", null, "_id DESC");
+            int i,thisCount=thisCursor.getCount();
+            ArrayList<Integer> thisArray =new ArrayList<>();
+            //setMethodName("getIDArrayListOfUnFinishedTask");
+           // logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),"thisCount="+thisCount);
+            if(thisCursor.moveToFirst()){
+                for (i=0;i<(thisCount);i++) {
+                    //logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),"value="+thisCursor.getInt(0)+",position="+ thisCursor.getPosition());
+                    thisArray.add(thisCursor.getInt(0));
+                    if(i<(thisCount)) thisCursor.moveToNext();
+                }
+                if (closeCursor(thisCursor))
+                    return thisArray;
+                else
+                    return null;
+            }else
+                return null;
+        } catch (Exception e) {
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            return null;
         }
     }
 
@@ -158,7 +196,7 @@ public class DBAlertHelper {
      * @return (int) a count of "Finished" Task of the table "task_alerts"..
      * <br> (int) -1, if any error was occurred.
      */
-    public int getCountByFinishedTask() {
+    public int getCountOfFinishedTask() {
         String[] projection = {"_id", "state"};
         // 0-> 未完成 1->已完成
         try {
@@ -169,19 +207,53 @@ public class DBAlertHelper {
             else
                 return -1;
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1;
         }
     }
 
 
     /**
-     * 此方法可取得資料表 task_alerts 之"到期"提醒類型任務總數量。
+     * 此方法可取得資料表 task_alerts 之"已完成"任務之 ID 陣列。
      *
-     * @return (int) a count of "Time Depends" Task of the table "task_alerts".
+     * @return (ArrayList) a ID ArrayList of "Finished" Task of the table "task_alerts"..
+     * <br> (int) null, if any error was occurred.
+     */
+    public ArrayList<Integer> getIDArrayListOfFinishedTask() {
+        String[] projection = {"_id", "state"};
+        // 0-> 未完成 1->已完成
+        try {
+            Cursor thisCursor = getCursor(projection, "state == 1", null, "_id DESC");
+            int i,thisCount=thisCursor.getCount();
+            ArrayList<Integer> thisArray =new ArrayList<>();
+            //setMethodName("getIDArrayListOfUnFinishedTask");
+            // logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),"thisCount="+thisCount);
+            if(thisCursor.moveToFirst()){
+                for (i=0;i<(thisCount);i++) {
+                    //logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),"value="+thisCursor.getInt(0)+",position="+ thisCursor.getPosition());
+                    thisArray.add(thisCursor.getInt(0));
+                    if(i<(thisCount)) thisCursor.moveToNext();
+                }
+                if (closeCursor(thisCursor))
+                    return thisArray;
+                else
+                    return null;
+            }else
+                return null;
+        } catch (Exception e) {
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            return null;
+        }
+    }
+
+
+    /**
+     * 此方法可取得資料表 task_alerts 之"到期提醒"類型任務總數量。
+     *
+     * @return (int) a count of "Time-Depends" Task of the table "task_alerts".
      * <br> (int) -1, if any error was occurred.
      */
-    public int getCountByTimeAlertTask() {
+    public int getCountOfTimeAlertTask() {
         String[] projection = {"_id", "type"};
         // 0-> 無提醒 1->到期提醒 2->提醒 3->到期+靠近提醒
         try {
@@ -192,8 +264,42 @@ public class DBAlertHelper {
             else
                 return -1;
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1;
+        }
+    }
+
+
+    /**
+     * 此方法可取得資料表 task_alerts 之"到期提醒"類型任務之 ID 陣列。
+     *
+     * @return (ArrayList) a ID ArrayList of "Time-Depends" Task of the table "task_alerts"..
+     * <br>  null, if any error was occurred.
+     */
+    public ArrayList<Integer> getIDArrayListOfTimeAlertTask() {
+        String[] projection = {"_id", "state"};
+        // 0-> 未完成 1->已完成
+        try {
+            Cursor thisCursor = getCursor(projection, "type == 1", null, "_id DESC");
+            int i,thisCount=thisCursor.getCount();
+            ArrayList<Integer> thisArray =new ArrayList<>();
+            //setMethodName("getIDArrayListOfUnFinishedTask");
+            // logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),"thisCount="+thisCount);
+            if(thisCursor.moveToFirst()){
+                for (i=0;i<(thisCount);i++) {
+                    //logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),"value="+thisCursor.getInt(0)+",position="+ thisCursor.getPosition());
+                    thisArray.add(thisCursor.getInt(0));
+                    if(i<(thisCount)) thisCursor.moveToNext();
+                }
+                if (closeCursor(thisCursor))
+                    return thisArray;
+                else
+                    return null;
+            }else
+                return null;
+        } catch (Exception e) {
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            return null;
         }
     }
 
@@ -201,10 +307,10 @@ public class DBAlertHelper {
     /**
      * 此方法可取得資料表 task_alerts 之"靠近"提醒類型任務總數量。
      *
-     * @return (int) a count of "Location Depends" Task of the table "task_alerts".
+     * @return (int) a count of "Location-Depends" Task of the table "task_alerts".
      * <br> (int) -1, if any error was occurred.
      */
-    public int getCountByLocationAlertTask() {
+    public int getCountOfLocationAlertTask() {
         String[] projection = {"_id", "type"};
         // 0-> 無提醒 1->到期提醒 2->提醒 3->到期+靠近提醒
         try {
@@ -215,8 +321,42 @@ public class DBAlertHelper {
             else
                 return -1;
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1;
+        }
+    }
+
+
+    /**
+     * 此方法可取得資料表 task_alerts 之"靠近提醒"類型任務之 ID 陣列。
+     *
+     * @return (ArrayList) a ID ArrayList of "Location-Depends" Task of the table "task_alerts"..
+     * <br>  null, if any error was occurred.
+     */
+    public ArrayList<Integer> getIDArrayListOfLocationAlertTask() {
+        String[] projection = {"_id", "state"};
+        // 0-> 未完成 1->已完成
+        try {
+            Cursor thisCursor = getCursor(projection, "type == 2", null, "_id DESC");
+            int i,thisCount=thisCursor.getCount();
+            ArrayList<Integer> thisArray =new ArrayList<>();
+            //setMethodName("getIDArrayListOfUnFinishedTask");
+            // logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),"thisCount="+thisCount);
+            if(thisCursor.moveToFirst()){
+                for (i=0;i<(thisCount);i++) {
+                    //logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),"value="+thisCursor.getInt(0)+",position="+ thisCursor.getPosition());
+                    thisArray.add(thisCursor.getInt(0));
+                    if(i<(thisCount)) thisCursor.moveToNext();
+                }
+                if (closeCursor(thisCursor))
+                    return thisArray;
+                else
+                    return null;
+            }else
+                return null;
+        } catch (Exception e) {
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            return null;
         }
     }
 
@@ -227,7 +367,7 @@ public class DBAlertHelper {
      * @return (int) a count of "Smart(loc+time)" Task of the table "task_alerts".
      * <br> (int) -1, if any error was occurred.
      */
-    public int getCountBySmartAlertTask() {
+    public int getCountOfSmartAlertTask() {
         String[] projection = {"_id", "type"};
         // 0-> 無提醒 1->到期提醒 2->提醒 3->到期+靠近提醒
         try {
@@ -238,8 +378,42 @@ public class DBAlertHelper {
             else
                 return -1;
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1;
+        }
+    }
+
+
+    /**
+     * 此方法可取得資料表 task_alerts 之"靠近且到期提醒"類型任務之 ID 陣列。
+     *
+     * @return (ArrayList) a ID ArrayList of "Smart(loc+time)" Task of the table "task_alerts"..
+     * <br>  null, if any error was occurred.
+     */
+    public ArrayList<Integer> getIDArrayListOfSmartAlertTask() {
+        String[] projection = {"_id", "state"};
+        // 0-> 未完成 1->已完成
+        try {
+            Cursor thisCursor = getCursor(projection, "type == 2", null, "_id DESC");
+            int i,thisCount=thisCursor.getCount();
+            ArrayList<Integer> thisArray =new ArrayList<>();
+            //setMethodName("getIDArrayListOfUnFinishedTask");
+            // logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),"thisCount="+thisCount);
+            if(thisCursor.moveToFirst()){
+                for (i=0;i<(thisCount);i++) {
+                    //logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),"value="+thisCursor.getInt(0)+",position="+ thisCursor.getPosition());
+                    thisArray.add(thisCursor.getInt(0));
+                    if(i<(thisCount)) thisCursor.moveToNext();
+                }
+                if (closeCursor(thisCursor))
+                    return thisArray;
+                else
+                    return null;
+            }else
+                return null;
+        } catch (Exception e) {
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            return null;
         }
     }
 
@@ -269,7 +443,7 @@ public class DBAlertHelper {
                 return "error";
             }
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return "error";
         }
     }
@@ -301,7 +475,7 @@ public class DBAlertHelper {
                 return -1;
             }
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1;
         }
     }
@@ -333,7 +507,7 @@ public class DBAlertHelper {
                 return -1d;
             }
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1d;
         }
     }
@@ -365,7 +539,7 @@ public class DBAlertHelper {
                 return -1l;
             }
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1l;
         }
     }
@@ -404,8 +578,7 @@ public class DBAlertHelper {
             context.getContentResolver().insert(mUri, values);
             return true;
         } catch (Exception e) {
-            // TODO: handle exception
-            MyDebug.MakeLog(2, className + " additem method error=" + e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return false;
         }
     }
@@ -428,7 +601,7 @@ public class DBAlertHelper {
             context.getContentResolver().update(thisUri, values, null, null);
             return true;
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return false;
         }
     }
@@ -451,7 +624,7 @@ public class DBAlertHelper {
             context.getContentResolver().update(thisUri, values, null, null);
             return true;
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return false;
         }
     }
@@ -474,7 +647,7 @@ public class DBAlertHelper {
             context.getContentResolver().update(thisUri, values, null, null);
             return true;
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return false;
         }
     }
@@ -497,7 +670,7 @@ public class DBAlertHelper {
             context.getContentResolver().update(thisUri, values, null, null);
             return true;
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return false;
         }
     }
@@ -511,17 +684,17 @@ public class DBAlertHelper {
      * <br> false, also logcat will output className+" deleteItem method error=..."。
      */
     public boolean deleteItem(int itemId) {
-
         try {
             context
                     .getContentResolver()
                     .delete(mUri, "_id = ?", new String[]{String.valueOf(itemId)});
             return true;
         } catch (Exception e) {
-            msgOut(Thread.currentThread().getStackTrace()[1].getMethodName(), e.toString());
+             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return false;
         }
     }
+
 
     /**
      * 表 task_alerts 之封裝資料物件

@@ -377,5 +377,7 @@ class setTableAlert {
         values.put(ColumnAlert.KEY.time_offset, mEditorVar.TaskAlert.getTime_offset());
         // 11- 提醒類型
         values.put(ColumnAlert.KEY.type, mEditorVar.TaskAlert.getType());
+        // 12- 提醒狀態
+        values.put(ColumnAlert.KEY.state, mEditorVar.TaskAlert.getState());
     }
 }
