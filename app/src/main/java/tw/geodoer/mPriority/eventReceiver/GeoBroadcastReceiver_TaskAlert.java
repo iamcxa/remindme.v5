@@ -32,9 +32,9 @@ public class GeoBroadcastReceiver_TaskAlert extends BroadcastReceiver {
         MyDebug.MakeLog(2, "get msg: " + msg);
 
 
-        if (action.equals("me.iamcxa.remindme.TaskReceiver")) {
+        if (action.equals("me.iamcxa.remindme.TaskReceiver"))
+        {
             switch (msg)
-
             {
                 case "me.iamcxa.remindme.alarm":
                     //if(msg.equals("me.iamcxa.remindme.alarm"))

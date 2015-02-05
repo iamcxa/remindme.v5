@@ -17,30 +17,19 @@ public class GeoServiceWeight extends Service {
     }
 
     @Override
-<<<<<<< HEAD
     public void onCreate()
     {
         MyDebug.MakeLog(2,"@Service Weight Start");
         weight_updater();
         stopSelf();
-=======
-    public void onCreate() {
->>>>>>> master
+
         super.onCreate();
     }
 
     @Override
-<<<<<<< HEAD
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-=======
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        MyDebug.MakeLog(2, "Service Weight Start");
 
-        weight_updater();
-
-        stopSelf();
->>>>>>> master
         return flags;
     }
 

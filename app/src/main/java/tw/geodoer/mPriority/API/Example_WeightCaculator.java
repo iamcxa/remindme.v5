@@ -1,6 +1,6 @@
 package tw.geodoer.mPriority.API;
 
-public class example
+public class Example_WeightCaculator
 {
     public static void main(String[] args)
     {

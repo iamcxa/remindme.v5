@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
+import tw.geodoer.mDatabase.API.DBAlertHelper;
 import tw.geodoer.mDatabase.API.DBLocationHelper;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mGeoInfo.API.DistanceCalculator;
@@ -28,17 +29,22 @@ public class GeoServicePosition extends Service
     {
         MyDebug.MakeLog(2,"@Position Service Start");
 
-        boolean check = this.GetLastPos() && this.GetNowPos(); //false: when load position fail
-        if( check)
-        {
-            check = this.position_updater(); //false: when at the same position
-            MyDebug.MakeLog(2,"position_updater success");
-        }
+        boolean check = this.GetNowPos(); //false: when load now position fail
+
+
         if( check)
         {
             check = this.distance_updater(); //false: no event can be change
             MyDebug.MakeLog(2,"distance_updater success");
         }
+
+
+
+
+
+
+
+
         if( check)
         {
             MyDebug.MakeLog(2,"call out Service Weight");
@@ -63,19 +69,7 @@ public class GeoServicePosition extends Service
         return flags;
     }
 
-    public boolean GetLastPos()
-    {
-        //Load the last position from database
-        //true: load success / false: load fail
 
-        this.Last_Lat = 22.0;
-        this.Last_Lon = 120.0;
-
-
-
-
-        return  true;
-    }
     public boolean GetNowPos()
     {
         //Get Now position from GPS
@@ -84,50 +78,41 @@ public class GeoServicePosition extends Service
         this.Now_Lat = 23.0;
         this.Now_Lon = 120.0;
 
-
-
-
         return  true;
     }
 
-    public boolean position_updater()// true = update success  / false = at the same position
-    {
-
-        if(this.Last_Lat == this.Now_Lat && this.Last_Lon ==this.Now_Lon)
-        {
-            MyDebug.MakeLog(2,"get the same position");
-            //if at the same position , it will jump out the thread
-            return false;
-        }
-        else
-        {
-            //set new position in last position in database and
-
-            this.Last_Lat = this.Now_Lat;
-            this.Last_Lon = this.Now_Lon;
-
-            MyDebug.MakeLog(2,"get not the same position");
-            return true;
-        }
-    }
 
     public boolean distance_updater()
     {
         DBLocationHelper dbLocationHelper=new DBLocationHelper(getApplicationContext());
+        DBAlertHelper dbAlertHelper = new  DBAlertHelper(getApplicationContext());
+        double itemLat,itemLon,distance;
+
 
         //get number of events
-        int count=dbLocationHelper.getCount();
+        int count=dbAlertHelper.getCountByUnFinishedTask();
+        MyDebug.MakeLog(2,"there are "+count+" events can be updated with distance");
 
-        MyDebug.MakeLog(2,"there are "+count+" event can be updated distance");
-        count = 0;
+        //count = 0;
         if(count==0)return true; //if no event can be change , stop thread
+        //--------------------------------------------------------------------------------------
 
 
-        double itemLat,itemLon,distance;
-        //DistanceCalculator Cal = new DistanceCalculator();
+        //get all id witch need update distance in db_alert
 
-        for(int i =0;i<count ; i++)
+        //get all the loc id in db_alert
+
+
+
+        //loop all event witch need update
+        for(int i =0;i<count ; i++)  //i
         {
+
+
+
+
+
+
             itemLat= dbLocationHelper.getItemDouble(i, ColumnLocation.KEY.lat);
             itemLon= dbLocationHelper.getItemDouble(i, ColumnLocation.KEY.lon);
 
