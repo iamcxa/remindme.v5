@@ -6,10 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import tw.geodoer.mPriority.service.GeoServiceNotification;
+
 import tw.geodoer.mPriority.service.GeoServicePosition;
 import tw.geodoer.mPriority.service.GeoServiceWeight;
 import tw.geodoer.utils.MyDebug;
+
 import tw.geodoer.main.taskAlert.controller.AlertHandler;
+import tw.geodoer.utils.MyDebug;
 
 /**
  * @author iamcxa 定時提醒廣播

@@ -13,42 +13,41 @@ import tw.moretion.geodoer.R;
 
 /**
  * @author cxa
- * 
  */
 public class AppPreferenceActivity extends Activity {
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.preference);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.preference);
 
-		FragmentManager fragmentManager = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager
-				.beginTransaction();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
 
-		AppPreferenceFragment fragment11 = new AppPreferenceFragment();
-		fragmentTransaction.replace(android.R.id.content, fragment11);
+        AppPreferenceFragment fragment11 = new AppPreferenceFragment();
+        fragmentTransaction.replace(android.R.id.content, fragment11);
 
-		fragmentTransaction.commit();
-	}
+        fragmentTransaction.commit();
+    }
 
-	// This is the action bar menu
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
+    // This is the action bar menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
-		return true;
+        return true;
 
-	}
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		// Respond to the action bar's Up/Home button
-		case android.R.id.home:
-			this.finish();
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

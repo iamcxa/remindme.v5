@@ -12,25 +12,25 @@ import tw.geodoer.utils.MyDebug;
  * @author iamcxa 定時提醒廣播
  */
 public class GeoBroadcastReceiver_BootCompleted extends BroadcastReceiver {
-	@Override
-	public void onReceive(Context context, Intent intent) {
-		
-	
-		 Bundle bData = intent.getExtras();
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+
+        Bundle bData = intent.getExtras();
 //		 
-	        if(bData.get("msg").equals("android.intent.action.BOOT_COMPLETED")) {
+        if (bData.get("msg").equals("android.intent.action.BOOT_COMPLETED")) {
 
-	    		MyDebug.MakeLog(2, "智慧提醒＠開機啟動完成！");
-	    		
-	        }else if(bData.get("msg").equals("android.net.wifi.supplicant.STATE_CHANGE")) {
+            MyDebug.MakeLog(2, "智慧提醒＠開機啟動完成！");
 
-	    		MyDebug.MakeLog(2,  "智慧提醒＠wifi狀態改變！");
-	        	
-			}else if(bData.get("msg").equals("android.net.nsd.STATE_CHANGED")) {
+        } else if (bData.get("msg").equals("android.net.wifi.supplicant.STATE_CHANGE")) {
 
-				MyDebug.MakeLog(2,  "智慧提醒＠網路連線狀態改變！");
-				
-			}
+            MyDebug.MakeLog(2, "智慧提醒＠wifi狀態改變！");
+
+        } else if (bData.get("msg").equals("android.net.nsd.STATE_CHANGED")) {
+
+            MyDebug.MakeLog(2, "智慧提醒＠網路連線狀態改變！");
+
+        }
 //	        
 //
 //		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -46,5 +46,5 @@ public class GeoBroadcastReceiver_BootCompleted extends BroadcastReceiver {
 //			// TODO: handle exception
 //			MyDebug.MakeLog(0,"啟動TaskSortingService失敗！error="+e.toString());
 //		}
-	}
+    }
 }

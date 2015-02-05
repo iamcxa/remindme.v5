@@ -13,16 +13,15 @@ import tw.moretion.geodoer.R;
  */
 public class AlertNotiDialog extends Activity {
 
-	private static NotificationManager nm;
-	private static Notification noti;
-	public static final int ID = 1;
-	
-	String text;
+    public static final int ID = 1;
+    private static NotificationManager nm;
+    private static Notification noti;
+    String text;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.alertdialoglayout);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.alertdialoglayout);
 
 //		Intent intentmain = new Intent(this, AppMainActivity.class);
 //		
@@ -56,7 +55,7 @@ public class AlertNotiDialog extends Activity {
 //        NotificationManager nNotificationManager = 
 //        		(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 //		nNotificationManager.notify(1, noti);
-		
+
 //		new AlertDialog.Builder(this)
 //		.setMessage("收到訊息!")
 //		.setPositiveButton("確定", new DialogInterface.OnClickListener(){
@@ -67,8 +66,8 @@ public class AlertNotiDialog extends Activity {
 //			}
 //		})
 //		.show();
-		
-		//new CustomDialog(getApplicationContext()).show();
-	}
+
+        //new CustomDialog(getApplicationContext()).show();
+    }
 
 }

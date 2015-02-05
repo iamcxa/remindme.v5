@@ -83,6 +83,6 @@
     <dimen name="task_editor_parts_layout_mini_Right_imagebutton">10dp</dimen>
     <dimen name="task_editor_parts_EditText_Font_Size">18dp</dimen>
     <dimen name="task_editor_parts_EditText_Height">50dp</dimen>
- 
-   
+
+
 </resources>

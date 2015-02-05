@@ -23,7 +23,7 @@ import tw.moretion.geodoer.R;
  */
 public class CardThumbnailCircle extends CardThumbnail {
 
-    private DBLocationHelper dbLocationHelper=new DBLocationHelper(getContext());
+    private DBLocationHelper dbLocationHelper = new DBLocationHelper(getContext());
     private int cardID;
 
     public CardThumbnailCircle(Context context, int cardID) {
@@ -57,10 +57,10 @@ public class CardThumbnailCircle extends CardThumbnail {
 
                     //  呼叫導航
                     callGoogleMapNavigation(
-                             dbLocationHelper.getItemDouble(cardID, ColumnLocation.KEY.lat),
+                            dbLocationHelper.getItemDouble(cardID, ColumnLocation.KEY.lat),
                             dbLocationHelper.getItemDouble(cardID, ColumnLocation.KEY.lon),
                             dbLocationHelper.getItemString(cardID, ColumnLocation.KEY.name));
-                // 放開
+                    // 放開
                 } else {
 
                     // 還原本來的圖片
@@ -82,11 +82,11 @@ public class CardThumbnailCircle extends CardThumbnail {
     /*
         呼叫導航
      */
-    private void callGoogleMapNavigation(double lat, double lon,String name) {
+    private void callGoogleMapNavigation(double lat, double lon, String name) {
 
         String uri = String.format(Locale.ENGLISH,
                 "http://maps.google.com/maps?&daddr=%f,%f (%s)",
-                lat, lon,name);
+                lat, lon, name);
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
         intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
         try {

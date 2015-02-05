@@ -41,10 +41,10 @@ public class CircleDrawable extends Drawable {
 
     private final BitmapShader mBitmapShader;
     private final Paint mPaint;
-    private Paint mWhitePaint;
     int circleCenterX;
     int circleCenterY;
     int mRadus;
+    private Paint mWhitePaint;
     private boolean mUseStroke = false;
     private int mStrokePadding = 0;
 

@@ -1,64 +1,61 @@
 package tw.geodoer.main.taskList.controller;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 
+import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskList.cardsui.MyCursorCard;
 import tw.geodoer.utils.MyCalendar;
-import tw.geodoer.utils.MyDebug;
-import tw.geodoer.mDatabase.columns.ColumnLocation;
-import tw.geodoer.mDatabase.columns.ColumnTask;
 
 public class ActionSetCardFromCursor {
 
-	private Context context;
-	private Cursor cursor;
-	public MyCursorCard card;
+    public MyCursorCard card;
+    private Context context;
+    private Cursor cursor;
 
-	public ActionSetCardFromCursor(Context context, Cursor cursor, MyCursorCard card) {
-		this.context = context;
-		this.cursor = cursor;
-		this.card = card;
-	}
+    public ActionSetCardFromCursor(Context context, Cursor cursor, MyCursorCard card) {
+        this.context = context;
+        this.cursor = cursor;
+        this.card = card;
+    }
 
-	public void setIt() {
-		// 準備常數
-		boolean Extrainfo = cursor
-				.isNull(ColumnTask.KEY.INDEX.tag_id);
-		int CID = cursor.getInt(ColumnTask.KEY.INDEX._id);		
-		//主要內容
-		String title=cursor.getString(ColumnTask.KEY.INDEX.title);				
-		String status=cursor.getString(ColumnTask.KEY.INDEX.status);		
-		String content=cursor.getString(ColumnTask.KEY.INDEX.content);			
-		int due_date_millis=cursor.getInt(ColumnTask.KEY.INDEX.due_date_millis);			
-		String due_date_string=cursor.getString(ColumnTask.KEY.INDEX.due_date_string);		
-		int color=cursor.getInt(ColumnTask.KEY.INDEX.color);	
-		int priority=cursor.getInt(ColumnTask.KEY.INDEX.priority);		
-		int created=cursor.getInt(ColumnTask.KEY.INDEX.created);	
-		//分類,標籤與優先
-		int category_id=cursor.getInt(ColumnTask.KEY.INDEX.category_id);
-		int tag_id=cursor.getInt(ColumnTask.KEY.INDEX.tag_id);
-		int project_id=cursor.getInt(ColumnTask.KEY.INDEX.project_id);
-		int collaborator_id=cursor.getInt(ColumnTask.KEY.INDEX.collaborator_id);
-		int sync_id=cursor.getInt(ColumnTask.KEY.INDEX.sync_id);	
-		int location_id=cursor.getInt(ColumnTask.KEY.INDEX.location_id);
+    public void setIt() {
+        // 準備常數
+        boolean Extrainfo = cursor
+                .isNull(ColumnTask.KEY.INDEX.tag_id);
+        int CID = cursor.getInt(ColumnTask.KEY.INDEX._id);
+        //主要內容
+        String title = cursor.getString(ColumnTask.KEY.INDEX.title);
+        String status = cursor.getString(ColumnTask.KEY.INDEX.status);
+        String content = cursor.getString(ColumnTask.KEY.INDEX.content);
+        int due_date_millis = cursor.getInt(ColumnTask.KEY.INDEX.due_date_millis);
+        String due_date_string = cursor.getString(ColumnTask.KEY.INDEX.due_date_string);
+        int color = cursor.getInt(ColumnTask.KEY.INDEX.color);
+        int priority = cursor.getInt(ColumnTask.KEY.INDEX.priority);
+        int created = cursor.getInt(ColumnTask.KEY.INDEX.created);
+        //分類,標籤與優先
+        int category_id = cursor.getInt(ColumnTask.KEY.INDEX.category_id);
+        int tag_id = cursor.getInt(ColumnTask.KEY.INDEX.tag_id);
+        int project_id = cursor.getInt(ColumnTask.KEY.INDEX.project_id);
+        int collaborator_id = cursor.getInt(ColumnTask.KEY.INDEX.collaborator_id);
+        int sync_id = cursor.getInt(ColumnTask.KEY.INDEX.sync_id);
+        int location_id = cursor.getInt(ColumnTask.KEY.INDEX.location_id);
 
-		long dayLeft = MyCalendar.getDaysLeft(due_date_string, 2);
-		// int dayLeft = Integer.parseInt("" + dayLeftLong);
+        long dayLeft = MyCalendar.getDaysLeft(due_date_string, 2);
+        // int dayLeft = Integer.parseInt("" + dayLeftLong);
 
-		// give a ID.
-		card.setId(String.valueOf(cursor.getPosition()));
+        // give a ID.
+        card.setId(String.valueOf(cursor.getPosition()));
 
-		// 卡片標題 - first line
-		// MyDebug.MakeLog(0, "cardID="+CID + " set Tittle="+title);
-		card.mainHeader = title;
+        // 卡片標題 - first line
+        // MyDebug.MakeLog(0, "cardID="+CID + " set Tittle="+title);
+        card.mainHeader = title;
 
-		// 時間日期 - sec line
-		// MyDebug.MakeLog(0, CID + " set Date/Time...");
-		card.dueDate=due_date_string;
+        // 時間日期 - sec line
+        // MyDebug.MakeLog(0, CID + " set Date/Time...");
+        card.dueDate = due_date_string;
 
-		// MyDebug.MakeLog(0, CID + " dayleft=" + dayLeft);
+        // MyDebug.MakeLog(0, CID + " dayleft=" + dayLeft);
 //		if ((180 > dayLeft) && (dayLeft > 14)) {
 //			card.DateTime = "再 " + (int) Math.floor(dayLeft) / 30 + " 個月 - "
 //					+ due_date_string + " - " + due_date_millis;
@@ -105,7 +102,7 @@ public class ActionSetCardFromCursor {
 //		}else {
 //			 dintence="null";
 //		}
-	// 	MyDebug.MakeLog(0, "dintence=" +dintence);
+        // 	MyDebug.MakeLog(0, "dintence=" +dintence);
 //		if (dintence == "") {
 //			card.LocationName = cursorLocation.getString(ColumnLocation.KEY.INDEX.name);
 //		} else {
@@ -118,7 +115,7 @@ public class ActionSetCardFromCursor {
 //			//			}
 //		}
 
-		// 可展開額外資訊欄位
+        // 可展開額外資訊欄位
 //		MyDebug.MakeLog(0, "isExtrainfo=" + Extrainfo);
 //		 card.Notifications = "dbId="
 //		 + cursor.getString(0)
@@ -137,6 +134,6 @@ public class ActionSetCardFromCursor {
 //		} else if (cursor.getInt(ColumnTask.KEY.INDEX.priority) > 3000) {
 //			card.setBackgroundResourceId(R.drawable.demo_card_selector_color3);
 //		}
-	}
+    }
 
 }

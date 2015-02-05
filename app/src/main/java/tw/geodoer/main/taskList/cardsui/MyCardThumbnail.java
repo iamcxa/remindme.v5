@@ -12,7 +12,7 @@ import it.gmariotti.cardslib.library.internal.CardThumbnail;
 /** Class MyThumbnail
 * implment the clickable card thumbnail.
 */
-public  class MyCardThumbnail extends CardThumbnail {
+public class MyCardThumbnail extends CardThumbnail {
 
     public MyCardThumbnail(Context context) {
         super(context);

@@ -8,14 +8,12 @@ import android.content.Intent;
 import tw.geodoer.mPriority.service.GeoServiceNotification;
 import tw.geodoer.mPriority.service.GeoServicePosition;
 import tw.geodoer.mPriority.service.GeoServiceWeight;
-import tw.geodoer.utils.MyDebug;
 
 
 /**
  * Created by MurasakiYoru on 2015/1/20.
  */
-public class GeoBroadcastReceiver extends BroadcastReceiver
-{
+public class GeoBroadcastReceiver extends BroadcastReceiver {
 
     public static final int BROADCAST_COMMAND_NOTI = 10;
     public static final int BROADCAST_COMMAND_POSITON = 5;
@@ -23,21 +21,18 @@ public class GeoBroadcastReceiver extends BroadcastReceiver
     public static final int BROADCAST_COMMAND_WEIGHT = 1;
 
     @Override
-    public void onReceive(Context context, Intent intent)
-    {
+    public void onReceive(Context context, Intent intent) {
 
         Intent i;
         String action = intent.getAction().toString();
         Integer Command = intent.getExtras().getInt("Command");
 
-        if (action.equals("tw.geodoer.mPriority.service.RemainBroadcast"))
-        {
+        if (action.equals("tw.geodoer.mPriority.service.RemainBroadcast")) {
             //MyDebug.MakeLog(2,"remain command =:"+Command.toString());
-            switch (Command)
-            {
+            switch (Command) {
                 case BROADCAST_COMMAND_NOTI:
                     i = new Intent(context, GeoServiceNotification.class);
-                    if(intent.getExtras().getString("content")!=null)
+                    if (intent.getExtras().getString("content") != null)
                         i.putExtra(GeoServiceNotification.MESSAGE, intent.getExtras().getString(GeoServiceNotification.MESSAGE));
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startService(i);
@@ -60,7 +55,6 @@ public class GeoBroadcastReceiver extends BroadcastReceiver
 
 
             //BROADCAST_COMMAND_DISTANCE)
-
 
 
         }

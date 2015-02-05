@@ -1,16 +1,8 @@
 package tw.geodoer.mPriority.service;
 
 
-import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.LocationManager;
-
 import android.os.IBinder;
 
 
@@ -24,32 +16,27 @@ import tw.geodoer.main.taskList.view.AppMainActivity;
 import tw.geodoer.utils.MyDebug;
 import tw.moretion.geodoer.R;
 
+
 /**
  * @Murakumo
- *
  */
-public class GeoServiceRegister extends Service
-{
+public class GeoServiceRegister extends Service {
     @Override
-    public IBinder onBind(Intent arg0)
-    {
+    public IBinder onBind(Intent arg0) {
         // TODO Auto-generated method stub
         return null;
     }
 
-	@Override
-	public void onDestroy()
-    {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-	}
+    @Override
+    public void onDestroy() {
+        // TODO Auto-generated method stub
+        super.onDestroy();
+    }
 
 
-
-	@Override
-	public void onCreate()
-    {
-		super.onCreate();
+    @Override
+    public void onCreate() {
+        super.onCreate();
 
 
         //testing start command block
@@ -64,26 +51,23 @@ public class GeoServiceRegister extends Service
 
 
         Stopself();
-	}
-	
-	private void Stopself()
-    {
+    }
+
+    private void Stopself() {
         this.stopSelf();
-	}
+    }
 
-	@Override
-	public void onLowMemory()
-    {
-		// TODO Auto-generated method stub
-		super.onLowMemory();
-	}
+    @Override
+    public void onLowMemory() {
+        // TODO Auto-generated method stub
+        super.onLowMemory();
+    }
 
-	@Override
-	public int onStartCommand(Intent intent, int flags, int startId)
-    {
-		// TODO Auto-generated method stub
-		return super.onStartCommand(intent, flags, startId);
-	}
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        // TODO Auto-generated method stub
+        return super.onStartCommand(intent, flags, startId);
+    }
 
 
 }

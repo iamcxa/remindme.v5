@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -24,26 +25,32 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import tw.geodoer.mPriority.service.GeoServiceRegister;
-import tw.geodoer.utils.MyDebug;
-import tw.geodoer.main.taskPreference.controller.MyPreferences;
 import tw.geodoer.mGeoInfo.controller.LocationGetter;
+import tw.geodoer.mPriority.service.GeoServiceRegister;
 import tw.geodoer.main.taskEditor.controller.ActionSetAlarm;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
+import tw.geodoer.main.taskPreference.controller.MyPreferences;
 import tw.geodoer.main.taskPreference.view.AppPreferenceActivity;
+import tw.geodoer.utils.MyDebug;
 import tw.moretion.geodoer.R;
 
 
 /**
  * @author cxa Main Activity
  */
-public class AppMainActivity extends ActionBarActivity {
+public class AppMainActivity extends ActionBarActivity
+        implements APITestingFragment.OnFragmentInteractionListener {
     /**********************/
     /** Variables LOCALE **/
+    static FrameLayout loading_Frame;
+    static FrameLayout content_Frame;
+    static FragmentManager fragmentManager;
+    static Fragment fragmentLoading;
     /**
      * ******************
      */
+
     // Used in savedInstanceState
     private static CommonEditorVar mEditorVar = CommonEditorVar.GetInstance();
     private static ProgressDialog psDialog;
@@ -53,18 +60,94 @@ public class AppMainActivity extends ActionBarActivity {
     private static DrawerLayout mDrawerLayout;
     private static ActionBarDrawerToggle mDrawerToggle;
     ListView mDrawerList;
-
     CharSequence mDrawerTitle;
     CharSequence mTitle;
     String[] mPlanetTitles;
 
-    static FrameLayout loading_Frame;
-    static FrameLayout content_Frame;
-    static FragmentManager fragmentManager;
-    static Fragment fragmentLoading;
-
     /*********************/
     /** onCreate LOCALE **/
+    /**
+     * ******************
+     */
+    private MenuItem.OnMenuItemClickListener btnActionAddClick = new MenuItem.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            // Toast.makeText(getApplication(), item.getTitle(),
+            // Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent();
+            intent.setClass(getApplication(), TaskEditorTabFragment.class);
+            startActivity(intent);
+            return false;
+        }
+    };
+
+    /*********************/
+    /** onResume LOCALE **/
+    /**
+     * btnRefreshAddClick *
+     */
+    private MenuItem.OnMenuItemClickListener btnRefreshClick = new MenuItem.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            Toast.makeText(getApplication(), item.getTitle(),
+                    Toast.LENGTH_SHORT).show();
+
+            LocationGetter UpdataLocation = new LocationGetter(getApplicationContext());
+            UpdataLocation.UpdateOncePriority();
+
+            ListCursorCardFragment.getmAdapter().notifyDataSetChanged();
+
+
+            ActionSetAlarm mSetAlarm = new ActionSetAlarm(getApplicationContext(), System.currentTimeMillis() + 1000, 10);
+            mSetAlarm.SetIt();
+
+            return false;
+        }
+    };
+
+    /*************************/
+    /** onSaveInstanceState **/
+    /**
+     * ******************
+     */
+    private MenuItem.OnMenuItemClickListener btnPrefClick = new MenuItem.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            // Display the fragment as the main content.
+
+            Toast.makeText(getApplication(), item.getTitle(),
+                    Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent();
+            intent.setClass(getApplicationContext(), AppPreferenceActivity.class);
+            startActivity(intent);
+
+            return false;
+        }
+    };
+
+
+    /*************************/
+    /** setNavigationDrawer **/
+
+    public static void setLoadingEnd() {
+
+        AppMainActivity.loading_Frame.setVisibility(View.GONE);
+        AppMainActivity.content_Frame.setVisibility(View.VISIBLE);
+    }
+
+    public static void setLoadingStart() {
+
+
+        AppMainActivity.content_Frame.setVisibility(View.GONE);
+        AppMainActivity.loading_Frame.setVisibility(View.VISIBLE);
+
+
+    }
+
+    /**********************************************/
+    /** NavigationDrawer  DrawerItemClickListener**/
+
     /**
      * *****************
      */
@@ -92,8 +175,6 @@ public class AppMainActivity extends ActionBarActivity {
 
     }
 
-    /*********************/
-    /** onResume LOCALE **/
     /**
      * *****************
      */
@@ -104,8 +185,6 @@ public class AppMainActivity extends ActionBarActivity {
 
     }
 
-    /*************************/
-    /** onSaveInstanceState **/
     /**
      * *********************
      */
@@ -114,9 +193,9 @@ public class AppMainActivity extends ActionBarActivity {
         super.onSaveInstanceState(outState);
     }
 
-
     /*************************/
-    /** setNavigationDrawer **/
+    /** StartService LOCALE **/
+
     /**
      * *********************
      */
@@ -160,22 +239,18 @@ public class AppMainActivity extends ActionBarActivity {
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
+        // drawer之預設開啟頁面
         if (savedInstanceState == null) {
-            selectItem(1);
+            selectItem(3);
         }
     }
 
-    /* The click listner for ListView in the navigation drawer */
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if (!(lastPosition == position)) {
-                selectItem(position);
-                MyDebug.MakeLog(0, "navagation drawer切換頁面");
-            } else {
-                drawerActions(position);
-            }
-        }
+    /*************************/
+    /** onCreateOptionsMenu **/
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 
     // 按下 Navigation Drawer 後的動作
@@ -194,14 +269,25 @@ public class AppMainActivity extends ActionBarActivity {
         //args.putInt(RemindmeFragment.FILTER_STRING,(position));
         //fragment.getArguments()
         //fragment.setArguments(args);
-        ListCursorCardFragment.setPosition(position);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        Fragment fragmentAPITesting = APITestingFragment.newInstance("parm1", "parm2");
+
+        if (position == 3) {
+            Toast.makeText(this, "api page", Toast.LENGTH_SHORT).show();
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.content_frame, fragmentAPITesting, "APITestingFragment")
+                    .commit();
+        } else {
+            ListCursorCardFragment.setPosition(position);
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.content_frame, fragment, "RemindmeFragment").commit();
+            drawerActions(position);
+        }
 
         MyDebug.MakeLog(0, "position@MainActivity=" + position);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment, "RemindmeFragment").commit();
-
-        drawerActions(position);
     }
 
     private void drawerActions(int position) {
@@ -215,13 +301,10 @@ public class AppMainActivity extends ActionBarActivity {
         lastPosition = position;
     }
 
-    /**********************/
-    /** StartService LOCALE **/
     /**
-     * ******************
+     * *********************
      */
-    public void StartService()
-    {
+    public void StartService() {
         //MyPreferences.mPreferences = PreferenceManager
         //        .getDefaultSharedPreferences(getApplicationContext());
 
@@ -231,8 +314,6 @@ public class AppMainActivity extends ActionBarActivity {
 
     }
 
-    /*************************/
-    /** onCreateOptionsMenu **/
     /**
      * *********************
      */
@@ -254,7 +335,6 @@ public class AppMainActivity extends ActionBarActivity {
 
         // 定義：重整按鈕
         MenuItem actionRefresh = menu.findItem(R.id.action_refresh);
-
         // 設定：點擊接收器
         actionRefresh.setOnMenuItemClickListener(btnRefreshClick);
 
@@ -269,16 +349,22 @@ public class AppMainActivity extends ActionBarActivity {
 
         //-------------------------------------------------------//
         //                     									 //
-        //                     上架暫時關閉地點						 //
+        //                     選單按鈕開關						 //
         //                     									 //
         //-------------------------------------------------------//
-        actionRefresh.setEnabled(false);
-        actionRefresh.setVisible(false);
+        actionRefresh.setEnabled(true);
+        actionRefresh.setVisible(true);
+        //
         actionSearch.setEnabled(false);
         actionSearch.setVisible(false);
 
+        //
+
         return super.onCreateOptionsMenu(menu);
     }
+
+    /**********************/
+    /** setViewComponent **/
 
     /* Called whenever we call invalidateOptionsMenu() */
     @Override
@@ -288,6 +374,9 @@ public class AppMainActivity extends ActionBarActivity {
         //menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
+
+    /**********************/
+    /** btnActionAddClick **/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -314,6 +403,8 @@ public class AppMainActivity extends ActionBarActivity {
         }
     }
 
+    /************************/
+
     /**
      * When using the ActionBarDrawerToggle, you must call it during
      * onPostCreate() and onConfigurationChanged()...
@@ -326,6 +417,9 @@ public class AppMainActivity extends ActionBarActivity {
         mDrawerToggle.syncState();
     }
 
+    /**********************/
+    /** menuActionPrefClick **/
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -333,8 +427,6 @@ public class AppMainActivity extends ActionBarActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    /**********************/
-    /** setViewComponent **/
     /**
      * ******************
      */
@@ -348,81 +440,19 @@ public class AppMainActivity extends ActionBarActivity {
         }).start();
     }
 
-    /**********************/
-    /** btnActionAddClick **/
     /**
-     * ******************
+     * ******************************************
      */
-    private MenuItem.OnMenuItemClickListener btnActionAddClick = new MenuItem.OnMenuItemClickListener() {
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            // Toast.makeText(getApplication(), item.getTitle(),
-            // Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent();
-            intent.setClass(getApplication(), TaskEditorTabFragment.class);
-            startActivity(intent);
-            return false;
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if (!(lastPosition == position)) {
+                selectItem(position);
+                MyDebug.MakeLog(0, "navagation drawer切換頁面");
+            } else {
+                drawerActions(position);
+            }
         }
-    };
-
-    /************************/
-    /** btnRefreshAddClick **/
-    /**
-     * ********************
-     */
-    private MenuItem.OnMenuItemClickListener btnRefreshClick = new MenuItem.OnMenuItemClickListener() {
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            Toast.makeText(getApplication(), item.getTitle(),
-                    Toast.LENGTH_SHORT).show();
-
-            LocationGetter UpdataLocation = new LocationGetter(getApplicationContext());
-            UpdataLocation.UpdateOncePriority();
-
-            ListCursorCardFragment.getmAdapter().notifyDataSetChanged();
-
-
-            ActionSetAlarm mSetAlarm = new ActionSetAlarm(getApplicationContext(), System.currentTimeMillis() + 1000, 10);
-            mSetAlarm.SetIt();
-
-            return false;
-        }
-    };
-
-    /**********************/
-    /** menuActionPrefClick **/
-    /**
-     * ******************
-     */
-    private MenuItem.OnMenuItemClickListener btnPrefClick = new MenuItem.OnMenuItemClickListener() {
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            // Display the fragment as the main content.
-
-            Toast.makeText(getApplication(), item.getTitle(),
-                    Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent();
-            intent.setClass(getApplicationContext(), AppPreferenceActivity.class);
-            startActivity(intent);
-
-            return false;
-        }
-    };
-
-    public static void setLoadingEnd() {
-
-        AppMainActivity.loading_Frame.setVisibility(View.GONE);
-        AppMainActivity.content_Frame.setVisibility(View.VISIBLE);
-    }
-
-    public static void setLoadingStart() {
-
-
-        AppMainActivity.content_Frame.setVisibility(View.GONE);
-        AppMainActivity.loading_Frame.setVisibility(View.VISIBLE);
-
-
     }
 
 

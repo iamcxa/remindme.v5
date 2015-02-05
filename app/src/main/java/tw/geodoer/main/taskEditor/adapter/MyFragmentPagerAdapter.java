@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package tw.geodoer.main.taskEditor.adapter;
 
@@ -11,30 +11,29 @@ import java.util.ArrayList;
 
 /**
  * @author Kent
- *
  */
 public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
-	
-	private ArrayList<Fragment> fragments;
 
-	public MyFragmentPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
-		super(fm);
-		this.fragments = fragments;
-	}
+    private ArrayList<Fragment> fragments;
 
-	@Override
-	public Fragment getItem(int pos) {
-		return fragments.get(pos);
-	}
+    public MyFragmentPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
+        super(fm);
+        this.fragments = fragments;
+    }
 
-	@Override
-	public int getCount() {
-		return fragments.size();
-	}
+    @Override
+    public Fragment getItem(int pos) {
+        return fragments.get(pos);
+    }
 
-	@Override
-	public CharSequence getPageTitle(int position) {
-		return "Tab_" + position;
-	}
+    @Override
+    public int getCount() {
+        return fragments.size();
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return "Tab_" + position;
+    }
 
 }

@@ -20,8 +20,7 @@ public class GeoServicePosition extends Service
     private double Now_Lat, Now_Lon;
 
     @Override
-    public IBinder onBind(Intent intent)
-    {
+    public IBinder onBind(Intent intent) {
         return null;
     }
     @Override

@@ -10,32 +10,41 @@ import tw.geodoer.utils.MyDebug;
 /**
  * Created by MurasakiYoru on 2015/1/23.
  */
-public class GeoServiceWeight extends Service
-{
+public class GeoServiceWeight extends Service {
     @Override
-    public IBinder onBind(Intent intent)
-    {
+    public IBinder onBind(Intent intent) {
         return null;
     }
 
     @Override
+<<<<<<< HEAD
     public void onCreate()
     {
         MyDebug.MakeLog(2,"@Service Weight Start");
         weight_updater();
         stopSelf();
+=======
+    public void onCreate() {
+>>>>>>> master
         super.onCreate();
     }
 
     @Override
+<<<<<<< HEAD
     public int onStartCommand(Intent intent, int flags, int startId)
     {
+=======
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        MyDebug.MakeLog(2, "Service Weight Start");
+
+        weight_updater();
+
+        stopSelf();
+>>>>>>> master
         return flags;
     }
 
-    public boolean weight_updater()
-    {
-
+    public boolean weight_updater() {
 
         //get every events index from db_alarm
 

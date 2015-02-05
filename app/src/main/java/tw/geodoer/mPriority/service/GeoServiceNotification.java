@@ -16,37 +16,33 @@ import tw.moretion.geodoer.R;
 /**
  * Created by MurasakiYoru on 2015/1/20.
  */
-public class GeoServiceNotification extends Service
-{
-    private static final int ID_My_Notification = 1;
+public class GeoServiceNotification extends Service {
     public static final String MESSAGE = "Message";
+    private static final int ID_My_Notification = 1;
+
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         super.onCreate();
     }
+
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId)
-    {
+    public int onStartCommand(Intent intent, int flags, int startId) {
         this.noti("智慧提醒", intent.getExtras().getString(this.MESSAGE));
         stopSelf();
         return flags;
     }
 
     @Override
-    public void onDestroy()
-    {
+    public void onDestroy() {
         super.onDestroy();
     }
 
     @Override
-    public IBinder onBind(Intent intent)
-    {
+    public IBinder onBind(Intent intent) {
         return null;
     }
 
-    private void noti(String title ,String content)
-    {
+    private void noti(String title, String content) {
         //Manager
         String ns = Context.NOTIFICATION_SERVICE;
         NotificationManager nNotificationManager = (NotificationManager) getSystemService(ns);
@@ -61,11 +57,11 @@ public class GeoServiceNotification extends Service
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
         Notification notification = new Notification.Builder(getApplicationContext())
-				.setContentTitle(title)
-				.setContentText(content)
-				.setSmallIcon(R.drawable.remindme_logo).setLargeIcon(bm)
+                .setContentTitle(title)
+                .setContentText(content)
+                .setSmallIcon(R.drawable.remindme_logo).setLargeIcon(bm)
                 .setWhen(when)
-				.setContentIntent(contentIntent)
+                .setContentIntent(contentIntent)
                 .build();
 
         //notification.flags =Notification.FLAG_NO_CLEAR;
