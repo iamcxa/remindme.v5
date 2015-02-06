@@ -11,6 +11,7 @@ import java.util.Calendar;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
+import tw.geodoer.mPriority.API.ServiceCaller;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.main.taskEditor.view.TaskEditorMainFragment;
 import tw.geodoer.utils.MyCalendar;
@@ -46,7 +47,10 @@ public class ActionSaveDataToDb {
         saveTableTasks();
         saveTableAlert();
         //saveTableLocation();
-
+        //----------------------------------------------------------------------------------//
+        //call out service position                                                         //
+        ServiceCaller.call(context,ServiceCaller.KEY_POSITION);                             //
+        //----------------------------------------------------------------------------------//
 
     }
 

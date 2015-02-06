@@ -37,7 +37,7 @@ import it.gmariotti.cardslib.library.view.CardListView;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.mPriority.API.BroadcastSender;
+import tw.geodoer.mPriority.API.ServiceCaller;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
 import tw.geodoer.main.taskList.adapter.MyCursorCardAdapter;
 import tw.geodoer.main.taskPreference.controller.MyPreferences;
@@ -163,6 +163,7 @@ public class ListCursorCardFragment extends MyBaseFragment implements
                 int val_radiated_distance = MyPreferences.getValueOfRadiatedDistance();
                 ;
                 // setTaskSelection("distance <= '" + val_radiated_distance + "' ");
+                taskSortOrder = "priority DESC";
                 break;
             case 2:// 已完成
                 setTaskSelection("checked = 1");
@@ -246,7 +247,7 @@ public class ListCursorCardFragment extends MyBaseFragment implements
 
         //----------------------------------------------------------//
         //callout service position                                  //
-        BroadcastSender.send(getActivity().getApplicationContext(),BroadcastSender.KEY_POSITION);        //
+        ServiceCaller.call(getActivity().getApplicationContext(),ServiceCaller.KEY_POSITION);
         //----------------------------------------------------------//
     }
 

@@ -4,13 +4,13 @@ package tw.geodoer.mPriority.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import tw.geodoer.mPriority.API.BroadcastSender;
+
 import tw.geodoer.utils.MyDebug;
 
 /**
  * @Murakumo
  */
-public class GeoServiceRegister extends Service {
+public class GeoServiceStarter extends Service {
     @Override
     public IBinder onBind(Intent arg0) {
         // TODO Auto-generated method stub
@@ -38,7 +38,6 @@ public class GeoServiceRegister extends Service {
 //        intent.putExtra("msg", "me.iamcxa.remindme.position");
 //        sendBroadcast(intent);
 
-        BroadcastSender.send(this, BroadcastSender.KEY_POSITION);
 
         Stopself();
     }

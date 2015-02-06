@@ -5,10 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import tw.geodoer.mPriority.API.ServiceCaller;
+import tw.geodoer.mPriority.service.GeoServiceEventUpdater;
 import tw.geodoer.mPriority.service.GeoServiceNotification;
 
-import tw.geodoer.mPriority.service.GeoServicePosition;
-import tw.geodoer.mPriority.service.GeoServiceWeight;
 import tw.geodoer.utils.MyDebug;
 
 import tw.geodoer.main.taskAlert.controller.AlertHandler;
@@ -70,16 +70,9 @@ public class GeoBroadcastReceiver_TaskAlert extends BroadcastReceiver
 
                 case "me.iamcxa.remindme.position":
                     //if(msg.equals("me.iamcxa.remindme.position"))
-                    it = new Intent();
-                    it.setClass(context, GeoServicePosition.class);
-                    context.startService(it);
+                    ServiceCaller.call(context,ServiceCaller.KEY_POSITION);
                     break;
-                case "me.iamcxa.remindme.weight":
-                    //if(msg.equals("me.iamcxa.remindme.position"))
-                    it = new Intent();
-                    it.setClass(context, GeoServiceWeight.class);
-                    context.startService(it);
-                    break;
+
                 default:
                     break;
             }

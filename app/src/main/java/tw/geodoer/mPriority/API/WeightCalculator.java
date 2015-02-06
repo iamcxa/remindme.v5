@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 public class WeightCalculator
 {
-	private final double meanW = 10000;
+	private final double meanW = 100000;
     private final double mean = 5 ;
     private final double Tw = 60;
     private final double Lw = 10;
@@ -48,6 +48,7 @@ public class WeightCalculator
 	}
 	public int getweight(long pT, double pL)
 	{
+
         double T = TimeUnit.MILLISECONDS.toMinutes(pT);
         double L = pL*1000;
 

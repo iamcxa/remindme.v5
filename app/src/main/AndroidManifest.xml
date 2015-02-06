@@ -121,10 +121,9 @@
 
 
         <!-- ================================================================== -->
-        <service android:name="tw.geodoer.mPriority.service.GeoServiceRegister" />
+        <service android:name="tw.geodoer.mPriority.service.GeoServiceStarter" />
         <service android:name="tw.geodoer.mPriority.service.GeoServiceNotification" />
-        <service android:name="tw.geodoer.mPriority.service.GeoServicePosition" />
-        <service android:name="tw.geodoer.mPriority.service.GeoServiceWeight" />
+        <service android:name="tw.geodoer.mPriority.service.GeoServiceEventUpdater" />
 
         <activity
             android:name="tw.geodoer.main.taskAlert.view.dialog.AlertNotiDialog"
