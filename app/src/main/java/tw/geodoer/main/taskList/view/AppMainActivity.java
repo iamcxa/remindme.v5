@@ -241,7 +241,7 @@ public class AppMainActivity extends ActionBarActivity
 
         // drawer之預設開啟頁面
         if (savedInstanceState == null) {
-            selectItem(3);
+            selectItem(0);
         }
     }
 
@@ -307,11 +307,11 @@ public class AppMainActivity extends ActionBarActivity
     public void StartService() {
         //MyPreferences.mPreferences = PreferenceManager
         //        .getDefaultSharedPreferences(getApplicationContext());
-
+        /*
         Intent intent = new Intent(this, GeoServiceRegister.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startService(intent);
-
+        */
     }
 
     /**

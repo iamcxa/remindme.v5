@@ -1,4 +1,4 @@
-package tw.geodoer.mPriority.eventReceiver;
+package tw.geodoer.mPriority.receiver;
 
 
 import android.content.BroadcastReceiver;

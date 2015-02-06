@@ -46,7 +46,7 @@ public class WeightCalculator
 
 		return Lpart + Tpart;
 	}
-	public int getweight(int pT, double pL)
+	public int getweight(long pT, double pL)
 	{
         double T = TimeUnit.MILLISECONDS.toMinutes(pT);
         double L = pL*1000;

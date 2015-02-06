@@ -4,18 +4,8 @@ package tw.geodoer.mPriority.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
-import tw.geodoer.mPriority.eventReceiver.GeoBroadcastReceiver;
-import tw.geodoer.mPriority.eventReceiver.GeoBroadcastReceiver_TaskAlert;
-import tw.geodoer.main.taskList.view.AppMainActivity;
+import tw.geodoer.mPriority.API.BroadcastSender;
 import tw.geodoer.utils.MyDebug;
-import tw.moretion.geodoer.R;
-
 
 /**
  * @Murakumo
@@ -35,20 +25,20 @@ public class GeoServiceRegister extends Service {
 
 
     @Override
-    public void onCreate() {
+    public void onCreate()
+    {
         super.onCreate();
-
+        MyDebug.MakeLog(2,"@ Service Register start");
 
         //testing start command block
+//        final String BC_ACTION = "me.iamcxa.remindme.TaskReceiver";
+//        Intent intent = new Intent(this,GeoBroadcastReceiver_TaskAlert.class);
+//        // 設定Intent action屬性
+//        intent.setAction(BC_ACTION);
+//        intent.putExtra("msg", "me.iamcxa.remindme.position");
+//        sendBroadcast(intent);
 
-        final String BC_ACTION = "me.iamcxa.remindme.TaskReceiver";
-        Intent intent = new Intent(this,GeoBroadcastReceiver_TaskAlert.class);
-        // 設定Intent action屬性
-        intent.setAction(BC_ACTION);
-        intent.putExtra("msg", "me.iamcxa.remindme.position");
-        sendBroadcast(intent);
-
-
+        BroadcastSender.send(this, BroadcastSender.KEY_POSITION);
 
         Stopself();
     }

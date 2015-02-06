@@ -37,6 +37,7 @@ import it.gmariotti.cardslib.library.view.CardListView;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
+import tw.geodoer.mPriority.API.BroadcastSender;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
 import tw.geodoer.main.taskList.adapter.MyCursorCardAdapter;
 import tw.geodoer.main.taskPreference.controller.MyPreferences;
@@ -242,6 +243,11 @@ public class ListCursorCardFragment extends MyBaseFragment implements
         //getLoaderManager().initLoader(201, null, this);
         //getLoaderManager().initLoader(301, null, this);
         init();
+
+        //----------------------------------------------------------//
+        //callout service position                                  //
+        BroadcastSender.send(getActivity().getApplicationContext(),BroadcastSender.KEY_POSITION);        //
+        //----------------------------------------------------------//
     }
 
     @Override

@@ -1,4 +1,4 @@
-package tw.geodoer.mPriority.eventReceiver;
+package tw.geodoer.mPriority.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,12 +12,12 @@ import tw.geodoer.mPriority.service.GeoServiceWeight;
 import tw.geodoer.utils.MyDebug;
 
 import tw.geodoer.main.taskAlert.controller.AlertHandler;
-import tw.geodoer.utils.MyDebug;
 
 /**
  * @author iamcxa 定時提醒廣播
  */
-public class GeoBroadcastReceiver_TaskAlert extends BroadcastReceiver {
+public class GeoBroadcastReceiver_TaskAlert extends BroadcastReceiver
+{
     @Override
     public void onReceive(Context context, Intent intent)
     {
@@ -27,9 +27,9 @@ public class GeoBroadcastReceiver_TaskAlert extends BroadcastReceiver {
 
         Bundle newB = new Bundle();
         Intent it;
-        MyDebug.MakeLog(2, "@RemindmeReceiver_TaskAlert onReceive");
-        MyDebug.MakeLog(2, "get action " + intent.getAction().toString());
-        MyDebug.MakeLog(2, "get msg: " + msg);
+        MyDebug.MakeLog(2, "@ RemindmeReceiver_TaskAlert onReceive");
+        //MyDebug.MakeLog(2, "get action " + intent.getAction().toString());
+        //MyDebug.MakeLog(2, "get msg: " + msg);
 
 
         if (action.equals("me.iamcxa.remindme.TaskReceiver"))

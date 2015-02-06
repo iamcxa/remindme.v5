@@ -105,7 +105,7 @@
 
         <!-- ================================================================== -->
         <receiver
-            android:name="tw.geodoer.mPriority.eventReceiver.GeoBroadcastReceiver_TaskAlert"
+            android:name="tw.geodoer.mPriority.receiver.GeoBroadcastReceiver_TaskAlert"
             android:exported="false" >
             <intent-filter>
 
