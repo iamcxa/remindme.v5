@@ -10,8 +10,10 @@ import java.util.ArrayList;
 
 import tw.geodoer.mDatabase.API.DBAlertHelper;
 import tw.geodoer.mDatabase.API.DBLocationHelper;
+import tw.geodoer.mDatabase.API.DBTasksHelper;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
+import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.mGeoInfo.API.DistanceCalculator;
 import tw.geodoer.mPriority.API.WeightCalculator;
 import tw.geodoer.utils.MyDebug;
@@ -85,7 +87,7 @@ public class GeoServiceEventUpdater extends Service
     {
         DBLocationHelper dbLocationHelper=new DBLocationHelper(getApplicationContext());
         DBAlertHelper dbAlertHelper = new  DBAlertHelper(getApplicationContext());
-
+        DBTasksHelper dbTaskHelper = new DBTasksHelper(getApplicationContext());
         //get number of events
         int count=dbAlertHelper.getCountOfUnFinishedTask();
         if(count==0)return false; //if no event can be change , stop thread
@@ -93,7 +95,7 @@ public class GeoServiceEventUpdater extends Service
 
         ArrayList<Integer> db_alert_list = dbAlertHelper.getIDArrayListOfUnFinishedTask();
         long left_time;
-        int loc_id,weight;
+        int loc_id,task_id,weight;
         double itemLat, itemLon, distance;
         //boolean safe_check;
 
@@ -104,9 +106,9 @@ public class GeoServiceEventUpdater extends Service
             //loop all event witch need update
             for (int i : db_alert_list)  //i
             {
-
-
                 loc_id = dbAlertHelper.getItemInt(i, ColumnAlert.KEY.loc_id);
+                task_id = dbAlertHelper.getItemInt(i,ColumnAlert.KEY.task_id);
+
 
                 itemLat = dbLocationHelper.getItemDouble(loc_id, ColumnLocation.KEY.lat);
                 itemLon = dbLocationHelper.getItemDouble(loc_id, ColumnLocation.KEY.lon);
@@ -123,6 +125,8 @@ public class GeoServiceEventUpdater extends Service
                 dbLocationHelper.setItem(loc_id, ColumnLocation.KEY.distance, distance);
 
 
+
+
                 //get left time
                 left_time = dbAlertHelper.getItemLong(i, ColumnAlert.KEY.due_date_millis) - currentTimeMillis;
 
@@ -130,10 +134,13 @@ public class GeoServiceEventUpdater extends Service
                 weight = Cal.getweight(left_time, distance);
 
                 //set back weight to db_loc
+                dbLocationHelper.setItem(loc_id,ColumnLocation.KEY.weight,weight);
 
-                dbLocationHelper.setItem(loc_id,ColumnLocation.KEY.weight,(double)weight);
+                //set back weight to db_task
+                dbTaskHelper.setItem(task_id, ColumnTask.KEY.priority,weight);
 
-                MyDebug.MakeLog(2,"WU event alart_id="+i+", loc_id="+loc_id+" ,weight=" + weight);
+
+                MyDebug.MakeLog(2,"al_id="+i+" ,loc_id="+loc_id+" ,pT=" +left_time+" ,pL=" +distance+" ,wei=" + weight);
 
             }
 

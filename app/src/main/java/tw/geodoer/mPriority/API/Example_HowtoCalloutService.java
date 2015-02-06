@@ -18,8 +18,6 @@ public class Example_HowtoCalloutService extends Service
         //call out the service_position
         ServiceCaller.call(context,ServiceCaller.KEY_POSITION);
 
-        //call out the service_weight
-        ServiceCaller.call(context,ServiceCaller.KEY_WEIGHT);
     }
 
     @Override
