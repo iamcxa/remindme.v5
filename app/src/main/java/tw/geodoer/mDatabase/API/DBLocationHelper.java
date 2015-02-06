@@ -15,8 +15,8 @@ import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.utils.MyDebug;
 
 /**
- * @version 0.4
- * @since 20150205
+ * @version 0.5
+ * @since 20150206
  */
 public class DBLocationHelper {
 
@@ -175,7 +175,7 @@ public class DBLocationHelper {
      * @return (int) target's value.<br>
      * (int)-1, if any error was occurred.
      */
-    protected int getItemInt(int itemId, String columnName) {
+    public int getItemInt(int itemId, String columnName) {
         String[] projection = {"_id", columnName};
         String[] argStrings = {String.valueOf(itemId)};
         try {
@@ -307,6 +307,30 @@ public class DBLocationHelper {
         }
     }
 
+
+    /**
+     * 本方法可更新一筆資料資料表 task_locations 中的字串資料。<br>
+     *
+     * @param itemId    (String) 地點ID。
+     * @param targetKey (String) 目標欄位名稱，由ColumnLocation.Key提供。
+     * @param newValue  (int) 目標欄位的新值。
+     * @return true. <br>
+     * false, also logcat will output "DBLocationHelpr setItem method error=..."。
+     */
+    public boolean setItem(int itemId, String targetKey, int newValue) {
+        try {
+            Uri thisUri = ContentUris.withAppendedId(mUri, itemId);
+            ContentValues values = new ContentValues();
+            values.put(targetKey, newValue);
+            context.getContentResolver().update(thisUri, values, null, null);
+            return true;
+        } catch (Exception e) {
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
+            return false;
+        }
+    }
+
+
     /**
      * 本方法可更新一筆資料資料表task_locations中的字串資料。<br>
      *
@@ -334,6 +358,7 @@ public class DBLocationHelper {
             return false;
         }
     }
+
 
     /**
      * 本方法可更新一筆資料資料表task_locations中的數值資料。<br>
