@@ -29,7 +29,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import tw.geodoer.mGeoInfo.controller.GeocodingAPI;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.moretion.geodoer.R;
 
@@ -87,8 +86,8 @@ public class LocationCustomDialog extends DialogFragment implements
         @Override
         public void onClick(View v) {
             // TODO Auto-generated method stub
-            if (v.getId() == R.id.Search)
-                SearchPlace();
+//            if (v.getId() == R.id.Search)
+//                SearchPlace();
         }
 
     };
@@ -178,32 +177,32 @@ public class LocationCustomDialog extends DialogFragment implements
 //	    }
     }
 
-    private void SearchPlace() {
-        if (!SearchText.getText().toString().equals("")) {
-            GeocodingAPI LoacationAddress2 = null;
-            LatLng SearchLocation = null;
-            LoacationAddress2 = new GeocodingAPI(getActivity(),
-                    SearchText.getText().toString());
-            // textView2.setText("");
-            // locationName=LoacationAddress2.GeocodingApiAddressGet();
-            // textView2.setText(textView2.getText()+"\n"+Address);
-            SearchLocation = LoacationAddress2.GeocodingApiLatLngGet();
-            Lat = SearchLocation.latitude;
-            Lon = SearchLocation.longitude;
-            // textView2.setText(textView2.getText()+"\n"+SearchLocation);
-            locationName = LoacationAddress2.GeocodingApiAddressGet();
-            PlaceName.setText(locationName);
-            if (SearchLocation != null) {
-                map.animateCamera((CameraUpdateFactory.newLatLngZoom(
-                        SearchLocation, map.getMaxZoomLevel() - 4)));
-                map.addMarker(new MarkerOptions().title("搜尋的位置")
-                        .snippet(locationName).position(SearchLocation));
-            } else {
-                Toast.makeText(getActivity(), "查無地點哦,換個詞試試看",
-                        Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
+//    private void SearchPlace() {
+//        if (!SearchText.getText().toString().equals("")) {
+//            GeocodingAPI LoacationAddress2 = null;
+//            LatLng SearchLocation = null;
+//            LoacationAddress2 = new GeocodingAPI(getActivity(),
+//                    SearchText.getText().toString());
+//            // textView2.setText("");
+//            // locationName=LoacationAddress2.GeocodingApiAddressGet();
+//            // textView2.setText(textView2.getText()+"\n"+Address);
+//            SearchLocation = LoacationAddress2.GeocodingApiLatLngGet();
+//            Lat = SearchLocation.latitude;
+//            Lon = SearchLocation.longitude;
+//            // textView2.setText(textView2.getText()+"\n"+SearchLocation);
+//            locationName = LoacationAddress2.GeocodingApiAddressGet();
+//            PlaceName.setText(locationName);
+//            if (SearchLocation != null) {
+//                map.animateCamera((CameraUpdateFactory.newLatLngZoom(
+//                        SearchLocation, map.getMaxZoomLevel() - 4)));
+//                map.addMarker(new MarkerOptions().title("搜尋的位置")
+//                        .snippet(locationName).position(SearchLocation));
+//            } else {
+//                Toast.makeText(getActivity(), "查無地點哦,換個詞試試看",
+//                        Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    }
 
     /**
      * This is called when a long press occurs on our listView02 items.

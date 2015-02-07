@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.devspark.progressfragment.ProgressFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -19,7 +18,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import tw.geodoer.mGeoInfo.controller.GeocodingAPI;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.utils.MyDebug;
 import tw.moretion.geodoer.R;
@@ -55,9 +53,9 @@ public class TaskEditorLocation extends ProgressFragment  /*implements GPSCallba
         @Override
         public boolean onMarkerClick(Marker marker) {
             // TODO Auto-generated method stub
-            GeocodingAPI LoacationAddress = new GeocodingAPI(getActivity(), marker.getPosition().latitude + "," + marker.getPosition().longitude);
-
-            locationName = LoacationAddress.GeocodingApiAddressGet();
+//            GeocodingAPI LoacationAddress = new GeocodingAPI(getActivity(), marker.getPosition().latitude + "," + marker.getPosition().longitude);
+//
+//            locationName = LoacationAddress.GeocodingApiAddressGet();
             PlaceName.setText(locationName);
             Lat = marker.getPosition().latitude;
             Lon = marker.getPosition().longitude;
@@ -83,8 +81,8 @@ public class TaskEditorLocation extends ProgressFragment  /*implements GPSCallba
         @Override
         public void onClick(View v) {
             // TODO Auto-generated method stub
-            if (v.getId() == R.id.Search)
-                SearchPlace();
+//            if (v.getId() == R.id.Search)
+//                SearchPlace();
         }
 
     };
@@ -199,32 +197,32 @@ public class TaskEditorLocation extends ProgressFragment  /*implements GPSCallba
         }
     }
 
-    private void SearchPlace() {
-        if (!SearchText.getText().toString().equals("")) {
-            GeocodingAPI LoacationAddress2 = null;
-            LatLng SearchLocation = null;
-            LoacationAddress2 = new GeocodingAPI(getActivity(),
-                    SearchText.getText().toString());
-            // textView2.setText("");
-            // locationName=LoacationAddress2.GeocodingApiAddressGet();
-            // textView2.setText(textView2.getText()+"\n"+Address);
-            SearchLocation = LoacationAddress2.GeocodingApiLatLngGet();
-            Lat = SearchLocation.latitude;
-            Lon = SearchLocation.longitude;
-            // textView2.setText(textView2.getText()+"\n"+SearchLocation);
-            locationName = LoacationAddress2.GeocodingApiAddressGet();
-            PlaceName.setText(locationName);
-            if (SearchLocation != null) {
-                map.animateCamera((CameraUpdateFactory.newLatLngZoom(
-                        SearchLocation, map.getMaxZoomLevel() - 4)));
-                map.addMarker(new MarkerOptions().title("搜尋的位置")
-                        .snippet(locationName).position(SearchLocation));
-            } else {
-                Toast.makeText(getActivity(), "查無地點哦,換個詞試試看",
-                        Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
+//    private void SearchPlace() {
+//        if (!SearchText.getText().toString().equals("")) {
+//            GeocodingAPI LoacationAddress2 = null;
+//            LatLng SearchLocation = null;
+//            LoacationAddress2 = new GeocodingAPI(getActivity(),
+//                    SearchText.getText().toString());
+//            // textView2.setText("");
+//            // locationName=LoacationAddress2.GeocodingApiAddressGet();
+//            // textView2.setText(textView2.getText()+"\n"+Address);
+//            SearchLocation = LoacationAddress2.GeocodingApiLatLngGet();
+//            Lat = SearchLocation.latitude;
+//            Lon = SearchLocation.longitude;
+//            // textView2.setText(textView2.getText()+"\n"+SearchLocation);
+//            locationName = LoacationAddress2.GeocodingApiAddressGet();
+//            PlaceName.setText(locationName);
+//            if (SearchLocation != null) {
+//                map.animateCamera((CameraUpdateFactory.newLatLngZoom(
+//                        SearchLocation, map.getMaxZoomLevel() - 4)));
+//                map.addMarker(new MarkerOptions().title("搜尋的位置")
+//                        .snippet(locationName).position(SearchLocation));
+//            } else {
+//                Toast.makeText(getActivity(), "查無地點哦,換個詞試試看",
+//                        Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    }
 
 //	@Override
 //	public void onGPSUpdate(Location location) {

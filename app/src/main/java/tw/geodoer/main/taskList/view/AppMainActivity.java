@@ -25,8 +25,6 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import tw.geodoer.mGeoInfo.controller.LocationGetter;
-import tw.geodoer.mPriority.service.GeoServiceStarter;
 import tw.geodoer.main.taskEditor.controller.ActionSetAlarm;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
@@ -92,8 +90,8 @@ public class AppMainActivity extends ActionBarActivity
             Toast.makeText(getApplication(), item.getTitle(),
                     Toast.LENGTH_SHORT).show();
 
-            LocationGetter UpdataLocation = new LocationGetter(getApplicationContext());
-            UpdataLocation.UpdateOncePriority();
+//            LocationGetter UpdataLocation = new LocationGetter(getApplicationContext());
+//            UpdataLocation.UpdateOncePriority();
 
             ListCursorCardFragment.getmAdapter().notifyDataSetChanged();
 
