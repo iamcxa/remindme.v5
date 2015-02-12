@@ -62,7 +62,7 @@ public class ListCursorCardFragment extends MyBaseFragment implements
     private static String[] projectionLoc = ColumnLocation.PROJECTION;
     private static String taskSelection = null;
 //    private static String taskSortOrder = ColumnTask.DEFAULT_SORT_ORDER;
-    private static String taskSortOrder =" priority";
+    private static String taskSortOrder ="priority ASC";
     //
     private static String alertSelection = null;
     private static String alertSortOrder = ColumnAlert.DEFAULT_SORT_ORDER;
@@ -84,6 +84,8 @@ public class ListCursorCardFragment extends MyBaseFragment implements
 
         ;
     };
+    private Loader<Cursor> loader;
+    private Cursor data;
 
 
     /********************/
@@ -260,7 +262,7 @@ public class ListCursorCardFragment extends MyBaseFragment implements
         switch (id) {
             case 101:
                 loader = new CursorLoader(getActivity(), ColumnTask.URI,
-                        projectionTask, taskSelection, selectionArgs, " priority");
+                        projectionTask, taskSelection, selectionArgs, taskSortOrder);
                 break;
             case 201:
                 loader = new CursorLoader(getActivity(), ColumnAlert.URI,
@@ -283,7 +285,16 @@ public class ListCursorCardFragment extends MyBaseFragment implements
         if (getActivity() == null) {
             return;
         }
-
+/*
+        if (data.moveToFirst())
+        {
+            do
+            {
+                String str = data.getString(ColumnTask.KEY.INDEX.due_date_millis);
+                MyDebug.MakeLog(2,str);
+            }while(data.moveToNext());
+        }
+*/
         mAdapter.swapCursor(data);
     }
 

@@ -121,7 +121,7 @@ public class TaskDbProvider extends ContentProvider {
         SQLiteDatabase db = mOpenHelper.getReadableDatabase();
         // 返回游標集合
         Cursor c = qb.query(db, projection, selection, selectionArgs, null,
-                null, null);
+                null, orderBy);
         c.setNotificationUri(getContext().getContentResolver(), uri);
         return c;
     }

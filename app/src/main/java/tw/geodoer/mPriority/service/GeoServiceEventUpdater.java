@@ -25,7 +25,7 @@ public class GeoServiceEventUpdater extends Service
 {
     private double Now_Lat, Now_Lon;
     private final WeightCalculator Cal = new WeightCalculator();
-    private final long currentTimeMillis = System.currentTimeMillis();
+    private long currentTimeMillis = System.currentTimeMillis();
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -36,10 +36,16 @@ public class GeoServiceEventUpdater extends Service
     {
         MyDebug.MakeLog(2,"@ Position Service Start");
 
-        if( this.GetNowPos()        )
-         this.updater();
-          //  this.weight_updater();
-
+        switch ( this.GetNow() )
+        {
+            case 1:
+                this.updater_TP();
+                break;
+            case 2:
+                this.updater_T();
+                break;
+            default:
+        }
         stopSelf();
 
         super.onCreate();
@@ -53,7 +59,7 @@ public class GeoServiceEventUpdater extends Service
     }
 
 
-    public boolean GetNowPos()
+    public int GetNow()
     {
         //Get Now position from GPS
         //true: load success / false: load fail
@@ -69,21 +75,23 @@ public class GeoServiceEventUpdater extends Service
         else
             location = null;
 
-
         if(location != null)
         {
             this.Now_Lat = location.getLatitude();     //取得緯度
             this.Now_Lon = location.getLongitude();   //取得經度
 
             MyDebug.MakeLog(2,"Now position =Lat: " +this.Now_Lat +" ,Lon: "+this.Now_Lon);
-            return  true;
+            return 1;
         }
-        else return false;
-
+        else
+        {
+            MyDebug.MakeLog(2,"get no position, start only with time");
+            return 2;
+        }
+        //else return true;
     }
 
-
-    public boolean updater()
+    public boolean updater_TP()
     {
         DBLocationHelper dbLocationHelper=new DBLocationHelper(getApplicationContext());
         DBAlertHelper dbAlertHelper = new  DBAlertHelper(getApplicationContext());
@@ -152,57 +160,56 @@ public class GeoServiceEventUpdater extends Service
             return false;
         }
     }
-    /*
-    public boolean weight_updater()
+
+    public boolean updater_T()
     {
-        MyDebug.MakeLog(2,"Weight update Start");
-
-        DBAlertHelper dbAlertHelper = new  DBAlertHelper(getApplicationContext());
         DBLocationHelper dbLocationHelper=new DBLocationHelper(getApplicationContext());
-        //WeightCalculator Cal = new WeightCalculator();
-        long left_time;
-        int loc_id,weight;
-        double left_distance;
-        boolean safe_check;
+        DBAlertHelper dbAlertHelper = new  DBAlertHelper(getApplicationContext());
+        DBTasksHelper dbTaskHelper = new DBTasksHelper(getApplicationContext());
+        //get number of events
+        int count=dbAlertHelper.getCountOfUnFinishedTask();
+        if(count==0)return false; //if no event can be change , stop thread
+        //--------------------------------------------------------------------------------------
 
-        //get every events index from db_alarm
         ArrayList<Integer> db_alert_list = dbAlertHelper.getIDArrayListOfUnFinishedTask();
-
-        //start for each event
-        if(db_alert_list!=null && (!db_alert_list.isEmpty()) )
-            for(int i : db_alert_list)
-            {
-                safe_check=false;
-                try
+        long left_time;
+        int loc_id,task_id,weight;
+        //boolean safe_check;
+        currentTimeMillis = System.currentTimeMillis();
+        //get all id witch need update distance in db_alert
+        try
+        {
+            if(db_alert_list!=null && (!db_alert_list.isEmpty()) )
+                //loop all event witch need update
+                for (int i : db_alert_list)  //i
                 {
-                    //get loc_id
                     loc_id = dbAlertHelper.getItemInt(i, ColumnAlert.KEY.loc_id);
+                    task_id = dbAlertHelper.getItemInt(i,ColumnAlert.KEY.task_id);
 
-                    //get left distance
-                    left_distance = dbLocationHelper.getItemDouble(loc_id, ColumnLocation.KEY.distance);
 
                     //get left time
                     left_time = dbAlertHelper.getItemLong(i, ColumnAlert.KEY.due_date_millis) - currentTimeMillis;
 
                     //cal the weight
-                    weight = Cal.getweight(left_time, left_distance);
+                    weight = Cal.getweight(left_time, 0);
 
                     //set back weight to db_loc
+                    //dbLocationHelper.setItem(loc_id,ColumnLocation.KEY.weight,weight);
 
-                    dbLocationHelper.setItem(loc_id,ColumnLocation.KEY.weight,(double)weight);
+                    //set back weight to db_task
+                    dbTaskHelper.setItem(task_id, ColumnTask.KEY.priority ,weight);
 
-                    MyDebug.MakeLog(2,"WU event alart_id="+i+", loc_id="+loc_id+" ,weight=" + weight);
+                    MyDebug.MakeLog(2,"tk_id="+task_id +"pT=" +left_time+" ,pL=0" +",wei=" + weight);
+
                 }
-                catch(Exception e)
-                {
-                    safe_check=true;
-                    MyDebug.MakeLog(2,"weight update exception :"+e.toString());
-                }
-                if(safe_check)continue;
-            }
 
-        //MyDebug.MakeLog(2,"weight_updater success");
-        return true;
+            return true;
+        }
+        catch (Exception e)
+        {
+            MyDebug.MakeLog(2,"Exception :"+e.toString());
+            return false;
+        }
+
     }
-    */
 }
