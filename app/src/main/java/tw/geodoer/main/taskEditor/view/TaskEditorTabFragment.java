@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.mGeoInfo.view.TaskEditorLocation;
 import tw.geodoer.main.taskEditor.adapter.MyFragmentPagerAdapter;
 import tw.geodoer.main.taskEditor.controller.ActionReadDbBeforeSaveDb;
 import tw.geodoer.main.taskEditor.controller.ActionSaveDataToDb;
@@ -93,7 +92,7 @@ public class TaskEditorTabFragment extends ActionBarActivity
         // 設置 ViewPager
         fragments = new ArrayList<Fragment>();
         fragments.add(new TaskEditorMainFragment());
-        fragments.add(new TaskEditorLocation());
+//        fragments.add(new TaskEditorLocation());
         viewPager_Adapter = new MyFragmentPagerAdapter(
                 getSupportFragmentManager()
                 , fragments);
