@@ -14,6 +14,14 @@ android {
     }
     productFlavors {
     }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            res.srcDirs = ['src/main/res']
+        }
+    }
 }
 
 dependencies {
@@ -24,4 +32,5 @@ dependencies {
     compile 'com.github.johnkil.android-progressfragment:progressfragment:1.4.+'
     compile 'com.android.support:appcompat-v7:21.0.2'
     compile 'com.android.support:support-v4:21.0.2'
+    compile project(':MapController_v1.15.7')
 }
