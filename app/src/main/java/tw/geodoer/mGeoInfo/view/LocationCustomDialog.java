@@ -48,6 +48,7 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
     private static TextView PlaceName;
     private static EditText SearchText;
     private static Button Search;
+    private static Button save;
     private View mContentView;
     private String locationName;
     private double Lat;
@@ -73,6 +74,10 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
         SearchText = (EditText) mContentView.findViewById(R.id.SearchText);
         Search = (Button) mContentView.findViewById(R.id.Search);
         Search.setOnClickListener(this);
+
+        save = (Button) mContentView.findViewById(R.id.save);
+        save.setOnClickListener(this);
+
         MapsInitializer.initialize(getActivity().getApplicationContext());
 
         switch (GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity())) {
@@ -117,7 +122,7 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
                     map.getMinZoomLevel() + 7)));
             map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
                     .position(nowLoacation));
-
+//            map.get
             mapController = new MapController(getActivity(),map,PlaceName);
             mapController.isMoveGet(true);
             mapController.setOnGeoLoadedLisitener(this);
@@ -159,10 +164,13 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
     @Override
     public void onGeoLoaded(GeoInfo geo, int status) {
         if(status == GeoStatus.NETWORK_FAIL){
+            save.setEnabled(true);
             Log.e("fail","位置："+geo.name+",座標："+geo.latlng+",沒有網路");
         }else if(status == GeoStatus.WIFI_FAIL){
+            save.setEnabled(true);
             Log.e("fail","位置："+geo.name+",座標："+geo.latlng+",只有3G,沒有wifi");
         }else if(status == GeoStatus.SUCESS){
+            save.setEnabled(true);
             Log.d("Loaded","位置："+geo.name+",座標："+geo.latlng+",載入完成");
         }
     }
@@ -172,6 +180,7 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
      */
     @Override
     public void onGeoLoading() {
+        save.setEnabled(false);
         Log.d("Loading","開始載入");
     }
 
@@ -182,6 +191,11 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
      */
     @Override
     public void onClick(View v) {
-        mapController.searchPlace(SearchText.getText().toString());
+        if(v.getId() == R.id.Search){
+            mapController.searchPlace(SearchText.getText().toString());
+        }
+        else if(v.getId() == R.id.save){
+
+        }
     }
 }
