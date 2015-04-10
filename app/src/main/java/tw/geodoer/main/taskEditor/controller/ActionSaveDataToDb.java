@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import tw.geodoer.mDatabase.API.DBTasksHelper;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
@@ -32,6 +33,7 @@ public class ActionSaveDataToDb {
     private ContentValues values = new ContentValues();
     private int taskId = 0, alertId = 0, locId = 0, alertSelected = 0, locSelected = 0;
     private int lastTaskID, lastLocID;
+    private int thistaskId;
     //private readDB readDB;
 
     public ActionSaveDataToDb(Context context, int thisTaskID, int lastTaskID, int lastLocID) {
@@ -39,13 +41,14 @@ public class ActionSaveDataToDb {
         this.context = context;
         this.lastTaskID = lastTaskID;
         this.lastLocID = lastLocID;
+        this.thistaskId = thisTaskID;
 
         // 取得日期與時間選擇器數值加總後的毫秒值
         getTaskDueDateTime();
 
         // 寫入或更新資料庫
         saveTableTasks();
-        saveTableAlert();
+        //saveTableAlert();
         //saveTableLocation();
         //----------------------------------------------------------------------------------//
         //call out service position                                                         //
@@ -110,8 +113,9 @@ public class ActionSaveDataToDb {
 
     // 判斷本次操作是寫入新資料或更新已存在資料
     private boolean isSaveOrUpdate(ContentValues values, int taskId) {
-        if (taskId != 0) {
-            return UpdateIt(values, taskId);
+        DBTasksHelper mDBhelper = new DBTasksHelper(context);
+        if (mDBhelper.isIDExist(thistaskId)) {
+            return UpdateIt(values, thistaskId);
         } else {
             return SaveIt(values);
         }
