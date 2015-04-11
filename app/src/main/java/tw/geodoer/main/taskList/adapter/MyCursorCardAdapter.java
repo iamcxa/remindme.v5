@@ -103,6 +103,7 @@ public class MyCursorCardAdapter extends CardCursorAdapter {
         card.setOnLongClickListener(new Card.OnLongCardClickListener() {
             @Override
             public boolean onLongClick(Card card, View view) {
+                cursor.moveToPosition(Integer.parseInt(card.getId()));
                 ShowLongClickMenu(cursor.getInt(0), card.getId());
                 return false;
             }
@@ -170,7 +171,6 @@ public class MyCursorCardAdapter extends CardCursorAdapter {
                                         break;
                                     case 1:// 刪除
                                         removeCard(id);
-
                                         break;
                                 }
                             }

@@ -25,6 +25,7 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import tw.geodoer.mPriority.controller.PriorityUpdater;
 import tw.geodoer.main.taskEditor.controller.ActionSetAlarm;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
@@ -87,17 +88,18 @@ public class AppMainActivity extends ActionBarActivity
     private MenuItem.OnMenuItemClickListener btnRefreshClick = new MenuItem.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-            Toast.makeText(getApplication(), item.getTitle(),
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplication(), item.getTitle(),Toast.LENGTH_SHORT).show();
 
 //            LocationGetter UpdataLocation = new LocationGetter(getApplicationContext());
 //            UpdataLocation.UpdateOncePriority();
 
-            ListCursorCardFragment.getmAdapter().notifyDataSetChanged();
+//            ListCursorCardFragment.getmAdapter().notifyDataSetChanged();
 
 
-            ActionSetAlarm mSetAlarm = new ActionSetAlarm(getApplicationContext(), System.currentTimeMillis() + 1000, 10);
-            mSetAlarm.SetIt();
+//            ActionSetAlarm mSetAlarm = new ActionSetAlarm(getApplicationContext(), System.currentTimeMillis() + 1000, 10);
+//            mSetAlarm.SetIt();
+            PriorityUpdater PrU = new PriorityUpdater(getApplicationContext());
+            PrU.PirorityUpdate();
 
             return false;
         }
@@ -306,7 +308,7 @@ public class AppMainActivity extends ActionBarActivity
         //MyPreferences.mPreferences = PreferenceManager
         //        .getDefaultSharedPreferences(getApplicationContext());
 /*
-        Intent intent = new Intent(this, GeoServiceStarter.class);
+        Intent intent = new Intent(this,.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startService(intent);
 */

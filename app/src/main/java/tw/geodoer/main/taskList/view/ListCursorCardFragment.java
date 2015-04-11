@@ -37,7 +37,7 @@ import it.gmariotti.cardslib.library.view.CardListView;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.mPriority.API.ServiceCaller;
+import tw.geodoer.mPriority.controller.PriorityUpdater;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
 import tw.geodoer.main.taskList.adapter.MyCursorCardAdapter;
 import tw.geodoer.main.taskPreference.controller.MyPreferences;
@@ -62,7 +62,7 @@ public class ListCursorCardFragment extends MyBaseFragment implements
     private static String[] projectionLoc = ColumnLocation.PROJECTION;
     private static String taskSelection = null;
 //    private static String taskSortOrder = ColumnTask.DEFAULT_SORT_ORDER;
-    private static String taskSortOrder ="priority ASC";
+    private static String taskSortOrder ="priority DESC";
     //
     private static String alertSelection = null;
     private static String alertSortOrder = ColumnAlert.DEFAULT_SORT_ORDER;
@@ -249,8 +249,8 @@ public class ListCursorCardFragment extends MyBaseFragment implements
         init();
 
         //----------------------------------------------------------//
-        //callout service position                                  //
-        ServiceCaller.call(getActivity().getApplicationContext(),ServiceCaller.KEY_POSITION);
+        PriorityUpdater PrU = new PriorityUpdater(getActivity());
+        PrU.PirorityUpdate();
         //----------------------------------------------------------//
     }
 

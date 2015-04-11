@@ -12,7 +12,7 @@ import tw.geodoer.mDatabase.API.DBTasksHelper;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.mPriority.API.ServiceCaller;
+import tw.geodoer.mPriority.controller.PriorityUpdater;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.main.taskEditor.view.TaskEditorMainFragment;
 import tw.geodoer.utils.MyCalendar;
@@ -51,8 +51,8 @@ public class ActionSaveDataToDb {
         //saveTableAlert();
         //saveTableLocation();
         //----------------------------------------------------------------------------------//
-        //call out service position                                                         //
-        ServiceCaller.call(context,ServiceCaller.KEY_POSITION);                             //
+        PriorityUpdater PrU = new PriorityUpdater(context);
+        PrU.PirorityUpdate();
         //----------------------------------------------------------------------------------//
 
     }
@@ -70,14 +70,17 @@ public class ActionSaveDataToDb {
         int mMinute = mEditorVar.TaskDate.getmMinute();
         MyDebug.MakeLog(2, "@selected Date plus time=" + mYear + "/" + mMonth + "/" + mDay + "/" + mHour + ":" + mMinute);
 
-        Calendar c = Calendar.getInstance();
-        c.clear();
-        c.set(mYear, mMonth - 1, mDay, mHour, mMinute);
 
-        taskDueDateTime = c.getTimeInMillis();
+        if(     !(mYear==0 && mMonth ==0 && mDay==0 && mHour==0 && mMinute==0)  )
+        {
+            Calendar c = Calendar.getInstance();
+            c.clear();
+            c.set(mYear, mMonth - 1, mDay, mHour, mMinute);
+            taskDueDateTime = c.getTimeInMillis();
+        }
+        else taskDueDateTime = 0;
 
         mEditorVar.TaskDate.setmDatePulsTimeMillis(taskDueDateTime);
-
         return taskDueDateTime;
     }
 

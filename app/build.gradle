@@ -30,7 +30,7 @@ dependencies {
     compile 'com.github.gabrielemariotti.cards:library:1.9.1'
     compile 'com.shamanland:fab:0.0.6'
     compile 'com.github.johnkil.android-progressfragment:progressfragment:1.4.+'
-    compile 'com.android.support:appcompat-v7:21.0.2'
-    compile 'com.android.support:support-v4:21.0.2'
+    compile 'com.android.support:appcompat-v7:21.0.+'
+    compile 'com.android.support:support-v4:21.0.+'
     compile project(':MapController_v1.15.7')
 }

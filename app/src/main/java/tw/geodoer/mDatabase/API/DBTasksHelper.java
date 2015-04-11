@@ -177,7 +177,7 @@ public class DBTasksHelper {
      * @return (int) target's value.<br>
      * (int)-1, if any error was occurred.
      */
-    protected int getItemInt(int itemId, String columnName) {
+    public int getItemInt(int itemId, String columnName) {
         String[] projection = {"_id", columnName};
         String[] argStrings = {String.valueOf(itemId)};
         try {

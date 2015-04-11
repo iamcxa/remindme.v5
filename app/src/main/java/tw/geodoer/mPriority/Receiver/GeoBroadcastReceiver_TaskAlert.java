@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import tw.geodoer.mPriority.API.ServiceCaller;
-import tw.geodoer.mPriority.service.GeoServiceEventUpdater;
 import tw.geodoer.mPriority.service.GeoServiceNotification;
 
 import tw.geodoer.utils.MyDebug;
@@ -67,12 +65,6 @@ public class GeoBroadcastReceiver_TaskAlert extends BroadcastReceiver
 
                     context.startService(intent);
                     break;
-
-                case "me.iamcxa.remindme.position":
-                    //if(msg.equals("me.iamcxa.remindme.position"))
-                    ServiceCaller.call(context,ServiceCaller.KEY_POSITION);
-                    break;
-
                 default:
                     break;
             }
