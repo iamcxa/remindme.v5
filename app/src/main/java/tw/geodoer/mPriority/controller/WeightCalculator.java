@@ -1,4 +1,4 @@
-package tw.geodoer.mPriority.API;
+package tw.geodoer.mPriority.controller;
 
 import java.util.concurrent.TimeUnit;
 
