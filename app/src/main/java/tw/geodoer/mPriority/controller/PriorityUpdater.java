@@ -11,9 +11,7 @@ import tw.geodoer.mDatabase.API.DBAlertHelper;
 import tw.geodoer.mDatabase.API.DBLocationHelper;
 import tw.geodoer.mDatabase.API.DBTasksHelper;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
-import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.mGeoInfo.API.DistanceCalculator;
 import tw.geodoer.utils.MyDebug;
 
 /**
@@ -28,13 +26,13 @@ public class PriorityUpdater
     private DBLocationHelper dbLocationHelper;
     private DBAlertHelper dbAlertHelper;
 
-    private final WeightCalculator Cal;
+    private final PriorityCalculatorNew Cal;
     private long currentTimeMillis ;
 
     public PriorityUpdater(Context context)
     {
         this.mContext = context;
-        this.Cal = new WeightCalculator();
+        this.Cal = new PriorityCalculatorNew();
 
         this.dbLocationHelper=new DBLocationHelper(mContext);
         this.dbAlertHelper = new  DBAlertHelper(mContext);
@@ -130,23 +128,22 @@ public class PriorityUpdater
                 for (int task_id : db_list)  //i
                 {
                     //get ids for any row
-                    loc_id   = dbTaskHelper.getItemInt(task_id, ColumnAlert.KEY.loc_id);
-                    //alert_id = dbTaskHelper.getItemInt(task_id, ColumnAlert.KEY.actFri);
+//                    loc_id   = dbTaskHelper.getItemInt(task_id, ColumnAlert.KEY.loc_id);
 
                     //get position
-                    if(loc_id!=0)
-                    {
-                        //get positions from loc
-                        itemLat = dbLocationHelper.getItemDouble(loc_id, ColumnLocation.KEY.lat);
-                        itemLon = dbLocationHelper.getItemDouble(loc_id, ColumnLocation.KEY.lon);
-
-                        distance = DistanceCalculator.haversine(this.Now_Lat, this.Now_Lon, itemLat, itemLon);
-                        dbLocationHelper.setItem(loc_id, ColumnLocation.KEY.distance, distance);
-                    }
-                    else
-                    {
+//                    if(loc_id >0)
+//                    {
+//                        //get positions from loc
+//                        itemLat = dbLocationHelper.getItemDouble(loc_id, ColumnLocation.KEY.lat);
+//                        itemLon = dbLocationHelper.getItemDouble(loc_id, ColumnLocation.KEY.lon);
+//
+//                        distance = DistanceCalculator.haversine(this.Now_Lat, this.Now_Lon, itemLat, itemLon);
+//                        dbLocationHelper.setItem(loc_id, ColumnLocation.KEY.distance, distance);
+//                    }
+//                    else
+//                    {
                         distance = 0;
-                    }
+//                    }
 
                     //get time
                     item_time = dbTaskHelper.getItemLong(task_id, ColumnAlert.KEY.due_date_millis);
@@ -167,7 +164,7 @@ public class PriorityUpdater
                     //set back weight to db_task
                     dbTaskHelper.setItem(task_id, ColumnTask.KEY.priority, weight);
 
-                    MyDebug.MakeLog(2, "task_id="+task_id+"loc_id="+loc_id + " ,pT=" + left_time + " ,pL=" + distance + " ,wei=" + weight);
+                    MyDebug.MakeLog(2, "PirorityUpdate: id="+task_id + " ,pT=" + left_time + " ,pL=" + distance + " ,pir=" + weight);
                 }
             }
 

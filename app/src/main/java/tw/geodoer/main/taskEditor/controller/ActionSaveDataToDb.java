@@ -3,11 +3,14 @@ package tw.geodoer.main.taskEditor.controller;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.UriMatcher;
 import android.net.Uri;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
+import tw.geodoer.mDatabase.API.DBAlertHelper;
 import tw.geodoer.mDatabase.API.DBTasksHelper;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
@@ -23,7 +26,7 @@ import tw.geodoer.utils.MyDebug;
  * @version 20141007
  */
 public class ActionSaveDataToDb {
-    private static CommonEditorVar mEditorVar = CommonEditorVar.GetInstance();
+    private static CommonEditorVar mEditorVar;
     protected setTableTasks setTableTasks;
     protected setTableAlert setTableAlert;
     protected setTableLocation setTableLocation;
@@ -31,79 +34,168 @@ public class ActionSaveDataToDb {
     private ActionSetAlarm mSetAlarm;
     private Context context;
     private ContentValues values = new ContentValues();
-    private int taskId = 0, alertId = 0, locId = 0, alertSelected = 0, locSelected = 0;
-    private int lastTaskID, lastLocID;
-    private int thistaskId;
+    private int taskId, alertId,locId , alertSelected = 0, locSelected = 0;
     //private readDB readDB;
 
     public ActionSaveDataToDb(Context context, int thisTaskID, int lastTaskID, int lastLocID) {
         super();
         this.context = context;
-        this.lastTaskID = lastTaskID;
-        this.lastLocID = lastLocID;
-        this.thistaskId = thisTaskID;
+        this.mEditorVar = CommonEditorVar.GetInstance();
+        //this.lastTaskID = lastTaskID;
+        //this.lastLocID = lastLocID;
+        this.taskId = thisTaskID;
+        this.alertId = 0;
+        this.locId = 0;
 
         // 取得日期與時間選擇器數值加總後的毫秒值
         getTaskDueDateTime();
+        //MyDebug.MakeLog(2,"getTaskDueDateTime return = "+getDueDateTime);
 
         // 寫入或更新資料庫
         saveTableTasks();
-        //saveTableAlert();
+
+        if(mEditorVar.TaskDate.getmDatePulsTimeMillis()!=0)
+            saveTableAlert();
+
         //saveTableLocation();
         //----------------------------------------------------------------------------------//
         PriorityUpdater PrU = new PriorityUpdater(context);
         PrU.PirorityUpdate();
         //----------------------------------------------------------------------------------//
 
+        //taskdate clear after ActionSave DataToDb
+        mEditorVar.TaskDate.setmYear(0);
+        mEditorVar.TaskDate.setmMonth(0);
+        mEditorVar.TaskDate.setmDay(0);
+        mEditorVar.TaskDate.setmHour(0);
+        mEditorVar.TaskDate.setmMinute(0);
+
     }
 
     // 取得日期與時間加總的到期日毫秒
     private static long getTaskDueDateTime() {
         // 初始化
-        long taskDueDateTime = 0;
+        long taskDueDateTime;
 
-        //
+        //MyDebug.MakeLog(2,"selected card time is "+mEditorVar.Task.getDue_date_millis());
         int mYear = mEditorVar.TaskDate.getmYear();
         int mMonth = mEditorVar.TaskDate.getmMonth();
         int mDay = mEditorVar.TaskDate.getmDay();
         int mHour = mEditorVar.TaskDate.getmHour();
         int mMinute = mEditorVar.TaskDate.getmMinute();
-        MyDebug.MakeLog(2, "@selected Date plus time=" + mYear + "/" + mMonth + "/" + mDay + "/" + mHour + ":" + mMinute);
 
-
-        if(     !(mYear==0 && mMonth ==0 && mDay==0 && mHour==0 && mMinute==0)  )
+        if( mYear!=0 || mMonth!=0 || mDay!=0 || mHour!=0 || mMinute!=0) //if calender changed
         {
+            MyDebug.MakeLog(2, "@selected Date plus time=" + mYear + "/" + mMonth + "/" + mDay + "/" + mHour + ":" + mMinute);
             Calendar c = Calendar.getInstance();
             c.clear();
             c.set(mYear, mMonth - 1, mDay, mHour, mMinute);
             taskDueDateTime = c.getTimeInMillis();
         }
-        else taskDueDateTime = 0;
+        else if(mEditorVar.Task.getDue_date_millis() > 0) //if have alrewdy seted millis
+            taskDueDateTime = mEditorVar.Task.getDue_date_millis();
+        else
+            taskDueDateTime = 0;
 
         mEditorVar.TaskDate.setmDatePulsTimeMillis(taskDueDateTime);
+
+        //MyDebug.MakeLog(2,"saved card time is= "+taskDueDateTime);
         return taskDueDateTime;
     }
 
-    private void saveTableTasks() {
+    private void saveTableTasks()
+    {
+        // DBAPI
+        DBTasksHelper mDBhelper = new DBTasksHelper(this.context);
+
+        // create card field
         values.clear();
-        // 設定對應 URI, 執行 SQL 命令
-        mUri = ColumnTask.URI;
         setTableTasks = new setTableTasks(values);
-        isSaveOrUpdate(values, taskId);
+
+        if (mDBhelper.isIDExist(taskId)) //true for update
+        {
+            try
+            {
+                Uri uri = ContentUris.withAppendedId(ColumnTask.URI,taskId);
+                context.getContentResolver().update(uri, values, null, null);
+                Toast.makeText(context, "事項更新成功！", Toast.LENGTH_SHORT).show();
+                mEditorVar.Task.setTaskId(0);
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(context, "儲存出錯！", Toast.LENGTH_SHORT).show();
+                MyDebug.MakeLog(2, "saveTableTasks (update) error=" + e);
+            }
+        }
+        else   // false for add
+        {
+            try
+            {
+                long new_id;
+                //context.getContentResolver().insert(ColumnTask.URI, values);
+                //mDBhelper.addItem()
+                new_id = ContentUris.parseId(context.getContentResolver().insert(ColumnTask.URI, values));
+                //MyDebug.MakeLog(2,"這筆新資料的TASK ID 是"+new_id);
+                this.taskId =(int)new_id;
+
+                Toast.makeText(context, "新事項已經儲存!", Toast.LENGTH_SHORT).show();
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(context, "儲存出錯！", Toast.LENGTH_SHORT).show();
+                MyDebug.MakeLog(2, "saveTableTasks (add) error=" + e);
+            }
+        }
+
     }
 
-    private void saveTableAlert() {
+    private void saveTableAlert()
+    {
+//        values.clear();
+//        // 設定對應 URI, 執行 SQL 命令
+//        mUri = ColumnAlert.URI;
+//        setTableAlert = new setTableAlert(values, lastTaskID, lastLocID);
+//        if (isSaveOrUpdate(values, alertId)) {
+//            mSetAlarm = new ActionSetAlarm(context
+//                    , mEditorVar.TaskDate.getmDatePulsTimeMillis()
+//                    , lastTaskID + 1
+//            );
+//            mSetAlarm.SetIt();
+//        }
+
         values.clear();
-        // 設定對應 URI, 執行 SQL 命令
-        mUri = ColumnAlert.URI;
-        setTableAlert = new setTableAlert(values, lastTaskID, lastLocID);
-        if (isSaveOrUpdate(values, alertId)) {
-            mSetAlarm = new ActionSetAlarm(context
-                    , mEditorVar.TaskDate.getmDatePulsTimeMillis()
-                    , lastTaskID + 1
-            );
-            mSetAlarm.SetIt();
+        setTableAlert = new setTableAlert(values, this.taskId, this.locId);
+
+        try
+        {
+            DBAlertHelper mDBalerthelper =  new DBAlertHelper(this.context);
+            ArrayList<Integer> alert_ids = mDBalerthelper.getIDArrayListOfUnFinishedTask();
+
+            if (alert_ids == null) MyDebug.MakeLog(2, "ids==null");
+            if (alert_ids.isEmpty()) MyDebug.MakeLog(2, "ids.isEmpty()");
+
+            if (alert_ids != null)
+                for (int id : alert_ids)
+                {
+                    //MyDebug.MakeLog(2, "UnFinished id = " + id);
+
+                    if (mDBalerthelper.getItemInt(id, ColumnAlert.KEY.task_id) == this.taskId)
+                        mDBalerthelper.setItem(id, ColumnAlert.KEY.state, 1);
+                }
         }
+        catch (Exception e) { MyDebug.MakeLog(2, "saveTableAlert A error=" + e); }
+
+        //insert new alert
+        try
+        {
+            this.alertId =(int) ContentUris.parseId(context.getContentResolver().insert(ColumnAlert.URI, values));
+            //--------------------------
+            //do set alarm here
+            //with alertid
+            //--------------------------
+            //MyDebug.MakeLog(2,"new alert id is = "+this.alertId);
+        }
+        catch (Exception e) { MyDebug.MakeLog(2, "saveTableAlert  B error=" + e); }
     }
 
     private void saveTableLocation() {
@@ -113,12 +205,12 @@ public class ActionSaveDataToDb {
         setTableLocation = new setTableLocation(values);
         isSaveOrUpdate(values, locId);
     }
-
+//-------------------------------------------------------------------------------------------------//
     // 判斷本次操作是寫入新資料或更新已存在資料
     private boolean isSaveOrUpdate(ContentValues values, int taskId) {
         DBTasksHelper mDBhelper = new DBTasksHelper(context);
-        if (mDBhelper.isIDExist(thistaskId)) {
-            return UpdateIt(values, thistaskId);
+        if (mDBhelper.isIDExist(taskId)) {
+            return UpdateIt(values, taskId);
         } else {
             return SaveIt(values);
         }
@@ -127,12 +219,8 @@ public class ActionSaveDataToDb {
     // 寫入新資料
     private boolean SaveIt(ContentValues values) {
         try {
-
-
             context.getContentResolver().insert(mUri, values);
             Toast.makeText(context, "新事項已經儲存", Toast.LENGTH_SHORT).show();
-
-
             return true;
         } catch (Exception e) {
             Toast.makeText(context, "儲存出錯！", Toast.LENGTH_SHORT).show();
@@ -158,6 +246,7 @@ public class ActionSaveDataToDb {
         }
     }
     // 結束 //
+//-------------------------------------------------------------------------------------------------//
 }
 
 /*
@@ -305,10 +394,10 @@ class setTableAlert {
     int newTaskId = 0;
     int newLocId = 0;
 
-    public setTableAlert(ContentValues values, int lastTaskID, int lastLocID) {
+    public setTableAlert(ContentValues values, int TaskID, int LocID) {
         super();
-        this.newTaskId = lastTaskID + 1;
-        this.newLocId = lastLocID;
+        this.newTaskId = TaskID;
+        this.newLocId = LocID;
         MyDebug.MakeLog(2, "@newTaskId=" + newTaskId + ", selectedLocId=" + newLocId);
         getAlertFields();
         setTaskAlert(values);
@@ -374,7 +463,7 @@ class setTableAlert {
         values.put(ColumnAlert.KEY.interval, mEditorVar.TaskAlert.getInterval());
         // 5 - 提醒事件包含的地點id
         values.put(ColumnAlert.KEY.loc_id, mEditorVar.TaskAlert.getLoc_id());
-        MyDebug.MakeLog(2, "@set newTaskId=" + mEditorVar.TaskAlert.getLoc_id());
+        //MyDebug.MakeLog(2, "@set newTaskId=" + mEditorVar.TaskAlert.getLoc_id());
 
         // 6 - 是否開啟靠近地點提醒
         values.put(ColumnAlert.KEY.loc_on, mEditorVar.TaskAlert.getLoc_on());

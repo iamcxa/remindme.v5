@@ -101,15 +101,16 @@ public class TaskEditorMainFragment extends Fragment implements
             mEditorVar.Task.setTitle(b.getString(ColumnTask.KEY.title));
             mEditorVar.Task.setContent(b.getString(ColumnTask.KEY.content));
             mEditorVar.Task.setCreated(b.getLong(ColumnTask.KEY.created));
-            mEditorVar.Task.setDue_date_millis(b.getLong(ColumnTask.KEY.due_date_millis));
+            //------------------------------------
+            //fixed
+            mEditorVar.Task.setDue_date_millis(  Long.parseLong(b.getString(ColumnTask.KEY.due_date_millis ))  );
+            //------------------------------------
             mEditorVar.Task.setDue_date_string(b.getString(ColumnTask.KEY.due_date_string));
 
             mEditorVar.Task.setCategory_id(b.getInt(ColumnTask.KEY.category_id));
             mEditorVar.Task.setPriority(b.getInt(ColumnTask.KEY.priority));
             mEditorVar.Task.setTag_id(b.getString(ColumnTask.KEY.tag_id));
-
-
-            mEditorVar.Task.setTaskId(b.getInt(ColumnTask.KEY._id));
+            //mEditorVar.Task.setTaskId(b.getInt(ColumnTask.KEY._id));
             MyDebug.MakeLog(2, "@edit main id=" + b.getInt(ColumnTask.KEY._id));
             TaskEditorMainFragment.setTaskTitle(b.getString(ColumnTask.KEY.title));
             TaskEditorMainFragment.setTaskDueDate(b.getString(ColumnTask.KEY.due_date_string));
@@ -117,6 +118,14 @@ public class TaskEditorMainFragment extends Fragment implements
                 TaskEditorMainFragment.setTaskContent(b.getString(ColumnTask.KEY.content));
             }
         }
+        //--------------------------------------------------
+        //added by Murakumo
+        else
+        {
+            mEditorVar.Task.setDue_date_millis(0);
+            mEditorVar.Task.setTaskId(0);
+        }
+        //--------------------------------------------------
     }
 
     //-----------------TaskTitle------------------//

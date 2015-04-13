@@ -210,7 +210,7 @@ public class TaskEditorTabFragment extends ActionBarActivity
         if (c != null) {
             if (c.moveToLast()) {
                 if (!c.isNull(0)) data = c.getInt(0);
-                MyDebug.MakeLog(2, "lastTaskID=" + data);
+                //MyDebug.MakeLog(2, "lastTaskID=" + data);
             }
             c.close();
         }

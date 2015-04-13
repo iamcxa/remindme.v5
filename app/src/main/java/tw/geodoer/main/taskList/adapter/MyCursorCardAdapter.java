@@ -126,34 +126,35 @@ public class MyCursorCardAdapter extends CardCursorAdapter {
                 //new String[] { this.getCardFromCursor(getCursor()).getId() });
                 new String[]{String.valueOf(id)});
 
+
         // Alert PArt
-        ContentResolver resolverAlert = getContext().getContentResolver();
-        Cursor rowIDs = resolverAlert.query(ColumnAlert.URI,
-                null,
-                ColumnAlert.KEY.task_id + " = ? ",
-                new String[]{String.valueOf(id)},
-                ColumnAlert.DEFAULT_SORT_ORDER);
-        int rowCounter = rowIDs.getCount();
-        rowIDs.moveToFirst();
-        String[] IDs = {""};
-        for (int i = 0; i < rowIDs.getCount(); i++) {
-            IDs[i] = rowIDs.getString(i).toString();
-            MyDebug.MakeLog(0, "rowOrder=" + i +
-                    ",rowID=" + IDs);
-            rowIDs.moveToNext();
-        }
+//        ContentResolver resolverAlert = getContext().getContentResolver();
+//        Cursor rowIDs = resolverAlert.query(ColumnAlert.URI,
+//                null,
+//                ColumnAlert.KEY.task_id + " = ? ",
+//                new String[]{String.valueOf(id)},
+//                ColumnAlert.DEFAULT_SORT_ORDER);
+//        int rowCounter = rowIDs.getCount();
+//        rowIDs.moveToFirst();
+//        String[] IDs = {""};
+//        for (int i = 0; i < rowIDs.getCount(); i++) {
+//            IDs[i] = rowIDs.getString(i).toString();
+//            MyDebug.MakeLog(0, "rowOrder=" + i +
+//                    ",rowID=" + IDs);
+//            rowIDs.moveToNext();
+//        }
 
-        MyDebug.MakeLog(0, "task_id=" + ColumnAlert.KEY.task_id +
-                ",ColumnAlert rows=" + rowCounter);
-        long alertDeleted = 0;
-        if (rowCounter > 0) {
-            alertDeleted = resolverAlert.delete(ColumnAlert.URI,
-                    ColumnAlert.KEY.task_id + " = ? ",
-                    IDs);
-        }
-
-        MyDebug.MakeLog(0, "taskDeleted=" + taskDeleted +
-                ",alertDeleted=" + alertDeleted);
+//        MyDebug.MakeLog(0, "task_id=" + ColumnAlert.KEY.task_id +
+//                ",ColumnAlert rows=" + rowCounter);
+//        long alertDeleted = 0;
+//        if (rowCounter > 0) {
+//            alertDeleted = resolverAlert.delete(ColumnAlert.URI,
+//                    ColumnAlert.KEY.task_id + " = ? ",
+//                    IDs);
+//        }
+//
+//        MyDebug.MakeLog(0, "taskDeleted=" + taskDeleted +
+//                ",alertDeleted=" + alertDeleted);
         this.notifyDataSetChanged();
     }
 
