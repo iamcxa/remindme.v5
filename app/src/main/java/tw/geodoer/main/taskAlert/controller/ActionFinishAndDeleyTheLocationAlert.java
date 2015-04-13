@@ -9,16 +9,16 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
 
-import java.util.Calendar;
+import java.util.ArrayList;
 
-import tw.geodoer.mDatabase.API.DBTasksHelper;
-import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.main.taskEditor.controller.ActionSetAlarm;
+import tw.geodoer.mDatabase.API.DBAlertHelper;
+import tw.geodoer.mDatabase.columns.ColumnAlert;
+import tw.geodoer.main.taskEditor.controller.ActionSetLocationAlarm;
 import tw.geodoer.utils.MyDebug;
 
-public class ActionDelayTheAlert extends IntentService {
+public class ActionFinishAndDeleyTheLocationAlert extends IntentService {
 
-    public ActionDelayTheAlert() {
+    public ActionFinishAndDeleyTheLocationAlert() {
         super(null);
         // TODO Auto-generated constructor stub
     }
@@ -31,28 +31,15 @@ public class ActionDelayTheAlert extends IntentService {
 
         String taskID = b.getString("taskID");
 
-        MyDebug.MakeLog(2, "@Delay Alert taskID=" + taskID);
-
         NotificationManager nm =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        nm.cancel(AlertHandler.TAG, Integer.valueOf(taskID));
 
-        //AlertHandler alertHandler=AlertHandler.getInstance();
+        nm.cancel(LocationAlertHandler.TAG, Integer.valueOf(taskID));
 
-        AlertHandler alertHandler = new AlertHandler();
 
-        Calendar calendar = Calendar.getInstance();
+        //AlertHandler alertHandler = AlertHandler.getInstance();
+        //ShowToastInIntentService("任務 " + alertHandler.getTaskName(this, taskID) + "完成！");
 
-        //calendar.clear();
-
-        //calendar.setTimeInMillis(System.currentTimeMillis());
-
-        calendar.add(Calendar.MINUTE, 5);
-
-        ActionSetAlarm action_SetAlarm = new ActionSetAlarm( this, Integer.valueOf(taskID));
-        action_SetAlarm.SetIt( calendar.getTimeInMillis());
-
-        ShowToastInIntentService("延遲任務 " + alertHandler.getTaskName(this, taskID) + " 5  分鐘");
     }
 
     public void ShowToastInIntentService(final String sText) {
@@ -67,6 +54,5 @@ public class ActionDelayTheAlert extends IntentService {
     }
 
     ;
-
 
 }

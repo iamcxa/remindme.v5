@@ -3,6 +3,8 @@ package tw.geodoer.mPriority.controller;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -42,50 +44,65 @@ public class PriorityUpdater
 
     public void PirorityUpdate()
     {
-        new Thread(new Runnable()
-        {
-            public void run()
-            {
-                //MyDebug.MakeLog(2,"PirorityUpdating~");
-                if (GetNowPosition())
-                {
-                    Update();
-                }
-                else
-                {
-                    Toast.makeText(mContext,"No GPS provide, Refresh Stoped",Toast.LENGTH_SHORT);
-                    return;
-                }
-
-
-
-                return;
-
-            }
-        }).start();
-
+        HandlerThread mHandlerThread = new HandlerThread("PrU");
+        mHandlerThread.start();
+        Handler mHandler = new Handler(mHandlerThread.getLooper());
+        mHandler.post(PrU);
     }
+    private Runnable PrU = new Runnable()
+    {
+        public void run()
+        {
+            MyDebug.MakeLog(2,"PirorityUpdating~");
+            if (true/*GetNowPosition()*/)
+            {
+                Now_Lat = 0;
+                Now_Lon = 0;
+                MyDebug.MakeLog(2,"PirorityUpdating Updating");
+                Update();
+            }
+            else
+            {
+                //MyDebug.MakeLog(2,"PirorityUpdating GetNowposition = false");
+                Toast.makeText(mContext,"No GPS provide, Refresh Stoped",Toast.LENGTH_SHORT);
+                return;
+            }
+            return;
+        }
+    };
+
+
     private void GetNowTime()
     {
         this.currentTimeMillis = System.currentTimeMillis();
     }
-    private boolean GetNowPosition()
-    {
+    private boolean GetNowPosition() {
         //GetNowTime();
 
         //Get Now position from GPS
         //true: load success / false: load fail
 
-        LocationManager lms = (LocationManager)mContext.getSystemService(mContext.LOCATION_SERVICE); //取得系統定位服務
+        LocationManager lms = (LocationManager) mContext.getSystemService(mContext.LOCATION_SERVICE); //取得系統定位服務
         Location location;
 
         //判斷用GPS_provider
-        if (lms.isProviderEnabled(LocationManager.GPS_PROVIDER) )
+        if (lms.isProviderEnabled(LocationManager.GPS_PROVIDER))
+        {
             location = lms.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        else if ( lms.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+            MyDebug.MakeLog(2, "Location = GPS_PROVIDER");
+        }
+        else if (lms.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+        {
             location = lms.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            MyDebug.MakeLog(2, "Location = NETWORK_PROVIDER");
+        }
         else
+        {
             location = null;
+            MyDebug.MakeLog(2, "Location = null");
+        }
+
+
 
         if(location != null)
         {

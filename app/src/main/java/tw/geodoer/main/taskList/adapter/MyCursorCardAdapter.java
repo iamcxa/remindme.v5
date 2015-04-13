@@ -21,6 +21,7 @@ import tw.geodoer.mDatabase.API.DBAlertHelper;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskEditor.controller.ActionSetAlarm;
+import tw.geodoer.main.taskEditor.controller.ActionSetLocationAlarm;
 import tw.geodoer.main.taskList.cardsui.CardThumbnailCircle;
 import tw.geodoer.main.taskList.cardsui.MyCursorCard;
 import tw.geodoer.main.taskList.controller.ActionOnClickCard;
@@ -145,6 +146,9 @@ public class MyCursorCardAdapter extends CardCursorAdapter {
 
         ActionSetAlarm AA = new ActionSetAlarm(mContext,task_id);
         AA.CancelIt();
+
+        ActionSetLocationAlarm ALA = new ActionSetLocationAlarm(mContext,task_id);
+        ALA.CancelIt();
 
         // Alert PArt
 //        ContentResolver resolverAlert = getContext().getContentResolver();

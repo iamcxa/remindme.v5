@@ -6,7 +6,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -24,18 +23,18 @@ import tw.geodoer.main.taskPreference.controller.MyPreferences;
 import tw.geodoer.utils.MyDebug;
 import tw.moretion.geodoer.R;
 
-public class AlertHandler extends IntentService {
+public class LocationAlertHandler extends IntentService {
 
 
-    public static AlertHandler alertHandler = new AlertHandler();
-    public static final String TAG = "remindme alert";
+    public static LocationAlertHandler alertHandler = new LocationAlertHandler();
+    public static final String TAG = "remindme locationalert";
 
-    public AlertHandler() {
+    public LocationAlertHandler() {
         super(null);
         // TODO Auto-generated constructor stub
     }
 
-    public static AlertHandler getInstance() {
+    public static LocationAlertHandler getInstance() {
         return alertHandler;
     }
 
@@ -47,9 +46,9 @@ public class AlertHandler extends IntentService {
 
         String taskID = b.getString("taskID");
 
-        MyDebug.MakeLog(2, "@alertHandler taskID=" + taskID);
+        MyDebug.MakeLog(2, "@locationalertHandler taskID=" + taskID);
 
-        setNotification(this, taskID);
+        //setNotification(this, taskID);
     }
 
     //
@@ -73,12 +72,7 @@ public class AlertHandler extends IntentService {
         PendingIntent pedingIntentDialog = PendingIntent.getActivity(context, 0,
                 intentDialog, PendingIntent.FLAG_ONE_SHOT);
 
-        Intent intentDelay = new Intent(context, ActionDelayTheAlert.class);
-        intentDelay.putExtra("taskID", taskID);
-        PendingIntent pedingIntentDelay = PendingIntent.getService(context, 0,
-                intentDelay, PendingIntent.FLAG_ONE_SHOT);
-
-        Intent intentFinish = new Intent(context, ActionFinishTheAlert.class);
+        Intent intentFinish = new Intent(context, ActionFinishAndDeleyTheLocationAlert.class);
         intentFinish.putExtra("taskID", taskID);
         PendingIntent pedingIntentFinish = PendingIntent.getService(context, 0,
                 intentFinish, PendingIntent.FLAG_ONE_SHOT);
@@ -91,11 +85,11 @@ public class AlertHandler extends IntentService {
                 R.drawable.ic_action_alarms);
 
         Notification noti = new Notification.Builder(context)
-                .setContentTitle("待辦任務到期：" + getTaskName(context, taskID))
+                .setContentTitle("接近待辦任務地點：" + getTaskName(context, taskID))
                 .setContentText("點這裡查看")
                         //.setContentInfo("ContentInfo")
-                .addAction(R.drawable.ic_action_alarms, "延遲", pedingIntentDelay)
-                .addAction(R.drawable.ic_action_accept, "完成", pedingIntentFinish)
+                //.addAction(R.drawable.ic_action_alarms, "延遲", pedingIntentDelay)
+                .addAction(R.drawable.ic_action_accept, "我知道了 下次再提醒我", pedingIntentFinish)
                 .setNumber(1)
                 .setAutoCancel(false)
                 .setSmallIcon(R.drawable.remindme_logo)

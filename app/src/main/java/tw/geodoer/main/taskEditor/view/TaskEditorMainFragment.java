@@ -124,6 +124,7 @@ public class TaskEditorMainFragment extends Fragment implements
         {
             mEditorVar.Task.setDue_date_millis(0);
             mEditorVar.Task.setTaskId(0);
+            mEditorVar.TaskLocation.setName("null");
         }
         //--------------------------------------------------
     }

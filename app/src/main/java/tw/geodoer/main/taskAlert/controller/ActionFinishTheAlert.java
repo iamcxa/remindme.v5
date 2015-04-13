@@ -35,14 +35,11 @@ public class ActionFinishTheAlert extends IntentService {
         NotificationManager nm =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        nm.cancel("remindme", Integer.valueOf(taskID));
+        nm.cancel(AlertHandler.TAG, Integer.valueOf(taskID));
 
         AlertHandler alertHandler = AlertHandler.getInstance();
 
-        //ShowToastInIntentService("任務 " + alertHandler.getTaskName(this, taskID) + "完成！");
-        DBTasksHelper mDBtaskhelper = new DBTasksHelper(getApplicationContext());
-        ShowToastInIntentService("任務 " + mDBtaskhelper.getItemString(Integer.valueOf(taskID), ColumnTask.KEY.title) + "完成！");
-
+        ShowToastInIntentService("任務 " + alertHandler.getTaskName(this, taskID) + "完成！");
         try
         {
             DBAlertHelper mDBalerthelper = new DBAlertHelper(getApplicationContext());

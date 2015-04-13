@@ -6,25 +6,17 @@ import android.content.Context;
 import android.content.Intent;
 
 import tw.geodoer.mPriority.receiver.BroadcastReceiver_TaskAlert;
-import tw.geodoer.utils.MyDebug;
 
 public class ActionSetAlarm {
-
     private final String BC_ACTION = "me.iamcxa.remindme.TaskReceiver";
     private final String MSG = "me.iamcxa.remindme.alarm";
     private final int FLAG = PendingIntent.FLAG_CANCEL_CURRENT;
     private final int TYPE = AlarmManager.RTC_WAKEUP;
-    int mYear;
-    int mMonth;
-    int mDay;
-    int mHour;
-    int mMinute;
 
     private Context context;
-    //private long alertTime;
     private long taskID;
 
-    private AlarmManager am;
+    private AlarmManager AM;
     private Intent intent;
     private PendingIntent pi;
 
@@ -32,22 +24,15 @@ public class ActionSetAlarm {
     {
         // TODO Auto-generated constructor stub
         super();
+
         this.context = context;
-        //this.alertTime = alertTime;
         this.taskID = taskID;
 
-        // 取得AlarmManager實例
-        this.am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-        // 實例化Intent
+        this.AM = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         this.intent = new Intent(this.context, BroadcastReceiver_TaskAlert.class);
-
-        // 設定Intent action屬性
         this.intent.setAction(BC_ACTION);
         this.intent.putExtra("msg", MSG);
-        this.intent.putExtra("taskID", taskID);
-
-        // 實例化PendingIntent
+        this.intent.putExtra("taskID", this.taskID);
         this.pi = PendingIntent.getBroadcast(context, 1, intent, FLAG);
 
     }
@@ -61,35 +46,13 @@ public class ActionSetAlarm {
     *****************************************************************************/
     public void SetIt(long alertTime)
     {
-        MyDebug.MakeLog(2, "@SetAlarm SeiIt taskID=" + taskID);
-        am.set( this.TYPE ,alertTime , this.pi );
-
-        /*
-        Calendar cal = Calendar.getInstance();
-        // 設定於 3 分鐘後執行
-        cal.add(Calendar.SECOND, 10);
-        // 取得系統時間
-        final long time1 = System.currentTimeMillis();
-        //Calendar c = Calendar.getInstance();
-        //c.set(mYear, mMonth, mDay, mHour, mMinute);
-        //long time2 = c.getTimeInMillis();
-        if ((alertTime - time1) > 0) {
-
-            am.set(AlarmManager.RTC_WAKEUP, alertTime, pi);
-
-            //MyDebug.MakeLog(2, "@SetAlarm set="+alertTime);
-            MyDebug.MakeLog(2, "@SetAlarm alertTime=" + alertTime);
-            MyDebug.MakeLog(2, "@SetAlarm cal 1min=" + cal.getTimeInMillis());
-        } else {
-            MyDebug.MakeLog(2, "@SetAlarm set failed");
-            am.cancel(pi);
-        }
-        */
+        //MyDebug.MakeLog(2, "@SetAlarm SeiIt taskID=" + taskID);
+        this.AM.set(this.TYPE, alertTime, this.pi);
     }
     public void CancelIt()
     {
-        MyDebug.MakeLog(2, "@SetAlarm CancelIt taskID=" + taskID);
-        am.cancel(this.pi);
+        //MyDebug.MakeLog(2, "@SetAlarm CancelIt taskID=" + taskID);
+        this.AM.cancel(this.pi);
     }
 
 }

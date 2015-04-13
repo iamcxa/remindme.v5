@@ -174,8 +174,8 @@ public class TaskEditorTabFragment extends ActionBarActivity
 
             btnActionAdd();
 
-            lastTaskID();
-            lastLocID();
+            //lastTaskID();
+            //lastLocID();
 
         } else if (itemName.contentEquals("action_refresh")) {
             //btnActionCancel();//暫時取消此功能

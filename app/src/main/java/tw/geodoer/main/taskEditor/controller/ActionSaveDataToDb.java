@@ -35,7 +35,6 @@ public class ActionSaveDataToDb {
     private Context context;
     private ContentValues values = new ContentValues();
     private int taskId, alertId,locId , alertSelected = 0, locSelected = 0;
-    //private readDB readDB;
 
     public ActionSaveDataToDb(Context context, int thisTaskID, int lastTaskID, int lastLocID) {
         super();
@@ -57,7 +56,8 @@ public class ActionSaveDataToDb {
         if(mEditorVar.TaskDate.getmDatePulsTimeMillis()!=0)
             saveTableAlert();
 
-        //saveTableLocation();
+        saveTableLocation();
+
         //----------------------------------------------------------------------------------//
         PriorityUpdater PrU = new PriorityUpdater(context);
         PrU.PirorityUpdate();
@@ -69,6 +69,7 @@ public class ActionSaveDataToDb {
         mEditorVar.TaskDate.setmDay(0);
         mEditorVar.TaskDate.setmHour(0);
         mEditorVar.TaskDate.setmMinute(0);
+        mEditorVar.TaskLocation.setName("null");
 
     }
 
@@ -200,12 +201,33 @@ public class ActionSaveDataToDb {
         catch (Exception e) { MyDebug.MakeLog(2, "saveTableAlert  B error=" + e); }
     }
 
-    private void saveTableLocation() {
+    private void saveTableLocation()
+    {
         values.clear();
         // 設定對應 URI, 執行 SQL 命令
-        mUri = ColumnLocation.URI;
+        //mUri = ColumnLocation.URI;
         setTableLocation = new setTableLocation(values);
-        isSaveOrUpdate(values, locId);
+        if(  !"null".equals(mEditorVar.TaskLocation.getName()) )
+        {
+            try
+            {
+                this.locId = (int) ContentUris.parseId(context.getContentResolver().insert(ColumnLocation.URI, values));
+
+                DBTasksHelper mDBtaskhelper = new DBTasksHelper(context);
+                mDBtaskhelper.setItem(taskId, ColumnTask.KEY.location_id, this.locId);
+            } catch (Exception e) { MyDebug.MakeLog(2, "saveTableLocation error=" + e.toString()); }
+
+            ActionSetLocationAlarm ASLA = new ActionSetLocationAlarm(context, taskId);
+
+
+            if (mEditorVar.TaskAlert.getDue_date_millis() == 0)
+                ASLA.SetIt(mEditorVar.TaskLocation.getLat(), mEditorVar.TaskLocation.getLon());
+            else if (mEditorVar.TaskAlert.getDue_date_millis() - System.currentTimeMillis() > 0)
+                ASLA.SetIt(mEditorVar.TaskLocation.getLat(),
+                        mEditorVar.TaskLocation.getLon(),
+                        mEditorVar.TaskAlert.getDue_date_millis() - System.currentTimeMillis());
+        }
+
     }
 //-------------------------------------------------------------------------------------------------//
     // 判斷本次操作是寫入新資料或更新已存在資料
