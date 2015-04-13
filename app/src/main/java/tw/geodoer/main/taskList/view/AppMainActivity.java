@@ -88,8 +88,8 @@ public class AppMainActivity extends ActionBarActivity
     private MenuItem.OnMenuItemClickListener btnRefreshClick = new MenuItem.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-            Toast.makeText(getApplication(), item.getTitle(),Toast.LENGTH_SHORT).show();
-
+            //Toast.makeText(getApplication(), item.getTitle(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplication(),"重新整理",Toast.LENGTH_SHORT).show();
 //            LocationGetter UpdataLocation = new LocationGetter(getApplicationContext());
 //            UpdataLocation.UpdateOncePriority();
 

@@ -47,9 +47,8 @@ public class ActionDelayTheAlert extends IntentService {
 
         calendar.add(Calendar.MINUTE, 5);
 
-        ActionSetAlarm action_SetAlarm = new ActionSetAlarm(
-                this, calendar.getTimeInMillis(), Integer.valueOf(taskID));
-        action_SetAlarm.SetIt();
+        ActionSetAlarm action_SetAlarm = new ActionSetAlarm( this, Integer.valueOf(taskID));
+        action_SetAlarm.SetIt( calendar.getTimeInMillis());
 
         ShowToastInIntentService("延遲任務 " + alertHandler.getTaskName(this, taskID) + " 5  分鐘");
     }
@@ -59,7 +58,7 @@ public class ActionDelayTheAlert extends IntentService {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                Toast toast1 = Toast.makeText(MyContext, sText, 5);
+                Toast toast1 = Toast.makeText(MyContext, sText, Toast.LENGTH_SHORT);
                 toast1.show();
             }
         });

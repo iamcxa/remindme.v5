@@ -31,7 +31,7 @@ public class ActionSaveDataToDb {
     protected setTableAlert setTableAlert;
     protected setTableLocation setTableLocation;
     private Uri mUri;
-    private ActionSetAlarm mSetAlarm;
+    //private ActionSetAlarm mSetAlarm;
     private Context context;
     private ContentValues values = new ContentValues();
     private int taskId, alertId,locId , alertSelected = 0, locSelected = 0;
@@ -191,7 +191,9 @@ public class ActionSaveDataToDb {
             this.alertId =(int) ContentUris.parseId(context.getContentResolver().insert(ColumnAlert.URI, values));
             //--------------------------
             //do set alarm here
-            //with alertid
+            //with taskit
+            ActionSetAlarm AA =new ActionSetAlarm(this.context , this.taskId);
+            AA.SetIt( mEditorVar.TaskAlert.getDue_date_millis() );
             //--------------------------
             //MyDebug.MakeLog(2,"new alert id is = "+this.alertId);
         }

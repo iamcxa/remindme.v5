@@ -14,7 +14,7 @@ import tw.geodoer.main.taskAlert.controller.AlertHandler;
 /**
  * @author iamcxa 定時提醒廣播
  */
-public class GeoBroadcastReceiver_TaskAlert extends BroadcastReceiver
+public class BroadcastReceiver_TaskAlert extends BroadcastReceiver
 {
     @Override
     public void onReceive(Context context, Intent intent)
