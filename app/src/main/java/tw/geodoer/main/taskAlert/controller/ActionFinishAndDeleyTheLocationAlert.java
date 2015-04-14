@@ -39,7 +39,7 @@ public class ActionFinishAndDeleyTheLocationAlert extends IntentService {
         String taskID = b.getString("taskID");
 
         NotificationManager nm =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
         nm.cancel(LocationAlertHandler.TAG, Integer.valueOf(taskID));
 

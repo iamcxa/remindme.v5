@@ -199,7 +199,7 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
             mapController.searchPlace(SearchText.getText().toString());
         }
         else if(v.getId() == R.id.save){
-            onBtnSaveClick a = new onBtnSaveClick(geo);
+            onBtnSaveClick a = new onBtnSaveClick(geo,getActivity().getApplicationContext());
 
 //            OnBtnSaveClick.saveDB(geo);
             Toast.makeText(getActivity(),geo.name,Toast.LENGTH_SHORT).show();

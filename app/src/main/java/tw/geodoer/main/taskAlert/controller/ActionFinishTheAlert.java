@@ -33,7 +33,7 @@ public class ActionFinishTheAlert extends IntentService {
         String taskID = b.getString("taskID");
 
         NotificationManager nm =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                (NotificationManager)getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
         nm.cancel(AlertHandler.TAG, Integer.valueOf(taskID));
 

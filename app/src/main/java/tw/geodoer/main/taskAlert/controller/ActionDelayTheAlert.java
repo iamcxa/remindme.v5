@@ -34,7 +34,7 @@ public class ActionDelayTheAlert extends IntentService {
         MyDebug.MakeLog(2, "@Delay Alert taskID=" + taskID);
 
         NotificationManager nm =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         nm.cancel(AlertHandler.TAG, Integer.valueOf(taskID));
 
         //AlertHandler alertHandler=AlertHandler.getInstance();

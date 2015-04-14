@@ -49,7 +49,7 @@ public class AlertHandler extends IntentService {
 
         MyDebug.MakeLog(2, "@alertHandler taskID=" + taskID);
 
-        setNotification(this, taskID);
+        setNotification(getApplicationContext(), taskID);
 
         stopSelf();
     }
