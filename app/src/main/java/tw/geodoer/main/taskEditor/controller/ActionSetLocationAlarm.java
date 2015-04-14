@@ -3,10 +3,7 @@ package tw.geodoer.main.taskEditor.controller;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.location.Geocoder;
 import android.location.LocationManager;
-
-import java.util.Locale;
 
 import tw.geodoer.mPriority.receiver.BroadcastReceiver_TaskAlert;
 
@@ -14,7 +11,7 @@ public class ActionSetLocationAlarm {
     private final String BC_ACTION = "me.iamcxa.remindme.TaskReceiver";
     private final String MSG = "me.iamcxa.remindme.location";
     private final int FLAG = PendingIntent.FLAG_CANCEL_CURRENT;
-    private final float radius = 100f;
+    private final float radius = 1000f;
 
     private Context context;
     private long taskID;

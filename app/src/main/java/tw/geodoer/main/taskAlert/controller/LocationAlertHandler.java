@@ -48,7 +48,7 @@ public class LocationAlertHandler extends IntentService {
 
         MyDebug.MakeLog(2, "@locationalertHandler taskID=" + taskID);
 
-        //setNotification(this, taskID);
+        setNotification(this, taskID);
     }
 
     //
