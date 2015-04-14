@@ -37,19 +37,26 @@ public class ActionFinishTheAlert extends IntentService {
 
         nm.cancel(AlertHandler.TAG, Integer.valueOf(taskID));
 
-        AlertHandler alertHandler = AlertHandler.getInstance();
+        //AlertHandler alertHandler = AlertHandler.getInstance();
 
-        ShowToastInIntentService("任務 " + alertHandler.getTaskName(this, taskID) + "完成！");
-        try
-        {
-            DBAlertHelper mDBalerthelper = new DBAlertHelper(getApplicationContext());
-            ArrayList<Integer> ids = mDBalerthelper.getIDArrayListOfUnFinishedTask();
-            if(ids != null)
-                for(int id : ids)
-                    if(mDBalerthelper.getItemInt(id, ColumnAlert.KEY.task_id) == Integer.valueOf(taskID) )
-                        mDBalerthelper.setItem(id,ColumnAlert.KEY.state, 1);
-        }
-        catch (Exception e) { MyDebug.MakeLog(2,"ActionFinishTheAlert ERROR : "+e.toString()); }
+        //ShowToastInIntentService("任務 " + alertHandler.getTaskName(this, taskID) + "完成！");
+
+//        try
+//        {
+//            DBAlertHelper mDBalerthelper = new DBAlertHelper(getApplicationContext());
+//            ArrayList<Integer> ids = mDBalerthelper.getIDArrayListOfUnFinishedTask();
+//            if(ids != null)
+//                for(int id : ids)
+//                    if(mDBalerthelper.getItemInt(id, ColumnAlert.KEY.task_id) == Integer.valueOf(taskID) )
+//                        mDBalerthelper.setItem(id,ColumnAlert.KEY.state, 1);
+//        }
+//        catch (Exception e) { MyDebug.MakeLog(2,"ActionFinishTheAlert ERROR : "+e.toString()); }
+
+        /**
+         * here to do anything about finished the card
+         */
+
+        stopSelf();
     }
 
     public void ShowToastInIntentService(final String sText) {

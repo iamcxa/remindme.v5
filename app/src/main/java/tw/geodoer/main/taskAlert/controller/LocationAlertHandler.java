@@ -46,9 +46,11 @@ public class LocationAlertHandler extends IntentService {
 
         String taskID = b.getString("taskID");
 
-        MyDebug.MakeLog(2, "@locationalertHandler taskID=" + taskID);
+        //MyDebug.MakeLog(2, "@locationalertHandler taskID=" + taskID);
 
         setNotification(this, taskID);
+
+        stopSelf();
     }
 
     //
@@ -85,8 +87,8 @@ public class LocationAlertHandler extends IntentService {
                 R.drawable.ic_action_alarms);
 
         Notification noti = new Notification.Builder(context)
-                .setContentTitle("接近待辦任務地點：" + getTaskName(context, taskID))
-                .setContentText("點這裡查看")
+                .setContentTitle("接近待辦任務地點")
+                .setContentText(getTaskName(context, taskID))
                         //.setContentInfo("ContentInfo")
                 //.addAction(R.drawable.ic_action_alarms, "延遲", pedingIntentDelay)
                 .addAction(R.drawable.ic_action_accept, "我知道了 下次再提醒我", pedingIntentFinish)

@@ -204,13 +204,13 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
 //            OnBtnSaveClick.saveDB(geo);
             Toast.makeText(getActivity(),geo.name,Toast.LENGTH_SHORT).show();
 
-            CurrentLocation b = new CurrentLocation(getActivity());
-            b.setOnDistanceListener(geo.latlng.latitude,geo.latlng.longitude,new CurrentLocation.onDistanceListener() {
-                @Override
-                public void onGetDistance(Double mDistance) {
-                    Toast.makeText(getActivity(),mDistance+"",Toast.LENGTH_SHORT).show();
-                }
-            });
+//            CurrentLocation b = new CurrentLocation(getActivity());
+//            b.setOnDistanceListener(geo.latlng.latitude,geo.latlng.longitude,new CurrentLocation.onDistanceListener() {
+//                @Override
+//                public void onGetDistance(Double mDistance) {
+//                    Toast.makeText(getActivity(),mDistance+"",Toast.LENGTH_SHORT).show();
+//                }
+//            });
         }
     }
 }

@@ -53,8 +53,11 @@ public class ActionSaveDataToDb {
         // 寫入或更新資料庫
         saveTableTasks();
 
-        if(mEditorVar.TaskDate.getmDatePulsTimeMillis()!=0)
+        if(mEditorVar.TaskDate.getmDatePulsTimeMillis() != 0)
+        {
             saveTableAlert();
+            setAlert();
+        }
 
         saveTableLocation();
 
@@ -152,76 +155,60 @@ public class ActionSaveDataToDb {
 
     private void saveTableAlert()
     {
-//        values.clear();
-//        // 設定對應 URI, 執行 SQL 命令
-//        mUri = ColumnAlert.URI;
-//        setTableAlert = new setTableAlert(values, lastTaskID, lastLocID);
-//        if (isSaveOrUpdate(values, alertId)) {
-//            mSetAlarm = new ActionSetAlarm(context
-//                    , mEditorVar.TaskDate.getmDatePulsTimeMillis()
-//                    , lastTaskID + 1
-//            );
-//            mSetAlarm.SetIt();
-//        }
-
         values.clear();
         setTableAlert = new setTableAlert(values, this.taskId, this.locId);
 
         try
         {
-            DBAlertHelper mDBalerthelper =  new DBAlertHelper(this.context);
-            ArrayList<Integer> alert_ids = mDBalerthelper.getIDArrayListOfUnFinishedTask();
+//            DBAlertHelper mDBalerthelper =  new DBAlertHelper(this.context);
+//            ArrayList<Integer> alert_ids = mDBalerthelper.getIDArrayListOfUnFinishedTask();
+//
+//            if (alert_ids == null) MyDebug.MakeLog(2, "ids==null");
+//            if (alert_ids.isEmpty()) MyDebug.MakeLog(2, "ids.isEmpty()");
+//
+//            if (alert_ids != null)
+//                for (int id : alert_ids)
+//                {
+//                    //MyDebug.MakeLog(2, "UnFinished id = " + id);
+//
+//                    if (mDBalerthelper.getItemInt(id, ColumnAlert.KEY.task_id) == this.taskId)
+//                        mDBalerthelper.setItem(id, ColumnAlert.KEY.state, 1);
+//                }
 
-            if (alert_ids == null) MyDebug.MakeLog(2, "ids==null");
-            if (alert_ids.isEmpty()) MyDebug.MakeLog(2, "ids.isEmpty()");
-
-            if (alert_ids != null)
-                for (int id : alert_ids)
-                {
-                    //MyDebug.MakeLog(2, "UnFinished id = " + id);
-
-                    if (mDBalerthelper.getItemInt(id, ColumnAlert.KEY.task_id) == this.taskId)
-                        mDBalerthelper.setItem(id, ColumnAlert.KEY.state, 1);
-                }
+            this.alertId =(int) ContentUris.parseId(context.getContentResolver().insert(ColumnAlert.URI, values));
         }
         catch (Exception e) { MyDebug.MakeLog(2, "saveTableAlert A error=" + e); }
 
-        //insert new alert
-        try
-        {
-            this.alertId =(int) ContentUris.parseId(context.getContentResolver().insert(ColumnAlert.URI, values));
-            //--------------------------
-            //do set alarm here
-            //with taskit
-            ActionSetAlarm AA =new ActionSetAlarm(this.context , this.taskId);
-            AA.SetIt( mEditorVar.TaskAlert.getDue_date_millis() );
-            //--------------------------
-            //MyDebug.MakeLog(2,"new alert id is = "+this.alertId);
-        }
-        catch (Exception e) { MyDebug.MakeLog(2, "saveTableAlert  B error=" + e); }
+    }
+    private  void setAlert()
+    {
+        values.clear();
+        setTableAlert = new setTableAlert(values, this.taskId, this.locId);
+
+        ActionSetAlarm AA =new ActionSetAlarm(this.context , this.taskId);
+        AA.SetIt( mEditorVar.TaskAlert.getDue_date_millis() );
     }
 
     private void saveTableLocation()
     {
         values.clear();
-        // 設定對應 URI, 執行 SQL 命令
-        //mUri = ColumnLocation.URI;
         setTableLocation = new setTableLocation(values);
-        Log.e("Test",mEditorVar.TaskLocation.getName() );
+        values.put(ColumnLocation.KEY.lastUsedTime, System.currentTimeMillis() );
 
+        //Log.e("Test",mEditorVar.TaskLocation.getName() );
         if(  !"null".equals(mEditorVar.TaskLocation.getName()) )
         {
-            Toast.makeText(context,"location saved 2 :"+ mEditorVar.TaskLocation.getName(),Toast.LENGTH_SHORT);
+
             try
             {
                 this.locId = (int) ContentUris.parseId(context.getContentResolver().insert(ColumnLocation.URI, values));
 
                 DBTasksHelper mDBtaskhelper = new DBTasksHelper(context);
                 mDBtaskhelper.setItem(taskId, ColumnTask.KEY.location_id, this.locId);
+
             } catch (Exception e) { MyDebug.MakeLog(2, "saveTableLocation error=" + e.toString()); }
 
             ActionSetLocationAlarm ASLA = new ActionSetLocationAlarm(context, taskId);
-
 
             if (mEditorVar.TaskAlert.getDue_date_millis() == 0)
                 ASLA.SetIt(mEditorVar.TaskLocation.getLat(), mEditorVar.TaskLocation.getLon());

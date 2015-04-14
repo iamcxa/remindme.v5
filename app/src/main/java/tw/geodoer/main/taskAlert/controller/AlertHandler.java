@@ -50,6 +50,8 @@ public class AlertHandler extends IntentService {
         MyDebug.MakeLog(2, "@alertHandler taskID=" + taskID);
 
         setNotification(this, taskID);
+
+        stopSelf();
     }
 
     //
@@ -91,11 +93,11 @@ public class AlertHandler extends IntentService {
                 R.drawable.ic_action_alarms);
 
         Notification noti = new Notification.Builder(context)
-                .setContentTitle("待辦任務到期：" + getTaskName(context, taskID))
-                .setContentText("點這裡查看")
+                .setContentTitle("待辦任務到期")
+                .setContentText(getTaskName(context, taskID))
                         //.setContentInfo("ContentInfo")
-                .addAction(R.drawable.ic_action_alarms, "延遲", pedingIntentDelay)
-                .addAction(R.drawable.ic_action_accept, "完成", pedingIntentFinish)
+                .addAction(R.drawable.ic_action_alarms, "延遲5分鐘", pedingIntentDelay)
+                .addAction(R.drawable.ic_action_accept, "完成了!!", pedingIntentFinish)
                 .setNumber(1)
                 .setAutoCancel(false)
                 .setSmallIcon(R.drawable.remindme_logo)

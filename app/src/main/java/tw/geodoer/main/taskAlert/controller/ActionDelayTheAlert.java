@@ -39,7 +39,7 @@ public class ActionDelayTheAlert extends IntentService {
 
         //AlertHandler alertHandler=AlertHandler.getInstance();
 
-        AlertHandler alertHandler = new AlertHandler();
+        //AlertHandler alertHandler = new AlertHandler();
 
         Calendar calendar = Calendar.getInstance();
 
@@ -52,7 +52,8 @@ public class ActionDelayTheAlert extends IntentService {
         ActionSetAlarm action_SetAlarm = new ActionSetAlarm( this, Integer.valueOf(taskID));
         action_SetAlarm.SetIt( calendar.getTimeInMillis());
 
-        ShowToastInIntentService("延遲任務 " + alertHandler.getTaskName(this, taskID) + " 5  分鐘");
+        //ShowToastInIntentService("延遲任務 " + alertHandler.getTaskName(this, taskID) + " 5  分鐘");
+        stopSelf();
     }
 
     public void ShowToastInIntentService(final String sText) {
