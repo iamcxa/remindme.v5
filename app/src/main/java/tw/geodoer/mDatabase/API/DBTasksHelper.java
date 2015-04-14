@@ -11,6 +11,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
+import java.util.ArrayList;
+
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.utils.MyDebug;
 
@@ -175,7 +177,7 @@ public class DBTasksHelper {
      * @return (int) target's value.<br>
      * (int)-1, if any error was occurred.
      */
-    protected int getItemInt(int itemId, String columnName) {
+    public int getItemInt(int itemId, String columnName) {
         String[] projection = {"_id", columnName};
         String[] argStrings = {String.valueOf(itemId)};
         try {
@@ -392,6 +394,56 @@ public class DBTasksHelper {
             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
             return false;
         }
+    }
+
+    /**
+     * 此方法可取得資料表 task 所有還存在的任務 ID 陣列。
+     *
+     * @return (ArrayList)
+     */
+    public ArrayList<Integer> getIDArrayListOfTask() {
+        String[] projection = {"_id"};
+        try {
+            Cursor thisCursor = getCursor(projection, "_id > 0", null, "_id DESC");
+            if(thisCursor.getCount()==0) return null;
+            else
+            {
+                ArrayList<Integer> thisArray =new ArrayList<>();
+                thisArray.clear();
+                while(thisCursor.moveToNext())
+                    thisArray.add(thisCursor.getInt(0));
+                thisCursor.close();
+                return thisArray;
+            }
+        } catch (Exception e) {
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            return null;
+        }
+    }
+
+    /**
+     * 此方法可取得資料表 task 該id 是否存在
+     * 使用此式的前提是 ID 不能有重複存在
+     * @return boolean
+     */
+    public boolean isIDExist(int id)
+    {
+        boolean check = false;
+        String[] projection = {"_id"};
+        try {
+            Cursor thisCursor = getCursor(projection, "_id == "+id, null, "_id DESC");
+
+            if(thisCursor.getCount()==0)check = false;
+            else check =true;
+
+            thisCursor.close();
+            return check;
+
+        } catch (Exception e) {
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            return false;
+        }
+
     }
 
 

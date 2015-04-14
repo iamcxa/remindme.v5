@@ -13,7 +13,9 @@ import android.view.MenuItem.OnMenuItemClickListener;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
+import tw.geodoer.mDatabase.API.DBTasksHelper;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskEditor.adapter.MyFragmentPagerAdapter;
@@ -146,8 +148,10 @@ public class TaskEditorTabFragment extends ActionBarActivity
 
                 mSaveOrUpdate = new ActionSaveDataToDb(
                         getApplicationContext()
-                        , 0//mEditorVar.Task.
-                        , lastTaskID(), lastLocID());
+                        , mEditorVar.Task.getTaskId()
+                        , lastTaskID()+1
+                        , 0//lastLocID()
+                );
 
                 finish();
             } catch (Exception e) {
@@ -170,8 +174,8 @@ public class TaskEditorTabFragment extends ActionBarActivity
 
             btnActionAdd();
 
-            lastTaskID();
-            lastLocID();
+            //lastTaskID();
+            //lastLocID();
 
         } else if (itemName.contentEquals("action_refresh")) {
             //btnActionCancel();//暫時取消此功能
@@ -206,7 +210,7 @@ public class TaskEditorTabFragment extends ActionBarActivity
         if (c != null) {
             if (c.moveToLast()) {
                 if (!c.isNull(0)) data = c.getInt(0);
-                MyDebug.MakeLog(2, "lastTaskID=" + data);
+                //MyDebug.MakeLog(2, "lastTaskID=" + data);
             }
             c.close();
         }

@@ -105,7 +105,7 @@
 
         <!-- ================================================================== -->
         <receiver
-            android:name="tw.geodoer.mPriority.receiver.GeoBroadcastReceiver_TaskAlert"
+            android:name="tw.geodoer.mPriority.receiver.BroadcastReceiver_TaskAlert"
             android:exported="false" >
             <intent-filter>
 
@@ -121,9 +121,7 @@
 
 
         <!-- ================================================================== -->
-        <service android:name="tw.geodoer.mPriority.service.GeoServiceStarter" />
         <service android:name="tw.geodoer.mPriority.service.GeoServiceNotification" />
-        <service android:name="tw.geodoer.mPriority.service.GeoServiceEventUpdater" />
 
         <activity
             android:name="tw.geodoer.main.taskAlert.view.dialog.AlertNotiDialog"

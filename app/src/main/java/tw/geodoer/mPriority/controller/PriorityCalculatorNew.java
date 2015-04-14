@@ -1,8 +1,8 @@
-package tw.geodoer.mPriority.API;
+package tw.geodoer.mPriority.controller;
 
 import java.util.concurrent.TimeUnit;
 
-public class WeightCalculator
+public class PriorityCalculatorNew
 {
 	private final double meanW = 100000;
     private final double mean = 5 ;
@@ -27,7 +27,7 @@ public class WeightCalculator
 		return this.mean;
 	}
 
-	public WeightCalculator()
+	public PriorityCalculatorNew()
 	{
 
 	}
@@ -50,6 +50,7 @@ public class WeightCalculator
 	{
 
         double T = TimeUnit.MILLISECONDS.toMinutes(pT);
+        if(T<0) T=0;
         double L = pL*1000;
 
         Double result = this.weight(T,L) + this.subL(L)*weight(0,this.getLw());

@@ -40,8 +40,7 @@ public class MyProgressFragment extends ProgressFragment {
         }
 
     };
-    {
-    }
+
     private View mContentView;
     private Handler mHandler;
 

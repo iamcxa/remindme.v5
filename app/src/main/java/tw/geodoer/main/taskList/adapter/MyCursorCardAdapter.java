@@ -11,12 +11,17 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.view.View;
 
+import java.util.ArrayList;
+
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardCursorAdapter;
 import it.gmariotti.cardslib.library.internal.CardExpand;
 import it.gmariotti.cardslib.library.internal.CardHeader;
+import tw.geodoer.mDatabase.API.DBAlertHelper;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnTask;
+import tw.geodoer.main.taskEditor.controller.ActionSetAlarm;
+import tw.geodoer.main.taskEditor.controller.ActionSetLocationAlarm;
 import tw.geodoer.main.taskList.cardsui.CardThumbnailCircle;
 import tw.geodoer.main.taskList.cardsui.MyCursorCard;
 import tw.geodoer.main.taskList.controller.ActionOnClickCard;
@@ -103,6 +108,7 @@ public class MyCursorCardAdapter extends CardCursorAdapter {
         card.setOnLongClickListener(new Card.OnLongCardClickListener() {
             @Override
             public boolean onLongClick(Card card, View view) {
+                cursor.moveToPosition(Integer.parseInt(card.getId()));
                 ShowLongClickMenu(cursor.getInt(0), card.getId());
                 return false;
             }
@@ -114,7 +120,7 @@ public class MyCursorCardAdapter extends CardCursorAdapter {
     /*
 
      */
-    private void removeCard(int id) {
+    private void removeCard(int task_id) {
 
         // Use this code to delete items on DB
         ContentResolver resolverTask = getContext().getContentResolver();
@@ -123,36 +129,55 @@ public class MyCursorCardAdapter extends CardCursorAdapter {
         resolverTask.delete(ColumnTask.URI,
                 ColumnTask.KEY._id + " = ? ",
                 //new String[] { this.getCardFromCursor(getCursor()).getId() });
-                new String[]{String.valueOf(id)});
+                new String[]{String.valueOf(task_id)});
+
+        // Alert Part (New)
+        try
+        {
+            DBAlertHelper mDBalerthelper = new DBAlertHelper(mContext);
+            ArrayList<Integer> ids = mDBalerthelper.getIDArrayListOfUnFinishedTask();
+            if(ids != null)
+                for(int alert_id : ids)
+                    if(mDBalerthelper.getItemInt(alert_id, ColumnAlert.KEY.task_id) == task_id)
+                        if(mDBalerthelper.getItemInt(alert_id, ColumnAlert.KEY.state) == 0 )
+                            mDBalerthelper.setItem(alert_id,ColumnAlert.KEY.state, 1);
+        }
+        catch (Exception e) { MyDebug.MakeLog(2,"ActionFinishTheAlert ERROR : "+e.toString()); }
+
+        ActionSetAlarm AA = new ActionSetAlarm(mContext,task_id);
+        AA.CancelIt();
+
+        ActionSetLocationAlarm ALA = new ActionSetLocationAlarm(mContext,task_id);
+        ALA.CancelIt();
 
         // Alert PArt
-        ContentResolver resolverAlert = getContext().getContentResolver();
-        Cursor rowIDs = resolverAlert.query(ColumnAlert.URI,
-                null,
-                ColumnAlert.KEY.task_id + " = ? ",
-                new String[]{String.valueOf(id)},
-                ColumnAlert.DEFAULT_SORT_ORDER);
-        int rowCounter = rowIDs.getCount();
-        rowIDs.moveToFirst();
-        String[] IDs = {""};
-        for (int i = 0; i < rowIDs.getCount(); i++) {
-            IDs[i] = rowIDs.getString(i).toString();
-            MyDebug.MakeLog(0, "rowOrder=" + i +
-                    ",rowID=" + IDs);
-            rowIDs.moveToNext();
-        }
+//        ContentResolver resolverAlert = getContext().getContentResolver();
+//        Cursor rowIDs = resolverAlert.query(ColumnAlert.URI,
+//                null,
+//                ColumnAlert.KEY.task_id + " = ? ",
+//                new String[]{String.valueOf(id)},
+//                ColumnAlert.DEFAULT_SORT_ORDER);
+//        int rowCounter = rowIDs.getCount();
+//        rowIDs.moveToFirst();
+//        String[] IDs = {""};
+//        for (int i = 0; i < rowIDs.getCount(); i++) {
+//            IDs[i] = rowIDs.getString(i).toString();
+//            MyDebug.MakeLog(0, "rowOrder=" + i +
+//                    ",rowID=" + IDs);
+//            rowIDs.moveToNext();
+//        }
 
-        MyDebug.MakeLog(0, "task_id=" + ColumnAlert.KEY.task_id +
-                ",ColumnAlert rows=" + rowCounter);
-        long alertDeleted = 0;
-        if (rowCounter > 0) {
-            alertDeleted = resolverAlert.delete(ColumnAlert.URI,
-                    ColumnAlert.KEY.task_id + " = ? ",
-                    IDs);
-        }
-
-        MyDebug.MakeLog(0, "taskDeleted=" + taskDeleted +
-                ",alertDeleted=" + alertDeleted);
+//        MyDebug.MakeLog(0, "task_id=" + ColumnAlert.KEY.task_id +
+//                ",ColumnAlert rows=" + rowCounter);
+//        long alertDeleted = 0;
+//        if (rowCounter > 0) {
+//            alertDeleted = resolverAlert.delete(ColumnAlert.URI,
+//                    ColumnAlert.KEY.task_id + " = ? ",
+//                    IDs);
+//        }
+//
+//        MyDebug.MakeLog(0, "taskDeleted=" + taskDeleted +
+//                ",alertDeleted=" + alertDeleted);
         this.notifyDataSetChanged();
     }
 
@@ -170,7 +195,6 @@ public class MyCursorCardAdapter extends CardCursorAdapter {
                                         break;
                                     case 1:// 刪除
                                         removeCard(id);
-
                                         break;
                                 }
                             }

@@ -5,10 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import tw.geodoer.mPriority.API.ServiceCaller;
-import tw.geodoer.mPriority.service.GeoServiceEventUpdater;
 import tw.geodoer.mPriority.service.GeoServiceNotification;
 
+import tw.geodoer.main.taskAlert.controller.LocationAlertHandler;
 import tw.geodoer.utils.MyDebug;
 
 import tw.geodoer.main.taskAlert.controller.AlertHandler;
@@ -16,7 +15,7 @@ import tw.geodoer.main.taskAlert.controller.AlertHandler;
 /**
  * @author iamcxa 定時提醒廣播
  */
-public class GeoBroadcastReceiver_TaskAlert extends BroadcastReceiver
+public class BroadcastReceiver_TaskAlert extends BroadcastReceiver
 {
     @Override
     public void onReceive(Context context, Intent intent)
@@ -25,12 +24,10 @@ public class GeoBroadcastReceiver_TaskAlert extends BroadcastReceiver
         String msg = (b.getString("msg") == null) ? "no msg" : b.getString("msg");
         String action = intent.getAction().toString();
 
-        Bundle newB = new Bundle();
-        Intent it;
-        MyDebug.MakeLog(2, "@ RemindmeReceiver_TaskAlert onReceive");
-        //MyDebug.MakeLog(2, "get action " + intent.getAction().toString());
-        //MyDebug.MakeLog(2, "get msg: " + msg);
+        MyDebug.MakeLog(2, "@ Receiver onReceive: "+msg);
 
+        Bundle newB = new Bundle();
+        Intent it = new Intent();
 
         if (action.equals("me.iamcxa.remindme.TaskReceiver"))
         {
@@ -41,36 +38,30 @@ public class GeoBroadcastReceiver_TaskAlert extends BroadcastReceiver
                     //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //
 
-                    intent.setClass(context, AlertHandler.class);
+                    it.setClass(context, AlertHandler.class);
                     //
 
                     newB.putString("taskID", b.get("taskID").toString());
 
-                    intent.putExtras(newB);
+                    it.putExtras(newB);
 
-                    context.startService(intent);
+                    context.startService(it);
                     break;
 
                 case "me.iamcxa.remindme.location":
                     //if(msg.equals("me.iamcxa.remindme.location"))
-
                     //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //------------------------------------------------------------------------
                     //set location handler
-                    intent.setClass(context, GeoServiceNotification.class);
+                    it.setClass(context, LocationAlertHandler.class);
 
                     //------------------------------------------------------------------------
 
                     newB.putString("taskID", b.get("taskID").toString());
-                    intent.putExtra(GeoServiceNotification.MESSAGE, "12331321546");
-                    intent.putExtras(newB);
 
-                    context.startService(intent);
-                    break;
+                    it.putExtras(newB);
 
-                case "me.iamcxa.remindme.position":
-                    //if(msg.equals("me.iamcxa.remindme.position"))
-                    ServiceCaller.call(context,ServiceCaller.KEY_POSITION);
+                    context.startService(it);
                     break;
 
                 default:
