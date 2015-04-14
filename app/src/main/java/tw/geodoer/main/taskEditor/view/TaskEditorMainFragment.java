@@ -323,12 +323,12 @@ public class TaskEditorMainFragment extends Fragment implements
         taskContent.setHint(getResources().getString(R.string.TaskEditor_Field_Content_Hint));
 
         // 地點
-//        Cursor c = getActivity().getContentResolver().
-//                query(ColumnLocation.URI, ColumnLocation.PROJECTION, null, null,
-//                        ColumnLocation.DEFAULT_SORT_ORDER);
+        Cursor c = getActivity().getContentResolver().
+                query(ColumnLocation.URI, ColumnLocation.PROJECTION, null, null,
+                        ColumnLocation.DEFAULT_SORT_ORDER);
 
         tasklocation = (Spinner) getView().findViewById(R.id.spinnerTextLocation);
-        //tasklocation.setAdapter(setLocationArray(c));
+        tasklocation.setAdapter(setLocationArray(c));
         tasklocation.setOnItemSelectedListener(test);
         tasklocation.setEnabled(true);
 
