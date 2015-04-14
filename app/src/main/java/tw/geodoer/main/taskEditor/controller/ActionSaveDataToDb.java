@@ -3,8 +3,8 @@ package tw.geodoer.main.taskEditor.controller;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.UriMatcher;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -207,8 +207,11 @@ public class ActionSaveDataToDb {
         // 設定對應 URI, 執行 SQL 命令
         //mUri = ColumnLocation.URI;
         setTableLocation = new setTableLocation(values);
+        Log.e("Test",mEditorVar.TaskLocation.getName() );
+
         if(  !"null".equals(mEditorVar.TaskLocation.getName()) )
         {
+            Toast.makeText(context,"location saved 2 :"+ mEditorVar.TaskLocation.getName(),Toast.LENGTH_SHORT);
             try
             {
                 this.locId = (int) ContentUris.parseId(context.getContentResolver().insert(ColumnLocation.URI, values));
@@ -375,20 +378,20 @@ class setTableLocation {
     private void getLocationFields() {
         // TODO 地點判斷與取得相關資料部分仍未完成
 
-        if (TaskEditorMainFragment.getTaskLocation().getSelectedItemPosition() != -1) {
-            // 設定地點名稱
-            mEditorVar.TaskLocation.setName("null");
-
-            // 設定經緯度
-            mEditorVar.TaskLocation.setLat(0.0);
-            mEditorVar.TaskLocation.setLon(0.0);
-
-            // 設定目的地與現在地點距離
-            mEditorVar.TaskLocation.setDistance(0.0);
-
-            // 設定該地點最近使用時間為現在
-            mEditorVar.TaskLocation.setLastUsedTime(MyCalendar.getNow());
-        }
+//        if (TaskEditorMainFragment.getTaskLocation().getSelectedItemPosition() != -1) {
+//            // 設定地點名稱
+//            mEditorVar.TaskLocation.setName("null");
+//
+//            // 設定經緯度
+//            mEditorVar.TaskLocation.setLat(0.0);
+//            mEditorVar.TaskLocation.setLon(0.0);
+//
+//            // 設定目的地與現在地點距離
+//            mEditorVar.TaskLocation.setDistance(0.0);
+//
+//            // 設定該地點最近使用時間為現在
+//            mEditorVar.TaskLocation.setLastUsedTime(MyCalendar.getNow());
+//        }
     }
 
 

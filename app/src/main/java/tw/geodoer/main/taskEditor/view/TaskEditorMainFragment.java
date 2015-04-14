@@ -29,6 +29,13 @@ import tw.moretion.geodoer.R;
 
 public class TaskEditorMainFragment extends Fragment implements
         OnClickListener {
+    /**
+     * Called when the fragment is visible to the user and actively running.
+     * This is generally
+     * tied to {@link Activity#onResume() Activity.onResume} of the containing
+     * Activity's lifecycle.
+     */
+
     private static MultiAutoCompleteTextView taskTitle;    // 任務標題
     private static EditText taskDueDate;                    // 任務到期日
     private static ImageButton taskBtnDueDate;
@@ -53,6 +60,8 @@ public class TaskEditorMainFragment extends Fragment implements
             init(getActivity().getIntent());
         }
     };
+
+
     private OnItemSelectedListener test = new OnItemSelectedListener() {
 
         @Override

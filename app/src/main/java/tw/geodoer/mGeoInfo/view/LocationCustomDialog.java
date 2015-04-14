@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import fud.geodoermap.GeoInfo;
 import fud.geodoermap.GeoStatus;
 import fud.geodoermap.MapController;
+import tw.geodoer.mGeoInfo.controller.OnBtnSaveClick;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.moretion.geodoer.R;
 
@@ -54,6 +55,7 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
     private double Lat;
     private double Lon;
     MapController mapController;
+    private GeoInfo geo;
 
 
     public LocationCustomDialog newInstance() {
@@ -173,6 +175,7 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
             save.setEnabled(true);
             Log.d("Loaded","位置："+geo.name+",座標："+geo.latlng+",載入完成");
         }
+        this.geo = geo;
     }
 
     /**
@@ -195,7 +198,10 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
             mapController.searchPlace(SearchText.getText().toString());
         }
         else if(v.getId() == R.id.save){
+            OnBtnSaveClick a = new OnBtnSaveClick(geo);
 
+//            OnBtnSaveClick.saveDB(geo);
+            Toast.makeText(getActivity(),geo.name,Toast.LENGTH_SHORT).show();
         }
     }
 }
