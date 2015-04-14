@@ -5,6 +5,9 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,13 +31,16 @@ import tw.geodoer.utils.MyDebug;
 import tw.moretion.geodoer.R;
 
 public class TaskEditorMainFragment extends Fragment implements
-        OnClickListener {
+        OnClickListener,
+        LoaderManager.LoaderCallbacks<Cursor>{
     /**
      * Called when the fragment is visible to the user and actively running.
      * This is generally
      * tied to {@link Activity#onResume() Activity.onResume} of the containing
      * Activity's lifecycle.
      */
+
+    private static Loader<Cursor> loader;
 
     private static MultiAutoCompleteTextView taskTitle;    // 任務標題
     private static EditText taskDueDate;                    // 任務到期日
@@ -61,6 +67,20 @@ public class TaskEditorMainFragment extends Fragment implements
         }
     };
 
+    /**
+     * Called when the fragment is visible to the user and actively running.
+     * This is generally
+     * tied to {@link Activity#onResume() Activity.onResume} of the containing
+     * Activity's lifecycle.
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getLoaderManager();
+
+        getLoaderManager().restartLoader(1, null, this);
+    }
 
     private OnItemSelectedListener test = new OnItemSelectedListener() {
 
@@ -82,11 +102,8 @@ public class TaskEditorMainFragment extends Fragment implements
 
                         , Toast.LENGTH_SHORT).show();
 
-
                 c.close();
             }
-
-
         }
 
         @Override
@@ -268,6 +285,8 @@ public class TaskEditorMainFragment extends Fragment implements
 
         obtainData();
 
+        getLoaderManager().initLoader(1, savedInstanceState, this);
+
         if (savedInstanceState == null) {
 
         }
@@ -304,11 +323,12 @@ public class TaskEditorMainFragment extends Fragment implements
         taskContent.setHint(getResources().getString(R.string.TaskEditor_Field_Content_Hint));
 
         // 地點
-        Cursor c = getActivity().getContentResolver().
-                query(ColumnLocation.URI, ColumnLocation.PROJECTION, null, null,
-                        ColumnLocation.DEFAULT_SORT_ORDER);
+//        Cursor c = getActivity().getContentResolver().
+//                query(ColumnLocation.URI, ColumnLocation.PROJECTION, null, null,
+//                        ColumnLocation.DEFAULT_SORT_ORDER);
+
         tasklocation = (Spinner) getView().findViewById(R.id.spinnerTextLocation);
-        tasklocation.setAdapter(setLocationArray(c));
+        //tasklocation.setAdapter(setLocationArray(c));
         tasklocation.setOnItemSelectedListener(test);
         tasklocation.setEnabled(true);
 
@@ -407,4 +427,80 @@ public class TaskEditorMainFragment extends Fragment implements
         return adapter;
     }
 
+    /**
+     * Instantiate and return a new Loader for the given ID.
+     *
+     * @param id   The ID whose loader is to be created.
+     * @param args Any arguments supplied by the caller.
+     * @return Return a new Loader instance that is ready to start loading.
+     */
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        switch (id){
+            case 1:
+               loader= new CursorLoader(getActivity(),
+                        ColumnLocation.URI,
+                        ColumnLocation.PROJECTION, null, null,
+                        ColumnLocation.SORT_BY_LASTUSEDTIME);
+                break;
+        }
+        return loader;
+    }
+
+    /**
+     * Called when a previously created loader has finished its load.  Note
+     * that normally an application is <em>not</em> allowed to commit fragment
+     * transactions while in this call, since it can happen after an
+     * activity's state is saved.  See {@link FragmentManager#beginTransaction()
+     * FragmentManager.openTransaction()} for further discussion on this.
+     * <p/>
+     * <p>This function is guaranteed to be called prior to the release of
+     * the last data that was supplied for this Loader.  At this point
+     * you should remove all use of the old data (since it will be released
+     * soon), but should not do your own release of the data since its Loader
+     * owns it and will take care of that.  The Loader will take care of
+     * management of its data so you don't have to.  In particular:
+     * <p/>
+     * <ul>
+     * <li> <p>The Loader will monitor for changes to the data, and report
+     * them to you through new calls here.  You should not monitor the
+     * data yourself.  For example, if the data is a {@link android.database.Cursor}
+     * and you place it in a {@link android.widget.CursorAdapter}, use
+     * the {@link android.widget.CursorAdapter#CursorAdapter(android.content.Context,
+     * android.database.Cursor, int)} constructor <em>without</em> passing
+     * in either {@link android.widget.CursorAdapter#FLAG_AUTO_REQUERY}
+     * or {@link android.widget.CursorAdapter#FLAG_REGISTER_CONTENT_OBSERVER}
+     * (that is, use 0 for the flags argument).  This prevents the CursorAdapter
+     * from doing its own observing of the Cursor, which is not needed since
+     * when a change happens you will get a new Cursor throw another call
+     * here.
+     * <li> The Loader will release the data once it knows the application
+     * is no longer using it.  For example, if the data is
+     * a {@link android.database.Cursor} from a {@link android.content.CursorLoader},
+     * you should not call close() on it yourself.  If the Cursor is being placed in a
+     * {@link android.widget.CursorAdapter}, you should use the
+     * {@link android.widget.CursorAdapter#swapCursor(android.database.Cursor)}
+     * method so that the old Cursor is not closed.
+     * </ul>
+     *
+     * @param loader The Loader that has finished.
+     * @param data   The data generated by the Loader.
+     */
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        tasklocation.setAdapter(setLocationArray(data));
+        tasklocation.setOnItemSelectedListener(test);
+    }
+
+    /**
+     * Called when a previously created loader is being reset, and thus
+     * making its data unavailable.  The application should at this point
+     * remove any references it has to the Loader's data.
+     *
+     * @param loader The Loader that is being reset.
+     */
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+    }
 }

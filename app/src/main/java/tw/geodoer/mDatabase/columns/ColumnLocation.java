@@ -14,6 +14,7 @@ public final class ColumnLocation implements BaseColumns {
 
     // 預設排序常數
     public static final String DEFAULT_SORT_ORDER = "_id DESC";
+    public static final String SORT_BY_LASTUSEDTIME = KEY.lastUsedTime+" DESC";
     // 資料表名稱常數
     public static final String TABLE_NAME = "task_locations";
     // 存取Uri
