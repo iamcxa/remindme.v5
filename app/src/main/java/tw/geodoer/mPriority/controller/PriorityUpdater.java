@@ -155,7 +155,7 @@ public class PriorityUpdater
 //                        itemLat = dbLocationHelper.getItemDouble(loc_id, ColumnLocation.KEY.lat);
 //                        itemLon = dbLocationHelper.getItemDouble(loc_id, ColumnLocation.KEY.lon);
 //
-                        distance = DistanceCalculator.haversine(this.Now_Lat, this.Now_Lon, itemLat, itemLon);
+//                        distance = DistanceCalculator.haversine(this.Now_Lat, this.Now_Lon, itemLat, itemLon);
 //                        dbLocationHelper.setItem(loc_id, ColumnLocation.KEY.distance, distance);
 //                    }
 //                    else

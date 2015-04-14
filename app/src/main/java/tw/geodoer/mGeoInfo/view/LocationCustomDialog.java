@@ -27,7 +27,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import fud.geodoermap.GeoInfo;
 import fud.geodoermap.GeoStatus;
 import fud.geodoermap.MapController;
-import tw.geodoer.mGeoInfo.controller.OnBtnSaveClick;
+import tw.geodoer.mGeoInfo.API.CurrentLocation;
+import tw.geodoer.mGeoInfo.controller.onBtnSaveClick;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.moretion.geodoer.R;
 
@@ -198,10 +199,18 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
             mapController.searchPlace(SearchText.getText().toString());
         }
         else if(v.getId() == R.id.save){
-            OnBtnSaveClick a = new OnBtnSaveClick(geo);
+            onBtnSaveClick a = new onBtnSaveClick(geo);
 
 //            OnBtnSaveClick.saveDB(geo);
             Toast.makeText(getActivity(),geo.name,Toast.LENGTH_SHORT).show();
+
+            CurrentLocation b = new CurrentLocation(getActivity());
+            b.setOnDistanceListener(geo.latlng.latitude,geo.latlng.longitude,new CurrentLocation.onDistanceListener() {
+                @Override
+                public void onGetDistance(Double mDistance) {
+                    Toast.makeText(getActivity(),mDistance+"",Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }
