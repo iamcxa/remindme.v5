@@ -1,5 +1,7 @@
 package tw.geodoer.mPriority.controller;
 
+import android.util.Log;
+
 import java.util.concurrent.TimeUnit;
 
 public class PriorityCalculatorNew
@@ -48,13 +50,17 @@ public class PriorityCalculatorNew
 	}
 	public int getweight(long pT, double pL)
 	{
+        Log.wtf("PrU","get pT="+pT+"   pL="+pL);
+
 
         double T = TimeUnit.MILLISECONDS.toMinutes(pT);
         if(T<0) T=0;
         double L = pL*1000;
 
-        Double result = this.weight(T,L) + this.subL(L)*weight(0,this.getLw());
+        Double result = this.weight(T,L) ;//+ this.subL(L)*weight(0,this.getLw());
 
-		return (result==null)? -1: Integer.valueOf( result.intValue() )  ;
+        Log.wtf("PrU","get pri="+result);
+
+        return (result==null)? -1: result.intValue()  ;
 	}
 }
