@@ -1,8 +1,10 @@
 package tw.geodoer.mGeoInfo.controller;
 
+import android.content.ContentValues;
 import android.content.Context;
 
 import fud.geodoermap.GeoInfo;
+import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 
 /**
