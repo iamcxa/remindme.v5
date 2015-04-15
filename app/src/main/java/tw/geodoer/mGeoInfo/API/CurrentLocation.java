@@ -63,6 +63,10 @@ public class CurrentLocation implements GPSCallback {
         isThreadRun=true;
         Log.wtf("PrU",taskID+"  "+lat +","+ lng+" 開始計算");
         setTimeOut(500000);
+
+        //寫死正修測試用
+        mDis.onGetLatLng(22.650351,120.350032);
+        stopGps();
     }
 
     public void setTimeOut(int s){
