@@ -3,6 +3,7 @@ package tw.geodoer.mGeoInfo.API;
 import android.content.Context;
 import android.location.Location;
 import android.os.Handler;
+import android.util.Log;
 
 /**
  * Created by fud on 2015/4/14.
@@ -20,7 +21,7 @@ public class CurrentLocation implements GPSCallback {
     public CurrentLocation(Context context){
         this.context=context;
         gpsManager = new GPSManager();
-        gpsManager.startListening(context);
+        gpsManager.startNetWorkListening(context);
         gpsManager.setGPSCallback(this);
 
         mHandle = new Handler();
@@ -44,10 +45,10 @@ public class CurrentLocation implements GPSCallback {
         this.mDis=mDis;
         this.lat=lat;
         this.lng=lng;
-        gpsManager.startListening(context);
+        gpsManager.startNetWorkListening(context);
         gpsManager.setGPSCallback(this);
         isThreadRun=true;
-        setTimeOut(5000);
+        setTimeOut(500000);
     }
 
     public void setTimeOut(int s){
@@ -62,7 +63,10 @@ public class CurrentLocation implements GPSCallback {
 
     public void onGPSUpdate(Location location) {
         stopGps();
+        Log.wtf("PrU", DistanceCalculator.haversine(location.getLatitude(), location.getLongitude(), lat, lng)+"");
         mDis.onGetDistance(DistanceCalculator.haversine(location.getLatitude(), location.getLongitude(), lat, lng));
+
+
     }
 
 
