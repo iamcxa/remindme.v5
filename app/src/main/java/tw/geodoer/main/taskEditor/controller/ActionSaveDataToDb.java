@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import tw.geodoer.mDatabase.API.DBAlertHelper;
+import tw.geodoer.mDatabase.API.DBLocationHelper;
 import tw.geodoer.mDatabase.API.DBTasksHelper;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
@@ -60,6 +61,7 @@ public class ActionSaveDataToDb {
         }
 
         saveTableLocation();
+        setLocationAlert();
 
         //----------------------------------------------------------------------------------//
         PriorityUpdater PrU = new PriorityUpdater(context);
@@ -72,7 +74,6 @@ public class ActionSaveDataToDb {
         mEditorVar.TaskDate.setmDay(0);
         mEditorVar.TaskDate.setmHour(0);
         mEditorVar.TaskDate.setmMinute(0);
-        mEditorVar.TaskLocation.setName("null");
 
     }
 
@@ -191,32 +192,31 @@ public class ActionSaveDataToDb {
 
     private void saveTableLocation()
     {
-        values.clear();
-        setTableLocation = new setTableLocation(values);
-        values.put(ColumnLocation.KEY.lastUsedTime, System.currentTimeMillis() );
 
-        //Log.e("Test",mEditorVar.TaskLocation.getName() );
-        if(  !"null".equals(mEditorVar.TaskLocation.getName()) )
+        this.locId = mEditorVar.Task.getLocation_id();
+
+        DBTasksHelper mDBtaskhelper = new DBTasksHelper(context);
+        mDBtaskhelper.setItem(taskId, ColumnTask.KEY.location_id, this.locId);
+
+    }
+    private void setLocationAlert()
+    {
+
+
+        ActionSetLocationAlarm ASLA = new ActionSetLocationAlarm(context, taskId);
+
+        if(this.locId > 0)
         {
+            DBLocationHelper mDBT = new DBLocationHelper(context);
+            double lat = mDBT.getItemDouble(locId,ColumnLocation.KEY.lat);
+            double lon = mDBT.getItemDouble(locId,ColumnLocation.KEY.lon);
 
-            try
-            {
-                this.locId = (int) ContentUris.parseId(context.getContentResolver().insert(ColumnLocation.URI, values));
+            if(mEditorVar.Task.getDue_date_millis() == 0)ASLA.SetIt(lat,lon);
+            else if(mEditorVar.Task.getDue_date_millis() == 0)
+                ASLA.SetIt(lat,lon,mEditorVar.TaskAlert.getDue_date_millis() - System.currentTimeMillis());
 
-                DBTasksHelper mDBtaskhelper = new DBTasksHelper(context);
-                mDBtaskhelper.setItem(taskId, ColumnTask.KEY.location_id, this.locId);
-
-            } catch (Exception e) { MyDebug.MakeLog(2, "saveTableLocation error=" + e.toString()); }
-
-            ActionSetLocationAlarm ASLA = new ActionSetLocationAlarm(context, taskId);
-
-            if (mEditorVar.TaskAlert.getDue_date_millis() == 0)
-                ASLA.SetIt(mEditorVar.TaskLocation.getLat(), mEditorVar.TaskLocation.getLon());
-            else if (mEditorVar.TaskAlert.getDue_date_millis() - System.currentTimeMillis() > 0)
-                ASLA.SetIt(mEditorVar.TaskLocation.getLat(),
-                        mEditorVar.TaskLocation.getLon(),
-                        mEditorVar.TaskAlert.getDue_date_millis() - System.currentTimeMillis());
         }
+        else ASLA.CancelIt();
 
     }
 //-------------------------------------------------------------------------------------------------//

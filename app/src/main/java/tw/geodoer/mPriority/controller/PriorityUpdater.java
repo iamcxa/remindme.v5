@@ -34,17 +34,17 @@ public class PriorityUpdater
     }
     public void PirorityUpdate()
     {
-        //get number of events
-        int count = dbTaskHelper.getCount();
-        if(count==0)return; //if no event can be change , stop
-        //--------------------------------------------------------------------------------------
-        HandlerThread mHandlerThread = new HandlerThread("PrU");
-        mHandlerThread.start();
-        Handler mHandler = new Handler(mHandlerThread.getLooper());
-
-        Runnable r =new update_thread_2(mContext);
-        Thread mThread = new Thread(r);
-        mHandler.post(mThread);
+//        get number of events
+//        int count = dbTaskHelper.getCount();
+//        if(count==0)return; //if no event can be change , stop
+//        //--------------------------------------------------------------------------------------
+//        HandlerThread mHandlerThread = new HandlerThread("PrU");
+//        mHandlerThread.start();
+//        Handler mHandler = new Handler(mHandlerThread.getLooper());
+//
+//        Runnable r =new update_thread_2(mContext);
+//        Thread mThread = new Thread(r);
+//        mHandler.post(mThread);
 
     }
 
@@ -103,7 +103,7 @@ public class PriorityUpdater
                                 else if (due_time - System.currentTimeMillis() <= 0) left_time = 0;
                                 else left_time = due_time - System.currentTimeMillis();
 
-                                int pri =Cal.getweight(left_time, distance * 1000d);
+                                int pri =Cal.getweight(left_time, distance);
 
                                 dbTaskHelper.setItem(task_id, ColumnTask.KEY.priority,pri);
 
