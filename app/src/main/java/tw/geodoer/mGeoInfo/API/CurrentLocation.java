@@ -29,7 +29,7 @@ public class CurrentLocation implements GPSCallback {
         t = new Thread(new Runnable() {
             @Override
             public void run() {
-                if(isThreadRun)mDis.onGetDistance((double)-1);
+                if(isThreadRun)mDis.onGetLatLng((double)-1,(double)-1);
             }
         });
     }
@@ -38,22 +38,22 @@ public class CurrentLocation implements GPSCallback {
 
     public interface onDistanceListener {
 
-        public void onGetDistance(Double mDistance);
+//        public void onGetDistance(Double mDistance);
 
         public void onGetLatLng(Double lat,Double lng);
     }
 
-    public void setOnDistanceListener(int taskID,Double lat,Double lng,onDistanceListener mDis){
-        this.mDis=mDis;
-        this.lat=lat;
-        this.lng=lng;
-        this.taskID=taskID;
-        gpsManager.startNetWorkListening(context);
-        gpsManager.setGPSCallback(this);
-        isThreadRun=true;
-        Log.wtf("PrU",taskID+"  "+lat +","+ lng+" 開始計算");
-        setTimeOut(10000);
-    }
+//    public void setOnDistanceListener(int taskID,Double lat,Double lng,onDistanceListener mDis){
+//        this.mDis=mDis;
+//        this.lat=lat;
+//        this.lng=lng;
+//        this.taskID=taskID;
+//        gpsManager.startNetWorkListening(context);
+//        gpsManager.setGPSCallback(this);
+//        isThreadRun=true;
+//        Log.wtf("PrU",taskID+"  "+lat +","+ lng+" 開始計算");
+//        setTimeOut(10000);
+//    }
 
 
     public void setOnLocListener(onDistanceListener mDis){
@@ -78,7 +78,7 @@ public class CurrentLocation implements GPSCallback {
     public void onGPSUpdate(Location location) {
         stopGps();
         Log.wtf("PrU",taskID+","+lat+","+lng+"計算完成 "+ DistanceCalculator.haversine(location.getLatitude(), location.getLongitude(), lat, lng));
-        mDis.onGetDistance(DistanceCalculator.haversine(location.getLatitude(), location.getLongitude(), lat, lng));
+//        mDis.onGetDistance(DistanceCalculator.haversine(location.getLatitude(), location.getLongitude(), lat, lng));
         mDis.onGetLatLng(location.getLatitude(),location.getLongitude());
     }
 

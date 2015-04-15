@@ -83,24 +83,8 @@ public class PriorityUpdater
             else
             {
                 CurrentLocation b = new CurrentLocation(this.mContext);
-                b.setOnLocListener(
-                        new CurrentLocation.onDistanceListener()
+                b.setOnLocListener(new CurrentLocation.onDistanceListener()
                         {
-                            @Override
-                            public void onGetDistance(Double mDistance)
-                            {
-                                PriorityCalculatorNew Cal = new PriorityCalculatorNew();
-                                mDistance = (mDistance == -1) ? 0 : mDistance;
-                                long due_time, left_time;
-                                due_time = dbTaskHelper.getItemLong(taskID, ColumnTask.KEY.due_date_millis);
-                                if (due_time == 0) left_time = 0;
-                                else if (due_time - System.currentTimeMillis() <= 0) left_time = 0;
-                                else left_time = due_time - System.currentTimeMillis();
-                                dbTaskHelper.setItem(taskID, ColumnTask.KEY.priority, Cal.getweight(left_time, mDistance * 1000));
-                                Log.wtf("PrU", "PrU ID:"+taskID+"onDistance :"+mDistance +"duetime :"+left_time+"pri:" + Cal.getweight(left_time, mDistance * 1000d));
-
-                            }
-
                             @Override
                             public void onGetLatLng(Double lat, Double lng) {
                                 Log.wtf("PrUr",lat+","+lng);
