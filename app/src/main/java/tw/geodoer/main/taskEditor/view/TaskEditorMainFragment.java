@@ -40,6 +40,9 @@ public class TaskEditorMainFragment extends Fragment implements
      * Activity's lifecycle.
      */
 
+    // flag - 被地圖dialog呼叫
+    public static boolean calledByDialog = false;
+
     private static Loader<Cursor> loader;
 
     // private static Cursor cursor;
@@ -517,10 +520,19 @@ public class TaskEditorMainFragment extends Fragment implements
      */
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        Bundle b = getActivity().getIntent().getBundleExtra(CommonVar.BundleName);
-        if(spinnerTaskLocation.getSelectedItemPosition()==0) {
+        spinnerTaskLocation.setAdapter(setLocationArray(data));
+        spinnerTaskLocation.setOnItemSelectedListener(test);
+
+        MyDebug.MakeLog(2, "calledByDialog state=" + calledByDialog);
+
+        if (this.calledByDialog) {
+            spinnerTaskLocation.setSelection(spinnerTaskLocation.getCount() - 1);
+            this.calledByDialog = false;
+        }
+
+        if (mEditorVar.Task.getTaskId() != 0) {
+            Bundle b = getActivity().getIntent().getBundleExtra(CommonVar.BundleName);
             if (b != null) {
-                // 20150415 added
                 MyDebug.MakeLog(2, "location_id=" + b.getString(ColumnTask.KEY.location_id));
                 mEditorVar.Task.setLocation_id(Integer.valueOf(b.getString(ColumnTask.KEY.location_id)));
                 MyDebug.MakeLog(2, "location_id@mEditorVar=" + mEditorVar.Task.getLocation_id());
@@ -528,9 +540,6 @@ public class TaskEditorMainFragment extends Fragment implements
                 spinnerTaskLocation.setSelection(mEditorVar.Task.getLocation_id());
                 MyDebug.MakeLog(2, "spinnerTaskLocation selected=" + spinnerTaskLocation.getSelectedItemPosition());
             }
-        }else {
-            spinnerTaskLocation.setAdapter(setLocationArray(data));
-            spinnerTaskLocation.setOnItemSelectedListener(test);
         }
     }
 

@@ -6,6 +6,7 @@ import android.content.Context;
 import fud.geodoermap.GeoInfo;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
+import tw.geodoer.main.taskEditor.view.TaskEditorMainFragment;
 
 /**
  * Created by dan on 2015/4/14.
@@ -29,5 +30,8 @@ public class onBtnSaveClick
         values.put(ColumnLocation.KEY.lon, geo.latlng.longitude);
         values.put(ColumnLocation.KEY.lastUsedTime, System.currentTimeMillis());
         context.getContentResolver().insert(ColumnLocation.URI, values);
+
+
+        TaskEditorMainFragment.calledByDialog=true;
     }
 }
