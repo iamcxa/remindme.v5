@@ -1,24 +1,17 @@
 package tw.geodoer.mPriority.controller;
 
 import android.content.Context;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import tw.geodoer.mDatabase.API.DBAlertHelper;
 import tw.geodoer.mDatabase.API.DBLocationHelper;
 import tw.geodoer.mDatabase.API.DBTasksHelper;
-import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.mGeoInfo.API.CurrentLocation;
-import tw.geodoer.mGeoInfo.API.DistanceCalculator;
-import tw.geodoer.utils.MyDebug;
 
 /**
  * Created by MurasakiYoru on 2015/4/11.
@@ -91,7 +84,7 @@ public class PriorityUpdater
             else
             {
                 CurrentLocation b = new CurrentLocation(this.mContext);
-                b.setOnDistanceListener(dbLocationHelper.getItemDouble(locID, ColumnLocation.KEY.lat),
+                b.setOnDistanceListener(taskID,dbLocationHelper.getItemDouble(locID, ColumnLocation.KEY.lat),
                         dbLocationHelper.getItemDouble(locID, ColumnLocation.KEY.lon),
                         new CurrentLocation.onDistanceListener()
                         {
