@@ -15,21 +15,29 @@ public class CurrentLocation implements GPSCallback {
     private Double lng = -1d;
     private Context context;
     private Handler mHandle;
-    private Thread t;
+    private Thread mGps;
+    private Thread mNetWork;
+    private Thread mLastKnow;
     private Boolean isThreadRun=true;
     private int taskID =0;
 
     public CurrentLocation(Context context){
         this.context=context;
         gpsManager = new GPSManager();
-        gpsManager.startNetWorkListening(context);
-        gpsManager.setGPSCallback(this);
 
         mHandle = new Handler();
-        t = new Thread(new Runnable() {
+
+        mGps = new Thread(new Runnable() {
             @Override
             public void run() {
-                if(isThreadRun)mDis.onGetLatLng((double)-1,(double)-1);
+                if(isThreadRun)startNetWorkAndSetTimeOut(5000);
+            }
+        });
+
+        mNetWork = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if(isThreadRun)getLastKnow();
             }
         });
     }
@@ -38,51 +46,88 @@ public class CurrentLocation implements GPSCallback {
 
     public interface onDistanceListener {
 
-//        public void onGetDistance(Double mDistance);
-
         public void onGetLatLng(Double lat,Double lng);
     }
-
-//    public void setOnDistanceListener(int taskID,Double lat,Double lng,onDistanceListener mDis){
-//        this.mDis=mDis;
-//        this.lat=lat;
-//        this.lng=lng;
-//        this.taskID=taskID;
-//        gpsManager.startNetWorkListening(context);
-//        gpsManager.setGPSCallback(this);
-//        isThreadRun=true;
-//        Log.wtf("PrU",taskID+"  "+lat +","+ lng+" 開始計算");
-//        setTimeOut(10000);
-//    }
 
 
     public void setOnLocListener(onDistanceListener mDis){
         this.mDis=mDis;
-        gpsManager.startNetWorkListening(context);
-        gpsManager.setGPSCallback(this);
-        isThreadRun=true;
-        Log.wtf("PrU",taskID+"  "+lat +","+ lng+" 開始計算");
-        setTimeOut(500000);
+        startGpsAndSetTimeOut(5000);
+//        Log.e("LastKnow",gpsManager.LastLocation().getLatitude()+","+gpsManager.LastLocation().getLongitude());
 
         //寫死正修測試用
 //        mDis.onGetLatLng(22.650351,120.350032);
 //        stopGps();
     }
 
-    public void setTimeOut(int s){
-        mHandle.postDelayed(t,s);
+    public void startGpsAndSetTimeOut(int s){
+        if(gpsManager!=null){
+            gpsManager.stopListening();
+            gpsManager.setGPSCallback(null);
+        }
+
+        isThreadRun=true;
+
+        if(gpsManager.startGpsListening(context)){
+            gpsManager.setGPSCallback(this);
+            mHandle.postDelayed(mGps,s);
+            Log.e("PrUr","使用GPS");
+        }else{
+            startNetWorkAndSetTimeOut(5000);
+        }
     }
+
+    public void startNetWorkAndSetTimeOut(int s){
+        if(gpsManager!=null){
+            gpsManager.stopListening();
+            gpsManager.setGPSCallback(null);
+        }
+
+        isThreadRun=true;
+        if(gpsManager.startNetWorkListening(context)){
+            gpsManager.setGPSCallback(this);
+            mHandle.postDelayed(mNetWork,s);
+            Log.e("PrUr","使用網路");
+        }else{
+            getLastKnow();
+        }
+    }
+
+    public void getLastKnow(){
+
+        isThreadRun=false;
+        if(gpsManager.LastLocation()!=null){
+            Log.e("PrUr","使用上次位置");
+            mDis.onGetLatLng(gpsManager.LastLocation().getLatitude(),gpsManager.LastLocation().getLongitude());
+        }else{
+            mDis.onGetLatLng(-1d,-1d);
+        }
+
+        if(gpsManager!=null){
+            gpsManager.stopListening();
+            gpsManager.setGPSCallback(null);
+        }
+    }
+
+
 
     public void stopGps(){
         isThreadRun=false;
-        gpsManager.stopListening();
-        gpsManager.setGPSCallback(null);
+        if(gpsManager!=null){
+            gpsManager.stopListening();
+            gpsManager.setGPSCallback(null);
+        }
     }
 
     public void onGPSUpdate(Location location) {
+        if(gpsManager!=null){
+            gpsManager.LastLocation().set(location);
+        }
         stopGps();
 //        Log.wtf("PrU",taskID+","+lat+","+lng+"計算完成 "+ DistanceCalculator.haversine(location.getLatitude(), location.getLongitude(), lat, lng));
 //        mDis.onGetDistance(DistanceCalculator.haversine(location.getLatitude(), location.getLongitude(), lat, lng));
+        Log.e("PrUr",location+"");
+
         mDis.onGetLatLng(location.getLatitude(),location.getLongitude());
     }
 
