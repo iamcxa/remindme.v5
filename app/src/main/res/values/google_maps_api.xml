@@ -15,7 +15,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     --></string>
 
     <!--耀德-->
-    <!--<string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyCU1KJxViuQUOzwZTTxD79ucNWzO7t6tNU</string>-->
+    <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyCU1KJxViuQUOzwZTTxD79ucNWzO7t6tNU</string>
 
     <!--奎言-->
     <!--<string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyA_FwOeWMc3xPnCG6fzOwEId3dhJVxGeOQ</string>-->

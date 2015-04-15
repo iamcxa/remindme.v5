@@ -99,15 +99,15 @@ public class GPSManager
                         GPSManager.locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
                 }
                 //判斷GPS有沒有打開
-               // if(GPSManager.locationManager.isProviderEnabled(GPSManager.locationManager.GPS_PROVIDER)){
+               if(GPSManager.locationManager.isProviderEnabled(GPSManager.locationManager.GPS_PROVIDER)){
                 	GPSManager.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, GPSManager.gpsMinTime,
                                         GPSManager.gpsMinDistance, GPSManager.locationListener);
                 	return true;
-               // }
-               // else
-               // {
-               // 	return false;
-               // }
+               }
+               else
+               {
+               	return false;
+               }
         }
         
         
@@ -118,12 +118,17 @@ public class GPSManager
                         GPSManager.locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
                 }
                 //判斷網路訂位有沒有打開
-                //if (GPSManager.locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                if (GPSManager.locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
                 
                 
                 	GPSManager.locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, GPSManager.gpsMinTime,
                                         GPSManager.gpsMinDistance, GPSManager.locationListener);
-                	return true;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
                 
         }
         
@@ -150,4 +155,10 @@ public class GPSManager
         		return GPSManager.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
         }
+
+
+
+
+
+
 }
