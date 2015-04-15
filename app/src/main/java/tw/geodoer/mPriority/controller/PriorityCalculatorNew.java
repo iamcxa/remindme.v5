@@ -1,16 +1,11 @@
 package tw.geodoer.mPriority.controller;
 
-import android.util.Log;
-
-import java.util.concurrent.TimeUnit;
-
 public class PriorityCalculatorNew
 {
-	private final double meanW = 100000;
-    private final double mean = 5 ;
-    private final double Tw = 60;
-    private final double Lw = 10;
-    private final double L_limit = 10;
+	private final double meanW = 5000;
+    private final double mean = 50000 ;
+    private final double Tw = 60000;
+    private final double Lw = 0.0005;
 
 	public double getTw()
 	{
@@ -33,13 +28,7 @@ public class PriorityCalculatorNew
 	{
 
 	}
-	private int subL(double L)
-	{
-		if( L <= L_limit )
-            return 1;
-		else
-            return 0;
-	}
+
 	public double weight(double T,double L)
 	{
         double Tpart = this.getMeanW()*this.getTw()*this.getMean()  / (T + this.getTw()*this.getMean() );
@@ -48,19 +37,12 @@ public class PriorityCalculatorNew
 
 		return Lpart + Tpart;
 	}
-	public int getweight(long pT, double pL)
+	public int getweight(long pT, double pL) //pT = millis  , pL = km
 	{
-        Log.wtf("PrU","get pT="+pT+"   pL="+pL);
+        if(pT==0 && pL==0) return 0;
 
-
-        double T = TimeUnit.MILLISECONDS.toMinutes(pT);
-        if(T<0) T=0;
-        double L = pL*1000;
-
-        Double result = this.weight(T,L) ;//+ this.subL(L)*weight(0,this.getLw());
-
-        Log.wtf("PrU","get pri="+result);
-
-        return (result==null)? -1: result.intValue()  ;
+        double T = pT;
+        Double result = this.weight(T,pL) ;
+        return result.intValue();
 	}
 }
