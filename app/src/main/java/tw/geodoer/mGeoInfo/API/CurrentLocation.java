@@ -65,8 +65,8 @@ public class CurrentLocation implements GPSCallback {
         setTimeOut(500000);
 
         //寫死正修測試用
-        mDis.onGetLatLng(22.650351,120.350032);
-        stopGps();
+//        mDis.onGetLatLng(22.650351,120.350032);
+//        stopGps();
     }
 
     public void setTimeOut(int s){
@@ -81,7 +81,7 @@ public class CurrentLocation implements GPSCallback {
 
     public void onGPSUpdate(Location location) {
         stopGps();
-        Log.wtf("PrU",taskID+","+lat+","+lng+"計算完成 "+ DistanceCalculator.haversine(location.getLatitude(), location.getLongitude(), lat, lng));
+//        Log.wtf("PrU",taskID+","+lat+","+lng+"計算完成 "+ DistanceCalculator.haversine(location.getLatitude(), location.getLongitude(), lat, lng));
 //        mDis.onGetDistance(DistanceCalculator.haversine(location.getLatitude(), location.getLongitude(), lat, lng));
         mDis.onGetLatLng(location.getLatitude(),location.getLongitude());
     }

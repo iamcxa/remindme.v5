@@ -47,49 +47,7 @@ public class PriorityUpdater
         mHandler.post(mThread);
 
     }
-    public class update_thread implements  Runnable
-    {
 
-        private Context mContext;
-        private int taskID;
-        private DBTasksHelper dbTaskHelper;
-        private DBLocationHelper dbLocationHelper;
-
-        public update_thread(Context con,int task_id)
-        {
-            this.mContext = con;
-            this.taskID = task_id;
-            this.dbLocationHelper=new DBLocationHelper(mContext);
-            this.dbTaskHelper = new DBTasksHelper(mContext);
-
-        }
-        public void run()
-        {
-            int locID = dbTaskHelper.getItemInt(taskID, ColumnTask.KEY.location_id);
-            if (locID == 0)
-            {
-                PriorityCalculatorNew Cal = new PriorityCalculatorNew();
-                long due_time, left_time;
-                due_time = dbTaskHelper.getItemLong(taskID, ColumnTask.KEY.due_date_millis);
-                if (due_time == 0) left_time = 0;
-                else if (due_time - System.currentTimeMillis() <= 0) left_time = 0;
-                else left_time = due_time - System.currentTimeMillis();
-                dbTaskHelper.setItem(taskID, ColumnTask.KEY.priority, Cal.getweight(left_time, 0));
-            }
-            else
-            {
-                CurrentLocation b = new CurrentLocation(this.mContext);
-                b.setOnLocListener(new CurrentLocation.onDistanceListener()
-                        {
-                            @Override
-                            public void onGetLatLng(Double lat, Double lng) {
-                                Log.wtf("PrUr",lat+","+lng);
-                            }
-                        });
-
-            }
-        }
-    }
     public class update_thread_2 implements Runnable
     {
         private Context mContext;
@@ -109,11 +67,6 @@ public class PriorityUpdater
             CurrentLocation b = new CurrentLocation(this.mContext);
             b.setOnLocListener(new CurrentLocation.onDistanceListener()
             {
-                @Override
-                public void onGetDistance(Double mDistance)
-                {
-                }
-
                 @Override
                 public void onGetLatLng(Double lat, Double lon)
                 {
