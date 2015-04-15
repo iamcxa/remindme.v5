@@ -26,90 +26,95 @@ import tw.geodoer.utils.MyDebug;
 public class PriorityUpdater
 {
     private Context mContext;
-    private double Now_Lat, Now_Lon;
 
     private DBTasksHelper dbTaskHelper;
-    private DBLocationHelper dbLocationHelper;
-    private DBAlertHelper dbAlertHelper;
 
-    private final PriorityCalculatorNew Cal;
-    private long currentTimeMillis ;
+    private PriorityCalculatorNew Cal;
+
 
     public PriorityUpdater(Context context)
     {
         this.mContext = context;
         this.Cal = new PriorityCalculatorNew();
-        this.dbLocationHelper=new DBLocationHelper(mContext);
-        this.dbAlertHelper = new  DBAlertHelper(mContext);
         this.dbTaskHelper = new DBTasksHelper(mContext);
-        this.currentTimeMillis = System.currentTimeMillis();
     }
     public void PirorityUpdate()
     {
+        //get number of events
+        int count = dbTaskHelper.getCount();
+        if(count==0)return; //if no event can be change , stop
+        //--------------------------------------------------------------------------------------
         HandlerThread mHandlerThread = new HandlerThread("PrU");
         mHandlerThread.start();
         Handler mHandler = new Handler(mHandlerThread.getLooper());
-        mHandler.post( new Runnable()
-        {
-            public void run()
-            {
-                Update();
-                return;
-            }
-        });
-    }
 
-
-    private boolean Update()
-    {
-        //get number of events
-        int count = dbTaskHelper.getCount();
-        if(count==0)return false; //if no event can be change , stop thread
-        //--------------------------------------------------------------------------------------
         ArrayList<Integer> ids = dbTaskHelper.getIDArrayListOfTask();
         if( ids!=null )
             for (int task_id : ids)
-                update_item(task_id);
-
-        return true;
-    }
-    private void update_item(final int ID)
-    {
-        try
-        {
-            int loc_id = dbTaskHelper.getItemInt(ID, ColumnTask.KEY.location_id);
-
-            if (loc_id == 0)
             {
-                long due_time, left_time;
-                due_time = dbTaskHelper.getItemLong(ID, ColumnTask.KEY.due_date_millis);
 
+                Runnable r =new update_thread(mContext,task_id);
+                Thread mThread = new Thread(r);
+                mHandler.post(mThread);
+            }
+
+    }
+    public class update_thread implements  Runnable
+    {
+
+        private Context mContext;
+        private int taskID;
+        private DBTasksHelper dbTaskHelper;
+        private DBLocationHelper dbLocationHelper;
+
+        public update_thread(Context con,int task_id)
+        {
+            this.mContext = con;
+            this.taskID = task_id;
+            this.dbLocationHelper=new DBLocationHelper(mContext);
+            this.dbTaskHelper = new DBTasksHelper(mContext);
+
+        }
+        public void run()
+        {
+            int locID = dbTaskHelper.getItemInt(taskID, ColumnTask.KEY.location_id);
+            if (locID == 0)
+            {
+                PriorityCalculatorNew Cal = new PriorityCalculatorNew();
+                long due_time, left_time;
+                due_time = dbTaskHelper.getItemLong(taskID, ColumnTask.KEY.due_date_millis);
                 if (due_time == 0) left_time = 0;
                 else if (due_time - System.currentTimeMillis() <= 0) left_time = 0;
                 else left_time = due_time - System.currentTimeMillis();
-
-                dbTaskHelper.setItem(ID, ColumnTask.KEY.priority, Cal.getweight(left_time, 0));
+                dbTaskHelper.setItem(taskID, ColumnTask.KEY.priority, Cal.getweight(left_time, 0));
             }
             else
             {
-                CurrentLocation b = new CurrentLocation(mContext);
-                b.setOnDistanceListener(dbLocationHelper.getItemDouble(loc_id, ColumnLocation.KEY.lat),
-                        dbLocationHelper.getItemDouble(loc_id, ColumnLocation.KEY.lon),
-                        new CurrentLocation.onDistanceListener() {
+                CurrentLocation b = new CurrentLocation(this.mContext);
+                b.setOnDistanceListener(dbLocationHelper.getItemDouble(locID, ColumnLocation.KEY.lat),
+                        dbLocationHelper.getItemDouble(locID, ColumnLocation.KEY.lon),
+                        new CurrentLocation.onDistanceListener()
+                        {
                             @Override
-                            public void onGetDistance(Double mDistance) {
+                            public void onGetDistance(Double mDistance)
+                            {
+                                PriorityCalculatorNew Cal = new PriorityCalculatorNew();
+                                mDistance = (mDistance == -1) ? 0 : mDistance;
                                 long due_time, left_time;
-                                due_time = dbTaskHelper.getItemLong(ID, ColumnTask.KEY.due_date_millis);
+                                due_time = dbTaskHelper.getItemLong(taskID, ColumnTask.KEY.due_date_millis);
                                 if (due_time == 0) left_time = 0;
                                 else if (due_time - System.currentTimeMillis() <= 0) left_time = 0;
                                 else left_time = due_time - System.currentTimeMillis();
-                                dbTaskHelper.setItem(ID, ColumnTask.KEY.priority, Cal.getweight(left_time, mDistance*1000));
+                                dbTaskHelper.setItem(taskID, ColumnTask.KEY.priority, Cal.getweight(left_time, mDistance * 1000));
+                                Log.wtf("PrU", "PrU ID:"+taskID+"onDistance :"+mDistance +"duetime :"+left_time+"pri:" + Cal.getweight(left_time, mDistance * 1000d));
+
                             }
                         });
 
             }
-        }catch (Exception e){ Log.wtf("PrU","update_item error:"+ID); }
+        }
     }
+
 
 
 }
