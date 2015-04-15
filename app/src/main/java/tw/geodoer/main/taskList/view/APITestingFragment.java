@@ -9,10 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import tw.geodoer.geotodo.R;
 import tw.geodoer.mDatabase.API.Example_DBAlertHelper;
 import tw.geodoer.mDatabase.API.Example_DBLocationHelper;
-import tw.moretion.geodoer.R;
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the

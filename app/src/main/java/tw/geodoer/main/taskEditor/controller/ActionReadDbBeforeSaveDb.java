@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.utils.MyDebug;
-import tw.moretion.geodoer.R;
+import tw.geodoer.geotodo.R;
 
 
 public class ActionReadDbBeforeSaveDb {

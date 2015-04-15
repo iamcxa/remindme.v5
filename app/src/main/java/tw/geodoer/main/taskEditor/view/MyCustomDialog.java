@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.utils.MyCalendar;
-import tw.moretion.geodoer.R;
+import tw.geodoer.geotodo.R;
 
 /**
  * This is a custom dialog class that will hold a tab view with 2 tabs.

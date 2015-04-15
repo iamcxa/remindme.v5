@@ -28,7 +28,7 @@ import tw.geodoer.mGeoInfo.view.LocationCustomDialog;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.utils.CommonVar;
 import tw.geodoer.utils.MyDebug;
-import tw.moretion.geodoer.R;
+import tw.geodoer.geotodo.R;
 
 public class TaskEditorMainFragment extends Fragment implements
         OnClickListener,
@@ -522,8 +522,6 @@ public class TaskEditorMainFragment extends Fragment implements
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         spinnerTaskLocation.setAdapter(setLocationArray(data));
         spinnerTaskLocation.setOnItemSelectedListener(test);
-
-        MyDebug.MakeLog(2, "calledByDialog state=" + calledByDialog);
 
         if (this.calledByDialog) {
             spinnerTaskLocation.setSelection(spinnerTaskLocation.getCount() - 1);

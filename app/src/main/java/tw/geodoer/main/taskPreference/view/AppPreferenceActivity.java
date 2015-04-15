@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import tw.moretion.geodoer.R;
+import tw.geodoer.geotodo.R;
 
 
 /**

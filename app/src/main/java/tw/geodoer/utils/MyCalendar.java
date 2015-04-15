@@ -17,6 +17,29 @@ public class MyCalendar {
      * @param {Option}   輸入是否含有 HH:mm
      * @return 取得今天與輸入日期相距多久
      */
+    public static long getDaysLeftByLong(long aTimeMillis, int Option) {
+        try {
+            // 取得兩個時間的Unix時間
+            Long now = System.currentTimeMillis();
+            Long timeP = now - aTimeMillis;// 毫秒差
+            // 相減獲得兩個時間差距的毫秒
+            // Long sec = timeP / 1000;// 秒差
+            // Long min = timeP / 1000 * 60;// 分差
+            // Long hr = timeP / 1000 * 60 * 60;// 時差
+            Long day = timeP / (1000 * 60 * 60 * 24);// 日差
+            return day;
+        } catch (Exception e) {
+            // TODO: handle exception
+            MyDebug.MakeLog(2, e.toString());
+            return -1;
+        }
+    }
+
+    /**
+     * @param {TaskDate} 要比對的日期
+     * @param {Option}   輸入是否含有 HH:mm
+     * @return 取得今天與輸入日期相距多久
+     */
     public static long getDaysLeft(String TaskDate, int Option) {
         // 定義時間格式
         // java.text.SimpleDateFormat sdf = new
@@ -52,7 +75,7 @@ public class MyCalendar {
             return day;
         } catch (Exception e) {
             // TODO: handle exception
-            MyDebug.MakeLog(999, e.toString());
+            MyDebug.MakeLog(2, e.toString());
             return -1;
         }
     }

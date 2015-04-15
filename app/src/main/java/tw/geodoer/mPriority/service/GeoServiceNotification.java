@@ -10,8 +10,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.IBinder;
 
+import tw.geodoer.geotodo.R;
 import tw.geodoer.main.taskList.view.AppMainActivity;
-import tw.moretion.geodoer.R;
 
 /**
  * Created by MurasakiYoru on 2015/1/20.

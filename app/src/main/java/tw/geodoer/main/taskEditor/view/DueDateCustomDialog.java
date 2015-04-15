@@ -34,7 +34,7 @@ import java.util.Calendar;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.utils.MyCalendar;
 import tw.geodoer.utils.MyDebug;
-import tw.moretion.geodoer.R;
+import tw.geodoer.geotodo.R;
 
 /**
  * This is a custom dialog class that will hold a tab view with 2 tabs.
@@ -333,7 +333,7 @@ public class DueDateCustomDialog extends AlertDialog
                 TaskEditorMainFragment.setTaskDueDate(selectedDate);
 
             if ((getBtnNutral().getVisibility()) == (View.VISIBLE))
-                TaskEditorMainFragment.setTaskDueDate(selectedDate + "◎" + selectedTime);
+                TaskEditorMainFragment.setTaskDueDate(selectedDate + ";" + selectedTime);
 
             setDialogDismiss(dialog);
         } catch (Exception e) {

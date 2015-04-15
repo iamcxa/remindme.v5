@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import tw.moretion.geodoer.R;
+import tw.geodoer.geotodo.R;
 
 
 /**

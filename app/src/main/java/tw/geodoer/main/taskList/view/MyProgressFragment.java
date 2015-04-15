@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.devspark.progressfragment.ProgressFragment;
 
 import tw.geodoer.utils.MyDebug;
-import tw.moretion.geodoer.R;
+import tw.geodoer.geotodo.R;
 
 
 /**

@@ -26,13 +26,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import tw.geodoer.mPriority.controller.PriorityUpdater;
-import tw.geodoer.main.taskEditor.controller.ActionSetAlarm;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
 import tw.geodoer.main.taskPreference.controller.MyPreferences;
 import tw.geodoer.main.taskPreference.view.AppPreferenceActivity;
 import tw.geodoer.utils.MyDebug;
-import tw.moretion.geodoer.R;
+import tw.geodoer.geotodo.R;
 
 
 /**
@@ -200,7 +199,7 @@ public class AppMainActivity extends ActionBarActivity
      * *********************
      */
     private void setNavigationDrawer(Bundle savedInstanceState) {
-        mPlanetTitles = getResources().getStringArray(R.array.drawer_array_CHT);
+        mPlanetTitles = getResources().getStringArray(R.array.drawer_array);
         mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         //mTitle =mPlanetTitles[mDrawerIndex];
@@ -273,13 +272,23 @@ public class AppMainActivity extends ActionBarActivity
 
         Fragment fragmentAPITesting = APITestingFragment.newInstance("parm1", "parm2");
 
+        // 地圖檢視
         if (position == 3) {
+            Toast.makeText(this, "地圖檢視", Toast.LENGTH_SHORT).show();
+//            fragmentManager
+//                    .beginTransaction()
+//                    .replace(R.id.content_frame, fragmentAPITesting, "APITestingFragment")
+//                    .commit();
+        // 測試功能
+        }else if (position == 6) {
             Toast.makeText(this, "api page", Toast.LENGTH_SHORT).show();
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.content_frame, fragmentAPITesting, "APITestingFragment")
                     .commit();
-        } else {
+        }  else {
+            String[] menuName=getResources().getStringArray(R.array.drawer_array);
+            Toast.makeText(this,menuName[position], Toast.LENGTH_SHORT).show();
             ListCursorCardFragment.setPosition(position);
             fragmentManager
                     .beginTransaction()

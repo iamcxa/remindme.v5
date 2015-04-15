@@ -29,7 +29,7 @@ import fud.geodoermap.GeoStatus;
 import fud.geodoermap.MapController;
 import tw.geodoer.mGeoInfo.controller.onBtnSaveClick;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
-import tw.moretion.geodoer.R;
+import tw.geodoer.geotodo.R;
 
 /**
  * This is a custom dialog class that will hold a tab view with 2 tabs.
