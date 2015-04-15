@@ -42,28 +42,36 @@ public class TaskEditorMainFragment extends Fragment implements
 
     private static Loader<Cursor> loader;
 
+    // private static Cursor cursor;
+
     private static MultiAutoCompleteTextView taskTitle;    // 任務標題
+
+    // 任務日期
     private static EditText taskDueDate;                    // 任務到期日
     private static ImageButton taskBtnDueDate;
 
-    private static Spinner tasklocation;
-    private static ImageButton taskBtnLocation;
+    // 設定地點相關
+    private static Spinner spinnerTaskLocation;
+    private static ImageButton taskBtnSetLocation;
+    private static ImageButton taskBtnUnSetLocation;
 
+    //
     private static EditText taskContent;
-    private static Spinner taskCategory;                    // 類別
-    private static Spinner taskPriority;                    // 優先
+
+    // 其他
+    private static Spinner taskCategory;                       // 類別
+    private static Spinner taskPriority;                       // 優先
     private static Spinner taskTag;                            // tag
     private static Spinner taskProject;                        // 專案
-    private static Button btnMore;                            // more按鈕
+    private static Button btnMore;                             // more按鈕
+
+    //
     private static String nullString = "null";
     private static CommonEditorVar mEditorVar = CommonEditorVar.GetInstance();
     private Handler mHandler;
     private Runnable mShowContentRunnable = new Runnable() {
         @Override
         public void run() {
-            setupViewComponent();
-            setupStringArray();
-            init(getActivity().getIntent());
         }
     };
 
@@ -76,10 +84,6 @@ public class TaskEditorMainFragment extends Fragment implements
     @Override
     public void onResume() {
         super.onResume();
-
-        getLoaderManager();
-
-        getLoaderManager().restartLoader(1, null, this);
     }
 
     private OnItemSelectedListener test = new OnItemSelectedListener() {
@@ -92,16 +96,27 @@ public class TaskEditorMainFragment extends Fragment implements
 
             Cursor c = getActivity().getContentResolver().
                     query(ColumnLocation.URI, ColumnLocation.PROJECTION, "name = ?", aa,
-                            ColumnLocation.DEFAULT_SORT_ORDER);
+                            ColumnLocation.SORT_BY_LASTUSEDTIME);
 
+            // 如果有資料
             if (c.moveToFirst()) {
-                MyDebug.MakeLog(2, "地點id=" + c.getInt(0));
-                MyDebug.MakeLog(2, "地點名稱=" + c.getString(1));
-                Toast.makeText(getActivity()
-                        , "地點id=" + c.getInt(0) + "\n地點名稱=" + c.getString(1)
+                String locName=c.getString(1);
+                int locId=c.getInt(0);
 
+                // 傳值給ID
+                mEditorVar.Task.setLocation_id(locId);
+
+                // logs
+                MyDebug.MakeLog(2, "地點id=" + locId);
+                MyDebug.MakeLog(2, "地點名稱=" + locName);
+                Toast.makeText(getActivity(),
+                        "spinner ID="+ id +
+                                "\nspinner 位置="+position+
+                                "\n地點id=" + locId +
+                                "\n地點名稱=" + locName
                         , Toast.LENGTH_SHORT).show();
 
+                // 關閉
                 c.close();
             }
         }
@@ -119,7 +134,7 @@ public class TaskEditorMainFragment extends Fragment implements
     }
 
     //------------------------------------- 由資料庫初始化變數
-    public static void init(Intent intent) {
+    public void init(Intent intent) {
         Bundle b = intent.getBundleExtra(CommonVar.BundleName);
         if (b != null) {
             //參照 底部之TaskFieldContents/RemindmeVar.class等處, 確保變數欄位與順序都相同
@@ -143,6 +158,7 @@ public class TaskEditorMainFragment extends Fragment implements
             if (!b.getString(ColumnTask.KEY.content).equalsIgnoreCase("null")) {
                 TaskEditorMainFragment.setTaskContent(b.getString(ColumnTask.KEY.content));
             }
+
         }
         //--------------------------------------------------
         //added by Murakumo
@@ -264,11 +280,11 @@ public class TaskEditorMainFragment extends Fragment implements
     //-----------------TaskLocation------------------//
     //TODO
     public static Spinner getTaskLocation() {
-        return tasklocation;
+        return spinnerTaskLocation;
     }
 
     public static void setTaskLocation(Spinner taskLocation) {
-        TaskEditorMainFragment.tasklocation = taskLocation;
+        TaskEditorMainFragment.spinnerTaskLocation = taskLocation;
     }
 
     @Override
@@ -282,11 +298,7 @@ public class TaskEditorMainFragment extends Fragment implements
     public void onActivityCreated(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onActivityCreated(savedInstanceState);
-
         obtainData();
-
-        getLoaderManager().initLoader(1, savedInstanceState, this);
-
         if (savedInstanceState == null) {
 
         }
@@ -314,6 +326,7 @@ public class TaskEditorMainFragment extends Fragment implements
         //taskDueDate.setText(mEditorVar.Task.getDueDate());
         //taskDueDate.setEnabled(false);  // 關閉欄位暫時避免輸入偵測判斷
         //taskDueDate.setClickable(false);// 關閉選取暫時避免輸入偵測判斷
+
         // 期限 - 選擇按鈕
         taskBtnDueDate = (ImageButton) getView().findViewById(R.id.imageButtonResetDate);
         taskBtnDueDate.setOnClickListener(this);
@@ -322,19 +335,26 @@ public class TaskEditorMainFragment extends Fragment implements
         taskContent = (EditText) getView().findViewById(R.id.editTextContent);
         taskContent.setHint(getResources().getString(R.string.TaskEditor_Field_Content_Hint));
 
-        // 地點
+        // 地點選擇
         Cursor c = getActivity().getContentResolver().
                 query(ColumnLocation.URI, ColumnLocation.PROJECTION, null, null,
                         ColumnLocation.DEFAULT_SORT_ORDER);
 
-        tasklocation = (Spinner) getView().findViewById(R.id.spinnerTextLocation);
-        tasklocation.setAdapter(setLocationArray(c));
-        tasklocation.setOnItemSelectedListener(test);
-        tasklocation.setEnabled(true);
+        //
+        spinnerTaskLocation = (Spinner) getView().findViewById(R.id.spinnerTextLocation);
+        spinnerTaskLocation.setAdapter(setLocationArray(c));
+        spinnerTaskLocation.setOnItemSelectedListener(test);
+        spinnerTaskLocation.setEnabled(true);
 
-        taskBtnLocation = (ImageButton) getView().findViewById(R.id.imageButtonSetLocation);
-        taskBtnLocation.setOnClickListener(this);
-        taskBtnLocation.setEnabled(true);
+        // 設定地點按鈕
+        taskBtnSetLocation = (ImageButton) getView().findViewById(R.id.imageButtonSetLocation);
+        taskBtnSetLocation.setOnClickListener(this);
+        taskBtnSetLocation.setEnabled(true);
+
+        // 取消設定地點
+        taskBtnUnSetLocation=(ImageButton) getView().findViewById(R.id.imageButtonUnSetLocation);
+        taskBtnUnSetLocation.setOnClickListener(this);
+        taskBtnUnSetLocation.setEnabled(true);
 
         // btnMore
         btnMore = (Button) getView().findViewById(R.id.btnMore);
@@ -360,15 +380,19 @@ public class TaskEditorMainFragment extends Fragment implements
         taskProject = (Spinner) getView().findViewById(R.id.spinnerProject);
         taskProject.setPrompt(getResources().getString(R.string.TaskEditor_Field_Project_Hint));
         taskProject.setVisibility(View.GONE);
-
     }
 
     //-----------------obtainData------------------//
     private void obtainData() {
         // Show indeterminate progress
-        mHandler = new Handler();
-        mHandler.postDelayed(mShowContentRunnable, 5);
-        //getLoaderManager().initLoader(0, null, this);
+        //mHandler = new Handler();
+        //mHandler.postDelayed(mShowContentRunnable, 5);
+
+        getLoaderManager().initLoader(1, null, this);
+
+        setupViewComponent();
+        setupStringArray();
+        init(getActivity().getIntent());
     }
 
     //----------------- onClick ------------------//
@@ -382,6 +406,12 @@ public class TaskEditorMainFragment extends Fragment implements
 
             case R.id.imageButtonSetLocation:
                 new LocationCustomDialog().show(getFragmentManager(), "dialog");
+                break;
+
+            case R.id.imageButtonUnSetLocation:
+                spinnerTaskLocation.setSelection(0);
+                mEditorVar.TaskLocation.locationId=0;
+                mEditorVar.Task.setLocation_id(0);
                 break;
 
             case R.id.btnMore:
@@ -405,7 +435,6 @@ public class TaskEditorMainFragment extends Fragment implements
         }
     }
 
-
     //-----------------設定任務地點陣列------------------//
     private ArrayAdapter<String> setLocationArray(Cursor data) {
         ArrayAdapter<String> adapter =
@@ -418,10 +447,10 @@ public class TaskEditorMainFragment extends Fragment implements
                 do {
                     adapter.add(data.getString(data.getColumnIndex("name")));
                 } while (data.moveToNext());
-                if (tasklocation != null) tasklocation.setEnabled(true);
+                if (spinnerTaskLocation != null) spinnerTaskLocation.setEnabled(true);
             } else {
                 adapter.add(getResources().getString(R.string.TaskEditor_Field_Location_Is_Empty).toString());
-                if (tasklocation != null) tasklocation.setEnabled(false);
+                if (spinnerTaskLocation != null) spinnerTaskLocation.setEnabled(false);
             }
         }
         return adapter;
@@ -438,10 +467,10 @@ public class TaskEditorMainFragment extends Fragment implements
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         switch (id){
             case 1:
-               loader= new CursorLoader(getActivity(),
+                loader= new CursorLoader(getActivity(),
                         ColumnLocation.URI,
                         ColumnLocation.PROJECTION, null, null,
-                        ColumnLocation.SORT_BY_LASTUSEDTIME);
+                        ColumnLocation.DEFAULT_SORT_ORDER);
                 break;
         }
         return loader;
@@ -488,8 +517,21 @@ public class TaskEditorMainFragment extends Fragment implements
      */
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        tasklocation.setAdapter(setLocationArray(data));
-        tasklocation.setOnItemSelectedListener(test);
+        Bundle b = getActivity().getIntent().getBundleExtra(CommonVar.BundleName);
+        if(spinnerTaskLocation.getSelectedItemPosition()==0) {
+            if (b != null) {
+                // 20150415 added
+                MyDebug.MakeLog(2, "location_id=" + b.getString(ColumnTask.KEY.location_id));
+                mEditorVar.Task.setLocation_id(Integer.valueOf(b.getString(ColumnTask.KEY.location_id)));
+                MyDebug.MakeLog(2, "location_id@mEditorVar=" + mEditorVar.Task.getLocation_id());
+                MyDebug.MakeLog(2, "spinnerTaskLocation count=" + spinnerTaskLocation.getCount());
+                spinnerTaskLocation.setSelection(mEditorVar.Task.getLocation_id());
+                MyDebug.MakeLog(2, "spinnerTaskLocation selected=" + spinnerTaskLocation.getSelectedItemPosition());
+            }
+        }else {
+            spinnerTaskLocation.setAdapter(setLocationArray(data));
+            spinnerTaskLocation.setOnItemSelectedListener(test);
+        }
     }
 
     /**
