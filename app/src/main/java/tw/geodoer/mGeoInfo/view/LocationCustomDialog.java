@@ -27,7 +27,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import fud.geodoermap.GeoInfo;
 import fud.geodoermap.GeoStatus;
 import fud.geodoermap.MapController;
-import tw.geodoer.mGeoInfo.API.CurrentLocation;
 import tw.geodoer.mGeoInfo.controller.onBtnSaveClick;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.moretion.geodoer.R;
@@ -66,6 +65,7 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setCancelable(false);
     }
 
     @Override
@@ -73,6 +73,7 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
                              Bundle savedInstanceState) {
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         mContentView = inflater.inflate(R.layout.activity_task_editor_tab_location, container, false);
+
         PlaceName = (TextView) mContentView.findViewById(R.id.PlaceName);
         SearchText = (EditText) mContentView.findViewById(R.id.SearchText);
         Search = (Button) mContentView.findViewById(R.id.Search);
@@ -200,10 +201,9 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
         }
         else if(v.getId() == R.id.save){
             onBtnSaveClick a = new onBtnSaveClick(geo,getActivity().getApplicationContext());
-
 //            OnBtnSaveClick.saveDB(geo);
             Toast.makeText(getActivity(),geo.name,Toast.LENGTH_SHORT).show();
-
+            dismiss();
 //            CurrentLocation b = new CurrentLocation(getActivity());
 //            b.setOnDistanceListener(geo.latlng.latitude,geo.latlng.longitude,new CurrentLocation.onDistanceListener() {
 //                @Override
@@ -211,6 +211,7 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
 //                    Toast.makeText(getActivity(),mDistance+"",Toast.LENGTH_SHORT).show();
 //                }
 //            });
+
         }
     }
 }

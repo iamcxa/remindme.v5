@@ -68,11 +68,6 @@ public class PriorityUpdater
             b.setOnLocListener(new CurrentLocation.onDistanceListener()
             {
                 @Override
-                public void onGetDistance(Double mDistance)
-                {
-                }
-
-                @Override
                 public void onGetLatLng(Double lat, Double lon)
                 {
                     Log.wtf("PrU", "onGetLatLng get LAT=" + lat + ", LON=" + lon);
