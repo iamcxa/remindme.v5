@@ -200,10 +200,10 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
             mapController.searchPlace(SearchText.getText().toString());
         }
         else if(v.getId() == R.id.save){
-            onBtnSaveClick a = new onBtnSaveClick(geo,getActivity().getApplicationContext());
+           onBtnSaveClick a = new onBtnSaveClick(geo,getActivity().getApplicationContext());
 //            OnBtnSaveClick.saveDB(geo);
             Toast.makeText(getActivity(),geo.name,Toast.LENGTH_SHORT).show();
-            dismiss();
+           getDialog().dismiss();
 //            CurrentLocation b = new CurrentLocation(getActivity());
 //            b.setOnDistanceListener(geo.latlng.latitude,geo.latlng.longitude,new CurrentLocation.onDistanceListener() {
 //                @Override
