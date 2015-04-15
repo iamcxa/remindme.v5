@@ -2,7 +2,7 @@ package tw.geodoer.mPriority.controller;
 
 public class PriorityCalculatorNew
 {
-	private final double meanW = 5000;
+	private final double meanW = 500000;
     private final double mean = 50000 ;
     private final double Tw = 60000;
     private final double Lw = 0.0005;
