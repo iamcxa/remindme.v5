@@ -66,7 +66,7 @@ public class ActionOnClickCard {
         b.putString(ColumnTask.KEY.content, cursor.getString(ColumnTask.KEY.INDEX.content));
         b.putString(ColumnTask.KEY.due_date_millis, cursor.getString(ColumnTask.KEY.INDEX.due_date_millis));
         b.putString(ColumnTask.KEY.due_date_string, cursor.getString(ColumnTask.KEY.INDEX.due_date_string));
-
+        b.putString(ColumnTask.KEY.location_id,cursor.getString(ColumnTask.KEY.INDEX.location_id));
 
         // 將備忘錄資訊添加到Intent
         Intent intent = new Intent();
