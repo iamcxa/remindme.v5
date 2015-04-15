@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import tw.geodoer.mDatabase.API.DBLocationHelper;
 import tw.geodoer.mDatabase.API.DBTasksHelper;
-import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.mGeoInfo.API.CurrentLocation;
 
@@ -84,8 +83,7 @@ public class PriorityUpdater
             else
             {
                 CurrentLocation b = new CurrentLocation(this.mContext);
-                b.setOnDistanceListener(taskID,dbLocationHelper.getItemDouble(locID, ColumnLocation.KEY.lat),
-                        dbLocationHelper.getItemDouble(locID, ColumnLocation.KEY.lon),
+                b.setOnLocListener(
                         new CurrentLocation.onDistanceListener()
                         {
                             @Override
@@ -101,6 +99,11 @@ public class PriorityUpdater
                                 dbTaskHelper.setItem(taskID, ColumnTask.KEY.priority, Cal.getweight(left_time, mDistance * 1000));
                                 Log.wtf("PrU", "PrU ID:"+taskID+"onDistance :"+mDistance +"duetime :"+left_time+"pri:" + Cal.getweight(left_time, mDistance * 1000d));
 
+                            }
+
+                            @Override
+                            public void onGetLatLng(Double lat, Double lng) {
+                                Log.wtf("PrUr",lat+","+lng);
                             }
                         });
 

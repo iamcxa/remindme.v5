@@ -17,7 +17,7 @@ public class CurrentLocation implements GPSCallback {
     private Handler mHandle;
     private Thread t;
     private Boolean isThreadRun=true;
-    private int taskID;
+    private int taskID =0;
 
     public CurrentLocation(Context context){
         this.context=context;
@@ -48,6 +48,16 @@ public class CurrentLocation implements GPSCallback {
         this.lat=lat;
         this.lng=lng;
         this.taskID=taskID;
+        gpsManager.startNetWorkListening(context);
+        gpsManager.setGPSCallback(this);
+        isThreadRun=true;
+        Log.wtf("PrU",taskID+"  "+lat +","+ lng+" 開始計算");
+        setTimeOut(10000);
+    }
+
+
+    public void setOnLocListener(onDistanceListener mDis){
+        this.mDis=mDis;
         gpsManager.startNetWorkListening(context);
         gpsManager.setGPSCallback(this);
         isThreadRun=true;
