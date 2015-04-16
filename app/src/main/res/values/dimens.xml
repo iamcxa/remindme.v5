@@ -45,8 +45,8 @@
     <dimen name="card_main_simple_title_margin_top">0dp</dimen>
 
     <!-- Thumbnail -->
-    <dimen name="card_thumbnail_width">64dp</dimen>
-    <dimen name="card_thumbnail_height">64dp</dimen>
+    <dimen name="card_thumbnail_width">48dp</dimen>
+    <dimen name="card_thumbnail_height">48dp</dimen>
 
     <!-- Expand -->
     <dimen name="card_expand_layout_padding">5dp</dimen>
