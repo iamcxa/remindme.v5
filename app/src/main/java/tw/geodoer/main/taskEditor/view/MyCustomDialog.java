@@ -22,9 +22,10 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.geodoer.geotodo.R;
+
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.utils.MyCalendar;
-import tw.geodoer.geotodo.R;
 
 /**
  * This is a custom dialog class that will hold a tab view with 2 tabs.

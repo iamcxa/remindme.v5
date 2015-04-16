@@ -12,9 +12,10 @@ import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.widget.Toast;
 
+import com.geodoer.geotodo.R;
+
 import java.util.ArrayList;
 
-import tw.geodoer.geotodo.R;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskEditor.adapter.MyFragmentPagerAdapter;

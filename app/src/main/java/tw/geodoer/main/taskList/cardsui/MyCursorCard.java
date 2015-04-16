@@ -5,8 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.geodoer.geotodo.R;
+
 import it.gmariotti.cardslib.library.internal.Card;
-import tw.geodoer.geotodo.R;
 
 /**
  * Class MyCursorCard *

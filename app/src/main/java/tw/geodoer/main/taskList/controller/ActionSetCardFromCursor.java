@@ -3,9 +3,10 @@ package tw.geodoer.main.taskList.controller;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.geodoer.geotodo.R;
+
 import it.gmariotti.cardslib.library.internal.CardExpand;
 import it.gmariotti.cardslib.library.internal.CardHeader;
-import tw.geodoer.geotodo.R;
 import tw.geodoer.mDatabase.API.DBLocationHelper;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;

@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import tw.geodoer.geotodo.R;
+import com.geodoer.geotodo.R;
 
 
 /**

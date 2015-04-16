@@ -108,6 +108,10 @@ public class PriorityUpdater
 
                                 dbLocationHelper.setItem(locID,ColumnLocation.KEY.distance,distance);
 
+
+                                // added by kent @20150416
+                                dbTaskHelper.setItem(task_id, ColumnTask.KEY.priority, pri);
+
                                 Log.wtf("PrU", "PrU ID:"+task_id +", onDistance :"+distance +", duetime:" + left_time + ", pri:" +pri);
                             }
 

@@ -10,7 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.IBinder;
 
-import tw.geodoer.geotodo.R;
+import com.geodoer.geotodo.R;
 import tw.geodoer.main.taskList.view.AppMainActivity;
 
 /**

@@ -15,7 +15,7 @@ import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
-import tw.geodoer.geotodo.R;
+import com.geodoer.geotodo.R;
 import tw.geodoer.mDatabase.API.DBTasksHelper;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskAlert.view.dialog.AlertNotiDialog;
