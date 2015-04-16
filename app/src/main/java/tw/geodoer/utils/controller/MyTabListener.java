@@ -5,7 +5,7 @@ import android.app.ActionBar.Tab;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 
-import tw.geodoer.geotodo.R;
+import com.geodoer.geotodo.R;
 
 
 public class MyTabListener implements ActionBar.TabListener {

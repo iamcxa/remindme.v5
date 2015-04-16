@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.view.View;
 import android.widget.Toast;
 
+import com.geodoer.geotodo.R;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -25,7 +27,6 @@ import tw.geodoer.main.taskEditor.controller.ActionSetAlarm;
 import tw.geodoer.main.taskEditor.controller.ActionSetLocationAlarm;
 import tw.geodoer.main.taskList.view.ListCursorCardFragment;
 import tw.geodoer.utils.MyDebug;
-import tw.geodoer.geotodo.R;
 
 /**
  * Created by Kent on 2015/4/16. 卡片長按動作

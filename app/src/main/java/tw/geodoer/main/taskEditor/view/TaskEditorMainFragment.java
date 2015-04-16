@@ -28,7 +28,7 @@ import tw.geodoer.mGeoInfo.view.LocationCustomDialog;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.utils.CommonVar;
 import tw.geodoer.utils.MyDebug;
-import tw.geodoer.geotodo.R;
+import com.geodoer.geotodo.R;
 
 public class TaskEditorMainFragment extends Fragment implements
         OnClickListener,
@@ -169,7 +169,7 @@ public class TaskEditorMainFragment extends Fragment implements
         {
             mEditorVar.Task.setDue_date_millis(0);
             mEditorVar.Task.setTaskId(0);
-            mEditorVar.TaskLocation.setName("null");
+            mEditorVar.Task.setLocation_id(0);
         }
         //--------------------------------------------------
     }

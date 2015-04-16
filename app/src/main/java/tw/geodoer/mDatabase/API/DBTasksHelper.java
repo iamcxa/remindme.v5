@@ -77,7 +77,6 @@ public class DBTasksHelper {
      * @return 回傳一個可以套進各式Adapter的Cursor資料物件。理論上輸出應該不會有為null的情況。
      */
     public Cursor getCursor() {
-
         return context.getContentResolver().
                 query(mUri,
                         ColumnTask.PROJECTION, null, null,

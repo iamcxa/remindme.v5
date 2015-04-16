@@ -15,12 +15,12 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     --></string>
 
     <!--耀德-->
-    <!--<string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyCU1KJxViuQUOzwZTTxD79ucNWzO7t6tNU</string>-->
+    <!--<string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyDTA9d2CCboaa7OxDVlbAOZ94rRMnZcONE</string>-->
 
     <!--奎言-->
-    <!--<string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyA_FwOeWMc3xPnCG6fzOwEId3dhJVxGeOQ</string>-->
+    <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyC-Y60UoFtkrasIrhDGrvBgysdiU_Mg9R4</string>
 
     <!--君平-->
-    <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyAbe21HcLc8PIrfGE3Xga_9cckQKMzDyRQ</string>
+    <!--<string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyCwIH4HlhnY9WxiEaz8KYGb6_LfXmKkzTg</string>-->
 
 </resources>

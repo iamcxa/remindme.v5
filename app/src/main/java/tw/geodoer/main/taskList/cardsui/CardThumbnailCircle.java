@@ -6,8 +6,9 @@ import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.geodoer.geotodo.R;
+
 import it.gmariotti.cardslib.library.internal.CardThumbnail;
-import tw.geodoer.geotodo.R;
 import tw.geodoer.mDatabase.API.DBLocationHelper;
 import tw.geodoer.mDatabase.API.DBTasksHelper;
 import tw.geodoer.mDatabase.columns.ColumnTask;

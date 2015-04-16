@@ -6,7 +6,7 @@ import tw.geodoer.main.taskPreference.controller.MyPreferences;
 
 public class MyDebug {
 
-    public static final String DEBUG_MSG_TAG = CommonVar.TASKLIST;
+    public static final String DEBUG_MSG_TAG = CommonVar.AUTHORITY;
 
     private MyDebug() {
     }

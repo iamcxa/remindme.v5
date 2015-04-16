@@ -21,6 +21,7 @@ package tw.geodoer.main.taskList.view;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.LoaderManager;
@@ -29,7 +30,9 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.geodoer.geotodo.R;
 import com.shamanland.fab.ShowHideOnScroll;
 
 import it.gmariotti.cardslib.library.view.CardListView;
@@ -41,7 +44,6 @@ import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
 import tw.geodoer.main.taskList.adapter.MyCursorCardAdapter;
 import tw.geodoer.utils.MyCalendar;
 import tw.geodoer.utils.MyDebug;
-import tw.geodoer.geotodo.R;
 
 /**
  * List with Cursor Example
@@ -50,6 +52,9 @@ import tw.geodoer.geotodo.R;
  */
 public class ListCursorCardFragment extends MyBaseFragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
+
+    private static TextView txtIfTaskListIsEmpty;
+
     // getArguments().getInt(FILTER_STRING)
     public static final String FILTER_STRING = "FILTER_STRING";
     private static int position;
@@ -150,7 +155,7 @@ public class ListCursorCardFragment extends MyBaseFragment implements
         //int filter = getArguments().getInt(FILTER_STRING);
         int filter = position;
 
-        MyDebug.MakeLog(0, "init被執行");
+        MyDebug.MakeLog(0, "ListCursorCardFragment-init");
         switch (filter) {
             case 0:// 智慧待辦清單
                 setTaskSelection(ColumnTask.KEY.status+" == 0");
@@ -188,7 +193,7 @@ public class ListCursorCardFragment extends MyBaseFragment implements
                 break;
         }
 
-
+        //
         mAdapter = MyCursorCardAdapter.newInstance(getActivity());
         mListView = (CardListView) getActivity().findViewById(
                 R.id.carddemo_list_cursor);
@@ -213,6 +218,9 @@ public class ListCursorCardFragment extends MyBaseFragment implements
 
 
             mListView.setOnTouchListener(new ShowHideOnScroll(fab_add));
+
+            //
+            txtIfTaskListIsEmpty=(TextView) getActivity().findViewById(R.id.txtIfListEmpty);
 
         }
 
@@ -291,6 +299,17 @@ public class ListCursorCardFragment extends MyBaseFragment implements
         }
 */
         mAdapter.swapCursor(data);
+
+        if(data.getCount()==0){
+            txtIfTaskListIsEmpty.setVisibility(View.VISIBLE);
+            txtIfTaskListIsEmpty.setText(getView().getContext().
+                    getResources().
+                    getString(R.string.String_If_Task_List_Is_Empty));
+            txtIfTaskListIsEmpty.setShadowLayer(10, 0, 0, Color.BLUE);
+        }else {
+            txtIfTaskListIsEmpty.setVisibility(View.INVISIBLE);
+            txtIfTaskListIsEmpty.setText("");
+        }
     }
 
     @Override

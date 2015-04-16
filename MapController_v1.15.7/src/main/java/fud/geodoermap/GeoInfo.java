@@ -12,7 +12,7 @@ public class GeoInfo {
     /**
      * 能儲存地理位置資訊，預設值 name = "null"，latlng = -1,-1
      */
-    GeoInfo(){}
+    public GeoInfo(){}
 
     /**
      * 能儲存地理位置資訊，預設值 name = "null"，latlng 為設定的值

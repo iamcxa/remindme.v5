@@ -25,13 +25,14 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.geodoer.geotodo.R;
+
 import tw.geodoer.mPriority.controller.PriorityUpdater;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
 import tw.geodoer.main.taskPreference.controller.MyPreferences;
 import tw.geodoer.main.taskPreference.view.AppPreferenceActivity;
 import tw.geodoer.utils.MyDebug;
-import tw.geodoer.geotodo.R;
 
 
 /**
