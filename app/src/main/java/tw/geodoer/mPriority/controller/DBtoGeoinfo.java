@@ -12,12 +12,12 @@ import tw.geodoer.mDatabase.columns.ColumnTask;
 /**
  * Created by MurasakiYoru on 2015/4/16.
  */
-public class DBtoGeoInfo
+public class DBtoGeoinfo
 {
     private Context mContext;
     private DBTasksHelper mDBT;
     private DBLocationHelper mDBL;
-    public DBtoGeoInfo(Context context)
+    public DBtoGeoinfo(Context context)
     {
         this.mContext = context;
         this.mDBT = new DBTasksHelper(mContext);

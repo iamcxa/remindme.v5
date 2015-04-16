@@ -3,8 +3,6 @@ package tw.geodoer.main.taskList.controller;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.geodoer.geotodo.R;
-
 import it.gmariotti.cardslib.library.internal.CardExpand;
 import it.gmariotti.cardslib.library.internal.CardHeader;
 import tw.geodoer.mDatabase.API.DBLocationHelper;
@@ -77,8 +75,6 @@ public class ActionSetCardFromCursor {
             }
         }
 
-
-
         // 時間日期 - sec line
         long due_date_millis = cursor.getLong(ColumnTask.KEY.INDEX.due_date_millis);
         String due_date_string = cursor.getString(ColumnTask.KEY.INDEX.due_date_string);
@@ -88,7 +84,8 @@ public class ActionSetCardFromCursor {
             card.dueDate = "僅記事";
         }else {
             String duedateStr[]=due_date_string.split(";");
-           if(duedateStr.length>1) due_date_string=duedateStr[1];
+            if(duedateStr.length>1) due_date_string=duedateStr[1];
+
             if ((180 > dayLeft) && (dayLeft > 14)) {
                 card.dueDate = "約" + (int) Math.floor(dayLeft) / 30 + "個月後的" + due_date_string;;
             } else if ((14 > dayLeft) && (dayLeft > 0)) {
@@ -124,11 +121,12 @@ public class ActionSetCardFromCursor {
         // 依照權重給予卡片顏色
         long priority = cursor.getInt(ColumnTask.KEY.INDEX.priority);
         if ((priority > 999700)) {
-            card.setBackgroundResourceId(R.drawable.demo_card_selector_color3);
+            //card.setBackgroundResourceId(R.drawable.demo_card_selector_color3);
+
         } else if ((priority > 299999) && (priority < 8999998)) {
-            card.setBackgroundResourceId(R.drawable.demo_card_background_white);
+           // card.setBackgroundResourceId(R.drawable.demo_card_background_white);
         } else if ((priority < 299998)) {
-            card.setBackgroundResourceId(R.drawable.demo_card_background_gray);
+            //card.setBackgroundResourceId(R.drawable.demo_card_background_gray);
         }
 
 //

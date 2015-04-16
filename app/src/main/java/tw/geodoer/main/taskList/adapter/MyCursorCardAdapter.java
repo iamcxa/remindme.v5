@@ -8,6 +8,7 @@ import android.database.Cursor;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardCursorAdapter;
+import it.gmariotti.cardslib.library.view.component.CardShadowView;
 import tw.geodoer.main.taskList.cardsui.CardThumbnailCircle;
 import tw.geodoer.main.taskList.cardsui.MyCursorCard;
 import tw.geodoer.main.taskList.controller.ActionOnCardClicked;
@@ -23,6 +24,10 @@ import tw.geodoer.main.taskList.controller.ActionSetCardFromCursor;
  */
 public class MyCursorCardAdapter extends CardCursorAdapter {
 
+    private MyCursorCard card;
+    private CardShadowView cardShadowView;
+    private CardThumbnailCircle thumb;
+
     public MyCursorCardAdapter(Context context) {
         super(context);
     }
@@ -35,26 +40,23 @@ public class MyCursorCardAdapter extends CardCursorAdapter {
     protected Card getCardFromCursor(final Cursor cursor) {
 
         // 建立卡片物件
-        MyCursorCard card = new MyCursorCard(getContext());
-
-        // 設定卡片內容
-        ActionSetCardFromCursor mActionSetCardFromCursor = new ActionSetCardFromCursor(getContext(), cursor, card);
-        mActionSetCardFromCursor.setIt();
-
-
+        card = new MyCursorCard(getContext());
+       // card.setShadow(true);
 
         // Add Thumbnail to card
-        // final MyCardThumbnail thumb = new MyCardThumbnail(getContext());
-        // thumb.setDrawableResource(card.resourceIdThumb);
-        CardThumbnailCircle thumb = new CardThumbnailCircle(getContext(), cursor.getInt(0));
+        thumb = new CardThumbnailCircle(getContext(), cursor.getInt(0));
         card.addCardThumbnail(thumb);
 
         //Set onClick listener
         card.setOnClickListener(new ActionOnCardClicked(getContext(),cursor));
 
         // set onLongClick listener;
-        card.setLongClickable(true);
         card.setOnLongClickListener(new ActionOnCardLongClicked(getContext(),cursor));
+
+        // 設定卡片內容
+        ActionSetCardFromCursor mActionSetCardFromCursor =
+                new ActionSetCardFromCursor(getContext(), cursor, card);
+        mActionSetCardFromCursor.setIt();
 
         return card;
     }

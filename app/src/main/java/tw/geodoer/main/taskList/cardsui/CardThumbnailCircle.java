@@ -57,30 +57,29 @@ public class CardThumbnailCircle extends CardThumbnail {
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
-                // 開始動作
-                DBTasksHelper dbTasksHelper = new DBTasksHelper(getContext());
-                switch (status){
-                    case 0:
-                        switch (event.getAction()){
-                            case MotionEvent.ACTION_DOWN:
-                                v.setBackgroundResource(R.drawable.ic_check_on);
-                                dbTasksHelper.setItem(cardID,ColumnTask.KEY.status,1);
-                                dbTasksHelper.setItem(cardID,ColumnTask.KEY.checked,
-                                        System.currentTimeMillis());
-                                break;
-                        }
-                        break;
-                    case 1:
-                        v.setBackgroundResource(R.drawable.ic_check);
-                        dbTasksHelper.setItem(cardID,ColumnTask.KEY.status,0);
-                        dbTasksHelper.setItem(cardID,ColumnTask.KEY.checked,
-                                0);
-                        break;
-                    case 2:
-                        v.setBackgroundResource(R.drawable.ic_back_on);
-                        dbTasksHelper.setItem(cardID,ColumnTask.KEY.status,1);
-                        break;
+                // 按下去!
+                if (event.getAction() == MotionEvent.ACTION_UP)
+                {
+                    // 開始動作
+                    DBTasksHelper dbTasksHelper = new DBTasksHelper(getContext());
+                    switch (status) {
+                        case 0:
+                            v.setBackgroundResource(R.drawable.ic_check_on);
+                            dbTasksHelper.setItem(cardID, ColumnTask.KEY.status, 1);
+                            dbTasksHelper.setItem(cardID, ColumnTask.KEY.checked,
+                                    System.currentTimeMillis());
+                            break;
+                        case 1:
+                            v.setBackgroundResource(R.drawable.ic_check);
+                            dbTasksHelper.setItem(cardID, ColumnTask.KEY.status, 0);
+                            dbTasksHelper.setItem(cardID, ColumnTask.KEY.checked,
+                                    0);
+                            break;
+                        case 2:
+                            v.setBackgroundResource(R.drawable.ic_back_on);
+                            dbTasksHelper.setItem(cardID, ColumnTask.KEY.status, 1);
+                            break;
+                    }
                 }
 
 

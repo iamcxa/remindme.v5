@@ -25,6 +25,17 @@ public class MyCursorCard extends Card {
     }
 
     @Override
+    public void setShadow(boolean shadow) {
+        super.setShadow(shadow);
+        if(shadow){
+            getCardView()
+                    .getInternalShadowLayout()
+                    .getInternalOuterView()
+                    .setBackgroundResource(R.drawable.card_shadow_hightlight);
+    }
+    }
+
+    @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
 
         // Retrieve elements
@@ -43,6 +54,5 @@ public class MyCursorCard extends Card {
 
         if (mThirdTitleTextView != null)
             mThirdTitleTextView.setText(Notifications);
-
     }
 }
