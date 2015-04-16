@@ -5,12 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import tw.geodoer.mPriority.service.GeoServiceNotification;
-
+import tw.geodoer.main.taskAlert.controller.AlertHandler;
 import tw.geodoer.main.taskAlert.controller.LocationAlertHandler;
 import tw.geodoer.utils.MyDebug;
-
-import tw.geodoer.main.taskAlert.controller.AlertHandler;
 
 /**
  * @author iamcxa 定時提醒廣播
@@ -22,7 +19,7 @@ public class BroadcastReceiver_TaskAlert extends BroadcastReceiver
     {
         Bundle b = intent.getExtras();
         String msg = (b.getString("msg") == null) ? "no msg" : b.getString("msg");
-        String action = intent.getAction().toString();
+        String action = intent.getAction();
 
         MyDebug.MakeLog(2, "@ Receiver onReceive: "+msg);
 

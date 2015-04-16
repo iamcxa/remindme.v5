@@ -22,13 +22,14 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.geodoer.geotodo.R;
+
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.mGeoInfo.view.LocationCustomDialog;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.utils.CommonVar;
 import tw.geodoer.utils.MyDebug;
-import com.geodoer.geotodo.R;
 
 public class TaskEditorMainFragment extends Fragment implements
         OnClickListener,

@@ -38,21 +38,29 @@ public class MyCursorCard extends Card {
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
 
+        ViewHolder viewHolder = new ViewHolder();
+
         // Retrieve elements
-        TextView mTitleTextView = (TextView) parent
+        viewHolder.mTitleTextView = (TextView) parent
                 .findViewById(R.id.card_cursor_main_inner_title);
-        TextView mSecondaryTitleTextView = (TextView) parent
+        viewHolder.mSecondaryTitleTextView = (TextView) parent
                 .findViewById(R.id.card_cursor_main_inner_subtitle);
-        TextView mThirdTitleTextView = (TextView) parent
+        viewHolder.mThirdTitleTextView = (TextView) parent
                 .findViewById(R.id.card_cursor_main_inner_thirdtitle);
 
-        if (mTitleTextView != null)
-            mTitleTextView.setText(dueDate);
+        if (viewHolder.mTitleTextView != null)
+            viewHolder.mTitleTextView.setText(dueDate);
 
-        if (mSecondaryTitleTextView != null)
-            mSecondaryTitleTextView.setText(LocationName);
+        if (viewHolder.mSecondaryTitleTextView != null)
+            viewHolder.mSecondaryTitleTextView.setText(LocationName);
 
-        if (mThirdTitleTextView != null)
-            mThirdTitleTextView.setText(Notifications);
+        if (viewHolder.mThirdTitleTextView != null)
+            viewHolder.mThirdTitleTextView.setText(Notifications);
+    }
+
+    static class ViewHolder{
+        TextView mTitleTextView;
+        TextView mSecondaryTitleTextView;
+        TextView mThirdTitleTextView;
     }
 }

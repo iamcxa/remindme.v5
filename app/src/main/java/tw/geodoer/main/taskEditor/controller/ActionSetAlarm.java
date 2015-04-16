@@ -56,7 +56,6 @@ public class ActionSetAlarm {
         long due_date_millis = mDBT.getItemLong(taskID, ColumnTask.KEY.due_date_millis);
         if(due_date_millis == 0)
         {
-
             this.CancelIt();
             Log.wtf("Alarm","canacel :"+taskID);
         }

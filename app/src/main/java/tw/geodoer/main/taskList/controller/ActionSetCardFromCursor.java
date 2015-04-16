@@ -3,6 +3,8 @@ package tw.geodoer.main.taskList.controller;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.geodoer.geotodo.R;
+
 import it.gmariotti.cardslib.library.internal.CardExpand;
 import it.gmariotti.cardslib.library.internal.CardHeader;
 import tw.geodoer.mDatabase.API.DBLocationHelper;
@@ -26,12 +28,12 @@ public class ActionSetCardFromCursor {
 
     public void setIt() {
         // 準備常數
+        boolean itHasTime = false;
         boolean Extrainfo = cursor
                 .isNull(ColumnTask.KEY.INDEX.tag_id);
         int CID = cursor.getInt(ColumnTask.KEY.INDEX._id);
 
         //主要內容
-        String title = cursor.getString(ColumnTask.KEY.INDEX.title);
         String status = cursor.getString(ColumnTask.KEY.INDEX.status);
         String content = cursor.getString(ColumnTask.KEY.INDEX.content);
         int color = cursor.getInt(ColumnTask.KEY.INDEX.color);
@@ -49,14 +51,14 @@ public class ActionSetCardFromCursor {
         card.setId(String.valueOf(cursor.getPosition()));
 
         // 卡片標題 - first line
-        // MyDebug.MakeLog(0, "cardID="+CID + " set Tittle="+title);
+        String title = cursor.getString(ColumnTask.KEY.INDEX.title);
         card.mainHeader = title;
 
         // 距離與地點資訊
         DBLocationHelper dbLocationHelper = new DBLocationHelper(context);
         String LocationName=dbLocationHelper.getItemString(location_id, ColumnLocation.KEY.name);
         double distance=dbLocationHelper.getItemDouble(location_id, ColumnLocation.KEY.distance);
-        if(LocationName=="null"){
+        if(location_id==0){
             card.LocationName ="無地點";
         }else {
             if (LocationName.length() > 14) {
@@ -68,7 +70,8 @@ public class ActionSetCardFromCursor {
                     card.LocationName = LocationName + " - 距離 "
                             + (int) Math.floor((distance) * 1000) + " m";
                 } else {
-                    card.LocationName = LocationName + " - 距離 " + distance + " km";
+                    card.LocationName = LocationName + " - 距離 "
+                            + (int) Math.floor(distance) + " km";
                 }
             } else {
                 card.LocationName = LocationName;
@@ -81,11 +84,15 @@ public class ActionSetCardFromCursor {
         long dayLeft = MyCalendar.getDaysLeftByLong(due_date_millis, 2);
         MyDebug.MakeLog(2, "id=" + CID + " dayleft=" + dayLeft);
         if(due_date_string.length()==4){
-            card.dueDate = "僅記事";
+            card.dueDate = "無日期";
         }else {
+            // 去掉日期
             String duedateStr[]=due_date_string.split(";");
-            if(duedateStr.length>1) due_date_string=duedateStr[1];
-
+            if(duedateStr.length>1){
+                due_date_string=duedateStr[1];
+                itHasTime = true;
+            }
+            // 轉換成人類易讀
             if ((180 > dayLeft) && (dayLeft > 14)) {
                 card.dueDate = "約" + (int) Math.floor(dayLeft) / 30 + "個月後的" + due_date_string;;
             } else if ((14 > dayLeft) && (dayLeft > 0)) {
@@ -95,21 +102,24 @@ public class ActionSetCardFromCursor {
                         (int) Math.floor(dayLeft * 24) +
                         "小時後" + due_date_string;
             } else if (dayLeft == 0) {
-                card.dueDate = "今天的" + due_date_string;
+                if(itHasTime)
+                    card.dueDate = "今天的" + due_date_string;
+                else
+                    card.dueDate = "今天";
             } else {
                 card.dueDate = due_date_string;
             }
         }
 
-        //
-        String expandTitle = "dbId=" + cursor.getString(0) +
-                ",w=" + cursor.getString(ColumnTask.KEY.INDEX.priority)
-                + ",cardID=" + card.getId();
-
-        // Create a CardHeader
+        // 標題物件
         CardHeader header = new CardHeader(context);
         header.setTitle(card.mainHeader);
         card.addCardHeader(header);
+
+        // 可展開view
+        String expandTitle = "dbId=" + cursor.getString(0) +
+                ",w=" + cursor.getString(ColumnTask.KEY.INDEX.priority)
+                + ",cardID=" + card.getId();
 
         //Set visible the expand/collapse button
         header.setButtonExpandVisible(true);
@@ -117,16 +127,14 @@ public class ActionSetCardFromCursor {
         expand.setTitle(expandTitle);
         card.addCardExpand(expand);
 
-
         // 依照權重給予卡片顏色
         long priority = cursor.getInt(ColumnTask.KEY.INDEX.priority);
-        if ((priority > 999700)) {
-            //card.setBackgroundResourceId(R.drawable.demo_card_selector_color3);
-
-        } else if ((priority > 299999) && (priority < 8999998)) {
+        if ((priority > 990000)) {
+            card.setBackgroundResourceId(R.drawable.demo_card_background_color3);
+        //} else if ((priority > 299999) && (priority < 8999998)) {
            // card.setBackgroundResourceId(R.drawable.demo_card_background_white);
         } else if ((priority < 299998)) {
-            //card.setBackgroundResourceId(R.drawable.demo_card_background_gray);
+            card.setBackgroundResourceId(R.drawable.demo_card_background_gray);
         }
 
 //
