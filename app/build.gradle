@@ -3,13 +3,29 @@ android {
     compileSdkVersion 21
     buildToolsVersion '21.1.2'
     defaultConfig {
-        applicationId 'tw.moretion.godoer'
-        minSdkVersion 16
+        applicationId 'com.godoer.geotodo'
+        minSdkVersion 15
         targetSdkVersion 18
+        versionCode 5
+        versionName '5.0'
     }
     buildTypes {
         release {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+            renderscriptOptimLevel 3
+            minifyEnabled false
+            versionNameSuffix '_release'
+            zipAlignEnabled true
+        }
+        debug {
+            debuggable true
+            renderscriptOptimLevel 3
+            minifyEnabled false
+            versionNameSuffix '_debug'
+            zipAlignEnabled true
         }
     }
     productFlavors {
@@ -24,4 +40,5 @@ dependencies {
     compile 'com.github.johnkil.android-progressfragment:progressfragment:1.4.+'
     compile 'com.android.support:appcompat-v7:21.0.2'
     compile 'com.android.support:support-v4:21.0.2'
+    compile project(':MapController_v1.15.7')
 }
