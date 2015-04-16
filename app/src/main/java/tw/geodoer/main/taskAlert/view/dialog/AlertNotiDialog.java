@@ -5,7 +5,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.os.Bundle;
 
-import tw.moretion.geodoer.R;
+import com.geodoer.geotodo.R;
 
 
 /**

@@ -21,16 +21,18 @@ package tw.geodoer.main.taskList.view;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.geodoer.geotodo.R;
 import com.shamanland.fab.ShowHideOnScroll;
 
 import it.gmariotti.cardslib.library.view.CardListView;
@@ -40,10 +42,8 @@ import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.mPriority.controller.PriorityUpdater;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
 import tw.geodoer.main.taskList.adapter.MyCursorCardAdapter;
-import tw.geodoer.main.taskPreference.controller.MyPreferences;
 import tw.geodoer.utils.MyCalendar;
 import tw.geodoer.utils.MyDebug;
-import tw.moretion.geodoer.R;
 
 /**
  * List with Cursor Example
@@ -52,6 +52,9 @@ import tw.moretion.geodoer.R;
  */
 public class ListCursorCardFragment extends MyBaseFragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
+
+    private static TextView txtIfTaskListIsEmpty;
+
     // getArguments().getInt(FILTER_STRING)
     public static final String FILTER_STRING = "FILTER_STRING";
     private static int position;
@@ -61,7 +64,7 @@ public class ListCursorCardFragment extends MyBaseFragment implements
     private static String[] projectionAlert = ColumnAlert.PROJECTION;
     private static String[] projectionLoc = ColumnLocation.PROJECTION;
     private static String taskSelection = null;
-//    private static String taskSortOrder = ColumnTask.DEFAULT_SORT_ORDER;
+    //    private static String taskSortOrder = ColumnTask.DEFAULT_SORT_ORDER;
     private static String taskSortOrder ="priority DESC";
     //
     private static String alertSelection = null;
@@ -152,43 +155,45 @@ public class ListCursorCardFragment extends MyBaseFragment implements
         //int filter = getArguments().getInt(FILTER_STRING);
         int filter = position;
 
-        MyDebug.MakeLog(0, "init被執行");
-
+        MyDebug.MakeLog(0, "ListCursorCardFragment-init");
         switch (filter) {
-            case 0:// 待辦清單
-                //setTaskSelection("due_date_string = 'null'");
-                setTaskSelection("checked != 1");
+            case 0:// 智慧待辦清單
+                setTaskSelection(ColumnTask.KEY.status+" == 0");
+                taskSortOrder = ColumnTask.KEY.priority+" DESC";
                 break;
-            case 1:// 靠近我的
-                MyPreferences.mPreferences = PreferenceManager
-                        .getDefaultSharedPreferences(getActivity());
-
-                int val_radiated_distance = MyPreferences.getValueOfRadiatedDistance();
-                ;
-                // setTaskSelection("distance <= '" + val_radiated_distance + "' ");
-                taskSortOrder = "priority DESC";
+            case 1:// 按照時間
+                setTaskSelection(ColumnTask.KEY.location_id+" == 0" +
+                        " AND " + ColumnTask.KEY.status + " == 0");
+                taskSortOrder = ColumnTask.KEY.priority+" DESC";
                 break;
-            case 2:// 已完成
-                setTaskSelection("checked = 1");
+            case 2:// 按照地點
+                //MyPreferences.mPreferences = PreferenceManager
+                //        .getDefaultSharedPreferences(getActivity());
+                //int val_radiated_distance = MyPreferences.getValueOfRadiatedDistance();
+                setTaskSelection(ColumnTask.KEY.location_id+" != 0" +
+                        " AND " + ColumnTask.KEY.status + " == 0");
+                taskSortOrder = ColumnTask.KEY.priority+" DESC";
                 break;
             case 3:// 地圖檢視
-
+                // 切換fragment
                 break;
-            case 4:// 距離檢視
+            case 4:// 已完成
                 //setProjection(projection)
-                setTaskSelection("distance IS NOT '0'");
+                setTaskSelection(ColumnTask.KEY.status+" == 1");
+                taskSortOrder = ColumnTask.KEY.checked+" DESC";
                 break;
-            case 5:// 地圖檢視
-
+            case 5:// 垃圾桶
+                setTaskSelection(ColumnTask.KEY.status+" == 2");
+                taskSortOrder = ColumnTask.KEY.due_date_millis+" DESC";
                 break;
-            case 6:// 標籤
-                setTaskSelection("TAG IS NOT 'null'");
+            case 6:// 測試功能
+                // 切換fragment
                 break;
             default:
                 break;
         }
 
-
+        //
         mAdapter = MyCursorCardAdapter.newInstance(getActivity());
         mListView = (CardListView) getActivity().findViewById(
                 R.id.carddemo_list_cursor);
@@ -214,6 +219,9 @@ public class ListCursorCardFragment extends MyBaseFragment implements
 
             mListView.setOnTouchListener(new ShowHideOnScroll(fab_add));
 
+            //
+            txtIfTaskListIsEmpty=(TextView) getActivity().findViewById(R.id.txtIfListEmpty);
+
         }
 
 
@@ -233,10 +241,8 @@ public class ListCursorCardFragment extends MyBaseFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceStat) {
-        View root = inflater.inflate(R.layout.card_fragment_list_cursor,
+        return inflater.inflate(R.layout.card_fragment_list_cursor,
                 container, false);
-
-        return root;
     }
 
     @Override
@@ -244,8 +250,8 @@ public class ListCursorCardFragment extends MyBaseFragment implements
         super.onActivityCreated(savedInstanceState);
 
         getLoaderManager().initLoader(101, savedInstanceState, this);
-        //getLoaderManager().initLoader(201, null, this);
-        //getLoaderManager().initLoader(301, null, this);
+        //getLoaderManager().initLoader(201, savedInstanceState, this);
+        //getLoaderManager().initLoader(301, savedInstanceState, this);
         init();
 
         //----------------------------------------------------------//
@@ -256,9 +262,7 @@ public class ListCursorCardFragment extends MyBaseFragment implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-
         Loader<Cursor> loader = null;
-
         switch (id) {
             case 101:
                 loader = new CursorLoader(getActivity(), ColumnTask.URI,
@@ -276,7 +280,6 @@ public class ListCursorCardFragment extends MyBaseFragment implements
             default:
                 break;
         }
-
         return loader;
     }
 
@@ -296,6 +299,17 @@ public class ListCursorCardFragment extends MyBaseFragment implements
         }
 */
         mAdapter.swapCursor(data);
+
+        if(data.getCount()==0){
+            txtIfTaskListIsEmpty.setVisibility(View.VISIBLE);
+            txtIfTaskListIsEmpty.setText(getView().getContext().
+                    getResources().
+                    getString(R.string.String_If_Task_List_Is_Empty));
+            txtIfTaskListIsEmpty.setShadowLayer(10, 0, 0, Color.BLUE);
+        }else {
+            txtIfTaskListIsEmpty.setVisibility(View.INVISIBLE);
+            txtIfTaskListIsEmpty.setText("");
+        }
     }
 
     @Override

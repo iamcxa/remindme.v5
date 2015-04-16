@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.geodoer.geotodo.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,7 +30,6 @@ import fud.geodoermap.GeoStatus;
 import fud.geodoermap.MapController;
 import tw.geodoer.mGeoInfo.controller.onBtnSaveClick;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
-import tw.moretion.geodoer.R;
 
 /**
  * This is a custom dialog class that will hold a tab view with 2 tabs.

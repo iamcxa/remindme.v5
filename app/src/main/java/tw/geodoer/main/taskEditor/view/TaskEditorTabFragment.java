@@ -12,10 +12,10 @@ import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import com.geodoer.geotodo.R;
 
-import tw.geodoer.mDatabase.API.DBTasksHelper;
+import java.util.ArrayList;
+
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskEditor.adapter.MyFragmentPagerAdapter;
@@ -24,7 +24,6 @@ import tw.geodoer.main.taskEditor.controller.ActionSaveDataToDb;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.utils.MyDebug;
 import tw.geodoer.utils.view.MySlidingTabLayout;
-import tw.moretion.geodoer.R;
 
 public class TaskEditorTabFragment extends ActionBarActivity
         implements

@@ -28,13 +28,14 @@ import android.widget.TimePicker;
 import android.widget.TimePicker.OnTimeChangedListener;
 import android.widget.Toast;
 
+import com.geodoer.geotodo.R;
+
 import java.lang.reflect.Field;
 import java.util.Calendar;
 
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.utils.MyCalendar;
 import tw.geodoer.utils.MyDebug;
-import tw.moretion.geodoer.R;
 
 /**
  * This is a custom dialog class that will hold a tab view with 2 tabs.
@@ -333,7 +334,7 @@ public class DueDateCustomDialog extends AlertDialog
                 TaskEditorMainFragment.setTaskDueDate(selectedDate);
 
             if ((getBtnNutral().getVisibility()) == (View.VISIBLE))
-                TaskEditorMainFragment.setTaskDueDate(selectedDate + "◎" + selectedTime);
+                TaskEditorMainFragment.setTaskDueDate(selectedDate + ";" + selectedTime);
 
             setDialogDismiss(dialog);
         } catch (Exception e) {

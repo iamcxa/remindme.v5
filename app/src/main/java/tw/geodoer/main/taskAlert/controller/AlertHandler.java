@@ -6,7 +6,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -16,13 +15,14 @@ import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
+import com.geodoer.geotodo.R;
+
 import tw.geodoer.mDatabase.API.DBTasksHelper;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskAlert.view.dialog.AlertNotiDialog;
 import tw.geodoer.main.taskList.view.AppMainActivity;
 import tw.geodoer.main.taskPreference.controller.MyPreferences;
 import tw.geodoer.utils.MyDebug;
-import tw.moretion.geodoer.R;
 
 public class AlertHandler extends IntentService {
 

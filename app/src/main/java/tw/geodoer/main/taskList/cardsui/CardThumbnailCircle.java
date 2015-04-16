@@ -1,22 +1,18 @@
 package tw.geodoer.main.taskList.cardsui;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
-import java.util.Locale;
+import com.geodoer.geotodo.R;
 
 import it.gmariotti.cardslib.library.internal.CardThumbnail;
 import tw.geodoer.mDatabase.API.DBLocationHelper;
-import tw.geodoer.mDatabase.columns.ColumnLocation;
+import tw.geodoer.mDatabase.API.DBTasksHelper;
+import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.utils.drawable.CircleDrawable;
-import tw.moretion.geodoer.R;
 
 /**
  * Created by Kent on 2014/12/25.
@@ -25,12 +21,28 @@ public class CardThumbnailCircle extends CardThumbnail {
 
     private DBLocationHelper dbLocationHelper = new DBLocationHelper(getContext());
     private int cardID;
+    private int status;
 
     public CardThumbnailCircle(Context context, int cardID) {
         super(context);
         this.cardID = cardID;
 
         setDrawableResource(R.drawable.ic_action_nivagate_1);
+
+        DBTasksHelper dbTasksHelper = new DBTasksHelper(getContext());
+        this.status=dbTasksHelper.getItemInt(cardID, ColumnTask.KEY.status);
+        switch (status){
+            case 0:
+                setDrawableResource(R.drawable.ic_check);
+                break;
+            case 1:
+                setDrawableResource(R.drawable.ic_check_on);
+                break;
+            case 2:
+                setDrawableResource(R.drawable.ic_back);
+                break;
+
+        }
 
         //  float density = getContext().getResources().getDisplayMetrics().density;
         // int size = (int) (40 * density);
@@ -45,28 +57,56 @@ public class CardThumbnailCircle extends CardThumbnail {
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // 還原本來的圖片
-                v.setBackgroundResource(R.drawable.ic_action_nivagate_1);
 
-                // 按下去!
-                if ((event.getAction() == MotionEvent.ACTION_HOVER_ENTER) ||
-                        (event.getAction() == MotionEvent.ACTION_HOVER_MOVE) ||
-                        (event.getAction() == MotionEvent.ACTION_DOWN)) {
-                    //  按下去圖案加深
-                    v.setBackgroundResource(R.drawable.ic_action_nivagate_1_dark);
-
-                    //  呼叫導航
-                    callGoogleMapNavigation(
-                            dbLocationHelper.getItemDouble(cardID, ColumnLocation.KEY.lat),
-                            dbLocationHelper.getItemDouble(cardID, ColumnLocation.KEY.lon),
-                            dbLocationHelper.getItemString(cardID, ColumnLocation.KEY.name));
-                    // 放開
-                } else {
-
-                    // 還原本來的圖片
-                    v.setBackgroundResource(R.drawable.ic_action_nivagate_1);
+                // 開始動作
+                DBTasksHelper dbTasksHelper = new DBTasksHelper(getContext());
+                switch (status){
+                    case 0:
+                        switch (event.getAction()){
+                            case MotionEvent.ACTION_DOWN:
+                                v.setBackgroundResource(R.drawable.ic_check_on);
+                                dbTasksHelper.setItem(cardID,ColumnTask.KEY.status,1);
+                                dbTasksHelper.setItem(cardID,ColumnTask.KEY.checked,
+                                        System.currentTimeMillis());
+                                break;
+                        }
+                        break;
+                    case 1:
+                        v.setBackgroundResource(R.drawable.ic_check);
+                        dbTasksHelper.setItem(cardID,ColumnTask.KEY.status,0);
+                        dbTasksHelper.setItem(cardID,ColumnTask.KEY.checked,
+                                0);
+                        break;
+                    case 2:
+                        v.setBackgroundResource(R.drawable.ic_back_on);
+                        dbTasksHelper.setItem(cardID,ColumnTask.KEY.status,1);
+                        break;
                 }
-                return false;
+
+
+
+
+
+
+//                // 還原本來的圖片
+//                v.setBackgroundResource(R.drawable.ic_action_nivagate_1);
+//
+//                // 按下去!
+//                if ((event.getAction() == MotionEvent.ACTION_HOVER_ENTER) ||
+//                        (event.getAction() == MotionEvent.ACTION_HOVER_MOVE) ||
+//                        (event.getAction() == MotionEvent.ACTION_DOWN)) {
+//                    //  按下去圖案加深
+//                    v.setBackgroundResource(R.drawable.ic_action_nivagate_1_dark);
+//
+//                    // 放開
+//                } else {
+//                    //todo:還原似乎未完成20150416
+//                    // 還原本來的圖片
+//                    v.setBackgroundResource(R.drawable.ic_action_nivagate_1);
+//                    v.setBackgroundResource(R.drawable.ic_action_undo);
+//                }
+
+                return true;
             }
         });
 
@@ -77,27 +117,5 @@ public class CardThumbnailCircle extends CardThumbnail {
         else
             imageView.setBackgroundDrawable(circle);
         return true;
-    }
-
-    /*
-        呼叫導航
-     */
-    private void callGoogleMapNavigation(double lat, double lon, String name) {
-
-        String uri = String.format(Locale.ENGLISH,
-                "http://maps.google.com/maps?&daddr=%f,%f (%s)",
-                lat, lon, name);
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
-        try {
-            getContext().startActivity(intent);
-        } catch (ActivityNotFoundException ex) {
-            try {
-                Intent unrestrictedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                getContext().startActivity(unrestrictedIntent);
-            } catch (ActivityNotFoundException innerEx) {
-                Toast.makeText(getContext(), "Please install a maps application", Toast.LENGTH_LONG).show();
-            }
-        }
     }
 }

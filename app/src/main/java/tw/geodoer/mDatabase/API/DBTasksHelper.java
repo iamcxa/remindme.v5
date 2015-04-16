@@ -77,7 +77,6 @@ public class DBTasksHelper {
      * @return 回傳一個可以套進各式Adapter的Cursor資料物件。理論上輸出應該不會有為null的情況。
      */
     public Cursor getCursor() {
-
         return context.getContentResolver().
                 query(mUri,
                         ColumnTask.PROJECTION, null, null,
@@ -367,6 +366,33 @@ public class DBTasksHelper {
         }
     }
 
+    /**
+     * 本方法可更新一筆資料資料表tasks中的數值資料。<br>
+     *
+     * @param itemId    (String) 地點ID。
+     * @param targetKey (String) 目標欄位名稱，由ColumnTask.Key提供。
+     * @param newValue  (long) 目標欄位的新值。
+     * @return True. <br>
+     * false, also logcat will output "DBLocationHelpr setItem method error=..."。
+     */
+    public boolean setItem(int itemId, String targetKey, long newValue) {
+
+        try {
+
+            Uri thisUri = ContentUris.withAppendedId(mUri, itemId);
+
+            ContentValues values = new ContentValues();
+
+            values.put(targetKey, newValue);
+
+            context.getContentResolver().update(thisUri, values, null, null);
+
+            return true;
+        } catch (Exception e) {
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
+            return false;
+        }
+    }
 
     /**
      * 本方法可更新一筆資料資料表tasks中的數值資料。<br>
