@@ -18,7 +18,7 @@
         <item>-1</item>
     </string-array>
 
-    <string name="String_If_Task_List_Is_Empty">您沒有待辦事項。</string>
+    <string name="String_If_Task_List_Is_Empty">這個分類沒有您待辦事項。</string>
 
     <string name="PowerUsageOptionDefaultValue">0</string>
     <string name="PowerUsageOptionTittle">位置偵測模式</string>

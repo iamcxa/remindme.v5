@@ -305,7 +305,7 @@ public class ListCursorCardFragment extends MyBaseFragment implements
             txtIfTaskListIsEmpty.setText(getView().getContext().
                     getResources().
                     getString(R.string.String_If_Task_List_Is_Empty));
-            txtIfTaskListIsEmpty.setShadowLayer(10, 0, 0, Color.MAGENTA);
+            txtIfTaskListIsEmpty.setShadowLayer(10, 0, 0, Color.BLUE);
         }else {
             txtIfTaskListIsEmpty.setVisibility(View.INVISIBLE);
             txtIfTaskListIsEmpty.setText("");
