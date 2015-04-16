@@ -1,9 +1,14 @@
 package tw.geodoer.mGeoInfo.API;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Handler;
+import android.preference.ListPreference;
+import android.preference.PreferenceManager;
 import android.util.Log;
+
+import java.util.prefs.PreferenceChangeEvent;
 
 /**
  * Created by fud on 2015/4/14.
@@ -20,6 +25,9 @@ public class CurrentLocation implements GPSCallback {
     private Thread mLastKnow;
     private Boolean isThreadRun=true;
     private int taskID =0;
+    private int GPS_OUTTIME=1500;
+    private int NET_OUTTIME=2000;
+    private  String mUserSetting;
 
     public CurrentLocation(Context context){
         this.context=context;
@@ -30,7 +38,7 @@ public class CurrentLocation implements GPSCallback {
         mGps = new Thread(new Runnable() {
             @Override
             public void run() {
-                if(isThreadRun)startNetWorkAndSetTimeOut(5000);
+                if(isThreadRun)startNetWorkAndSetTimeOut(NET_OUTTIME);
             }
         });
 
@@ -52,12 +60,20 @@ public class CurrentLocation implements GPSCallback {
 
     public void setOnLocListener(onDistanceListener mDis){
         this.mDis=mDis;
-        startGpsAndSetTimeOut(5000);
-//        Log.e("LastKnow",gpsManager.LastLocation().getLatitude()+","+gpsManager.LastLocation().getLongitude());
-
-        //寫死正修測試用
-//        mDis.onGetLatLng(22.650351,120.350032);
-//        stopGps();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        mUserSetting = sharedPreferences.getString("PowerUsageOption","0");
+        Log.e("PrUr",sharedPreferences.getString("PowerUsageOption","0"));
+        if(mUserSetting.equals("1")){
+            GPS_OUTTIME = 5000;
+            NET_OUTTIME = 5000;
+        }else if(mUserSetting.equals("0")){
+            GPS_OUTTIME = 0;
+            NET_OUTTIME = 5000;
+        }else if(mUserSetting.equals("-1")){
+            GPS_OUTTIME = 0;
+            NET_OUTTIME = 0;
+        }
+        startGpsAndSetTimeOut(GPS_OUTTIME);
     }
 
     public void startGpsAndSetTimeOut(int s){
@@ -68,12 +84,12 @@ public class CurrentLocation implements GPSCallback {
 
         isThreadRun=true;
 
-        if(gpsManager.startGpsListening(context)){
+        if(gpsManager.startGpsListening(context) && s!=0){
             gpsManager.setGPSCallback(this);
             mHandle.postDelayed(mGps,s);
             Log.e("PrUr","使用GPS");
         }else{
-            startNetWorkAndSetTimeOut(5000);
+            startNetWorkAndSetTimeOut(NET_OUTTIME);
         }
     }
 
@@ -84,7 +100,7 @@ public class CurrentLocation implements GPSCallback {
         }
 
         isThreadRun=true;
-        if(gpsManager.startNetWorkListening(context)){
+        if(gpsManager.startNetWorkListening(context) && s!=0){
             gpsManager.setGPSCallback(this);
             mHandle.postDelayed(mNetWork,s);
             Log.e("PrUr","使用網路");
@@ -98,7 +114,7 @@ public class CurrentLocation implements GPSCallback {
         isThreadRun=false;
         if(gpsManager.LastLocation()!=null){
             Log.e("PrUr","使用上次位置");
-            mDis.onGetLatLng(gpsManager.LastLocation().getLatitude(),gpsManager.LastLocation().getLongitude());
+            mDis.onGetLatLng(gpsManager.LastLocation().getLatitude(), gpsManager.LastLocation().getLongitude());
         }else{
             mDis.onGetLatLng(-1d,-1d);
         }
