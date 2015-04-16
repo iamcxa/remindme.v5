@@ -29,6 +29,7 @@ import fud.geodoermap.GeoInfo;
 import fud.geodoermap.GeoStatus;
 import fud.geodoermap.MapController;
 import tw.geodoer.mGeoInfo.controller.onBtnSaveClick;
+import tw.geodoer.mPriority.controller.NeoGeoInfo;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 
 /**
@@ -200,10 +201,15 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
             mapController.searchPlace(SearchText.getText().toString());
         }
         else if(v.getId() == R.id.save){
-           onBtnSaveClick a = new onBtnSaveClick(geo,getActivity().getApplicationContext());
+            NeoGeoInfo saveGeo = new NeoGeoInfo();
+            saveGeo.setName(geo.name);
+            saveGeo.setLatlng(geo.latlng);
+
+
+            onBtnSaveClick a = new onBtnSaveClick(saveGeo,getActivity().getApplicationContext());
 //            OnBtnSaveClick.saveDB(geo);
             Toast.makeText(getActivity(),geo.name,Toast.LENGTH_SHORT).show();
-           getDialog().dismiss();
+            getDialog().dismiss();
 //            CurrentLocation b = new CurrentLocation(getActivity());
 //            b.setOnDistanceListener(geo.latlng.latitude,geo.latlng.longitude,new CurrentLocation.onDistanceListener() {
 //                @Override
