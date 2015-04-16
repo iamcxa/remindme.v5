@@ -43,8 +43,8 @@ public class ActionFinishAndDeleyTheLocationAlert extends IntentService {
 
         nm.cancel(LocationAlertHandler.TAG, Integer.valueOf(taskID));
 
-
         this.task_ID = Integer.valueOf(taskID);
+
         HandlerThread mHandlerThread = new HandlerThread("PrU");
         mHandlerThread.start();
         Handler mHandler = new Handler(mHandlerThread.getLooper());
@@ -53,24 +53,11 @@ public class ActionFinishAndDeleyTheLocationAlert extends IntentService {
             @Override
             public void run()
             {
-                //readd the alert
-                DBTasksHelper mDBT = new DBTasksHelper(getApplicationContext());
-                DBLocationHelper mDBL = new DBLocationHelper(getApplicationContext());
-;
-                int loc_ID = mDBT.getItemInt(task_ID,ColumnTask.KEY.location_id);
                 ActionSetLocationAlarm ASA = new ActionSetLocationAlarm(getApplicationContext(),task_ID);
-                long due_time = mDBT.getItemLong(task_ID,ColumnTask.KEY.due_date_millis);
-                double lat = mDBL.getItemDouble(loc_ID, ColumnLocation.KEY.lat);
-                double lon = mDBL.getItemDouble(loc_ID, ColumnLocation.KEY.lon);
-                if (due_time == 0)
-                    ASA.SetIt(lat,lon);
-                else if (due_time - System.currentTimeMillis() > 0)
-                    ASA.SetIt(lat,lon,due_time - System.currentTimeMillis());
+                ASA.SetIt();
             }
         },5*60*1000);
-        //AlertHandler alertHandler = AlertHandler.getInstance();
-        //ShowToastInIntentService("任務 " + alertHandler.getTaskName(this, taskID) + "完成！");
-        stopSelf();
+
     }
 
     public void ShowToastInIntentService(final String sText) {
