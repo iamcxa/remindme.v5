@@ -41,6 +41,7 @@ public class DBtoGeoInfo
             locid = mDBT.getItemInt(id, ColumnTask.KEY.location_id);
             LatLng lalo = new LatLng(mDBL.getItemDouble(locid,ColumnLocation.KEY.lat),
                                      mDBL.getItemDouble(locid,ColumnLocation.KEY.lon));
+            gi.setLatlng(lalo);
             array_geo.add(gi);
         }
         return array_geo;
