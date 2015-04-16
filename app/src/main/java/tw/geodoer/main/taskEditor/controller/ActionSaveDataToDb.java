@@ -4,6 +4,8 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -54,9 +56,13 @@ public class ActionSaveDataToDb {
         saveTableAlert();
 
         setAlert();
-
-        saveTableLocation();
         setLocationAlert();
+
+        /**
+         * restore in ActionOnCardLongClicked
+         * remove in
+         */
+
 
         //----------------------------------------------------------------------------------//
         PriorityUpdater PrU = new PriorityUpdater(context);
@@ -69,7 +75,6 @@ public class ActionSaveDataToDb {
         mEditorVar.TaskDate.setmDay(0);
         mEditorVar.TaskDate.setmHour(0);
         mEditorVar.TaskDate.setmMinute(0);
-
     }
 
     // 取得日期與時間加總的到期日毫秒
@@ -159,20 +164,25 @@ public class ActionSaveDataToDb {
     private  void setAlert()
     {
         ActionSetAlarm AA =new ActionSetAlarm(this.context , this.taskId);
-        AA.SetIt();
+        AA.SetIt(mEditorVar.Task.getDue_date_millis());
     }
 
     private void saveTableLocation()
     {
-
-        this.locId = mEditorVar.Task.getLocation_id();
-        DBTasksHelper mDBT = new DBTasksHelper(context);
-        mDBT.setItem(taskId, ColumnTask.KEY.location_id, this.locId);
+//
+//        this.locId = mEditorVar.Task.getLocation_id();
+//        DBTasksHelper mDBT = new DBTasksHelper(context);
+//        mDBT.setItem(taskId, ColumnTask.KEY.location_id, this.locId);
     }
     private void setLocationAlert()
     {
+        this.locId = mEditorVar.Task.getLocation_id();
+        double lat = mEditorVar.TaskLocation.getLat();
+        double lon = mEditorVar.TaskLocation.getLon();
+
         ActionSetLocationAlarm ASLA = new ActionSetLocationAlarm(context, taskId);
-        ASLA.SetIt();
+        if( locId == 0) ASLA.CancelIt();
+        else ASLA.SetIt(mEditorVar.Task.getDue_date_millis(),lat,lon);
     }
 //-------------------------------------------------------------------------------------------------//
     // 判斷本次操作是寫入新資料或更新已存在資料

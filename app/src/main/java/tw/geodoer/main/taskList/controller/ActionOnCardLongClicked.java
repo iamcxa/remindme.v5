@@ -93,10 +93,10 @@ public class ActionOnCardLongClicked implements  Card.OnLongCardClickListener {
         DBTasksHelper dbTasksHelper=new DBTasksHelper(context);
         dbTasksHelper.setItem(task_id, ColumnTask.KEY.status, ColumnTask.TASK_STATUS_NORMAL);
 
-        ActionSetAlarm AA = new ActionSetAlarm(context,task_id);
-        AA.SetIt();
-        ActionSetLocationAlarm ALA = new ActionSetLocationAlarm(context,task_id);
-        ALA.SetIt();
+//        ActionSetAlarm AA = new ActionSetAlarm(context,task_id);
+//        AA.SetIt();
+//        ActionSetLocationAlarm ALA = new ActionSetLocationAlarm(context,task_id);
+//        ALA.SetIt();
     }
 
     /*
