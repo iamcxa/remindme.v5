@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.geodoer.geotodo.R;
 
+import tw.geodoer.mDatabase.API.DBLocationHelper;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.mGeoInfo.view.LocationCustomDialog;
@@ -91,26 +92,31 @@ public class TaskEditorMainFragment extends Fragment implements
     }
 
     private OnItemSelectedListener test = new OnItemSelectedListener() {
-
         @Override
         public void onItemSelected(AdapterView<?> parent, View view,
                                    int position, long id) {
-            // TODO Auto-generated method stub
             String aa[] = {getTaskLocation().getSelectedItem().toString()};
 
+            // 以名稱撈資料
             Cursor c = getActivity().getContentResolver().
                     query(ColumnLocation.URI, ColumnLocation.PROJECTION, "name = ?", aa,
                             ColumnLocation.SORT_BY_LASTUSEDTIME);
-
             // 如果有資料
             if (c.moveToFirst()) {
                 String locName=c.getString(1);
                 int locId=c.getInt(0);
+                double locLon=c.getDouble(3);
+                double locLat=c.getDouble(2);
+                long locLST=c.getLong(5);
 
-                // 傳值給ID
+                // 傳值給共用變數
                 mEditorVar.Task.setLocation_id(locId);
+                mEditorVar.TaskLocation.setName(locName);
+                mEditorVar.TaskLocation.setLon(locLon);
+                mEditorVar.TaskLocation.setLat(locLat);
+                mEditorVar.TaskLocation.setLastUsedTime(locLST);
 
-                // logs
+                // 輸出logs
                 MyDebug.MakeLog(2, "地點id=" + locId);
                 MyDebug.MakeLog(2, "地點名稱=" + locName);
                 Toast.makeText(getActivity(),
@@ -119,7 +125,6 @@ public class TaskEditorMainFragment extends Fragment implements
                                 "\n地點id=" + locId +
                                 "\n地點名稱=" + locName
                         , Toast.LENGTH_SHORT).show();
-
                 // 關閉
                 c.close();
             }
@@ -447,13 +452,13 @@ public class TaskEditorMainFragment extends Fragment implements
         if (data != null) {
             if (data.getCount() > 0) {
                 data.moveToFirst();
-                adapter.add(getResources().getString(R.string.TaskEditor_Field_Location_Spinner_Hint).toString());
+                adapter.add(getResources().getString(R.string.TaskEditor_Field_Location_Spinner_Hint));
                 do {
                     adapter.add(data.getString(data.getColumnIndex("name")));
                 } while (data.moveToNext());
                 if (spinnerTaskLocation != null) spinnerTaskLocation.setEnabled(true);
             } else {
-                adapter.add(getResources().getString(R.string.TaskEditor_Field_Location_Is_Empty).toString());
+                adapter.add(getResources().getString(R.string.TaskEditor_Field_Location_Is_Empty));
                 if (spinnerTaskLocation != null) spinnerTaskLocation.setEnabled(false);
             }
         }
