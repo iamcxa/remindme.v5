@@ -65,7 +65,7 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setCancelable(false);
+        this.setCancelable(true);
     }
 
     @Override
@@ -126,7 +126,7 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
                     map.getMinZoomLevel() + 7)));
             map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
                     .position(nowLoacation));
-//            map.get
+            map.set
             mapController = new MapController(getActivity(),map,PlaceName);
             mapController.isMoveGet(true);
             mapController.setOnGeoLoadedLisitener(this);
@@ -203,7 +203,9 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
            onBtnSaveClick a = new onBtnSaveClick(geo,getActivity().getApplicationContext());
 //            OnBtnSaveClick.saveDB(geo);
             Toast.makeText(getActivity(),geo.name,Toast.LENGTH_SHORT).show();
-           getDialog().dismiss();
+           getDialog().cancel();
+            map=null;
+            mapController=null;
 //            CurrentLocation b = new CurrentLocation(getActivity());
 //            b.setOnDistanceListener(geo.latlng.latitude,geo.latlng.longitude,new CurrentLocation.onDistanceListener() {
 //                @Override
