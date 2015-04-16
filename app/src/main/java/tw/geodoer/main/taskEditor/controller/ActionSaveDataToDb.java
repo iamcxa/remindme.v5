@@ -4,13 +4,10 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
-import android.os.Handler;
-import android.os.HandlerThread;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
-import tw.geodoer.mDatabase.API.DBLocationHelper;
 import tw.geodoer.mDatabase.API.DBTasksHelper;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
@@ -55,8 +52,8 @@ public class ActionSaveDataToDb {
 
         saveTableAlert();
 
-        setAlert();
-        //setLocationAlert();
+        //setAlert();
+        setAlerts();
 
         /**
          * restore in ActionOnCardLongClicked
@@ -174,15 +171,20 @@ public class ActionSaveDataToDb {
 //        DBTasksHelper mDBT = new DBTasksHelper(context);
 //        mDBT.setItem(taskId, ColumnTask.KEY.location_id, this.locId);
     }
-    private void setLocationAlert()
+    private void setAlerts()
     {
+
+
         this.locId = mEditorVar.Task.getLocation_id();
         double lat = mEditorVar.TaskLocation.getLat();
         double lon = mEditorVar.TaskLocation.getLon();
-
         ActionSetLocationAlarm ASLA = new ActionSetLocationAlarm(context, taskId);
         if( locId == 0) ASLA.CancelIt();
         else ASLA.SetIt(mEditorVar.Task.getDue_date_millis(),lat,lon);
+
+
+        ActionSetAlarm AA =new ActionSetAlarm(this.context , this.taskId);
+        AA.SetIt(mEditorVar.Task.getDue_date_millis());
     }
 //-------------------------------------------------------------------------------------------------//
     // 判斷本次操作是寫入新資料或更新已存在資料

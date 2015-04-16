@@ -53,8 +53,14 @@ public class ActionFinishAndDeleyTheLocationAlert extends IntentService {
             @Override
             public void run()
             {
-//                ActionSetLocationAlarm ASA = new ActionSetLocationAlarm(getApplicationContext(),task_ID);
-//                ASA.SetIt();
+                DBTasksHelper mDBT = new DBTasksHelper(getApplicationContext());
+                DBLocationHelper mDBL =new DBLocationHelper(getApplicationContext());
+                ActionSetLocationAlarm ASA = new ActionSetLocationAlarm(getApplicationContext(),task_ID);
+                long due_date_millis =mDBT.getItemLong(task_ID,ColumnTask.KEY.due_date_millis);
+                int loc_ID = mDBT.getItemInt(task_ID,ColumnTask.KEY.location_id);
+                double lat = mDBL.getItemDouble(loc_ID,ColumnLocation.KEY.lat);
+                double lon = mDBL.getItemDouble(loc_ID,ColumnLocation.KEY.lon);
+                ASA.SetIt(due_date_millis,lat,lon);
             }
         },5*60*1000);
 
