@@ -12,7 +12,6 @@ import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskList.cardsui.MyCursorCard;
 import tw.geodoer.utils.MyCalendar;
-import tw.geodoer.utils.MyDebug;
 
 public class ActionSetCardFromCursor {
 
@@ -82,7 +81,7 @@ public class ActionSetCardFromCursor {
         long due_date_millis = cursor.getLong(ColumnTask.KEY.INDEX.due_date_millis);
         String due_date_string = cursor.getString(ColumnTask.KEY.INDEX.due_date_string);
         long dayLeft = MyCalendar.getDaysLeftByLong(due_date_millis, 2);
-        MyDebug.MakeLog(2, "id=" + CID + " dayleft=" + dayLeft);
+        //MyDebug.MakeLog(2, "id=" + CID + " dayleft=" + dayLeft);
         if(due_date_string.length()==4){
             card.dueDate = "無日期";
         }else {
