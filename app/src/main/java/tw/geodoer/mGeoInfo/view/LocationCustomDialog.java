@@ -28,6 +28,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import fud.geodoermap.GeoInfo;
 import fud.geodoermap.GeoStatus;
 import fud.geodoermap.MapController;
+import tw.geodoer.mGeoInfo.API.CurrentLocation;
 import tw.geodoer.mGeoInfo.controller.onBtnSaveClick;
 import tw.geodoer.mPriority.controller.NeoGeoInfo;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
@@ -118,16 +119,29 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
         if (map == null) {
             Log.d("", "googleMap is null !!!!!!!!!!!!!!!");
         } else {
-            map.setMyLocationEnabled(true);
+//            map gps不會停止Bug使用自幹的GPS成
+//            map.setMyLocationEnabled(true);
             map.getUiSettings().setZoomControlsEnabled(false);
-            map.setMyLocationEnabled(true);
             LatLng nowLoacation;
             nowLoacation = new LatLng(23.6978, 120.961);
             map.moveCamera((CameraUpdateFactory.newLatLngZoom(nowLoacation,
                     map.getMinZoomLevel() + 7)));
             map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
                     .position(nowLoacation));
-//            map.get
+
+            CurrentLocation mNowGeo = new CurrentLocation(getActivity());
+            mNowGeo.setOnLocListenerSetGps("-1",new CurrentLocation.onDistanceListener() {
+                @Override
+                public void onGetLatLng(Double lat, Double lng) {
+                    LatLng nowLoacation;
+                    nowLoacation = new LatLng(lat, lng);
+                    map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
+                            .position(nowLoacation));
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLoacation,
+                            map.getMaxZoomLevel()-5));
+                }
+            });
+
             mapController = new MapController(getActivity(),map,PlaceName);
             mapController.isMoveGet(true);
             mapController.setOnGeoLoadedLisitener(this);

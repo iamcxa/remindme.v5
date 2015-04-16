@@ -76,6 +76,21 @@ public class CurrentLocation implements GPSCallback {
         startGpsAndSetTimeOut(GPS_OUTTIME);
     }
 
+    public void setOnLocListenerSetGps(String acc,onDistanceListener mDis){
+        this.mDis=mDis;
+        if(acc.equals("1")){
+            GPS_OUTTIME = 5000;
+            NET_OUTTIME = 5000;
+        }else if(acc.equals("0")){
+            GPS_OUTTIME = 0;
+            NET_OUTTIME = 5000;
+        }else if(acc.equals("-1")){
+            GPS_OUTTIME = 0;
+            NET_OUTTIME = 0;
+        }
+        startGpsAndSetTimeOut(GPS_OUTTIME);
+    }
+
     public void startGpsAndSetTimeOut(int s){
         if(gpsManager!=null){
             gpsManager.stopListening();

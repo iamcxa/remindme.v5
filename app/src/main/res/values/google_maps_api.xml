@@ -17,10 +17,10 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <!--耀德-->
     <!--<string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyDTA9d2CCboaa7OxDVlbAOZ94rRMnZcONE</string>-->
     <!--耀德桌機-->
-    <!--<string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyDrKH0wDVEUz3PwgZmn1ajSYXovwp_Ok0w</string>-->
+    <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyDrKH0wDVEUz3PwgZmn1ajSYXovwp_Ok0w</string>
 
     <!--奎言-->
-    <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyC-Y60UoFtkrasIrhDGrvBgysdiU_Mg9R4</string>
+    <!--<string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyC-Y60UoFtkrasIrhDGrvBgysdiU_Mg9R4</string>-->
 
     <!--君平-->
     <!--<string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyCwIH4HlhnY9WxiEaz8KYGb6_LfXmKkzTg</string>-->
