@@ -23,9 +23,13 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 import fud.geodoermap.GeoInfo;
 import fud.geodoermap.MapController;
 import tw.geodoer.mGeoInfo.API.CurrentLocation;
+import tw.geodoer.mPriority.controller.DBtoGeoinfo;
+import tw.geodoer.mPriority.controller.NeoGeoInfo;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -131,20 +135,30 @@ public class ShowTodoGeo extends Fragment implements MapController.onGeoLoadLisi
             map.moveCamera((CameraUpdateFactory.newLatLngZoom(nowLoacation,
                     map.getMinZoomLevel() + 7)));
             CurrentLocation mNowGeo = new CurrentLocation(getActivity());
-            mNowGeo.setOnLocListenerSetGps("-1",new CurrentLocation.onDistanceListener() {
+            mNowGeo.setOnLocListenerSetGps("-1", new CurrentLocation.onDistanceListener() {
                 @Override
                 public void onGetLatLng(Double lat, Double lng) {
-                        LatLng nowLoacation;
-                        nowLoacation = new LatLng(lat, lng);
-                        map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
-                                .position(nowLoacation));
-                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLoacation,
-                                map.getMaxZoomLevel()-5));
+                    LatLng nowLoacation;
+                    nowLoacation = new LatLng(lat, lng);
+                    map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
+                            .position(nowLoacation));
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLoacation,
+                            map.getMaxZoomLevel() - 5));
                 }
             });
-            mapController = new MapController(getActivity(),map,PlaceName);
-            mapController.isMoveGet(true);
-            mapController.setOnGeoLoadedLisitener(this);
+
+            DBtoGeoinfo getEvent = new DBtoGeoinfo(getActivity());
+            ArrayList<NeoGeoInfo> list = getEvent.getArraylistNeoGeoInfoofTasks();
+            Log.e("TestArray",list.size()+"");
+            for (int i = 0; i < list.size(); i++) {
+                NeoGeoInfo event = list.get(i);
+                map.addMarker(new MarkerOptions().title(event.getName()).position(event.getLatlng())).showInfoWindow();
+                Log.e("TestArray",event.getName());
+            }
+
+//            mapController = new MapController(getActivity(),map,PlaceName);
+//            mapController.isMoveGet(true);
+//            mapController.setOnGeoLoadedLisitener(this);
         }
     }
 
@@ -175,7 +189,12 @@ public class ShowTodoGeo extends Fragment implements MapController.onGeoLoadLisi
 
     @Override
     public void onGeoLoaded(GeoInfo geo, int status) {
-
+        DBtoGeoinfo getEvent = new DBtoGeoinfo(getActivity());
+        ArrayList<NeoGeoInfo> list = getEvent.getArraylistNeoGeoInfoofTasks();
+        for (int i = 0; i < list.size(); i++) {
+            NeoGeoInfo event = list.get(i);
+            map.addMarker(new MarkerOptions().title(event.getName()).position(event.getLatlng()));
+        }
     }
 
     @Override

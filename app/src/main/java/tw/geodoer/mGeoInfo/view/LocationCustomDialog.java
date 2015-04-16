@@ -25,11 +25,14 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 import fud.geodoermap.GeoInfo;
 import fud.geodoermap.GeoStatus;
 import fud.geodoermap.MapController;
 import tw.geodoer.mGeoInfo.API.CurrentLocation;
 import tw.geodoer.mGeoInfo.controller.onBtnSaveClick;
+import tw.geodoer.mPriority.controller.DBtoGeoinfo;
 import tw.geodoer.mPriority.controller.NeoGeoInfo;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 
@@ -130,7 +133,7 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
                     .position(nowLoacation));
 
             CurrentLocation mNowGeo = new CurrentLocation(getActivity());
-            mNowGeo.setOnLocListenerSetGps("-1",new CurrentLocation.onDistanceListener() {
+            mNowGeo.setOnLocListenerSetGps("-1", new CurrentLocation.onDistanceListener() {
                 @Override
                 public void onGetLatLng(Double lat, Double lng) {
                     LatLng nowLoacation;
@@ -138,7 +141,7 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
                     map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
                             .position(nowLoacation));
                     map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLoacation,
-                            map.getMaxZoomLevel()-5));
+                            map.getMaxZoomLevel() - 5));
                 }
             });
 
