@@ -41,8 +41,8 @@ public class ActionDelayTheAlert extends IntentService {
 
         calendar.add(Calendar.MINUTE, 5);
 
-        ActionSetAlarm AA = new ActionSetAlarm( this, Integer.valueOf(taskID));
-        AA.ReSetIt(calendar.getTimeInMillis());
+//        ActionSetAlarm AA = new ActionSetAlarm( this, Integer.valueOf(taskID));
+//        AA.ReSetIt(calendar.getTimeInMillis());
 
     }
 

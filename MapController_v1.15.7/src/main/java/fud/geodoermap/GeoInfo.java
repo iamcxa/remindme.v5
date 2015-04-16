@@ -18,7 +18,7 @@ public class GeoInfo {
      * 能儲存地理位置資訊，預設值 name = "null"，latlng 為設定的值
      * @param latlng 設定經緯度
      */
-    GeoInfo(LatLng latlng){
+    public GeoInfo(LatLng latlng){
         this.latlng=latlng;
     }
 

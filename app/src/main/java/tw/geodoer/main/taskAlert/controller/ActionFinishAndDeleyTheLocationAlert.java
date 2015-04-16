@@ -53,8 +53,8 @@ public class ActionFinishAndDeleyTheLocationAlert extends IntentService {
             @Override
             public void run()
             {
-                ActionSetLocationAlarm ASA = new ActionSetLocationAlarm(getApplicationContext(),task_ID);
-                ASA.SetIt();
+//                ActionSetLocationAlarm ASA = new ActionSetLocationAlarm(getApplicationContext(),task_ID);
+//                ASA.SetIt();
             }
         },5*60*1000);
 

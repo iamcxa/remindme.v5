@@ -65,7 +65,7 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setCancelable(false);
+        this.setCancelable(true);
     }
 
     @Override

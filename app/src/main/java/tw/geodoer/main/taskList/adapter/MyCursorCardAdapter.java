@@ -24,12 +24,12 @@ import tw.geodoer.main.taskList.controller.ActionSetCardFromCursor;
  */
 public class MyCursorCardAdapter extends CardCursorAdapter {
 
-    private MyCursorCard card;
-    private CardShadowView cardShadowView;
-    private CardThumbnailCircle thumb;
+
+private static Context context;
 
     public MyCursorCardAdapter(Context context) {
         super(context);
+        this.context=context;
     }
 
     public static MyCursorCardAdapter newInstance(Context context) {
@@ -38,27 +38,33 @@ public class MyCursorCardAdapter extends CardCursorAdapter {
 
     @Override
     protected Card getCardFromCursor(final Cursor cursor) {
+        ViewHolder viewHolder;
+
+         viewHolder=new ViewHolder();
 
         // 建立卡片物件
-        card = new MyCursorCard(getContext());
-       // card.setShadow(true);
-
-        // Add Thumbnail to card
-        thumb = new CardThumbnailCircle(getContext(), cursor.getInt(0));
-        card.addCardThumbnail(thumb);
+        viewHolder.card = new MyCursorCard(getContext());
+        viewHolder.thumb = new CardThumbnailCircle(getContext(), cursor.getInt(0));
+        viewHolder.card.addCardThumbnail(viewHolder.thumb);
 
         //Set onClick listener
-        card.setOnClickListener(new ActionOnCardClicked(getContext(),cursor));
+        viewHolder.card.setOnClickListener(new ActionOnCardClicked(getContext(),cursor));
 
         // set onLongClick listener;
-        card.setOnLongClickListener(new ActionOnCardLongClicked(getContext(),cursor));
+        viewHolder.card.setOnLongClickListener(new ActionOnCardLongClicked(getContext(),cursor));
 
         // 設定卡片內容
         ActionSetCardFromCursor mActionSetCardFromCursor =
-                new ActionSetCardFromCursor(getContext(), cursor, card);
+                new ActionSetCardFromCursor(getContext(), cursor, viewHolder.card);
         mActionSetCardFromCursor.setIt();
 
-        return card;
+        return viewHolder.card;
+    }
+
+    static class ViewHolder{
+         MyCursorCard card;
+         CardThumbnailCircle thumb;
+        CardShadowView cardShadowView;
     }
 }
 

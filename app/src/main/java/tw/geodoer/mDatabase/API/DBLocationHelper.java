@@ -296,7 +296,7 @@ public class DBLocationHelper {
         // 7 - 地點類型
         values.put(ColumnLocation.KEY.type, type);
         // 8 - 地點關鍵字
-        values.put(ColumnLocation.KEY.tag, tag);
+        values.put(ColumnLocation.KEY.address, tag);
 
         try {
             context.getContentResolver().insert(mUri, values);

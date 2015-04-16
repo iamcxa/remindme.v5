@@ -17,6 +17,10 @@ public class NeoGeoInfo extends GeoInfo
     private long due_date_millis = 0;
     private int flag = 0;
 
+    private String title;
+    private String remark;
+
+
     public NeoGeoInfo()
     {
     }
@@ -32,6 +36,7 @@ public class NeoGeoInfo extends GeoInfo
     {
         this.setMillis(millis);
     }
+
     public NeoGeoInfo(String name,LatLng latlng,long millis)
     {
         this.setName(name);
@@ -44,6 +49,7 @@ public class NeoGeoInfo extends GeoInfo
     {
         super.setName(name);
     }
+
     public void setLatlng(LatLng latlng)
     {
         super.setLatlng(latlng);
@@ -58,6 +64,23 @@ public class NeoGeoInfo extends GeoInfo
     public LatLng getLatlng() { return this.latlng; }
     public long getMillis() { return this.due_date_millis; }
     public int getFlag() { return  this.flag; }
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     private void check_flag()
     {

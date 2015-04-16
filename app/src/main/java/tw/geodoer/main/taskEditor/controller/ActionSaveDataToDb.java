@@ -56,7 +56,7 @@ public class ActionSaveDataToDb {
         saveTableAlert();
 
         setAlert();
-        setLocationAlert();
+        //setLocationAlert();
 
         /**
          * restore in ActionOnCardLongClicked

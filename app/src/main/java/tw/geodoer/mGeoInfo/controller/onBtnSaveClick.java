@@ -26,6 +26,10 @@ public class onBtnSaveClick
         ContentValues values =new ContentValues();
         values.clear();
         values.put(ColumnLocation.KEY.name, geo.name);
+        //-------------------------------------------//
+        // 改成address
+        values.put(ColumnLocation.KEY.address, geo.name);
+        //-------------------------------------------//
         values.put(ColumnLocation.KEY.lat, geo.latlng.latitude);
         values.put(ColumnLocation.KEY.lon, geo.latlng.longitude);
         values.put(ColumnLocation.KEY.lastUsedTime, System.currentTimeMillis());
