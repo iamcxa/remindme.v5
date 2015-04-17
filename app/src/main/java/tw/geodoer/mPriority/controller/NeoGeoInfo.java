@@ -17,8 +17,8 @@ public class NeoGeoInfo extends GeoInfo
     private long due_date_millis = 0;
     private int flag = 0;
 
-    private String title;
-    private String remark;
+    private String title="null";
+    private String remark="null";
 
 
     public NeoGeoInfo()

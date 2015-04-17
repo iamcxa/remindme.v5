@@ -5,6 +5,7 @@ import android.content.Context;
 
 import fud.geodoermap.GeoInfo;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
+import tw.geodoer.mPriority.controller.NeoGeoInfo;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.main.taskEditor.view.TaskEditorMainFragment;
 
@@ -16,7 +17,7 @@ public class onBtnSaveClick
 
    private static CommonEditorVar mEditorVar ;
 
-    public onBtnSaveClick(GeoInfo geo,Context context) {
+    public onBtnSaveClick(NeoGeoInfo geo,Context context) {
 
 //        this.mEditorVar = CommonEditorVar.GetInstance();
 //        mEditorVar.TaskLocation.setName(geo.name);
