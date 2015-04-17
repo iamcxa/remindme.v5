@@ -13,6 +13,7 @@ import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.mGeoInfo.API.CurrentLocation;
 import tw.geodoer.mGeoInfo.API.DistanceCalculator;
+import tw.geodoer.main.taskEditor.controller.ActionSetAlarm;
 
 /**
  * Created by MurasakiYoru on 2015/4/11.
@@ -44,6 +45,8 @@ public class PriorityUpdater
         Runnable r =new update_thread_2(mContext);
         Thread mThread = new Thread(r);
         mHandler.post(mThread);
+
+        mHandler.post(new Thread(new update_thread_setalert(mContext)));
 
     }
 
@@ -122,6 +125,35 @@ public class PriorityUpdater
                 }
             });
 
+        }
+    }
+
+    public class update_thread_setalert implements Runnable
+    {
+        private Context mContext;
+        private DBTasksHelper dbTaskHelper;
+        public update_thread_setalert(Context con)
+        {
+            this.mContext = con;
+            this.dbTaskHelper = new DBTasksHelper(mContext);
+        }
+        @Override
+        public void run()
+        {
+            int count = dbTaskHelper.getCount();
+            if (count == 0) return;
+
+            ArrayList<Integer> ids = dbTaskHelper.getIDArrayListOfTask();
+            if (ids != null)
+                for (int task_id : ids)
+                {
+                    if(dbTaskHelper.getItemInt(task_id,ColumnTask.KEY.status) == 0)
+                    if(dbTaskHelper.getItemLong(task_id,ColumnTask.KEY.due_date_millis)> System.currentTimeMillis())
+                    {
+                        ActionSetAlarm AA = new ActionSetAlarm(mContext,task_id);
+                        AA.SetIt(dbTaskHelper.getItemLong(task_id,ColumnTask.KEY.due_date_millis));
+                    }
+                }
         }
     }
 

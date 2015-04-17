@@ -1,4 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+    <!-- Basic theme information -->
+    <string name="app_name">Geodoer</string>
+
+    <string name="TaskEditor_ActionBar_Title">新しい事項を書く</string>
+
+
+    <!-- 電力選項 -->
+    <string-array name="PowerUsageOptionString">
+        <item>精確</item>
+        <item>バランス</item>
+        <item>節電</item>
+    </string-array>
+    <string-array name="PowerUsageOptionValue">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="String_If_Task_List_Is_Empty">この分類は事項がありません。</string>
+
+    <string name="PowerUsageOptionDefaultValue">0</string>
+    <string name="PowerUsageOptionTittle">位置検出モード</string>
+
+    <!-- 左邊側滑選單 -->
+    <string-array name="drawer_array">
+        <item>スマートリスト</item>
+        <item>スケジュール通り</item>
+        <item>場所によって</item>
+        <item>マップ</item>
+        <item>完成した事項</item>
+        <item>ゴミ箱</item>
+        <item>テスト</item>
+    </string-array>
+
+
+    <!-- Card Long Clcik Menu -->
+    <!-- String -->
+    <string-array name="Array_Task_List_Card_Long_Clcik_String_Normal">
+        <item>完成しました!</item>
+        <item>編集</item>
+        <item>連れてゆく</item>
+        <item>ゴミ箱に捨てる</item>
+    </string-array>
+
+    <!-- String -->
+    <string-array name="Array_Task_List_Card_Long_Clcik_String_TrashCan">
+        <item>リストに戻す</item>
+        <item>消し去れ</item>
+    </string-array>
+
+    <!-- Value -->
+    <string-array name="Array_Task_List_Card_Long_Clcik_Value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_websearch">Web search</string>
+    <string name="action_setting">設定</string>
+    <string name="app_not_available">Sorry, there\'s no web browser available</string>
 </resources>
