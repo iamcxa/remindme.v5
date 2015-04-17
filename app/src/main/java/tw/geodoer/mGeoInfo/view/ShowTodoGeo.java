@@ -109,7 +109,7 @@ public class ShowTodoGeo extends Fragment implements MapController.onGeoLoadLisi
                                 .position(nowLoacation)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))).showInfoWindow();
                         map.animateCamera(CameraUpdateFactory.newLatLngZoom(nowLoacation,
-                                map.getMaxZoomLevel() - 8));
+                                map.getCameraPosition().zoom));
                     }
                 });
 

@@ -76,6 +76,27 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         mContentView = inflater.inflate(R.layout.activity_task_editor_tab_location, container, false);
 
+        final View fab_add = mContentView.findViewById(R.id.fab_nowLoc);
+        fab_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                map.clear();
+                CurrentLocation mNowGeo = new CurrentLocation(getActivity());
+                mNowGeo.setOnLocListenerSetGps("-1", new CurrentLocation.onDistanceListener() {
+                    @Override
+                    public void onGetLatLng(Double lat, Double lng) {
+                        LatLng nowLoacation;
+                        nowLoacation = new LatLng(lat, lng);
+                        map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
+                                .position(nowLoacation)).showInfoWindow();
+                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(nowLoacation,
+                                map.getCameraPosition().zoom));
+                    }
+                });
+            }
+        });
+
+
         PlaceName = (TextView) mContentView.findViewById(R.id.PlaceName);
         SearchText = (EditText) mContentView.findViewById(R.id.SearchText);
         Search = (Button) mContentView.findViewById(R.id.Search);
@@ -121,14 +142,7 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
         } else {
 //            map gps不會停止Bug使用自幹的GPS成
 //            map.setMyLocationEnabled(true);
-            map.getUiSettings().setZoomControlsEnabled(false);
-            LatLng nowLoacation;
-            nowLoacation = new LatLng(23.6978, 120.961);
-            map.moveCamera((CameraUpdateFactory.newLatLngZoom(nowLoacation,
-                    map.getMinZoomLevel() + 7)));
-            map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
-                    .position(nowLoacation));
-
+            map.getUiSettings().setZoomControlsEnabled(true);
             CurrentLocation mNowGeo = new CurrentLocation(getActivity());
             mNowGeo.setOnLocListenerSetGps("-1", new CurrentLocation.onDistanceListener() {
                 @Override
@@ -136,9 +150,9 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
                     LatLng nowLoacation;
                     nowLoacation = new LatLng(lat, lng);
                     map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
-                            .position(nowLoacation));
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLoacation,
-                            map.getMaxZoomLevel() - 5));
+                            .position(nowLoacation)).showInfoWindow();
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(nowLoacation,
+                            map.getMaxZoomLevel() - 8));
                 }
             });
 
