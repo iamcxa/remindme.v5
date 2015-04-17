@@ -92,22 +92,48 @@ public class ActionSetCardFromCursor {
                 itHasTime = true;
             }
             // 轉換成人類易讀
-            if ((180 > dayLeft) && (dayLeft > 14)) {
-                card.dueDate = "約" + (int) Math.floor(dayLeft) / 30 + "個月後的" + due_date_string;;
-            } else if ((14 > dayLeft) && (dayLeft > 0)) {
-                card.dueDate = "約" + dayLeft + "天後的" + due_date_string;
-            } else if ((2 > dayLeft) && (dayLeft > 0)) {
-                card.dueDate = "再 " +
-                        (int) Math.floor(dayLeft * 24) +
-                        "小時後" + due_date_string;
-            } else if (dayLeft == 0) {
-                if(itHasTime)
-                    card.dueDate = "今天的" + due_date_string;
-                else
-                    card.dueDate = "今天";
-            } else {
-                card.dueDate = due_date_string;
+//            if ((180 > dayLeft) && (dayLeft > 14)) {
+//                card.dueDate = "約" + (int) Math.floor(dayLeft) / 30 + "個月後的" + due_date_string;;
+//            } else if ((14 > dayLeft) && (dayLeft > 0)) {
+//                card.dueDate = "約" + dayLeft + "天後的" + due_date_string;
+//            } else if ((2 > dayLeft) && (dayLeft > 0)) {
+//                card.dueDate = "再 " +
+//                        (int) Math.floor(dayLeft * 24) +
+//                        "小時後" + due_date_string;
+//            } else if (dayLeft == 0) {
+//                if(itHasTime)
+//                    card.dueDate = "今天的" + due_date_string;
+//                else
+//                    card.dueDate = "今天";
+//            } else {
+//                card.dueDate = due_date_string;
+//            }
+
+            boolean sign = dayLeft < 0;  // 1 = +    0 = -
+            dayLeft = Math.abs(dayLeft);
+
+            if(dayLeft == 0)
+            {
+                due_date_string = "今天" + (itHasTime ? "的" + due_date_string : "");
+
+                long left_millis = due_date_millis - System.currentTimeMillis();
+                long left_min = left_millis / (1000*60);
+
+                if( (left_min>0) && left_min<60)
+                    due_date_string = due_date_string + "(約"  + left_min + "分鐘後)";
+                else if( (left_min>0) && left_min<360 )
+                    due_date_string = due_date_string + "(約"  + left_min/60 + "個小時後)";
+
+                card.dueDate= due_date_string;
             }
+            else if (dayLeft == 1) card.dueDate = (sign?"明天":"昨天") + due_date_string;
+            else if (dayLeft < 7 ) card.dueDate = "約" + dayLeft   + "天"  + (sign?"後的":"前的")+due_date_string;
+            else if (dayLeft < 30) card.dueDate = "約" + dayLeft/7 + "週"  + (sign?"後的":"前的")+due_date_string;
+            else if (dayLeft <365) card.dueDate = "約" + dayLeft/30 +"個月"+ (sign?"後的":"前的")+due_date_string;
+            else card.dueDate = dayLeft/365 +"年" +(sign?"後":"前") +due_date_string;
+
+            if(due_date_millis < System.currentTimeMillis() ) card.dueDate = card.dueDate + "(到期)";
+
         }
 
         // 標題物件
