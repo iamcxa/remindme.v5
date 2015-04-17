@@ -25,14 +25,11 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
-
 import fud.geodoermap.GeoInfo;
 import fud.geodoermap.GeoStatus;
 import fud.geodoermap.MapController;
 import tw.geodoer.mGeoInfo.API.CurrentLocation;
 import tw.geodoer.mGeoInfo.controller.onBtnSaveClick;
-import tw.geodoer.mPriority.controller.DBtoGeoinfo;
 import tw.geodoer.mPriority.controller.NeoGeoInfo;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 
@@ -131,9 +128,6 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
                     map.getMinZoomLevel() + 7)));
             map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
                     .position(nowLoacation));
-<<<<<<< HEAD
-            map.set
-=======
 
             CurrentLocation mNowGeo = new CurrentLocation(getActivity());
             mNowGeo.setOnLocListenerSetGps("-1", new CurrentLocation.onDistanceListener() {
@@ -148,7 +142,6 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
                 }
             });
 
->>>>>>> origin/devService
             mapController = new MapController(getActivity(),map,PlaceName);
             mapController.isMoveGet(true);
             mapController.setOnGeoLoadedLisitener(this);
