@@ -92,6 +92,11 @@ public class ActionOnCardLongClicked implements  Card.OnLongCardClickListener {
     private void restoreCard(int task_id){
         DBTasksHelper dbTasksHelper=new DBTasksHelper(context);
         dbTasksHelper.setItem(task_id, ColumnTask.KEY.status, ColumnTask.TASK_STATUS_NORMAL);
+
+        ActionSetAlarm AA = new ActionSetAlarm(context,task_id);
+        AA.SetIt();
+        ActionSetLocationAlarm ALA = new ActionSetLocationAlarm(context,task_id);
+        ALA.SetIt();
     }
 
     /*
@@ -193,11 +198,14 @@ public class ActionOnCardLongClicked implements  Card.OnLongCardClickListener {
 
                                     case 2:// 帶我去 - 導航
                                         //  呼叫導航
-                                        DBLocationHelper dbLocationHelper = new DBLocationHelper(context);
-                                        callGoogleMapNavigation(
-                                                dbLocationHelper.getItemDouble(Integer.valueOf(cardID), ColumnLocation.KEY.lat),
-                                                dbLocationHelper.getItemDouble(Integer.valueOf(cardID), ColumnLocation.KEY.lon),
-                                                dbLocationHelper.getItemString(Integer.valueOf(cardID), ColumnLocation.KEY.name));
+                                        DBTasksHelper dbTasksHelper = new DBTasksHelper(context);
+                                        if(dbTasksHelper.getItemInt(task_id,ColumnTask.KEY.location_id)!=0){
+                                            DBLocationHelper dbLocationHelper = new DBLocationHelper(context);
+                                            callGoogleMapNavigation(
+                                                    dbLocationHelper.getItemDouble(Integer.valueOf(cardID), ColumnLocation.KEY.lat),
+                                                    dbLocationHelper.getItemDouble(Integer.valueOf(cardID), ColumnLocation.KEY.lon),
+                                                    dbLocationHelper.getItemString(Integer.valueOf(cardID), ColumnLocation.KEY.name));
+                                        }
                                         break;
 
                                     case 3://丟掉
@@ -231,6 +239,7 @@ public class ActionOnCardLongClicked implements  Card.OnLongCardClickListener {
 
     @Override
     public boolean onLongClick(Card card, View view) {
+
         cursor.moveToPosition(Integer.parseInt(card.getId()));
         switch (ListCursorCardFragment.getPosition()){
             case 5:

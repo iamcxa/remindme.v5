@@ -86,7 +86,7 @@
     <style name="card.shadow_image">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/card_shadow_height</item>
-        <item name="android:src">@drawable/card_shadow</item>
+        <item name="android:src">@drawable/card_shadow_dark</item>
         <item name="android:layout_below">@+id/card_main_content_layout</item>
     </style>
 
@@ -95,6 +95,7 @@
         <item name="android:background">@drawable/card_menu_button_expand</item>
     </style>
 
+    <!-- 自訂對話框 -->
     <style name="MyDialogStyle">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFrame">@null</item>

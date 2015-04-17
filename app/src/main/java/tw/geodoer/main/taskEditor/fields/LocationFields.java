@@ -11,6 +11,7 @@ public class LocationFields {
     public int locationId = -1;
     // 2 - 地點名稱字串
     private String name = "null";
+    private String address = "null";
     // 3 - 4 - 經緯度
     private Double lat = 0.0;
     private Double lon = 0.0;
@@ -28,6 +29,14 @@ public class LocationFields {
     }
 
     //---------------Getter/Setter-----------------//
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     /**
      * @return the LocationId

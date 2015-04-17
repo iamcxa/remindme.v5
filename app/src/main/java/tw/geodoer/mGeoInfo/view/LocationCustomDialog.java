@@ -25,10 +25,15 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 import fud.geodoermap.GeoInfo;
 import fud.geodoermap.GeoStatus;
 import fud.geodoermap.MapController;
+import tw.geodoer.mGeoInfo.API.CurrentLocation;
 import tw.geodoer.mGeoInfo.controller.onBtnSaveClick;
+import tw.geodoer.mPriority.controller.DBtoGeoinfo;
+import tw.geodoer.mPriority.controller.NeoGeoInfo;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 
 /**
@@ -117,16 +122,33 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
         if (map == null) {
             Log.d("", "googleMap is null !!!!!!!!!!!!!!!");
         } else {
-            map.setMyLocationEnabled(true);
+//            map gps不會停止Bug使用自幹的GPS成
+//            map.setMyLocationEnabled(true);
             map.getUiSettings().setZoomControlsEnabled(false);
-            map.setMyLocationEnabled(true);
             LatLng nowLoacation;
             nowLoacation = new LatLng(23.6978, 120.961);
             map.moveCamera((CameraUpdateFactory.newLatLngZoom(nowLoacation,
                     map.getMinZoomLevel() + 7)));
             map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
                     .position(nowLoacation));
+<<<<<<< HEAD
             map.set
+=======
+
+            CurrentLocation mNowGeo = new CurrentLocation(getActivity());
+            mNowGeo.setOnLocListenerSetGps("-1", new CurrentLocation.onDistanceListener() {
+                @Override
+                public void onGetLatLng(Double lat, Double lng) {
+                    LatLng nowLoacation;
+                    nowLoacation = new LatLng(lat, lng);
+                    map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
+                            .position(nowLoacation));
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLoacation,
+                            map.getMaxZoomLevel() - 5));
+                }
+            });
+
+>>>>>>> origin/devService
             mapController = new MapController(getActivity(),map,PlaceName);
             mapController.isMoveGet(true);
             mapController.setOnGeoLoadedLisitener(this);
@@ -200,12 +222,15 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
             mapController.searchPlace(SearchText.getText().toString());
         }
         else if(v.getId() == R.id.save){
-           onBtnSaveClick a = new onBtnSaveClick(geo,getActivity().getApplicationContext());
+            NeoGeoInfo saveGeo = new NeoGeoInfo();
+            saveGeo.setName(geo.name);
+            saveGeo.setLatlng(geo.latlng);
+
+
+            onBtnSaveClick a = new onBtnSaveClick(saveGeo,getActivity().getApplicationContext());
 //            OnBtnSaveClick.saveDB(geo);
             Toast.makeText(getActivity(),geo.name,Toast.LENGTH_SHORT).show();
-           getDialog().cancel();
-            map=null;
-            mapController=null;
+            getDialog().dismiss();
 //            CurrentLocation b = new CurrentLocation(getActivity());
 //            b.setOnDistanceListener(geo.latlng.latitude,geo.latlng.longitude,new CurrentLocation.onDistanceListener() {
 //                @Override

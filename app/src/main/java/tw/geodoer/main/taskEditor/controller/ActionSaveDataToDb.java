@@ -51,11 +51,9 @@ public class ActionSaveDataToDb {
         // 寫入或更新資料庫
         saveTableTasks();
 
-        if(mEditorVar.TaskDate.getmDatePulsTimeMillis() != 0)
-        {
-            saveTableAlert();
-            setAlert();
-        }
+        saveTableAlert();
+
+        setAlert();
 
         saveTableLocation();
         setLocationAlert();
@@ -156,65 +154,25 @@ public class ActionSaveDataToDb {
         values.clear();
         setTableAlert = new setTableAlert(values, this.taskId, this.locId);
 
-        try
-        {
-//            DBAlertHelper mDBalerthelper =  new DBAlertHelper(this.context);
-//            ArrayList<Integer> alert_ids = mDBalerthelper.getIDArrayListOfUnFinishedTask();
-//
-//            if (alert_ids == null) MyDebug.MakeLog(2, "ids==null");
-//            if (alert_ids.isEmpty()) MyDebug.MakeLog(2, "ids.isEmpty()");
-//
-//            if (alert_ids != null)
-//                for (int id : alert_ids)
-//                {
-//                    //MyDebug.MakeLog(2, "UnFinished id = " + id);
-//
-//                    if (mDBalerthelper.getItemInt(id, ColumnAlert.KEY.task_id) == this.taskId)
-//                        mDBalerthelper.setItem(id, ColumnAlert.KEY.state, 1);
-//                }
-
-            this.alertId =(int) ContentUris.parseId(context.getContentResolver().insert(ColumnAlert.URI, values));
-        }
-        catch (Exception e) { MyDebug.MakeLog(2, "saveTableAlert A error=" + e); }
-
+        this.alertId =(int) ContentUris.parseId(context.getContentResolver().insert(ColumnAlert.URI, values));
     }
     private  void setAlert()
     {
-        values.clear();
-        setTableAlert = new setTableAlert(values, this.taskId, this.locId);
-
         ActionSetAlarm AA =new ActionSetAlarm(this.context , this.taskId);
-        AA.SetIt( mEditorVar.TaskAlert.getDue_date_millis() );
+        AA.SetIt();
     }
 
     private void saveTableLocation()
     {
 
         this.locId = mEditorVar.Task.getLocation_id();
-
-        DBTasksHelper mDBtaskhelper = new DBTasksHelper(context);
-        mDBtaskhelper.setItem(taskId, ColumnTask.KEY.location_id, this.locId);
-
+        DBTasksHelper mDBT = new DBTasksHelper(context);
+        mDBT.setItem(taskId, ColumnTask.KEY.location_id, this.locId);
     }
     private void setLocationAlert()
     {
-
-
         ActionSetLocationAlarm ASLA = new ActionSetLocationAlarm(context, taskId);
-
-        if(this.locId > 0)
-        {
-            DBLocationHelper mDBT = new DBLocationHelper(context);
-            double lat = mDBT.getItemDouble(locId,ColumnLocation.KEY.lat);
-            double lon = mDBT.getItemDouble(locId,ColumnLocation.KEY.lon);
-
-            if(mEditorVar.Task.getDue_date_millis() == 0)ASLA.SetIt(lat,lon);
-            else if(mEditorVar.Task.getDue_date_millis() == 0)
-                ASLA.SetIt(lat,lon,mEditorVar.TaskAlert.getDue_date_millis() - System.currentTimeMillis());
-
-        }
-        else ASLA.CancelIt();
-
+        ASLA.SetIt();
     }
 //-------------------------------------------------------------------------------------------------//
     // 判斷本次操作是寫入新資料或更新已存在資料

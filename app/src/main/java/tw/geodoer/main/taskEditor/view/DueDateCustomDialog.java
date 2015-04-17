@@ -11,15 +11,11 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CalendarView.OnDateChangeListener;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
@@ -54,41 +50,37 @@ public class DueDateCustomDialog extends AlertDialog
     /**
      * Our custom list view adapter for tab 1 listView (listView01).
      */
-    ListView01Adapter listView01Adapter = null;
+    //ListView01Adapter listView01Adapter = null;
     private String selectedDate = "";
 
     //private ViewGroup viewGroup=(ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content);
     private String selectedTime = "";
     private LayoutInflater inflater = getWindow().getLayoutInflater();
     @SuppressLint("InflateParams")
-    private View dialoglayout = inflater.inflate(R.layout.custom_dialog_duedate, null);
-    private TabHost tabs = (TabHost) dialoglayout.findViewById(R.id.TabHost01);
+    private View dialogLayout = inflater.inflate(R.layout.custom_dialog_duedate, null);
+    private TabHost tabs = (TabHost) dialogLayout.findViewById(R.id.TabHost01);
     /**
      * Time Picker On-Time-Changed-Listener
      */
-    private OnTimeChangedListener timeChangedListener = new OnTimeChangedListener() {
-        @Override
-        public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-            // TODO Auto-generated method stub
-            //			// get millisecond from calendar selected.
-            //			mEditorVar.TaskDate.setmHour(view.getCurrentHour());
-            //			mEditorVar.TaskDate.setmMinute(view.getCurrentMinute());
-            //
-            //			// give a new title with selected date.
-            //			String newTab2Title=view.getCurrentHour()+":"+view.getCurrentMinute();
-            //			setTab2Title(newTab2Title);
-            //
-            //			selectedTime=mEditorVar.TaskDate.getmHour()+":"+mEditorVar.TaskDate.getmMinute();
-            //			MyDebug.MakeLog(0, "The time you Selected="+selectedTime);
-            //
-        }
-    };
+//    private OnTimeChangedListener timeChangedListener = new OnTimeChangedListener() {
+//        @Override
+//        public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+//            // TODO Auto-generated method stub
+//            //			// get millisecond from calendar selected.
+//            //			mEditorVar.TaskDate.setmHour(view.getCurrentHour());
+//            //			mEditorVar.TaskDate.setmMinute(view.getCurrentMinute());
+//            //
+//            //			// give a new title with selected date.
+//            //			String newTab2Title=view.getCurrentHour()+":"+view.getCurrentMinute();
+//            //			setTab2Title(newTab2Title);
+//            //
+//            //			selectedTime=mEditorVar.TaskDate.getmHour()+":"+mEditorVar.TaskDate.getmMinute();
+//            //			MyDebug.MakeLog(0, "The time you Selected="+selectedTime);
+//            //
+//        }
+//    };
 
-    /**
-     * Default constructor.
-     *
-     * @param context
-     */
+
     public DueDateCustomDialog(Context context) {
         super(context);
 
@@ -106,7 +98,7 @@ public class DueDateCustomDialog extends AlertDialog
         this.getWindow().setAttributes(params);
 
         // set custom dialog layout
-        setView(dialoglayout);
+        setView(dialogLayout);
 
         // get our tabHost from the xml
         tabs.setup();
@@ -114,24 +106,24 @@ public class DueDateCustomDialog extends AlertDialog
         // create tab 1 - calendar - a date picker
         String tab1_Title =
                 MyCalendar.getThisMonth()
-                        + getContext().getResources().getString(R.string.String_Task_Editor_Date_Month).toString()
+                        + getContext().getResources().getString(R.string.String_Task_Editor_Date_Month)
                         + MyCalendar.getThisDay()
-                        + getContext().getResources().getString(R.string.String_Task_Editor_Date_Day).toString();
+                        + getContext().getResources().getString(R.string.String_Task_Editor_Date_Day);
         TabHost.TabSpec tab1 = tabs.newTabSpec("tab1");
         tab1.setContent(R.id.calendarView01);
         tab1.setIndicator(tab1_Title);
         tabs.addTab(tab1);
 
         // create tab 2	- time picker
-        String tab2_Title = getContext().getResources().getString(R.string.String_Task_Editor_Dialog_Pick_A_Time).toString();
+        String tab2_Title = getContext().getResources().getString(R.string.String_Task_Editor_Dialog_Pick_A_Time);
         TabHost.TabSpec tab2 = tabs.newTabSpec("tab2");
         tab2.setContent(R.id.timePicker01);
         tab2.setIndicator(tab2_Title);
         tabs.addTab(tab2);
 
-        // set listview and tab3- disable
+        // set listView and tab3- disable
         //setListViews(context);
-        ListView listView01 = (ListView) dialoglayout.findViewById(R.id.listView01);
+        ListView listView01 = (ListView) dialogLayout.findViewById(R.id.listView01);
         listView01.setVisibility(View.GONE);
 
         // set tab host Tab Changed Listener - to add/remove button dynamically.
@@ -153,52 +145,52 @@ public class DueDateCustomDialog extends AlertDialog
         this.setOnShowListener(this);
 
         // Calendar - data picker
-        CalendarView cal = (CalendarView) dialoglayout.findViewById(R.id.calendarView01);
+        CalendarView cal = (CalendarView) dialogLayout.findViewById(R.id.calendarView01);
         cal.setOnDateChangeListener(this);
 
         // TimePicker
-        TimePicker tPicker = (TimePicker) dialoglayout.findViewById(R.id.timePicker01);
+        TimePicker tPicker = (TimePicker) dialogLayout.findViewById(R.id.timePicker01);
         tPicker.setOnTimeChangedListener(this);
         tPicker.setIs24HourView(true);
     }
 
-    private void setListViews(Context context) {
-        // TODO Auto-generated method stub
-        // instantiate our list views for each tab
-        ListView listView01 = (ListView) dialoglayout.findViewById(R.id.listView01);
-
-        // register a context menu for all our listView02 items
-        registerForContextMenu(listView01);
-
-        // instantiate and set our custom list view adapters
-        listView01Adapter = new ListView01Adapter(context);
-        listView01.setAdapter(listView01Adapter);
-
-        // bind a click listener to the listView01 list
-        listView01.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parentView, View childView, int position, long id) {
-                // will dismiss the dialog
-                dismiss();
-            }
-        });
-
-        // create tab 3
-        TabHost.TabSpec tab3 = tabs.newTabSpec("tab3");
-        tab3.setContent(R.id.listView01);
-        tab3.setIndicator("jj");
-        tabs.addTab(tab3);
-    }
+//    private void setListViews(Context context) {
+//        // TODO Auto-generated method stub
+//        // instantiate our list views for each tab
+//        ListView listView01 = (ListView) dialogLayout.findViewById(R.id.listView01);
+//
+//        // register a context menu for all our listView02 items
+//        registerForContextMenu(listView01);
+//
+//        // instantiate and set our custom list view adapters
+//        listView01Adapter = new ListView01Adapter(context);
+//        listView01.setAdapter(listView01Adapter);
+//
+//        // bind a click listener to the listView01 list
+//        listView01.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parentView, View childView, int position, long id) {
+//                // will dismiss the dialog
+//                dismiss();
+//            }
+//        });
+//
+//        // create tab 3
+//        TabHost.TabSpec tab3 = tabs.newTabSpec("tab3");
+//        tab3.setContent(R.id.listView01);
+//        tab3.setIndicator("jj");
+//        tabs.addTab(tab3);
+//    }
 
     /**
      *
      */
     private void getSelectedDate() {
         // get millisecond from calendar selected.
-        mEditorVar.TaskDate.setmOnlyDateMillis(getDatePicker().getDate());
+        CommonEditorVar.TaskDate.setmOnlyDateMillis(getDatePicker().getDate());
 
         // transform Millisecond to MMYYDD
-        String YYMMDD = MyCalendar.getDate_From_TimeMillis(false, mEditorVar.TaskDate.getmOnlyDateMillis());
+        String YYMMDD = MyCalendar.getDate_From_TimeMillis(false, CommonEditorVar.TaskDate.getmOnlyDateMillis());
         String YYMMDD_Array[] = YYMMDD.split("/");
 
         int mYear = Integer.valueOf(YYMMDD_Array[0]);
@@ -206,10 +198,10 @@ public class DueDateCustomDialog extends AlertDialog
         int mDay = Integer.valueOf(YYMMDD_Array[2]);
 
         // 設定calendar view的年/月/日/毫秒到mEditorVar中保存
-        mEditorVar.TaskDate.setmYear(mYear);
-        mEditorVar.TaskDate.setmMonth(mMonth);
-        mEditorVar.TaskDate.setmDay(mDay);
-        mEditorVar.TaskDate.setmOnlyDateMillis(getDatePicker().getDate());
+        CommonEditorVar.TaskDate.setmYear(mYear);
+        CommonEditorVar.TaskDate.setmMonth(mMonth);
+        CommonEditorVar.TaskDate.setmDay(mDay);
+        CommonEditorVar.TaskDate.setmOnlyDateMillis(getDatePicker().getDate());
 
         selectedDate = YYMMDD;
 
@@ -221,37 +213,41 @@ public class DueDateCustomDialog extends AlertDialog
      */
     private void getSelectedTime() {
         if ((getBtnNutral().getVisibility()) == (View.VISIBLE)) {
+
+            selectedTime =
+                    getTimePicker().getCurrentHour()
+                            + ":"
+                            + getTimePicker().getCurrentMinute();
+
             // get millisecond from calendar selected.
-            mEditorVar.TaskDate.setmHour(getTimePicker().getCurrentHour());
-            mEditorVar.TaskDate.setmMinute(getTimePicker().getCurrentMinute());
+            CommonEditorVar.TaskDate.setmHour(getTimePicker().getCurrentHour());
+            CommonEditorVar.TaskDate.setmMinute(getTimePicker().getCurrentMinute());
 
             MyDebug.MakeLog(0,
                     "The time you Selected="
-                            + mEditorVar.TaskDate.getmHour() + ":"
-                            + mEditorVar.TaskDate.getmMinute());
+                            + CommonEditorVar.TaskDate.getmHour() + ":"
+                            + CommonEditorVar.TaskDate.getmMinute());
         }
     }
 
     private TimePicker getTimePicker() {
-        final TimePicker tPicker = (TimePicker) dialoglayout.findViewById(R.id.timePicker01);
+        final TimePicker tPicker;
+        tPicker = (TimePicker) dialogLayout.findViewById(R.id.timePicker01);
         return tPicker;
     }
 
     private CalendarView getDatePicker() {
-        final CalendarView cal = (CalendarView) dialoglayout.findViewById(R.id.calendarView01);
+        final CalendarView cal;
+        cal = (CalendarView) dialogLayout.findViewById(R.id.calendarView01);
         return cal;
     }
 
     private TextView getTab1Title() {
-        TextView tab1Title =
-                (TextView) tabs.getTabWidget().getChildAt(0).findViewById(android.R.id.title);
-        return tab1Title;
+        return (TextView) tabs.getTabWidget().getChildAt(0).findViewById(android.R.id.title);
     }
 
     private TextView getTab2Title() {
-        TextView tab2Title =
-                (TextView) tabs.getTabWidget().getChildAt(1).findViewById(android.R.id.title);
-        return tab2Title;
+        return (TextView) tabs.getTabWidget().getChildAt(1).findViewById(android.R.id.title);
     }
 
     private void setTab2Title(String newTab2Title) {
@@ -260,19 +256,16 @@ public class DueDateCustomDialog extends AlertDialog
     }
 
     private Button getBtnNutral() {
-        Button nutralButton = getButton(DialogInterface.BUTTON_NEUTRAL);
-        return nutralButton;
+        return getButton(DialogInterface.BUTTON_NEUTRAL);
     }
 
     private Button getBtnPositive() {
-        Button positiveButton = getButton(DialogInterface.BUTTON_POSITIVE);
         //Button negativeButton = getButton(AlertDialog.BUTTON_NEGATIVE);
-        return positiveButton;
+        return getButton(DialogInterface.BUTTON_POSITIVE);
     }
 
     private Button getBtnNegative() {
-        Button negativeButton = getButton(DialogInterface.BUTTON_NEGATIVE);
-        return negativeButton;
+        return getButton(DialogInterface.BUTTON_NEGATIVE);
     }
 
     private void setTab1Title(int year, int month, int dayOfMonth) {
@@ -282,14 +275,14 @@ public class DueDateCustomDialog extends AlertDialog
         if ((year) != Integer.valueOf(MyCalendar.getThisYear()))
             optionalYear = String.valueOf(year)
                     + getContext().getResources().
-                    getString(R.string.String_Task_Editor_Date_Year).toString();
+                    getString(R.string.String_Task_Editor_Date_Year);
 
         String newTab1Title =
                 optionalYear
                         + month
-                        + getContext().getResources().getString(R.string.String_Task_Editor_Date_Month).toString()
+                        + getContext().getResources().getString(R.string.String_Task_Editor_Date_Month)
                         + dayOfMonth
-                        + getContext().getResources().getString(R.string.String_Task_Editor_Date_Day).toString();
+                        + getContext().getResources().getString(R.string.String_Task_Editor_Date_Day);
 
         getTab1Title().setText(newTab1Title);
     }
@@ -345,7 +338,7 @@ public class DueDateCustomDialog extends AlertDialog
         }
     }
 
-    private void setBtnAction_Nutral() {
+    private void setBtnAction_Neutral() {
         selectedTime = "";
 
         setTab2Title(getContext().getResources()
@@ -354,13 +347,13 @@ public class DueDateCustomDialog extends AlertDialog
         // 隱藏按鈕
         getBtnNutral().setVisibility(View.GONE);
 
-        // 切換tabhost到日期
+        // 切換tabHost到日期
         tabs.setCurrentTab(0);
 
         // mEditorVar
-        mEditorVar.TaskDate.setmDatePulsTimeMillis(0);
-        mEditorVar.TaskDate.setmHour(0);
-        mEditorVar.TaskDate.setmMinute(0);
+        CommonEditorVar.TaskDate.setmDatePulsTimeMillis(0);
+        CommonEditorVar.TaskDate.setmHour(0);
+        CommonEditorVar.TaskDate.setmMinute(0);
     }
 
     /**
@@ -381,6 +374,7 @@ public class DueDateCustomDialog extends AlertDialog
     //			MyDebug.MakeLog(0, "The date you Selected="+selectedDate);
     //		}
     //	};
+
 
     private void fixUpDatePickerCalendarView(Calendar date) {
         // Workaround for CalendarView bug relating to setMinDate():
@@ -414,7 +408,7 @@ public class DueDateCustomDialog extends AlertDialog
     //				break;
     //			case Dialog.BUTTON_NEUTRAL:		// 取消時間
     //				setDialogShowing(dialog);
-    //				setBtnAction_Nutral();
+    //				setBtnAction_Neutral();
     //
     //				break;
     //			case Dialog.BUTTON_NEGATIVE:	// 取消全部
@@ -443,8 +437,8 @@ public class DueDateCustomDialog extends AlertDialog
     //
     //				// 判斷 TaskEditorMain.getTaskDueDate() 是否有"/"符號
     //				if(existDueDate.contains("/")){
-    //					// 以"◎"符號分隔日期與時間 - YYYY/MM/DD◎HH:MM - 以[0]確保一定是抓到日期
-    //					String[] arrayExistDueDate=existDueDate.split("◎");
+    //					// 以";"符號分隔日期與時間 - YYYY/MM/DD;HH:MM - 以[0]確保一定是抓到日期
+    //					String[] arrayExistDueDate=existDueDate.split(";");
     //
     //					// 以"/"符號分隔年月日 - YYYY/MM/DD
     //					String[] arrayExistDueDateDetail=arrayExistDueDate[0].split("/");
@@ -467,7 +461,7 @@ public class DueDateCustomDialog extends AlertDialog
     //
     //					// 讀時間資料到 tab 2 title.
     //					// 如果有該欄位有時間部分, 則將其放入selectedTime.
-    //					if(existDueDate.contains("◎")) {
+    //					if(existDueDate.contains(";")) {
     //						getBtnNutral().setVisibility(View.VISIBLE);
     //						selectedTime=arrayExistDueDate[1];
     //						setTab2Title(selectedTime);
@@ -483,7 +477,7 @@ public class DueDateCustomDialog extends AlertDialog
     //					// log
     //					MyDebug.MakeLog(0, "arrayExistDueDate[0]="+arrayExistDueDate[0]);
     //					MyDebug.MakeLog(0, "existDueDate="+existDueDate);
-    //					if(existDueDate.contains("◎")) MyDebug.MakeLog(0, "arrayExistDueDate[1]="+arrayExistDueDate[1]);
+    //					if(existDueDate.contains(";")) MyDebug.MakeLog(0, "arrayExistDueDate[1]="+arrayExistDueDate[1]);
     //					MyDebug.MakeLog(0, "dueDateMillis="+dueDateMillis);
     //
     //				}else {
@@ -544,7 +538,7 @@ public class DueDateCustomDialog extends AlertDialog
     public void onTabChanged(String tabId) {
         // TODO Auto-generated method stub
         // tab2=時間
-        if (tabId == "tab2") {
+        if (tabId.equals("tab2")) {
             selectedTime = getTimePicker().getCurrentHour() + ":" + getTimePicker().getCurrentMinute();
 
             getBtnNutral().setVisibility(View.VISIBLE);
@@ -570,8 +564,8 @@ public class DueDateCustomDialog extends AlertDialog
 
             // 判斷 TaskEditorMain.getTaskDueDate() 是否有"/"符號
             if (existDueDate.contains("/")) {
-                // 以"◎"符號分隔日期與時間 - YYYY/MM/DD◎HH:MM - 以[0]確保一定是抓到日期
-                String[] arrayExistDueDate = existDueDate.split("◎");
+                // 以";"符號分隔日期與時間 - YYYY/MM/DD;HH:MM - 以[0]確保一定是抓到日期
+                String[] arrayExistDueDate = existDueDate.split(";");
 
                 // 以"/"符號分隔年月日 - YYYY/MM/DD
                 String[] arrayExistDueDateDetail = arrayExistDueDate[0].split("/");
@@ -597,7 +591,7 @@ public class DueDateCustomDialog extends AlertDialog
 
                 // 讀時間資料到 tab 2 title.
                 // 如果有該欄位有時間部分, 則將其放入selectedTime.
-                if (existDueDate.contains("◎")) {
+                if (existDueDate.contains(";")) {
                     getBtnNutral().setVisibility(View.VISIBLE);
                     selectedTime = arrayExistDueDate[1];
                     setTab2Title(selectedTime);
@@ -613,7 +607,7 @@ public class DueDateCustomDialog extends AlertDialog
                 // log
                 MyDebug.MakeLog(0, "arrayExistDueDate[0]=" + arrayExistDueDate[0]);
                 MyDebug.MakeLog(0, "existDueDate=" + existDueDate);
-                if (existDueDate.contains("◎"))
+                if (existDueDate.contains(";"))
                     MyDebug.MakeLog(0, "arrayExistDueDate[1]=" + arrayExistDueDate[1]);
                 MyDebug.MakeLog(0, "dueDateMillis=" + calendar.getTimeInMillis());
 
@@ -632,14 +626,14 @@ public class DueDateCustomDialog extends AlertDialog
     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
         // TODO Auto-generated method stub
         // get millisecond from calendar selected.
-        mEditorVar.TaskDate.setmHour(view.getCurrentHour());
-        mEditorVar.TaskDate.setmMinute(view.getCurrentMinute());
+        CommonEditorVar.TaskDate.setmHour(view.getCurrentHour());
+        CommonEditorVar.TaskDate.setmMinute(view.getCurrentMinute());
 
         // give a new title with selected date.
         String newTab2Title = view.getCurrentHour() + ":" + view.getCurrentMinute();
         setTab2Title(newTab2Title);
 
-        selectedTime = mEditorVar.TaskDate.getmHour() + ":" + mEditorVar.TaskDate.getmMinute();
+        selectedTime = CommonEditorVar.TaskDate.getmHour() + ":" + CommonEditorVar.TaskDate.getmMinute();
         MyDebug.MakeLog(2, "The time you Selected=" + selectedTime);
     }
 
@@ -656,13 +650,13 @@ public class DueDateCustomDialog extends AlertDialog
 
         setTab1Title(year, month + 1, dayOfMonth);
 
-        mEditorVar.TaskDate.setmYear(year);
-        mEditorVar.TaskDate.setmMonth(month + 1);
-        mEditorVar.TaskDate.setmDay(dayOfMonth);
+        CommonEditorVar.TaskDate.setmYear(year);
+        CommonEditorVar.TaskDate.setmMonth(month + 1);
+        CommonEditorVar.TaskDate.setmDay(dayOfMonth);
 
-        selectedDate = mEditorVar.TaskDate.getmYear() + "/"
-                + mEditorVar.TaskDate.getmMonth() + "/" +
-                mEditorVar.TaskDate.getmDay();
+        selectedDate = CommonEditorVar.TaskDate.getmYear() + "/"
+                + CommonEditorVar.TaskDate.getmMonth() + "/" +
+                CommonEditorVar.TaskDate.getmDay();
         MyDebug.MakeLog(2, "The date you Selected=" + selectedDate);
     }
 
@@ -681,7 +675,7 @@ public class DueDateCustomDialog extends AlertDialog
                 break;
             case DialogInterface.BUTTON_NEUTRAL:        // 取消時間
                 setDialogShowing(dialog);
-                setBtnAction_Nutral();
+                setBtnAction_Neutral();
 
                 break;
             case DialogInterface.BUTTON_NEGATIVE:    // 取消全部
@@ -689,93 +683,6 @@ public class DueDateCustomDialog extends AlertDialog
                 setDialogDismiss(dialog);
 
                 break;
-        }
-    }
-
-    /**
-     * A custom list adapter for the listView01
-     */
-    private class ListView01Adapter extends BaseAdapter {
-        public ListView01Adapter(Context context) {
-
-        }
-
-        /**
-         * This is used to return how many rows are in the list view
-         */
-        @Override
-        public int getCount() {
-            // add code here to determine how many results we have, hard coded for now
-
-            return 2;
-        }
-
-        /**
-         * Should return whatever object represents one row in the
-         * list.
-         */
-        @Override
-        public Object getItem(int position) {
-            return position;
-        }
-
-        /**
-         * Used to return the id of any custom data object.
-         */
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        /**
-         * This is used to define each row in the list view.
-         */
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View row = convertView;
-
-            // our custom holder will represent the view on each row. See class below.
-            ListView01Holder holder = null;
-
-            if (row == null) {
-                LayoutInflater inflater = getLayoutInflater();
-
-                // inflate our row from xml
-                row = inflater.inflate(R.layout.custom_dialog_list_view_01_row, parent, false);
-
-                // instantiate our holder
-                holder = new ListView01Holder(row);
-
-                // set our holder to the row
-                row.setTag(holder);
-
-            } else {
-                holder = (ListView01Holder) row.getTag();
-            }
-            return row;
-        }
-
-        // our custom holder
-        class ListView01Holder {
-            // text view
-            private TextView text = null;
-
-            // image view
-            private ImageView image = null;
-
-            ListView01Holder(View row) {
-                // get out text view from xml
-                text = (TextView) row.findViewById(R.id.list_view_01_row_text_view);
-
-                // add code here to set the text
-                //text.setText(getContext().getResources().getString(R.array.Array_TaskEditor_btnTaskDueDate_String));
-
-                // get our image view from xml
-                image = (ImageView) row.findViewById(R.id.list_view_01_row_image_view);
-
-                // add code here to determine which image to load, hard coded for now
-                image.setImageResource(R.drawable.map_marker);
-            }
         }
     }
 }

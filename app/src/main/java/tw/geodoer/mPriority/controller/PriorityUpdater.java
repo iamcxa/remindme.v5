@@ -77,7 +77,8 @@ public class PriorityUpdater
                         for (int task_id : ids)
                         {
                             int locID = dbTaskHelper.getItemInt(task_id, ColumnTask.KEY.location_id);
-                            if (locID == 0)
+                            int state = dbTaskHelper.getItemInt(task_id, ColumnTask.KEY.status);
+                            if (locID == 0 && state ==0)
                             {
                                 PriorityCalculatorNew Cal = new PriorityCalculatorNew();
                                 long due_time, left_time;
@@ -89,7 +90,7 @@ public class PriorityUpdater
 
                                 dbTaskHelper.setItem(task_id, ColumnTask.KEY.priority, Cal.getweight(left_time, 0));
                             }
-                            else
+                            else if(state == 0 )
                             {
                                 double itemlat = dbLocationHelper.getItemDouble(locID, ColumnLocation.KEY.lat);
                                 double itemlon = dbLocationHelper.getItemDouble(locID, ColumnLocation.KEY.lon);

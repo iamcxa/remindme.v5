@@ -4,6 +4,7 @@ package tw.geodoer.main.taskList.controller;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
@@ -17,7 +18,7 @@ import tw.geodoer.utils.MyDebug;
  */
 public class ActionOnCardClicked implements  Card.OnCardClickListener{
     private static Context context;
-    //private static Card card;
+   // private static Card card;
     private static Cursor cursor;
     //private static MyCursorCardAdapter mMyCursorCardAdapter;
     //private static MyCursorCardAdapter myAdapter;
@@ -25,7 +26,7 @@ public class ActionOnCardClicked implements  Card.OnCardClickListener{
     public ActionOnCardClicked(Context context, Cursor cursor) {
         ActionOnCardClicked.context = context;
         ActionOnCardClicked.cursor = cursor;
-        //ActionOnCardClicked.card = card;
+       // ActionOnCardClicked.card = card;
        // ActionOnCardClicked.myAdapter = myAdapter;
     }
 
@@ -82,5 +83,6 @@ public class ActionOnCardClicked implements  Card.OnCardClickListener{
     @Override
     public void onClick(Card card, View view) {
         readIt(card.getId());
+card.setBackgroundResourceId(Color.CYAN);
     }
 }

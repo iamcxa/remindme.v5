@@ -8,6 +8,7 @@ import android.database.Cursor;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardCursorAdapter;
+import it.gmariotti.cardslib.library.view.component.CardShadowView;
 import tw.geodoer.main.taskList.cardsui.CardThumbnailCircle;
 import tw.geodoer.main.taskList.cardsui.MyCursorCard;
 import tw.geodoer.main.taskList.controller.ActionOnCardClicked;
@@ -23,8 +24,12 @@ import tw.geodoer.main.taskList.controller.ActionSetCardFromCursor;
  */
 public class MyCursorCardAdapter extends CardCursorAdapter {
 
+
+private static Context context;
+
     public MyCursorCardAdapter(Context context) {
         super(context);
+        this.context=context;
     }
 
     public static MyCursorCardAdapter newInstance(Context context) {
@@ -33,30 +38,33 @@ public class MyCursorCardAdapter extends CardCursorAdapter {
 
     @Override
     protected Card getCardFromCursor(final Cursor cursor) {
+        ViewHolder viewHolder;
+
+         viewHolder=new ViewHolder();
 
         // 建立卡片物件
-        MyCursorCard card = new MyCursorCard(getContext());
-
-        // 設定卡片內容
-        ActionSetCardFromCursor mActionSetCardFromCursor = new ActionSetCardFromCursor(getContext(), cursor, card);
-        mActionSetCardFromCursor.setIt();
-
-
-
-        // Add Thumbnail to card
-        // final MyCardThumbnail thumb = new MyCardThumbnail(getContext());
-        // thumb.setDrawableResource(card.resourceIdThumb);
-        CardThumbnailCircle thumb = new CardThumbnailCircle(getContext(), cursor.getInt(0));
-        card.addCardThumbnail(thumb);
+        viewHolder.card = new MyCursorCard(getContext());
+        viewHolder.thumb = new CardThumbnailCircle(getContext(), cursor.getInt(0));
+        viewHolder.card.addCardThumbnail(viewHolder.thumb);
 
         //Set onClick listener
-        card.setOnClickListener(new ActionOnCardClicked(getContext(),cursor));
+        viewHolder.card.setOnClickListener(new ActionOnCardClicked(getContext(),cursor));
 
         // set onLongClick listener;
-        card.setLongClickable(true);
-        card.setOnLongClickListener(new ActionOnCardLongClicked(getContext(),cursor));
+        viewHolder.card.setOnLongClickListener(new ActionOnCardLongClicked(getContext(),cursor));
 
-        return card;
+        // 設定卡片內容
+        ActionSetCardFromCursor mActionSetCardFromCursor =
+                new ActionSetCardFromCursor(getContext(), cursor, viewHolder.card);
+        mActionSetCardFromCursor.setIt();
+
+        return viewHolder.card;
+    }
+
+    static class ViewHolder{
+         MyCursorCard card;
+         CardThumbnailCircle thumb;
+        CardShadowView cardShadowView;
     }
 }
 

@@ -144,9 +144,8 @@ public class TaskEditorTabFragment extends ActionBarActivity
             try {
 
                 // 取得最
-
                 mSaveOrUpdate = new ActionSaveDataToDb(
-                        getApplicationContext()
+                        this
                         , mEditorVar.Task.getTaskId()
                         , lastTaskID()+1
                         , 0//lastLocID()

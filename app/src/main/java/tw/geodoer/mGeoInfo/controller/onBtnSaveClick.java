@@ -5,6 +5,7 @@ import android.content.Context;
 
 import fud.geodoermap.GeoInfo;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
+import tw.geodoer.mPriority.controller.NeoGeoInfo;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.main.taskEditor.view.TaskEditorMainFragment;
 
@@ -16,7 +17,7 @@ public class onBtnSaveClick
 
    private static CommonEditorVar mEditorVar ;
 
-    public onBtnSaveClick(GeoInfo geo,Context context) {
+    public onBtnSaveClick(NeoGeoInfo geo,Context context) {
 
 //        this.mEditorVar = CommonEditorVar.GetInstance();
 //        mEditorVar.TaskLocation.setName(geo.name);
@@ -26,6 +27,10 @@ public class onBtnSaveClick
         ContentValues values =new ContentValues();
         values.clear();
         values.put(ColumnLocation.KEY.name, geo.name);
+        //-------------------------------------------//
+        // 改成address
+        values.put(ColumnLocation.KEY.address, geo.name);
+        //-------------------------------------------//
         values.put(ColumnLocation.KEY.lat, geo.latlng.latitude);
         values.put(ColumnLocation.KEY.lon, geo.latlng.longitude);
         values.put(ColumnLocation.KEY.lastUsedTime, System.currentTimeMillis());

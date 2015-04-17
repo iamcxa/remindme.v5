@@ -49,7 +49,6 @@ public class LocationAlertHandler extends IntentService {
 
         setNotification(getApplicationContext(), taskID);
 
-        stopSelf();
     }
 
     //
@@ -99,7 +98,7 @@ public class LocationAlertHandler extends IntentService {
                         //.setFullScreenIntent(pedingIntentDialog, true)
                 .setContentIntent(pedingIntentMain)
                 .setVibrate(tVibrate)
-                .setOngoing(true)
+                //.setOngoing(true)
                 .setPriority(16)
                 .setSound(Uri.parse(MyPreferences.mPreferences.getString("ringtonePref", context.getFilesDir().getAbsolutePath() + "/fallbackring.ogg")))
                 .build();

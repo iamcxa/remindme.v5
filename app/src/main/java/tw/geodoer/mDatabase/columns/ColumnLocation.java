@@ -32,7 +32,7 @@ public final class ColumnLocation implements BaseColumns {
                     + KEY.lastUsedTime + " INTEGER,"
                     + KEY.weight + " INTEGER,"
                     + KEY.type + " INTEGER,"
-                    + KEY.tag + " TEXT"
+                    + KEY.address + " TEXT"
                     + ");";
     // 查詢欄位陣列
     public static final String[] PROJECTION = new String[]{
@@ -44,7 +44,7 @@ public final class ColumnLocation implements BaseColumns {
             KEY.lastUsedTime,
             KEY.weight,
             KEY.type,
-            KEY.tag
+            KEY.address
     };
     private ColumnLocation() {
     }
@@ -59,7 +59,7 @@ public final class ColumnLocation implements BaseColumns {
         public static final String lastUsedTime = "lastUsedTime";
         public static final String weight = "weight";
         public static final String type = "type";
-        public static final String tag = "tag";
+        public static final String address = "address";
 
 
         // 欄位索引
@@ -72,7 +72,7 @@ public final class ColumnLocation implements BaseColumns {
             public static final int lastUsedTime = 5;
             public static final int weight = 6;
             public static final int type = 7;
-            public static final int tag = 8;
+            public static final int address = 8;
         }
     }
 }

@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.geodoer.geotodo.R;
 
+import tw.geodoer.mGeoInfo.view.ShowTodoGeo;
 import tw.geodoer.mPriority.controller.PriorityUpdater;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
@@ -39,35 +40,27 @@ import tw.geodoer.utils.MyDebug;
  * @author cxa Main Activity
  */
 public class AppMainActivity extends ActionBarActivity
-        implements APITestingFragment.OnFragmentInteractionListener {
+        implements
+        APITestingFragment.OnFragmentInteractionListener,
+        ShowTodoGeo.OnFragmentInteractionListener
+{
     /**********************/
     /** Variables LOCALE **/
-    static FrameLayout loading_Frame;
-    static FrameLayout content_Frame;
-    static FragmentManager fragmentManager;
-    static Fragment fragmentLoading;
-    /**
-     * ******************
-     */
+
+    ViewHolder viewHolder;
 
     // Used in savedInstanceState
     private static CommonEditorVar mEditorVar = CommonEditorVar.GetInstance();
     private static ProgressDialog psDialog;
     private static int lastPosition = 9999;
     private static Bundle args;
-    private static Fragment fragment;
-    private static DrawerLayout mDrawerLayout;
-    private static ActionBarDrawerToggle mDrawerToggle;
-    ListView mDrawerList;
+
     CharSequence mDrawerTitle;
     CharSequence mTitle;
     String[] mPlanetTitles;
 
     /*********************/
     /** onCreate LOCALE **/
-    /**
-     * ******************
-     */
     private MenuItem.OnMenuItemClickListener btnActionAddClick = new MenuItem.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
@@ -80,11 +73,8 @@ public class AppMainActivity extends ActionBarActivity
         }
     };
 
-    /*********************/
-    /** onResume LOCALE **/
-    /**
-     * btnRefreshAddClick *
-     */
+    /****************************************/
+    /** onResume LOCALE  btnRefreshAddClick**/
     private MenuItem.OnMenuItemClickListener btnRefreshClick = new MenuItem.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
@@ -107,9 +97,6 @@ public class AppMainActivity extends ActionBarActivity
 
     /*************************/
     /** onSaveInstanceState **/
-    /**
-     * ******************
-     */
     private MenuItem.OnMenuItemClickListener btnPrefClick = new MenuItem.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
@@ -129,42 +116,33 @@ public class AppMainActivity extends ActionBarActivity
 
     /*************************/
     /** setNavigationDrawer **/
-
-    public static void setLoadingEnd() {
-
-        AppMainActivity.loading_Frame.setVisibility(View.GONE);
-        AppMainActivity.content_Frame.setVisibility(View.VISIBLE);
+    public void setLoadingEnd() {
+        viewHolder.loading_Frame.setVisibility(View.GONE);
+        viewHolder.content_Frame.setVisibility(View.VISIBLE);
     }
 
-    public static void setLoadingStart() {
-
-
-        AppMainActivity.content_Frame.setVisibility(View.GONE);
-        AppMainActivity.loading_Frame.setVisibility(View.VISIBLE);
-
-
+    public void setLoadingStart() {
+        viewHolder.content_Frame.setVisibility(View.GONE);
+        viewHolder.loading_Frame.setVisibility(View.VISIBLE);
     }
 
     /**********************************************/
     /** NavigationDrawer  DrawerItemClickListener**/
-
-    /**
-     * *****************
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        viewHolder = new ViewHolder();
+
 
         MyPreferences.mPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
 
-        fragmentManager = getSupportFragmentManager();
-        loading_Frame = (FrameLayout) findViewById(R.id.loading_frame);
-        content_Frame = (FrameLayout) findViewById(R.id.content_frame);
-        fragmentLoading = new MyProgressFragment();
-
+        viewHolder.fragmentManager = getSupportFragmentManager();
+        viewHolder.loading_Frame = (FrameLayout) findViewById(R.id.loading_frame);
+        viewHolder.content_Frame = (FrameLayout) findViewById(R.id.content_frame);
+        viewHolder.fragmentLoading = new MyProgressFragment();
 
         // set toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -172,12 +150,9 @@ public class AppMainActivity extends ActionBarActivity
 
         setNavigationDrawer(savedInstanceState);
         setViewComponent();
-
     }
 
-    /**
-     * *****************
-     */
+    //
     @Override
     protected void onResume() {
         // TODO Auto-generated method stub
@@ -185,9 +160,7 @@ public class AppMainActivity extends ActionBarActivity
 
     }
 
-    /**
-     * *********************
-     */
+    //
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -195,24 +168,20 @@ public class AppMainActivity extends ActionBarActivity
 
     /*************************/
     /** StartService LOCALE **/
-
-    /**
-     * *********************
-     */
     private void setNavigationDrawer(Bundle savedInstanceState) {
         mPlanetTitles = getResources().getStringArray(R.array.drawer_array);
-        mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        viewHolder.mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
+        viewHolder.mDrawerList = (ListView) findViewById(R.id.left_drawer);
         //mTitle =mPlanetTitles[mDrawerIndex];
         mDrawerTitle = getTitle();
 
         // set a custom shadow that overlays the main content when the drawer opens
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        viewHolder.mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
         // set up the drawer's list view with items and click listener
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+        viewHolder.mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.activity_main_drawer_list_item, mPlanetTitles));
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        viewHolder.mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -220,9 +189,9 @@ public class AppMainActivity extends ActionBarActivity
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
-        mDrawerToggle = new ActionBarDrawerToggle(
+        viewHolder.mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
-                mDrawerLayout,         /* DrawerLayout object */
+                viewHolder.mDrawerLayout,         /* DrawerLayout object */
                 R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
                 R.string.drawer_open//,  /* "open drawer" description for accessibility */
                 //R.string.drawer_close  /* "close drawer" description for accessibility */
@@ -237,7 +206,7 @@ public class AppMainActivity extends ActionBarActivity
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        viewHolder.mDrawerLayout.setDrawerListener(viewHolder.mDrawerToggle);
 
         // drawer之預設開啟頁面
         if (savedInstanceState == null) {
@@ -247,7 +216,6 @@ public class AppMainActivity extends ActionBarActivity
 
     /*************************/
     /** onCreateOptionsMenu **/
-
     @Override
     public void onFragmentInteraction(Uri uri) {
 
@@ -258,9 +226,9 @@ public class AppMainActivity extends ActionBarActivity
         // setLoadingStart();
 
         // update the main content by replacing fragments
-        fragment = getSupportFragmentManager().findFragmentById(R.id.content_frame);
+        viewHolder.fragment = getSupportFragmentManager().findFragmentById(R.id.content_frame);
         //if(fragment==null){
-        fragment = MyProgressFragment.newInstance();
+        viewHolder.fragment = MyProgressFragment.newInstance();
         args = new Bundle();
         //}
 
@@ -269,21 +237,22 @@ public class AppMainActivity extends ActionBarActivity
         //args.putInt(RemindmeFragment.FILTER_STRING,(position));
         //fragment.getArguments()
         //fragment.setArguments(args);
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        viewHolder.fragmentManager = getSupportFragmentManager();
 
-        Fragment fragmentAPITesting = APITestingFragment.newInstance("parm1", "parm2");
 
         // 地圖檢視
         if (position == 3) {
+            Fragment fragmentShowToDoGeo = ShowTodoGeo.newInstance("parm1", "parm2");
             Toast.makeText(this, "地圖檢視", Toast.LENGTH_SHORT).show();
-//            fragmentManager
-//                    .beginTransaction()
-//                    .replace(R.id.content_frame, fragmentAPITesting, "APITestingFragment")
-//                    .commit();
-        // 測試功能
+            viewHolder.fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.content_frame, fragmentShowToDoGeo, "APITestingFragment")
+                    .commit();
+            // 測試功能
         }else if (position == 6) {
+            Fragment fragmentAPITesting = APITestingFragment.newInstance("parm1", "parm2");
             Toast.makeText(this, "api page", Toast.LENGTH_SHORT).show();
-            fragmentManager
+            viewHolder.fragmentManager
                     .beginTransaction()
                     .replace(R.id.content_frame, fragmentAPITesting, "APITestingFragment")
                     .commit();
@@ -291,29 +260,27 @@ public class AppMainActivity extends ActionBarActivity
             String[] menuName=getResources().getStringArray(R.array.drawer_array);
             Toast.makeText(this,menuName[position], Toast.LENGTH_SHORT).show();
             ListCursorCardFragment.setPosition(position);
-            fragmentManager
+            viewHolder.fragmentManager
                     .beginTransaction()
-                    .replace(R.id.content_frame, fragment, "RemindmeFragment").commit();
-            drawerActions(position);
+                    .replace(R.id.content_frame, viewHolder.fragment, "RemindmeFragment").commit();
         }
-
+        drawerActions(position);
         MyDebug.MakeLog(0, "position@MainActivity=" + position);
     }
 
+    //
     private void drawerActions(int position) {
         // update selected item and title, then close the drawer
-        mDrawerList.setItemChecked(position, true);
+        viewHolder.mDrawerList.setItemChecked(position, true);
         this.setTitle(mPlanetTitles[position]);
         this.getSupportActionBar().setTitle(mPlanetTitles[position]);
-        mDrawerLayout.closeDrawer(mDrawerList);
+        viewHolder.mDrawerLayout.closeDrawer(viewHolder.mDrawerList);
         mTitle = mPlanetTitles[position];
 
         lastPosition = position;
     }
 
-    /**
-     * *********************
-     */
+    //
     public void StartService() {
         //MyPreferences.mPreferences = PreferenceManager
         //        .getDefaultSharedPreferences(getApplicationContext());
@@ -324,9 +291,7 @@ public class AppMainActivity extends ActionBarActivity
 */
     }
 
-    /**
-     * *********************
-     */
+    //
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // 由main_activity_actionbar.xml讀取按鈕資訊
@@ -355,8 +320,6 @@ public class AppMainActivity extends ActionBarActivity
 
         //MenuInflater inflater = getMenuInflater();
         //inflater.inflate(R.menu.main, menu);
-
-
         //-------------------------------------------------------//
         //                     									 //
         //                     選單按鈕開關						 //
@@ -367,32 +330,28 @@ public class AppMainActivity extends ActionBarActivity
         //
         actionSearch.setEnabled(false);
         actionSearch.setVisible(false);
-
         //
-
         return super.onCreateOptionsMenu(menu);
     }
 
     /**********************/
     /** setViewComponent **/
-
     /* Called whenever we call invalidateOptionsMenu() */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        boolean drawerOpen = viewHolder.mDrawerLayout.isDrawerOpen(viewHolder.mDrawerList);
         //menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 
     /**********************/
     /** btnActionAddClick **/
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // The action bar home/up action should open or close the drawer.
         // ActionBarDrawerToggle will take care of this.
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
+        if (viewHolder.mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         // Handle action buttons
@@ -413,33 +372,28 @@ public class AppMainActivity extends ActionBarActivity
         }
     }
 
-    /************************/
 
     /**
      * When using the ActionBarDrawerToggle, you must call it during
      * onPostCreate() and onConfigurationChanged()...
      */
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
+        viewHolder.mDrawerToggle.syncState();
     }
 
     /**********************/
     /** menuActionPrefClick **/
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggls
-        mDrawerToggle.onConfigurationChanged(newConfig);
+        viewHolder.mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    /**
-     * ******************
-     */
+    //
     private void setViewComponent() {
         new Thread(new Runnable() {
             @Override
@@ -450,9 +404,7 @@ public class AppMainActivity extends ActionBarActivity
         }).start();
     }
 
-    /**
-     * ******************************************
-     */
+    //
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -463,6 +415,17 @@ public class AppMainActivity extends ActionBarActivity
                 drawerActions(position);
             }
         }
+    }
+
+    static class ViewHolder{
+        static FrameLayout loading_Frame;
+        static FrameLayout content_Frame;
+        static FragmentManager fragmentManager;
+        static Fragment fragmentLoading;
+        static Fragment fragment;
+        static DrawerLayout mDrawerLayout;
+        static ActionBarDrawerToggle mDrawerToggle;
+        static ListView mDrawerList;
     }
 
 
