@@ -25,15 +25,17 @@ import tw.geodoer.main.taskList.controller.ActionSetCardFromCursor;
 public class MyCursorCardAdapter extends CardCursorAdapter {
 
 
-private static Context context;
+ Context context;
+    private int position = 0;
 
-    public MyCursorCardAdapter(Context context) {
+    public MyCursorCardAdapter(Context context, int position) {
         super(context);
         this.context=context;
+        this.position=position;
     }
 
-    public static MyCursorCardAdapter newInstance(Context context) {
-        return new MyCursorCardAdapter(context);
+    public static MyCursorCardAdapter newInstance(Context context, int position) {
+        return new MyCursorCardAdapter(context,position);
     }
 
     @Override
@@ -44,14 +46,15 @@ private static Context context;
 
         // 建立卡片物件
         viewHolder.card = new MyCursorCard(getContext());
-        viewHolder.thumb = new CardThumbnailCircle(getContext(), cursor.getInt(0));
+        viewHolder.thumb = new CardThumbnailCircle(getContext(), cursor.getInt(0), position);
         viewHolder.card.addCardThumbnail(viewHolder.thumb);
 
         //Set onClick listener
         viewHolder.card.setOnClickListener(new ActionOnCardClicked(getContext(),cursor));
 
         // set onLongClick listener;
-        viewHolder.card.setOnLongClickListener(new ActionOnCardLongClicked(getContext(),cursor));
+        viewHolder.card.setOnLongClickListener(
+                new ActionOnCardLongClicked(getContext(),cursor,position));
 
         // 設定卡片內容
         ActionSetCardFromCursor mActionSetCardFromCursor =

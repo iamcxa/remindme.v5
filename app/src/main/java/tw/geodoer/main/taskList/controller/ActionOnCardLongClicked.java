@@ -8,26 +8,20 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.geodoer.geotodo.R;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 import it.gmariotti.cardslib.library.internal.Card;
-import tw.geodoer.mDatabase.API.DBAlertHelper;
 import tw.geodoer.mDatabase.API.DBLocationHelper;
 import tw.geodoer.mDatabase.API.DBTasksHelper;
-import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskEditor.controller.ActionSetAlarm;
 import tw.geodoer.main.taskEditor.controller.ActionSetLocationAlarm;
-import tw.geodoer.main.taskList.view.ListCursorCardFragment;
-import tw.geodoer.utils.MyDebug;
 
 /**
  * Created by Kent on 2015/4/16. 卡片長按動作
@@ -36,16 +30,19 @@ public class ActionOnCardLongClicked implements  Card.OnLongCardClickListener {
 
     private static Context context;
     private static Cursor cursor;
+    private static int position;
     //private static Card card;
     //private static MyCursorCardAdapter myAdapter;
 
-    public ActionOnCardLongClicked(Context context,Cursor cursor) {
+    public ActionOnCardLongClicked(Context context,Cursor cursor, int position) {
         ActionOnCardLongClicked.context = context;
         ActionOnCardLongClicked.context = context;
         ActionOnCardLongClicked.cursor = cursor;
+        this.position=position;
         //ActionOnCardLongClicked.card = card;
         //ActionOnCardLongClicked.myAdapter = myAdapter;
     }
+
 
     private void cancelAlert(int task_id){
         // Alert Part (New)
@@ -236,7 +233,7 @@ public class ActionOnCardLongClicked implements  Card.OnLongCardClickListener {
     public boolean onLongClick(Card card, View view) {
 
         cursor.moveToPosition(Integer.parseInt(card.getId()));
-        switch (ListCursorCardFragment.getPosition()){
+        switch (position){
             case 5:
                 ShowLongClickMenuTrashed(cursor.getInt(0));
                 break;

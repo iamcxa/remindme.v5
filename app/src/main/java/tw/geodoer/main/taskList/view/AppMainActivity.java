@@ -2,7 +2,6 @@ package tw.geodoer.main.taskList.view;/*
  *
  */
 
-import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -27,9 +26,8 @@ import android.widget.Toast;
 
 import com.geodoer.geotodo.R;
 
-import tw.geodoer.mGeoInfo.view.ShowTodoGeo;
+import tw.geodoer.mGeoInfo.view.ShowTodoGeoFragment;
 import tw.geodoer.mPriority.controller.PriorityUpdater;
-import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
 import tw.geodoer.main.taskPreference.controller.MyPreferences;
 import tw.geodoer.main.taskPreference.view.AppPreferenceActivity;
@@ -42,7 +40,7 @@ import tw.geodoer.utils.MyDebug;
 public class AppMainActivity extends ActionBarActivity
         implements
         APITestingFragment.OnFragmentInteractionListener,
-        ShowTodoGeo.OnFragmentInteractionListener
+        ShowTodoGeoFragment.OnFragmentInteractionListener
 {
     /**********************/
     /** Variables LOCALE **/
@@ -50,10 +48,11 @@ public class AppMainActivity extends ActionBarActivity
     ViewHolder viewHolder;
 
     // Used in savedInstanceState
-    private static CommonEditorVar mEditorVar = CommonEditorVar.GetInstance();
-    private static ProgressDialog psDialog;
+    //private static CommonEditorVar mEditorVar = CommonEditorVar.GetInstance();
+    //private static ProgressDialog psDialog;
     private static int lastPosition = 9999;
-    private static Bundle args;
+    //Bundle args;
+    boolean drawerOpen;
 
     CharSequence mDrawerTitle;
     CharSequence mTitle;
@@ -116,15 +115,15 @@ public class AppMainActivity extends ActionBarActivity
 
     /*************************/
     /** setNavigationDrawer **/
-    public void setLoadingEnd() {
-        viewHolder.loading_Frame.setVisibility(View.GONE);
-        viewHolder.content_Frame.setVisibility(View.VISIBLE);
-    }
-
-    public void setLoadingStart() {
-        viewHolder.content_Frame.setVisibility(View.GONE);
-        viewHolder.loading_Frame.setVisibility(View.VISIBLE);
-    }
+//    public void setLoadingEnd() {
+//        viewHolder.loading_Frame.setVisibility(View.GONE);
+//        viewHolder.content_Frame.setVisibility(View.VISIBLE);
+//    }
+//
+//    public void setLoadingStart() {
+//        viewHolder.content_Frame.setVisibility(View.GONE);
+//        viewHolder.loading_Frame.setVisibility(View.VISIBLE);
+//    }
 
     /**********************************************/
     /** NavigationDrawer  DrawerItemClickListener**/
@@ -135,14 +134,14 @@ public class AppMainActivity extends ActionBarActivity
 
         viewHolder = new ViewHolder();
 
-
         MyPreferences.mPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
 
+        // set fragments
         viewHolder.fragmentManager = getSupportFragmentManager();
         viewHolder.loading_Frame = (FrameLayout) findViewById(R.id.loading_frame);
         viewHolder.content_Frame = (FrameLayout) findViewById(R.id.content_frame);
-        viewHolder.fragmentLoading = new MyProgressFragment();
+        viewHolder.targetFragment = new MyProgressFragment();
 
         // set toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -179,13 +178,14 @@ public class AppMainActivity extends ActionBarActivity
         viewHolder.mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
         // set up the drawer's list view with items and click listener
-        viewHolder.mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+        viewHolder.mDrawerList.setAdapter(new ArrayAdapter<>(this,
                 R.layout.activity_main_drawer_list_item, mPlanetTitles));
         viewHolder.mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setElevation(45);
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
@@ -225,46 +225,21 @@ public class AppMainActivity extends ActionBarActivity
     private void selectItem(int position) {
         // setLoadingStart();
 
-        // update the main content by replacing fragments
-        viewHolder.fragment = getSupportFragmentManager().findFragmentById(R.id.content_frame);
-        //if(fragment==null){
-        viewHolder.fragment = MyProgressFragment.newInstance();
-        args = new Bundle();
-        //}
+        viewHolder.fragmentManager = getSupportFragmentManager();
+        viewHolder.targetFragment = getSupportFragmentManager().findFragmentById(R.id.content_frame);
 
         // 傳遞所按位置索引
-        //args.clear();
-        //args.putInt(RemindmeFragment.FILTER_STRING,(position));
-        //fragment.getArguments()
-        //fragment.setArguments(args);
-        viewHolder.fragmentManager = getSupportFragmentManager();
+        viewHolder.targetFragment = MyProgressFragment.newInstance(position);
+        viewHolder.fragmentManager
+                .beginTransaction()
+                .replace(R.id.content_frame, viewHolder.targetFragment, "MyProgressFragment").commit();
 
-
-        // 地圖檢視
-        if (position == 3) {
-            Fragment fragmentShowToDoGeo = ShowTodoGeo.newInstance("parm1", "parm2");
-            Toast.makeText(this, "地圖檢視", Toast.LENGTH_SHORT).show();
-            viewHolder.fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.content_frame, fragmentShowToDoGeo, "APITestingFragment")
-                    .commit();
-            // 測試功能
-        }else if (position == 6) {
-            Fragment fragmentAPITesting = APITestingFragment.newInstance("parm1", "parm2");
-            Toast.makeText(this, "api page", Toast.LENGTH_SHORT).show();
-            viewHolder.fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.content_frame, fragmentAPITesting, "APITestingFragment")
-                    .commit();
-        }  else {
-            String[] menuName=getResources().getStringArray(R.array.drawer_array);
-            Toast.makeText(this,menuName[position], Toast.LENGTH_SHORT).show();
-            ListCursorCardFragment.setPosition(position);
-            viewHolder.fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.content_frame, viewHolder.fragment, "RemindmeFragment").commit();
-        }
+        // 傳遞選擇位置
+        //ListCursorCardFragment.setPosition(position);
         drawerActions(position);
+        // logs
+        String[] menuName = getResources().getStringArray(R.array.drawer_array);
+        Toast.makeText(this, menuName[position], Toast.LENGTH_SHORT).show();
         MyDebug.MakeLog(0, "position@MainActivity=" + position);
     }
 
@@ -340,7 +315,7 @@ public class AppMainActivity extends ActionBarActivity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = viewHolder.mDrawerLayout.isDrawerOpen(viewHolder.mDrawerList);
+        drawerOpen = viewHolder.mDrawerLayout.isDrawerOpen(viewHolder.mDrawerList);
         //menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
@@ -417,16 +392,13 @@ public class AppMainActivity extends ActionBarActivity
         }
     }
 
-    static class ViewHolder{
-        static FrameLayout loading_Frame;
-        static FrameLayout content_Frame;
-        static FragmentManager fragmentManager;
-        static Fragment fragmentLoading;
-        static Fragment fragment;
-        static DrawerLayout mDrawerLayout;
-        static ActionBarDrawerToggle mDrawerToggle;
-        static ListView mDrawerList;
+    static class ViewHolder {
+        FrameLayout loading_Frame;
+        FrameLayout content_Frame;
+        FragmentManager fragmentManager;
+        Fragment targetFragment;
+        DrawerLayout mDrawerLayout;
+        ActionBarDrawerToggle mDrawerToggle;
+        ListView mDrawerList;
     }
-
-
 }

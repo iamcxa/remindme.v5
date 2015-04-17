@@ -33,7 +33,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.geodoer.geotodo.R;
-import com.shamanland.fab.ShowHideOnScroll;
+import com.melnykov.fab.FloatingActionButton;
 
 import it.gmariotti.cardslib.library.view.CardListView;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
@@ -42,6 +42,7 @@ import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.mPriority.controller.PriorityUpdater;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
 import tw.geodoer.main.taskList.adapter.MyCursorCardAdapter;
+import tw.geodoer.utils.CommonVar;
 import tw.geodoer.utils.MyCalendar;
 import tw.geodoer.utils.MyDebug;
 
@@ -53,13 +54,13 @@ import tw.geodoer.utils.MyDebug;
 public class ListCursorCardFragment extends MyBaseFragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static TextView txtIfTaskListIsEmpty;
+
+    ViewHolder viewHolder = new ViewHolder();
+
 
     // getArguments().getInt(FILTER_STRING)
     public static final String FILTER_STRING = "FILTER_STRING";
     private static int position;
-    private static MyCursorCardAdapter mAdapter;
-    private static CardListView mListView;
     private static String[] projectionTask = ColumnTask.PROJECTION;
     private static String[] projectionAlert = ColumnAlert.PROJECTION;
     private static String[] projectionLoc = ColumnLocation.PROJECTION;
@@ -74,6 +75,7 @@ public class ListCursorCardFragment extends MyBaseFragment implements
     private static String LocSortOrder = ColumnLocation.DEFAULT_SORT_ORDER;
     private static String[] selectionArgs;
     private static String todayString = MyCalendar.getTodayString(0);
+    private final static String STRING_POSITION = "position";
     private Handler mHandler;
     private Runnable newInit = new Runnable() {
 
@@ -94,18 +96,21 @@ public class ListCursorCardFragment extends MyBaseFragment implements
     /********************/
     /** Initialization **/
 
-    public static ListCursorCardFragment newInstance() {
+    public static ListCursorCardFragment newInstance(int position) {
         ListCursorCardFragment fragment = new ListCursorCardFragment();
+        Bundle args = new Bundle();
+        args.putInt(CommonVar.STRING_DRAWER_POSITION, position);
+        fragment.setArguments(args);
         return fragment;
     }
 
     //-------------------------------------------------//
-    public static MyCursorCardAdapter getmAdapter() {
-        return mAdapter;
+    public  MyCursorCardAdapter getmAdapter() {
+        return viewHolder.mAdapter;
     }
 
-    public static void setmAdapter(MyCursorCardAdapter mAdapter) {
-        ListCursorCardFragment.mAdapter = mAdapter;
+    public  void setmAdapter(MyCursorCardAdapter mAdapter) {
+        viewHolder.mAdapter = mAdapter;
     }
 
     public static String getTaskSelection() {
@@ -132,19 +137,19 @@ public class ListCursorCardFragment extends MyBaseFragment implements
         LocSelection = locSelection;
     }
 
-    /**
-     * @return the position
-     */
-    public static int getPosition() {
-        return position;
-    }
-
-    /**
-     * @param position the position to set
-     */
-    public static void setPosition(int position) {
-        ListCursorCardFragment.position = position;
-    }
+//    /**
+//     * @return the position
+//     */
+//    public static int getPosition() {
+//        return position;
+//    }
+//
+//    /**
+//     * @param position the position to set
+//     */
+//    public static void setPosition(int position) {
+//        ListCursorCardFragment.position = position;
+//    }
 
     /**
      * ****************
@@ -194,33 +199,47 @@ public class ListCursorCardFragment extends MyBaseFragment implements
         }
 
         //
-        mAdapter = MyCursorCardAdapter.newInstance(getActivity());
-        mListView = (CardListView) getActivity().findViewById(
+        viewHolder.mAdapter = MyCursorCardAdapter.newInstance(getActivity(),position);
+        viewHolder.mListView = (CardListView) getActivity().findViewById(
                 R.id.carddemo_list_cursor);
 
-        if (mListView != null) {
-            mListView.setAdapter(mAdapter);
+        if (viewHolder.mListView != null) {
+            viewHolder.mListView.setAdapter(viewHolder.mAdapter);
 
-            final View fab_add = getActivity().findViewById(R.id.fab_add);
-            fab_add.setOnClickListener(new View.OnClickListener() {
+            // faBtn
+            final FloatingActionButton faBtn_add
+                    = (FloatingActionButton) getActivity().findViewById(R.id.faBtn_mainView_add);
+            faBtn_add.attachToListView(viewHolder.mListView);
+            faBtn_add.setType(FloatingActionButton.TYPE_NORMAL);
+            faBtn_add.setColorNormalResId(R.color.card_background_color2);
+            faBtn_add.setColorPressedResId(R.color.card_background_color_red_light);
+            faBtn_add.setColorRipple(Color.BLUE);
+            faBtn_add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-
                     Intent intent = new Intent();
                     intent.setClass(getActivity(), TaskEditorTabFragment.class);
                     startActivity(intent);
-                    //fab_add.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color2));
-
-                    //Toast.makeText(v.getContext(), R.string.TaskEditor_Field_Inbox, Toast.LENGTH_SHORT).show();
                 }
             });
+            // final View fab_add = getActivity().findViewById(R.id.fab_add);
+            //  fab_add.setOnClickListener(new View.OnClickListener() {
+            //      @Override
+            //    public void onClick(View v) {
+            //        Intent intent = new Intent();
+            //        intent.setClass(getActivity(), TaskEditorTabFragment.class);
+            //        startActivity(intent);
+            //fab_add.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color2));
+
+            //Toast.makeText(v.getContext(), R.string.TaskEditor_Field_Inbox, Toast.LENGTH_SHORT).show();
+            //    }
+            //});
 
 
-            mListView.setOnTouchListener(new ShowHideOnScroll(fab_add));
+            //mListView.setOnTouchListener(new ShowHideOnScroll(fab_add));
 
             //
-            txtIfTaskListIsEmpty=(TextView) getActivity().findViewById(R.id.txtIfListEmpty);
+            viewHolder.txtIfTaskListIsEmpty=(TextView) getActivity().findViewById(R.id.txtIfListEmpty);
 
         }
 
@@ -239,9 +258,18 @@ public class ListCursorCardFragment extends MyBaseFragment implements
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            position = getArguments().getInt(CommonVar.STRING_DRAWER_POSITION);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceStat) {
-        return inflater.inflate(R.layout.card_fragment_list_cursor,
+        viewHolder.inflater = inflater;
+        return viewHolder.inflater.inflate(R.layout.card_fragment_list_cursor,
                 container, false);
     }
 
@@ -298,25 +326,29 @@ public class ListCursorCardFragment extends MyBaseFragment implements
             }while(data.moveToNext());
         }
 */
-        mAdapter.swapCursor(data);
+        viewHolder.mAdapter.swapCursor(data);
 
         if(data.getCount()==0){
-            txtIfTaskListIsEmpty.setVisibility(View.VISIBLE);
-            txtIfTaskListIsEmpty.setText(getView().getContext().
+            viewHolder.txtIfTaskListIsEmpty.setVisibility(View.VISIBLE);
+            viewHolder.txtIfTaskListIsEmpty.setText(getView().getContext().
                     getResources().
                     getString(R.string.String_If_Task_List_Is_Empty));
-            txtIfTaskListIsEmpty.setShadowLayer(10, 0, 0, Color.BLUE);
+            viewHolder.txtIfTaskListIsEmpty.setShadowLayer(10, 0, 0, Color.BLUE);
         }else {
-            txtIfTaskListIsEmpty.setVisibility(View.GONE);
-            txtIfTaskListIsEmpty.setText("");
+            viewHolder.txtIfTaskListIsEmpty.setVisibility(View.GONE);
+            viewHolder.txtIfTaskListIsEmpty.setText("");
         }
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        mAdapter.swapCursor(null);
+        viewHolder.mAdapter.swapCursor(null);
     }
 
-
+    static class ViewHolder{
+         CardListView mListView;
+         MyCursorCardAdapter mAdapter;
+         TextView txtIfTaskListIsEmpty;
+         LayoutInflater inflater;
+    }
 }
-

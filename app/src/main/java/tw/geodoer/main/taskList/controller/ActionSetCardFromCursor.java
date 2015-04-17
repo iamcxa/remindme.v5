@@ -3,8 +3,6 @@ package tw.geodoer.main.taskList.controller;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.geodoer.geotodo.R;
-
 import it.gmariotti.cardslib.library.internal.CardExpand;
 import it.gmariotti.cardslib.library.internal.CardHeader;
 import tw.geodoer.mDatabase.API.DBLocationHelper;
@@ -153,14 +151,14 @@ public class ActionSetCardFromCursor {
         card.addCardExpand(expand);
 
         // 依照權重給予卡片顏色
-        long priority = cursor.getInt(ColumnTask.KEY.INDEX.priority);
-        if ((priority > 990000)) {
-            card.setBackgroundResourceId(R.drawable.demo_card_background_color3);
+        //long priority = cursor.getInt(ColumnTask.KEY.INDEX.priority);
+        //if ((priority > 990000)) {
+        //    card.setBackgroundResourceId(R.drawable.demo_card_background_color3);
         //} else if ((priority > 299999) && (priority < 8999998)) {
-           // card.setBackgroundResourceId(R.drawable.demo_card_background_white);
-        } else if ((priority < 299998)) {
-            card.setBackgroundResourceId(R.drawable.demo_card_background_gray);
-        }
+        // card.setBackgroundResourceId(R.drawable.demo_card_background_white);
+        //} else if ((priority < 299998)) {
+        //    card.setBackgroundResourceId(R.drawable.demo_card_background_gray);
+        //}
 
 //
 //		// 小圖標顯示 - 判斷是否存有地點資訊

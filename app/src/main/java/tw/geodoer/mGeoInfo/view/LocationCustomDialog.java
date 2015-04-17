@@ -24,6 +24,8 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.melnykov.fab.FloatingActionButton;
+import com.melnykov.fab.ObservableScrollView;
 
 import fud.geodoermap.GeoInfo;
 import fud.geodoermap.GeoStatus;
@@ -40,6 +42,7 @@ import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 public class LocationCustomDialog extends DialogFragment implements MapController.onGeoLoadLisitener,
         View.OnClickListener{
     private static CommonEditorVar mEditorVar = CommonEditorVar.GetInstance();
+    private static  ObservableScrollView mScrollView;
 
     /**
      * Default constructor.
@@ -76,8 +79,32 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         mContentView = inflater.inflate(R.layout.activity_task_editor_tab_location, container, false);
 
-        final View fab_add = mContentView.findViewById(R.id.fab_nowLoc);
-        fab_add.setOnClickListener(new View.OnClickListener() {
+        // faBtn
+//        final FloatingActionButton faBtn_getMyLocation
+//                = (FloatingActionButton) getActivity().findViewById(R.id.faBtn_mainView_add);
+//        faBtn_getMyLocation.attachToListView(mContentView);
+//        faBtn_getMyLocation.attachToScrollView(mContentView);
+//        faBtn_getMyLocation.setType(FloatingActionButton.TYPE_NORMAL);
+//        faBtn_getMyLocation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent();
+//                intent.setClass(getActivity(), TaskEditorTabFragment.class);
+//                startActivity(intent);
+//            }
+//        });
+
+        mScrollView =
+                (ObservableScrollView) mContentView.findViewById(R.id.scrollViewMap);
+        // faBtn
+        final FloatingActionButton faBtn_add
+                = (FloatingActionButton) mContentView.findViewById(R.id.faBtn_nowLoc);
+        faBtn_add.attachToScrollView(mScrollView);
+        faBtn_add.setType(FloatingActionButton.TYPE_MINI);
+        faBtn_add.setColorNormalResId(R.color.card_background_white);
+        faBtn_add.setColorPressedResId(R.color.card_background_color_red_light);
+        faBtn_add.setColorRipple(R.color.card_backgroundExpand);
+        faBtn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 map.clear();
@@ -95,6 +122,28 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
                 });
             }
         });
+
+
+
+//                final View fab_add = mContentView.findViewById(R.id.faBtn_nowLoc);
+//        fab_add.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                map.clear();
+//                CurrentLocation mNowGeo = new CurrentLocation(getActivity());
+//                mNowGeo.setOnLocListenerSetGps("-1", new CurrentLocation.onDistanceListener() {
+//                    @Override
+//                    public void onGetLatLng(Double lat, Double lng) {
+//                        LatLng nowLoacation;
+//                        nowLoacation = new LatLng(lat, lng);
+//                        map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
+//                                .position(nowLoacation)).showInfoWindow();
+//                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(nowLoacation,
+//                                map.getCameraPosition().zoom));
+//                    }
+//                });
+//            }
+//        });
 
 
         PlaceName = (TextView) mContentView.findViewById(R.id.PlaceName);
@@ -128,6 +177,7 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
         }
         return mContentView;
     }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

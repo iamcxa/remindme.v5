@@ -38,9 +38,9 @@
         android:allowClearUserData="true"
         android:enabled="true"
         android:hardwareAccelerated="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@mipmap/ic_launcher"
         android:largeHeap="true"
-        android:logo="@drawable/ic_launcher"
+        android:logo="@mipmap/ic_launcher"
         android:theme="@style/AppTheme" >
 
         <!-- ================================================================== -->

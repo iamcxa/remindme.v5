@@ -28,6 +28,7 @@ public class CommonVar {
     //
     public static String[] TASKEDITOR_DUEDATE_BASIC_STRING_ARRAY = {""};
     public static String[] TASKEDITOR_DUEDATE_EXTRA_STRING_ARRAY = {""};
+    public static final String STRING_DRAWER_POSITION = "drawer_position";
     private CommonVar() {
     }
 }

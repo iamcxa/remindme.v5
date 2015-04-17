@@ -21,6 +21,8 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.melnykov.fab.FloatingActionButton;
+import com.melnykov.fab.ObservableScrollView;
 
 import java.util.ArrayList;
 
@@ -33,12 +35,12 @@ import tw.geodoer.mPriority.controller.NeoGeoInfo;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ShowTodoGeo.OnFragmentInteractionListener} interface
+ * {@link ShowTodoGeoFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ShowTodoGeo#newInstance} factory method to
+ * Use the {@link ShowTodoGeoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ShowTodoGeo extends Fragment implements MapController.onGeoLoadLisitener{
+public class ShowTodoGeoFragment extends Fragment implements MapController.onGeoLoadLisitener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -65,8 +67,8 @@ public class ShowTodoGeo extends Fragment implements MapController.onGeoLoadLisi
      * @return A new instance of fragment ShowTodoGeo.
      */
     // TODO: Rename and change types and number of parameters
-    public static ShowTodoGeo newInstance(String param1, String param2) {
-        ShowTodoGeo fragment = new ShowTodoGeo();
+    public static ShowTodoGeoFragment newInstance(String param1, String param2) {
+        ShowTodoGeoFragment fragment = new ShowTodoGeoFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -74,7 +76,7 @@ public class ShowTodoGeo extends Fragment implements MapController.onGeoLoadLisi
         return fragment;
     }
 
-    public ShowTodoGeo() {
+    public ShowTodoGeoFragment() {
         // Required empty public constructor
     }
 
@@ -92,45 +94,100 @@ public class ShowTodoGeo extends Fragment implements MapController.onGeoLoadLisi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.activity_task_editor_parts_dialog_location, container, false);
+        View v =
+                inflater.inflate(R.layout.activity_task_editor_parts_dialog_location,
+                                container, false);
 
-        final View fab_add = v.findViewById(R.id.fab_nowLoc);
-        fab_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                map.clear();
-                CurrentLocation mNowGeo = new CurrentLocation(getActivity());
-                mNowGeo.setOnLocListenerSetGps("-1", new CurrentLocation.onDistanceListener() {
-                    @Override
-                    public void onGetLatLng(Double lat, Double lng) {
-                        LatLng nowLoacation;
-                        nowLoacation = new LatLng(lat, lng);
-                        map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
-                                .position(nowLoacation)
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))).showInfoWindow();
-                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(nowLoacation,
-                                map.getCameraPosition().zoom));
-                    }
-                });
+       ObservableScrollView mScrollView =
+                (ObservableScrollView) v.findViewById(R.id.scrollViewMap);
 
-                DBtoGeoinfo getEvent = new DBtoGeoinfo(getActivity());
-                ArrayList<NeoGeoInfo> list = getEvent.getArraylistNeoGeoInfoofTasks();
-                for (int i = 0; i < list.size(); i++) {
-                    NeoGeoInfo event = list.get(i);
-                    if(event.getFlag()==2){
-                        map.addMarker(new MarkerOptions()
-                                .title(event.getName())
-                                .position(event.getLatlng())
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
-                    }else if(event.getFlag()==3){
-                        map.addMarker(new MarkerOptions()
-                                .title(event.getName())
-                                .position(event.getLatlng())
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+        if(mScrollView!=null) {
+            // faBtn
+            final FloatingActionButton faBtn_add
+                    = (FloatingActionButton) v.findViewById(R.id.faBtn_nowLoc);
+            faBtn_add.attachToScrollView(mScrollView);
+            faBtn_add.setType(FloatingActionButton.TYPE_MINI);
+            faBtn_add.setColorNormalResId(R.color.card_background_white);
+            faBtn_add.setColorPressedResId(R.color.card_background_color_red_light);
+            faBtn_add.setColorRipple(R.color.card_backgroundExpand);
+            faBtn_add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //====================================//
+                    map.clear();
+                    CurrentLocation mNowGeo = new CurrentLocation(getActivity());
+                    mNowGeo.setOnLocListenerSetGps("-1", new CurrentLocation.onDistanceListener() {
+                        @Override
+                        public void onGetLatLng(Double lat, Double lng) {
+                            LatLng nowLocation;
+                            nowLocation = new LatLng(lat, lng);
+                            map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
+                                    .position(nowLocation)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))).showInfoWindow();
+                            map.animateCamera(CameraUpdateFactory.newLatLngZoom(nowLocation,
+                                    map.getCameraPosition().zoom));
+                        }
+                    });
+                    DBtoGeoinfo getEvent = new DBtoGeoinfo(getActivity());
+                    ArrayList<NeoGeoInfo> list = getEvent.getArraylistNeoGeoInfoofTasks();
+                    for (int i = 0; i < list.size(); i++) {
+                        NeoGeoInfo event = list.get(i);
+                        if (event.getFlag() == 2) {
+                            map.addMarker(new MarkerOptions()
+                                    .title(event.getName())
+                                    .position(event.getLatlng())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
+                        } else if (event.getFlag() == 3) {
+                            map.addMarker(new MarkerOptions()
+                                    .title(event.getName())
+                                    .position(event.getLatlng())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                        }
                     }
+                    //====================================//
                 }
-            }
-        });
+            });
+        }
+
+
+//        final View faBtn_add = v.findViewById(R.id.faBtn_nowLoc);
+//        faBtn_add.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//            //====================================//
+//                map.clear();
+//                CurrentLocation mNowGeo = new CurrentLocation(getActivity());
+//                mNowGeo.setOnLocListenerSetGps("-1", new CurrentLocation.onDistanceListener() {
+//                    @Override
+//                    public void onGetLatLng(Double lat, Double lng) {
+//                        LatLng nowLocation;
+//                        nowLocation = new LatLng(lat, lng);
+//                        map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
+//                                .position(nowLocation)
+//                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))).showInfoWindow();
+//                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(nowLocation,
+//                                map.getCameraPosition().zoom));
+//                    }
+//                });
+//                DBtoGeoinfo getEvent = new DBtoGeoinfo(getActivity());
+//                ArrayList<NeoGeoInfo> list = getEvent.getArraylistNeoGeoInfoofTasks();
+//                for (int i = 0; i < list.size(); i++) {
+//                    NeoGeoInfo event = list.get(i);
+//                    if(event.getFlag()==2){
+//                        map.addMarker(new MarkerOptions()
+//                                .title(event.getName())
+//                                .position(event.getLatlng())
+//                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
+//                    }else if(event.getFlag()==3){
+//                        map.addMarker(new MarkerOptions()
+//                                .title(event.getName())
+//                                .position(event.getLatlng())
+//                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+//                    }
+//                }
+//            }
+//            //====================================//
+//        });
 
         PlaceName = (TextView) v.findViewById(R.id.PlaceName);
         MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -169,12 +226,12 @@ public class ShowTodoGeo extends Fragment implements MapController.onGeoLoadLisi
             mNowGeo.setOnLocListenerSetGps("-1", new CurrentLocation.onDistanceListener() {
                 @Override
                 public void onGetLatLng(Double lat, Double lng) {
-                    LatLng nowLoacation;
-                    nowLoacation = new LatLng(lat, lng);
+                    LatLng nowLocation;
+                    nowLocation = new LatLng(lat, lng);
                     map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
-                            .position(nowLoacation)
+                            .position(nowLocation)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))).showInfoWindow();
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLoacation,
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLocation,
                             map.getMaxZoomLevel() - 11));
                 }
             });

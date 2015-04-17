@@ -23,10 +23,12 @@ public class CardThumbnailCircle extends CardThumbnail {
     private DBLocationHelper dbLocationHelper = new DBLocationHelper(getContext());
     private int cardID;
     private int status;
+    private int position;
 
-    public CardThumbnailCircle(Context context, int cardID) {
+    public CardThumbnailCircle(Context context, int cardID, int position) {
         super(context);
         this.cardID = cardID;
+        this.position=position;
 
         setDrawableResource(R.drawable.ic_action_nivagate_1);
 
@@ -76,7 +78,7 @@ public class CardThumbnailCircle extends CardThumbnail {
                             dbTasksHelper.setItem(cardID, ColumnTask.KEY.checked,
                                     0);
                             DBTasksHelper mBDT =new DBTasksHelper(getContext());
-                            ActionOnCardLongClicked ACC = new ActionOnCardLongClicked(getContext(),mBDT.getCursor());
+                            ActionOnCardLongClicked ACC = new ActionOnCardLongClicked(getContext(),mBDT.getCursor(),position);
                             ACC.restoreCard(cardID);
                             break;
                         case 2:
