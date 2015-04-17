@@ -34,9 +34,8 @@ public class onBtnSaveClick
         values.put(ColumnLocation.KEY.lat, geo.latlng.latitude);
         values.put(ColumnLocation.KEY.lon, geo.latlng.longitude);
         values.put(ColumnLocation.KEY.lastUsedTime, System.currentTimeMillis());
-        context.getContentResolver().insert(ColumnLocation.URI, values);
-
-
+        if( !values.get(ColumnLocation.KEY.name).equals("null"))
+            context.getContentResolver().insert(ColumnLocation.URI, values);
         TaskEditorMainFragment.calledByDialog=true;
     }
 }

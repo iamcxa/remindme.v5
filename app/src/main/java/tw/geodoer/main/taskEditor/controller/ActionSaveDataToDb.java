@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
-import tw.geodoer.mDatabase.API.DBLocationHelper;
 import tw.geodoer.mDatabase.API.DBTasksHelper;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
@@ -53,10 +52,14 @@ public class ActionSaveDataToDb {
 
         saveTableAlert();
 
-        setAlert();
+        //setAlert();
+        setAlerts();
 
-        saveTableLocation();
-        setLocationAlert();
+        /**
+         * restore in ActionOnCardLongClicked
+         * remove in
+         */
+
 
         //----------------------------------------------------------------------------------//
         PriorityUpdater PrU = new PriorityUpdater(context);
@@ -69,7 +72,6 @@ public class ActionSaveDataToDb {
         mEditorVar.TaskDate.setmDay(0);
         mEditorVar.TaskDate.setmHour(0);
         mEditorVar.TaskDate.setmMinute(0);
-
     }
 
     // 取得日期與時間加總的到期日毫秒
@@ -159,20 +161,30 @@ public class ActionSaveDataToDb {
     private  void setAlert()
     {
         ActionSetAlarm AA =new ActionSetAlarm(this.context , this.taskId);
-        AA.SetIt();
+        AA.SetIt(mEditorVar.Task.getDue_date_millis());
     }
 
     private void saveTableLocation()
     {
+//
+//        this.locId = mEditorVar.Task.getLocation_id();
+//        DBTasksHelper mDBT = new DBTasksHelper(context);
+//        mDBT.setItem(taskId, ColumnTask.KEY.location_id, this.locId);
+    }
+    private void setAlerts()
+    {
+
 
         this.locId = mEditorVar.Task.getLocation_id();
-        DBTasksHelper mDBT = new DBTasksHelper(context);
-        mDBT.setItem(taskId, ColumnTask.KEY.location_id, this.locId);
-    }
-    private void setLocationAlert()
-    {
+        double lat = mEditorVar.TaskLocation.getLat();
+        double lon = mEditorVar.TaskLocation.getLon();
         ActionSetLocationAlarm ASLA = new ActionSetLocationAlarm(context, taskId);
-        ASLA.SetIt();
+        if( locId == 0) ASLA.CancelIt();
+        else ASLA.SetIt(mEditorVar.Task.getDue_date_millis(),lat,lon);
+
+
+        ActionSetAlarm AA =new ActionSetAlarm(this.context , this.taskId);
+        AA.SetIt(mEditorVar.Task.getDue_date_millis());
     }
 //-------------------------------------------------------------------------------------------------//
     // 判斷本次操作是寫入新資料或更新已存在資料

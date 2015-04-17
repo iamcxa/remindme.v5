@@ -52,29 +52,43 @@ public class MyCalendar {
             sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
         }
 
-        // 取得現在時間
-        //Date now = new Date();
-        String nowDate = sdf.format(getNow());
-        MyDebug.MakeLog(0, "now:" + nowDate + ", task:" + TaskDate);
-        try {
-            // 取得事件時間與現在時間
-            Date dt1 = sdf.parse(nowDate);
-            //Date dt2 = sdf.parse(TaskDate);
+//        // 取得現在時間
+//        //Date now = new Date();
+//        String nowDate = sdf.format(getNow());
+//        MyDebug.MakeLog(0, "now:" + nowDate + ", task:" + TaskDate);
+//        try {
+//            // 取得事件時間與現在時間
+//            Date dt1 = sdf.parse(nowDate);
+//            //Date dt2 = sdf.parse(TaskDate);
+//
+//            // 取得兩個時間的Unix時間
+//            Long ut1 = dt1.getTime();
+//            //Long ut2 = dt2.getTime();
+//
+//            Long timeP = Long.valueOf(TaskDate) - ut1;// 毫秒差
+//            // 相減獲得兩個時間差距的毫秒
+//            // Long sec = timeP / 1000;// 秒差
+//            // Long min = timeP / 1000 * 60;// 分差
+//            // Long hr = timeP / 1000 * 60 * 60;// 時差
+//            Long day = timeP / (1000 * 60 * 60 * 24);// 日差
+//            MyDebug.MakeLog(0, "Get days left Sucessed! " + day);
+//            return day;
+//        } catch (Exception e) {
+//            // TODO: handle exception
+//            MyDebug.MakeLog(2, e.toString());
+//            return -1;
+        try
+        {
+            Date date = sdf.parse(TaskDate);
+            Long task_millis = date.getTime();
+            Long now_millis = System.currentTimeMillis();
 
-            // 取得兩個時間的Unix時間
-            Long ut1 = dt1.getTime();
-            //Long ut2 = dt2.getTime();
+            task_millis /= 86400*1000;
+            now_millis /= 86400*1000;
 
-            Long timeP = Long.valueOf(TaskDate) - ut1;// 毫秒差
-            // 相減獲得兩個時間差距的毫秒
-            // Long sec = timeP / 1000;// 秒差
-            // Long min = timeP / 1000 * 60;// 分差
-            // Long hr = timeP / 1000 * 60 * 60;// 時差
-            Long day = timeP / (1000 * 60 * 60 * 24);// 日差
-            MyDebug.MakeLog(0, "Get days left Sucessed! " + day);
-            return day;
+            return task_millis - now_millis;
         } catch (Exception e) {
-            // TODO: handle exception
+            //  TODO : handle exception
             MyDebug.MakeLog(2, e.toString());
             return -1;
         }

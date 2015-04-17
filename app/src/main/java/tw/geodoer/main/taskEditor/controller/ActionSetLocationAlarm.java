@@ -21,9 +21,6 @@ public class ActionSetLocationAlarm {
     private int taskID;
     private int locID;
 
-    private DBTasksHelper mDBT;
-    private DBLocationHelper mDBL;
-
     private LocationManager LM;
     private Intent intent;
     private PendingIntent pi;
@@ -36,9 +33,6 @@ public class ActionSetLocationAlarm {
         this.context = cont;
         this.taskID = taskID;
 
-        this.mDBT = new DBTasksHelper(context);
-        this.mDBL = new DBLocationHelper(context);
-
         this.LM = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         this.intent = new Intent(this.context, BroadcastReceiver_TaskAlert.class);
         this.intent.setAction(BC_ACTION);
@@ -47,20 +41,8 @@ public class ActionSetLocationAlarm {
         this.pi =  PendingIntent.getBroadcast(context, 1, intent, FLAG);
 
     }
-    public void SetIt()
+    public void SetIt(long due_date_millis , double lat,double lon)
     {
-        locID = mDBT.getItemInt( taskID, ColumnTask.KEY.location_id);
-
-        if(locID == 0) {
-            this.CancelIt();
-            return;
-        }
-
-
-        double lat = mDBL.getItemDouble(locID, ColumnLocation.KEY.lat);
-        double lon = mDBL.getItemDouble(locID, ColumnLocation.KEY.lon);
-
-        long due_date_millis = mDBT.getItemLong(taskID,ColumnTask.KEY.due_date_millis);
         if(due_date_millis == 0)
             LM.addProximityAlert(lat, lon, radius, -1, pi);
         else if (due_date_millis > System.currentTimeMillis())
@@ -68,10 +50,9 @@ public class ActionSetLocationAlarm {
         else
             this.CancelIt();
     }
-
     public void CancelIt()
     {
-        this.LM.removeProximityAlert(this.pi);
+        this.LM.removeProximityAlert(pi);
     }
 
 }

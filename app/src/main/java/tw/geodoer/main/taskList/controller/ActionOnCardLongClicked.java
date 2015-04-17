@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -48,18 +49,6 @@ public class ActionOnCardLongClicked implements  Card.OnLongCardClickListener {
 
     private void cancelAlert(int task_id){
         // Alert Part (New)
-        try
-        {
-            DBAlertHelper mDBalerthelper = new DBAlertHelper(context);
-            ArrayList<Integer> ids = mDBalerthelper.getIDArrayListOfUnFinishedTask();
-            if(ids != null)
-                for(int alert_id : ids)
-                    if(mDBalerthelper.getItemInt(alert_id, ColumnAlert.KEY.task_id) == task_id)
-                        if(mDBalerthelper.getItemInt(alert_id, ColumnAlert.KEY.state) == 0 )
-                            mDBalerthelper.setItem(alert_id,ColumnAlert.KEY.state, 1);
-        }
-        catch (Exception e) { MyDebug.MakeLog(2, "ActionFinishTheAlert ERROR : " + e.toString()); }
-
         ActionSetAlarm AA = new ActionSetAlarm(context,task_id);
         AA.CancelIt();
 
@@ -89,14 +78,20 @@ public class ActionOnCardLongClicked implements  Card.OnLongCardClickListener {
     /*
         恢復卡片
     */
-    private void restoreCard(int task_id){
+    public void restoreCard(int task_id){
         DBTasksHelper dbTasksHelper=new DBTasksHelper(context);
         dbTasksHelper.setItem(task_id, ColumnTask.KEY.status, ColumnTask.TASK_STATUS_NORMAL);
 
-        ActionSetAlarm AA = new ActionSetAlarm(context,task_id);
-        AA.SetIt();
-        ActionSetLocationAlarm ALA = new ActionSetLocationAlarm(context,task_id);
-        ALA.SetIt();
+        ActionSetAlarm AA = new ActionSetAlarm(context, task_id);
+        AA.SetIt(dbTasksHelper.getItemLong(task_id,ColumnTask.KEY.due_date_millis));
+
+        ActionSetLocationAlarm ASA = new ActionSetLocationAlarm(context,task_id);
+        int loc_ID = dbTasksHelper.getItemInt(task_id,ColumnTask.KEY.location_id);
+        DBLocationHelper mDBL = new DBLocationHelper(context);
+        double lat = mDBL.getItemDouble(loc_ID,ColumnLocation.KEY.lat);
+        double lon = mDBL.getItemDouble(loc_ID,ColumnLocation.KEY.lon);
+        ASA.SetIt(dbTasksHelper.getItemLong(task_id,ColumnTask.KEY.due_date_millis),lat,lon);
+
     }
 
     /*
