@@ -128,9 +128,9 @@ public class ActionSetCardFromCursor {
             }
             else if (dayLeft == 1) card.dueDate = (sign?"明天":"昨天") + due_date_string;
             else if (dayLeft < 7 ) card.dueDate = "約" + dayLeft   + "天"  + (sign?"後的":"前的")+due_date_string;
-            else if (dayLeft < 30) card.dueDate = "約" + dayLeft/7 + "週"  + (sign?"後的":"前的")+due_date_string;
-            else if (dayLeft <365) card.dueDate = "約" + dayLeft/30 +"個月"+ (sign?"後的":"前的")+due_date_string;
-            else card.dueDate = dayLeft/365 +"年" +(sign?"後":"前") +due_date_string;
+            else if (dayLeft < 30) card.dueDate = "約" + dayLeft/7 + "週"  + (sign?"後":"前");
+            else if (dayLeft <365) card.dueDate = "約" + dayLeft/30 +"個月"+ (sign?"後":"前");
+            else card.dueDate = dayLeft/365 +"年" +(sign?"後":"前");
 
             if(due_date_millis < System.currentTimeMillis() ) card.dueDate = card.dueDate + "(到期)";
 
