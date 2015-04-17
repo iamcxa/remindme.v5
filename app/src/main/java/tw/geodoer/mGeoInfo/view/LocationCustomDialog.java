@@ -231,7 +231,6 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
 //                    Toast.makeText(getActivity(),mDistance+"",Toast.LENGTH_SHORT).show();
 //                }
 //            });
-
         }
     }
 }

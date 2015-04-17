@@ -47,4 +47,8 @@
     <!-- task_editor_parts -->
     <color name="task_editor_parts_layout_textview_color">#88333333</color>
 
+
+    <color name="fabtn_mapview_getlocation_light">#ffffff</color>
+    <color name="fabtn_mapview_getlocation_normal">#888888</color>
+    <color name="fabtn_mapview_getlocation_deep">#dddddd</color>
 </resources>

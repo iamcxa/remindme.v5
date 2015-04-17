@@ -3,8 +3,6 @@ package tw.geodoer.mGeoInfo.view;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +18,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -95,6 +94,44 @@ public class ShowTodoGeo extends Fragment implements MapController.onGeoLoadLisi
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.activity_task_editor_parts_dialog_location, container, false);
 
+        final View fab_add = v.findViewById(R.id.fab_nowLoc);
+        fab_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                map.clear();
+                CurrentLocation mNowGeo = new CurrentLocation(getActivity());
+                mNowGeo.setOnLocListenerSetGps("-1", new CurrentLocation.onDistanceListener() {
+                    @Override
+                    public void onGetLatLng(Double lat, Double lng) {
+                        LatLng nowLoacation;
+                        nowLoacation = new LatLng(lat, lng);
+                        map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
+                                .position(nowLoacation)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))).showInfoWindow();
+                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(nowLoacation,
+                                map.getMaxZoomLevel() - 8));
+                    }
+                });
+
+                DBtoGeoinfo getEvent = new DBtoGeoinfo(getActivity());
+                ArrayList<NeoGeoInfo> list = getEvent.getArraylistNeoGeoInfoofTasks();
+                for (int i = 0; i < list.size(); i++) {
+                    NeoGeoInfo event = list.get(i);
+                    if(event.getFlag()==2){
+                        map.addMarker(new MarkerOptions()
+                                .title(event.getName())
+                                .position(event.getLatlng())
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
+                    }else if(event.getFlag()==3){
+                        map.addMarker(new MarkerOptions()
+                                .title(event.getName())
+                                .position(event.getLatlng())
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                    }
+                }
+            }
+        });
+
         PlaceName = (TextView) v.findViewById(R.id.PlaceName);
         MapsInitializer.initialize(getActivity().getApplicationContext());
         switch (GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity())) {
@@ -126,14 +163,8 @@ public class ShowTodoGeo extends Fragment implements MapController.onGeoLoadLisi
             Log.d("", "googleMap is null !!!!!!!!!!!!!!!");
         } else {
 //            map.setMyLocationEnabled(true);
-            map.getUiSettings().setZoomControlsEnabled(false);
+            map.getUiSettings().setZoomControlsEnabled(true);
             map.setTrafficEnabled(true);
-            LatLng nowLoacation;
-            nowLoacation = new LatLng(23.6978, 120.961);
-            map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
-                    .position(nowLoacation));
-            map.moveCamera((CameraUpdateFactory.newLatLngZoom(nowLoacation,
-                    map.getMinZoomLevel() + 7)));
             CurrentLocation mNowGeo = new CurrentLocation(getActivity());
             mNowGeo.setOnLocListenerSetGps("-1", new CurrentLocation.onDistanceListener() {
                 @Override
@@ -141,19 +172,28 @@ public class ShowTodoGeo extends Fragment implements MapController.onGeoLoadLisi
                     LatLng nowLoacation;
                     nowLoacation = new LatLng(lat, lng);
                     map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
-                            .position(nowLoacation));
+                            .position(nowLoacation)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))).showInfoWindow();
                     map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLoacation,
-                            map.getMaxZoomLevel() - 5));
+                            map.getMaxZoomLevel() - 11));
                 }
             });
 
             DBtoGeoinfo getEvent = new DBtoGeoinfo(getActivity());
             ArrayList<NeoGeoInfo> list = getEvent.getArraylistNeoGeoInfoofTasks();
-            Log.e("TestArray",list.size()+"");
             for (int i = 0; i < list.size(); i++) {
                 NeoGeoInfo event = list.get(i);
-                map.addMarker(new MarkerOptions().title(event.getName()).position(event.getLatlng())).showInfoWindow();
-                Log.e("TestArray",event.getName());
+                if(event.getFlag()==2){
+                    map.addMarker(new MarkerOptions()
+                            .title(event.getName())
+                            .position(event.getLatlng())
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
+                }else if(event.getFlag()==3){
+                    map.addMarker(new MarkerOptions()
+                            .title(event.getName())
+                            .position(event.getLatlng())
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                }
             }
 
 //            mapController = new MapController(getActivity(),map,PlaceName);

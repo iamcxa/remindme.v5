@@ -39,6 +39,9 @@ public class DBtoGeoinfo
             gi.setName(mDBT.getItemString(id, ColumnTask.KEY.title));
 
             locid = mDBT.getItemInt(id, ColumnTask.KEY.location_id);
+            if(locid==0){
+                continue;
+            }
             LatLng lalo = new LatLng(mDBL.getItemDouble(locid,ColumnLocation.KEY.lat),
                                      mDBL.getItemDouble(locid,ColumnLocation.KEY.lon));
             gi.setLatlng(lalo);
@@ -68,6 +71,9 @@ public class DBtoGeoinfo
             ngi.setMillis(mDBT.getItemLong(id, ColumnTask.KEY.due_date_millis));
 
             locid = mDBT.getItemInt(id, ColumnTask.KEY.location_id);
+            if(locid==0){
+                continue;
+            }
             LatLng lalo = new LatLng(mDBL.getItemDouble(locid,ColumnLocation.KEY.lat),
                     mDBL.getItemDouble(locid,ColumnLocation.KEY.lon));
             ngi.setLatlng(lalo);
