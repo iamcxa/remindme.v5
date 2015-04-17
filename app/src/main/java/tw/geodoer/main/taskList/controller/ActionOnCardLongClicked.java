@@ -78,15 +78,13 @@ public class ActionOnCardLongClicked implements  Card.OnLongCardClickListener {
     /*
         恢復卡片
     */
-    private void restoreCard(int task_id){
+    public void restoreCard(int task_id){
         DBTasksHelper dbTasksHelper=new DBTasksHelper(context);
         dbTasksHelper.setItem(task_id, ColumnTask.KEY.status, ColumnTask.TASK_STATUS_NORMAL);
 
-        Log.wtf("ReS","restore AA");
         ActionSetAlarm AA = new ActionSetAlarm(context, task_id);
         AA.SetIt(dbTasksHelper.getItemLong(task_id,ColumnTask.KEY.due_date_millis));
 
-        Log.wtf("ReS","restore ALA");
         ActionSetLocationAlarm ASA = new ActionSetLocationAlarm(context,task_id);
         int loc_ID = dbTasksHelper.getItemInt(task_id,ColumnTask.KEY.location_id);
         DBLocationHelper mDBL = new DBLocationHelper(context);

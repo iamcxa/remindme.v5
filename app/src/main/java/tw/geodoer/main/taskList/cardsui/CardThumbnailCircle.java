@@ -12,6 +12,7 @@ import it.gmariotti.cardslib.library.internal.CardThumbnail;
 import tw.geodoer.mDatabase.API.DBLocationHelper;
 import tw.geodoer.mDatabase.API.DBTasksHelper;
 import tw.geodoer.mDatabase.columns.ColumnTask;
+import tw.geodoer.main.taskList.controller.ActionOnCardLongClicked;
 import tw.geodoer.utils.drawable.CircleDrawable;
 
 /**
@@ -74,6 +75,9 @@ public class CardThumbnailCircle extends CardThumbnail {
                             dbTasksHelper.setItem(cardID, ColumnTask.KEY.status, 0);
                             dbTasksHelper.setItem(cardID, ColumnTask.KEY.checked,
                                     0);
+                            DBTasksHelper mBDT =new DBTasksHelper(getContext());
+                            ActionOnCardLongClicked ACC = new ActionOnCardLongClicked(getContext(),mBDT.getCursor());
+                            ACC.restoreCard(cardID);
                             break;
                         case 2:
                             v.setBackgroundResource(R.drawable.ic_back_on);
