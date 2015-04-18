@@ -132,7 +132,7 @@ public class MySlidingTabLayout extends HorizontalScrollView {
 
     /**
      * Sets the associated view pager. Note that the assumption here is that the pager content
-     * (number of tabs and tab titles) does not change after this call has been made.
+     * (number of tabs and tab titles) does not change after this rePirority has been made.
      */
     public void setViewPager(ViewPager viewPager) {
         mTabStrip.removeAllViews();

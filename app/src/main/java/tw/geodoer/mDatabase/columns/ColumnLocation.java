@@ -13,7 +13,8 @@ import tw.geodoer.utils.CommonVar;
 public final class ColumnLocation implements BaseColumns {
 
     // 預設排序常數
-    public static final String DEFAULT_SORT_ORDER = "_id DESC";
+    public static final String DEFAULT_SORT_ORDER = "_id ASC";
+    public static final String SORT_BY_LASTUSEDTIME = KEY.lastUsedTime+" DESC";
     // 資料表名稱常數
     public static final String TABLE_NAME = "task_locations";
     // 存取Uri
@@ -31,7 +32,7 @@ public final class ColumnLocation implements BaseColumns {
                     + KEY.lastUsedTime + " INTEGER,"
                     + KEY.weight + " INTEGER,"
                     + KEY.type + " INTEGER,"
-                    + KEY.tag + " TEXT"
+                    + KEY.address + " TEXT"
                     + ");";
     // 查詢欄位陣列
     public static final String[] PROJECTION = new String[]{
@@ -43,7 +44,7 @@ public final class ColumnLocation implements BaseColumns {
             KEY.lastUsedTime,
             KEY.weight,
             KEY.type,
-            KEY.tag
+            KEY.address
     };
     private ColumnLocation() {
     }
@@ -58,7 +59,7 @@ public final class ColumnLocation implements BaseColumns {
         public static final String lastUsedTime = "lastUsedTime";
         public static final String weight = "weight";
         public static final String type = "type";
-        public static final String tag = "tag";
+        public static final String address = "address";
 
 
         // 欄位索引
@@ -71,7 +72,7 @@ public final class ColumnLocation implements BaseColumns {
             public static final int lastUsedTime = 5;
             public static final int weight = 6;
             public static final int type = 7;
-            public static final int tag = 8;
+            public static final int address = 8;
         }
     }
 }

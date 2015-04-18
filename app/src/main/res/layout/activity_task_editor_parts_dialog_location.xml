@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/tools"
     android:id="@+id/linearLayout1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <!-- class="tw.geodoer.mGeoInfo.view.WorkaroundMapFragment" /> -->
-	
+
+    <view
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        class="com.melnykov.fab.ObservableScrollView"
+        android:id="@+id/scrollViewMap"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true" />
+
     <com.google.android.gms.maps.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        
+
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         />
@@ -24,8 +38,37 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text=""
-		android:background="#96444444"
+        android:background="#96444444"
         android:textAppearance="?android:attr/textAppearanceMedium"
-		android:textColor="#ffffff" />
+        android:textColor="#ffffff" />
 
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/faBtn_nowLoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:src="@mipmap/ic_action_getmylocation"
+        fab:fab_colorNormal="@color/fabtn_mapview_getlocation_normal"
+        fab:fab_colorPressed="@color/fabtn_mapview_getlocation_light"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="23dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginTop="23dp" />
+
+    <!--
+        <com.shamanland.fab.FloatingActionButton
+            android:id="@+id/fab_nowLoc"
+            style="@drawable/fabtn_mapview_getmylocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            app:floatingActionButtonColor="@drawable/fabtn_mapview_getmylocation"
+            android:src="@mipmap/ic_action_getmylocation"
+            app:floatingActionButtonSize="mini"
+            />
+-->
+    <!--app:floatingActionButtonSize="mini" -->
 </RelativeLayout>

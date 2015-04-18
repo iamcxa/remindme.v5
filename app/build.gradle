@@ -36,9 +36,14 @@ dependencies {
     compile 'com.google.android.gms:play-services:6.5.87'
     //Core card library
     compile 'com.github.gabrielemariotti.cards:library:1.9.1'
-    compile 'com.shamanland:fab:0.0.6'
+    compile 'com.melnykov:floatingactionbutton:1.3.0'
+    compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
     compile 'com.github.johnkil.android-progressfragment:progressfragment:1.4.+'
     compile 'com.android.support:appcompat-v7:21.0.2'
     compile 'com.android.support:support-v4:21.0.2'
     compile project(':MapController_v1.15.7')
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/devService

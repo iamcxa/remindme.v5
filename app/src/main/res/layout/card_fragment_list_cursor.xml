@@ -21,9 +21,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/txtIfListEmpty"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:singleLine="true"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:shadowColor="#ffa2ffff" />
 
     <it.gmariotti.cardslib.library.view.CardListView
         android:id="@+id/carddemo_list_cursor"
@@ -36,6 +51,7 @@
         card:list_card_layout_resourceID="@layout/card_list_cursor_layout" >
     </it.gmariotti.cardslib.library.view.CardListView>
 
+    <!--
     <com.shamanland.fab.FloatingActionButton
         android:id="@+id/fab_add"
         style="@drawable/mainview_fabtn_add"
@@ -50,5 +66,22 @@
         android:src="@drawable/ic_action_write_50_white"
         app:floatingActionButtonColor="@drawable/mainview_fabtn_add"
         app:floatingActionButtonSize="normal" />
+    -->
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/faBtn_mainView_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:src="@drawable/ic_action_write_50_white"
+        fab:fab_colorNormal="@color/background_tab_pressed"
+        fab:fab_colorPressed="@color/card_background_color2"
+        fab:fab_colorRipple="@color/smart_ampm"
+        android:layout_marginRight="56dp"
+        android:layout_marginBottom="56dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="56dp" />
 
 </RelativeLayout>

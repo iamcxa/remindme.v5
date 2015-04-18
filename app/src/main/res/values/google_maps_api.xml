@@ -1,0 +1,27 @@
+<resources>
+    <string name="google_maps_key_instructions" templateMergeStrategy="replace"><!--
+
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=0A:46:E3:63:84:F4:3C:6D:D1:59:8D:07:44:86:82:C1:37:2C:A3:DD%3Bfud.geodoermap
+
+    You can also add your credentials to an existing key, using this line:
+    0A:46:E3:63:84:F4:3C:6D:D1:59:8D:07:44:86:82:C1:37:2C:A3:DD;fud.geodoermap
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    --></string>
+
+    <!--耀德-->
+    <!--<string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyDTA9d2CCboaa7OxDVlbAOZ94rRMnZcONE</string>-->
+    <!--耀德桌機-->
+    <!--<string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyDrKH0wDVEUz3PwgZmn1ajSYXovwp_Ok0w</string>-->
+
+    <!--奎言-->
+    <!--<string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyC-Y60UoFtkrasIrhDGrvBgysdiU_Mg9R4</string>-->
+
+    <!--君平-->
+    <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyD1pBtLbkw-9r63tZxNqxHY6bP_xlQmdCE</string>
+</resources>

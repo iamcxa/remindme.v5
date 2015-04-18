@@ -32,7 +32,7 @@ public class TaskDbProvider extends ContentProvider {
     // 資料庫名稱常數
     public static final String DATABASE_NAME = "geodoerDB.db";
     // 資料庫版本常數
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = CommonVar.DB_VERSION;
     // 查詢、更新條件
     private static final int URI_TASKS = 101;
     private static final int URI_TASK_ID = 102;
@@ -68,7 +68,7 @@ public class TaskDbProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-        String orderBy = sortOrder;
+        String orderBy;
 
         switch (sUriMatcher.match(uri)) {
             // TASK
@@ -121,7 +121,7 @@ public class TaskDbProvider extends ContentProvider {
         SQLiteDatabase db = mOpenHelper.getReadableDatabase();
         // 返回游標集合
         Cursor c = qb.query(db, projection, selection, selectionArgs, null,
-                null, null);
+                null, orderBy);
         c.setNotificationUri(getContext().getContentResolver(), uri);
         return c;
     }
@@ -360,17 +360,17 @@ public class TaskDbProvider extends ContentProvider {
 
         // 實例化查詢欄位集合/添加查詢欄位
         // Task
-        sTaskProjectionMap = new HashMap<String, String>();
+        sTaskProjectionMap = new HashMap<>();
         for (String element : ColumnTask.PROJECTION) {
             sTaskProjectionMap.put(element, element);
         }
         // Alert
-        sTaskAlertProjectionMap = new HashMap<String, String>();
+        sTaskAlertProjectionMap = new HashMap<>();
         for (String element : ColumnAlert.PROJECTION) {
             sTaskAlertProjectionMap.put(element, element);
         }
         // Location
-        sTaskLocationProjectionMap = new HashMap<String, String>();
+        sTaskLocationProjectionMap = new HashMap<>();
         for (String element : ColumnLocation.PROJECTION) {
             sTaskLocationProjectionMap.put(element, element);
         }
@@ -393,9 +393,9 @@ public class TaskDbProvider extends ContentProvider {
         // 刪除資料表
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS" + TABLE_TASK);
-            db.execSQL("DROP TABLE IF EXISTS" + TABLE_ALERT);
-            db.execSQL("DROP TABLE IF EXISTS" + TABLE_LOCATION);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_TASK);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_ALERT);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOCATION);
             onCreate(db);
         }
     }

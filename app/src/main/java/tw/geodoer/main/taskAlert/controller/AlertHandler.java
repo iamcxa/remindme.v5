@@ -6,7 +6,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -16,17 +15,20 @@ import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
+import com.geodoer.geotodo.R;
+
+import tw.geodoer.mDatabase.API.DBTasksHelper;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskAlert.view.dialog.AlertNotiDialog;
 import tw.geodoer.main.taskList.view.AppMainActivity;
 import tw.geodoer.main.taskPreference.controller.MyPreferences;
 import tw.geodoer.utils.MyDebug;
-import tw.moretion.geodoer.R;
 
 public class AlertHandler extends IntentService {
 
 
     public static AlertHandler alertHandler = new AlertHandler();
+    public static final String TAG = "remindme alert";
 
     public AlertHandler() {
         super(null);
@@ -47,26 +49,15 @@ public class AlertHandler extends IntentService {
 
         MyDebug.MakeLog(2, "@alertHandler taskID=" + taskID);
 
-        setNotification(this, taskID);
+        setNotification(getApplicationContext(), taskID);
+
     }
 
     //
-    public String getTaskName(Context context, String taskID) {
-        String args[] = {taskID};
-        Cursor c = context.getContentResolver().
-                query(ColumnTask.URI, ColumnTask.PROJECTION
-                        , "_id = " + taskID, null
-                        , ColumnTask.DEFAULT_SORT_ORDER);
-
-        String data = null;
-        if (c != null) {
-            c.moveToFirst();
-            data = c.getString(ColumnTask.KEY.INDEX.title);
-            MyDebug.MakeLog(2, "getTaskName=" + data);
-            c.close();
-        }
-
-        return data;
+    public String getTaskName(Context context, String taskID)
+    {
+        DBTasksHelper mDBtaskhelper = new DBTasksHelper(context);
+        return mDBtaskhelper.getItemString(Integer.valueOf(taskID), ColumnTask.KEY.title);
     }
 
     //
@@ -74,6 +65,7 @@ public class AlertHandler extends IntentService {
 
         Intent intentMain = new Intent(context, AppMainActivity.class);
         intentMain.putExtra("taskID", taskID);
+        intentMain.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pedingIntentMain = PendingIntent.getActivity(context, 0,
                 intentMain, PendingIntent.FLAG_ONE_SHOT);
 
@@ -100,25 +92,27 @@ public class AlertHandler extends IntentService {
                 R.drawable.ic_action_alarms);
 
         Notification noti = new Notification.Builder(context)
-                .setContentTitle("待辦任務到期：" + getTaskName(context, taskID))
-                .setContentText("點這裡查看")
+                .setContentTitle("待辦任務到期")
+                .setContentText(getTaskName(context, taskID))
                         //.setContentInfo("ContentInfo")
-                .addAction(R.drawable.ic_action_alarms, "延遲", pedingIntentDelay)
-                .addAction(R.drawable.ic_action_accept, "完成", pedingIntentFinish)
+                .addAction(R.drawable.ic_action_alarms, "延遲5分鐘", pedingIntentDelay)
+                .addAction(R.drawable.ic_action_accept, "完成了!!", pedingIntentFinish)
                 .setNumber(1)
-                .setAutoCancel(true)
+                .setAutoCancel(false)
                 .setSmallIcon(R.drawable.remindme_logo)
                 .setLargeIcon(bm)
                 .setWhen(System.currentTimeMillis())
                         //.setFullScreenIntent(pedingIntentDialog, true)
                 .setContentIntent(pedingIntentMain)
                 .setVibrate(tVibrate)
+                //.setOngoing(true)
+                .setPriority(16)
                 .setSound(Uri.parse(MyPreferences.mPreferences.getString("ringtonePref", context.getFilesDir().getAbsolutePath() + "/fallbackring.ogg")))
                 .build();
 
         NotificationManager nm =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        nm.notify("remindme", Integer.valueOf(taskID), noti);
+        nm.notify(TAG, Integer.valueOf(taskID), noti);
 
     }
 

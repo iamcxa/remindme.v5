@@ -3,26 +3,17 @@
  */
 package tw.geodoer.main.taskList.adapter;
 
-import android.app.AlertDialog;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.view.View;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardCursorAdapter;
-import it.gmariotti.cardslib.library.internal.CardExpand;
-import it.gmariotti.cardslib.library.internal.CardHeader;
-import tw.geodoer.mDatabase.columns.ColumnAlert;
-import tw.geodoer.mDatabase.columns.ColumnTask;
+import it.gmariotti.cardslib.library.view.component.CardShadowView;
 import tw.geodoer.main.taskList.cardsui.CardThumbnailCircle;
 import tw.geodoer.main.taskList.cardsui.MyCursorCard;
-import tw.geodoer.main.taskList.controller.ActionOnClickCard;
+import tw.geodoer.main.taskList.controller.ActionOnCardClicked;
+import tw.geodoer.main.taskList.controller.ActionOnCardLongClicked;
 import tw.geodoer.main.taskList.controller.ActionSetCardFromCursor;
-import tw.geodoer.utils.MyDebug;
-import tw.moretion.geodoer.R;
 
 /**
  * @author Kent
@@ -33,150 +24,50 @@ import tw.moretion.geodoer.R;
  */
 public class MyCursorCardAdapter extends CardCursorAdapter {
 
-    private static ActionSetCardFromCursor mActionSetCardFromCursor;
-    private static ActionOnClickCard mReadCardOnClick;
 
-    public MyCursorCardAdapter(Context context) {
+ Context context;
+    private int position = 0;
+
+    public MyCursorCardAdapter(Context context, int position) {
         super(context);
+        this.context=context;
+        this.position=position;
     }
 
-    public static MyCursorCardAdapter newInstance(Context context) {
-        MyCursorCardAdapter adapter = new MyCursorCardAdapter(context);
-        return adapter;
+    public static MyCursorCardAdapter newInstance(Context context, int position) {
+        return new MyCursorCardAdapter(context,position);
     }
 
     @Override
     protected Card getCardFromCursor(final Cursor cursor) {
+        ViewHolder viewHolder;
+
+         viewHolder=new ViewHolder();
 
         // 建立卡片物件
-        MyCursorCard card = new MyCursorCard(getContext());
-
-        // 設定卡片內容
-        mActionSetCardFromCursor = new ActionSetCardFromCursor(getContext(), cursor, card);
-        mActionSetCardFromCursor.setIt();
-        mReadCardOnClick = new ActionOnClickCard(getContext(), cursor, card);
-        mReadCardOnClick.setMyCursorCardAdapter(this);
-
-        // Create a CardHeader
-        CardHeader header = new CardHeader(getContext());
-
-        // set color
-        if (cursor.getString(ColumnTask.KEY.INDEX.status) == "0")
-            card.setBackgroundResourceId(Color.WHITE);
-        if (cursor.getString(ColumnTask.KEY.INDEX.status) == "1")
-            card.setBackgroundResourceId(Color.GRAY);
-
-        // Set the header title
-        header.setTitle(card.mainHeader);
-
-        // Add Header to card
-        card.addCardHeader(header);
-
-        //Set visible the expand/collapse button
-        // card.setExpanded(true);
-        header.setButtonExpandVisible(true);
-        // This provides a simple (and useless) expand area
-        CardExpand expand = new CardExpand(getContext());
-        // Set inner title in Expand Area
-        String aa = "dbId=" + cursor.getString(0) + ",w="
-                + cursor.getString(ColumnTask.KEY.INDEX.priority)
-                + "cardID=" + card.getId();
-        expand.setTitle(aa);
-        card.addCardExpand(expand);
-
-        // Add Thumbnail to card
-        // final MyCardThumbnail thumb = new MyCardThumbnail(getContext());
-        // thumb.setDrawableResource(card.resourceIdThumb);
-        CardThumbnailCircle thumb = new CardThumbnailCircle(getContext(), cursor.getInt(0));
-        card.addCardThumbnail(thumb);
+        viewHolder.card = new MyCursorCard(getContext());
+        viewHolder.thumb = new CardThumbnailCircle(getContext(), cursor.getInt(0), position);
+        viewHolder.card.addCardThumbnail(viewHolder.thumb);
 
         //Set onClick listener
-        card.setOnClickListener(new Card.OnCardClickListener() {
-            @Override
-            public void onClick(Card card, View view) {
-                //    Toast.makeText(getContext(), "Clickable card", Toast.LENGTH_LONG).show();
-                mReadCardOnClick.readIt(card.getId());
-            }
-        });
+        viewHolder.card.setOnClickListener(new ActionOnCardClicked(getContext(),cursor));
 
-        //card.setLongClickable(true);
-        card.setOnLongClickListener(new Card.OnLongCardClickListener() {
-            @Override
-            public boolean onLongClick(Card card, View view) {
-                ShowLongClickMenu(cursor.getInt(0), card.getId());
-                return false;
-            }
-        });
+        // set onLongClick listener;
+        viewHolder.card.setOnLongClickListener(
+                new ActionOnCardLongClicked(getContext(),cursor,position));
 
-        return card;
+        // 設定卡片內容
+        ActionSetCardFromCursor mActionSetCardFromCursor =
+                new ActionSetCardFromCursor(getContext(), cursor, viewHolder.card);
+        mActionSetCardFromCursor.setIt();
+
+        return viewHolder.card;
     }
 
-    /*
-
-     */
-    private void removeCard(int id) {
-
-        // Use this code to delete items on DB
-        ContentResolver resolverTask = getContext().getContentResolver();
-
-        long taskDeleted = 0;
-        resolverTask.delete(ColumnTask.URI,
-                ColumnTask.KEY._id + " = ? ",
-                //new String[] { this.getCardFromCursor(getCursor()).getId() });
-                new String[]{String.valueOf(id)});
-
-        // Alert PArt
-        ContentResolver resolverAlert = getContext().getContentResolver();
-        Cursor rowIDs = resolverAlert.query(ColumnAlert.URI,
-                null,
-                ColumnAlert.KEY.task_id + " = ? ",
-                new String[]{String.valueOf(id)},
-                ColumnAlert.DEFAULT_SORT_ORDER);
-        int rowCounter = rowIDs.getCount();
-        rowIDs.moveToFirst();
-        String[] IDs = {""};
-        for (int i = 0; i < rowIDs.getCount(); i++) {
-            IDs[i] = rowIDs.getString(i).toString();
-            MyDebug.MakeLog(0, "rowOrder=" + i +
-                    ",rowID=" + IDs);
-            rowIDs.moveToNext();
-        }
-
-        MyDebug.MakeLog(0, "task_id=" + ColumnAlert.KEY.task_id +
-                ",ColumnAlert rows=" + rowCounter);
-        long alertDeleted = 0;
-        if (rowCounter > 0) {
-            alertDeleted = resolverAlert.delete(ColumnAlert.URI,
-                    ColumnAlert.KEY.task_id + " = ? ",
-                    IDs);
-        }
-
-        MyDebug.MakeLog(0, "taskDeleted=" + taskDeleted +
-                ",alertDeleted=" + alertDeleted);
-        this.notifyDataSetChanged();
+    static class ViewHolder{
+         MyCursorCard card;
+         CardThumbnailCircle thumb;
+        CardShadowView cardShadowView;
     }
-
-    private AlertDialog ShowLongClickMenu(final int id, final String cardID) {
-        return new AlertDialog.Builder(getContext())
-                .setTitle("請選擇...")
-                .setItems(R.array.Array_Task_List_Card_Long_Clcik_String,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                switch (which) {
-                                    case 0:// 修改
-                                        mReadCardOnClick.readIt(cardID);
-                                        break;
-                                    case 1:// 刪除
-                                        removeCard(id);
-
-                                        break;
-                                }
-                            }
-                        }).show();
-    }
-
-
 }
 

@@ -21,29 +21,30 @@ package tw.geodoer.main.taskList.view;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.shamanland.fab.ShowHideOnScroll;
+import com.geodoer.geotodo.R;
+import com.melnykov.fab.FloatingActionButton;
 
 import it.gmariotti.cardslib.library.view.CardListView;
 import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.mPriority.API.BroadcastSender;
+import tw.geodoer.mPriority.controller.PriorityUpdater;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
 import tw.geodoer.main.taskList.adapter.MyCursorCardAdapter;
-import tw.geodoer.main.taskPreference.controller.MyPreferences;
+import tw.geodoer.utils.CommonVar;
 import tw.geodoer.utils.MyCalendar;
 import tw.geodoer.utils.MyDebug;
-import tw.moretion.geodoer.R;
 
 /**
  * List with Cursor Example
@@ -52,16 +53,20 @@ import tw.moretion.geodoer.R;
  */
 public class ListCursorCardFragment extends MyBaseFragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
+
+
+    ViewHolder viewHolder = new ViewHolder();
+
+
     // getArguments().getInt(FILTER_STRING)
     public static final String FILTER_STRING = "FILTER_STRING";
     private static int position;
-    private static MyCursorCardAdapter mAdapter;
-    private static CardListView mListView;
     private static String[] projectionTask = ColumnTask.PROJECTION;
     private static String[] projectionAlert = ColumnAlert.PROJECTION;
     private static String[] projectionLoc = ColumnLocation.PROJECTION;
     private static String taskSelection = null;
-    private static String taskSortOrder = ColumnTask.DEFAULT_SORT_ORDER;
+    //    private static String taskSortOrder = ColumnTask.DEFAULT_SORT_ORDER;
+    private static String taskSortOrder ="priority DESC";
     //
     private static String alertSelection = null;
     private static String alertSortOrder = ColumnAlert.DEFAULT_SORT_ORDER;
@@ -70,6 +75,7 @@ public class ListCursorCardFragment extends MyBaseFragment implements
     private static String LocSortOrder = ColumnLocation.DEFAULT_SORT_ORDER;
     private static String[] selectionArgs;
     private static String todayString = MyCalendar.getTodayString(0);
+    private final static String STRING_POSITION = "position";
     private Handler mHandler;
     private Runnable newInit = new Runnable() {
 
@@ -83,23 +89,28 @@ public class ListCursorCardFragment extends MyBaseFragment implements
 
         ;
     };
+    private Loader<Cursor> loader;
+    private Cursor data;
 
 
     /********************/
     /** Initialization **/
 
-    public static ListCursorCardFragment newInstance() {
+    public static ListCursorCardFragment newInstance(int position) {
         ListCursorCardFragment fragment = new ListCursorCardFragment();
+        Bundle args = new Bundle();
+        args.putInt(CommonVar.STRING_DRAWER_POSITION, position);
+        fragment.setArguments(args);
         return fragment;
     }
 
     //-------------------------------------------------//
-    public static MyCursorCardAdapter getmAdapter() {
-        return mAdapter;
+    public  MyCursorCardAdapter getmAdapter() {
+        return viewHolder.mAdapter;
     }
 
-    public static void setmAdapter(MyCursorCardAdapter mAdapter) {
-        ListCursorCardFragment.mAdapter = mAdapter;
+    public  void setmAdapter(MyCursorCardAdapter mAdapter) {
+        viewHolder.mAdapter = mAdapter;
     }
 
     public static String getTaskSelection() {
@@ -126,19 +137,19 @@ public class ListCursorCardFragment extends MyBaseFragment implements
         LocSelection = locSelection;
     }
 
-    /**
-     * @return the position
-     */
-    public static int getPosition() {
-        return position;
-    }
-
-    /**
-     * @param position the position to set
-     */
-    public static void setPosition(int position) {
-        ListCursorCardFragment.position = position;
-    }
+//    /**
+//     * @return the position
+//     */
+//    public static int getPosition() {
+//        return position;
+//    }
+//
+//    /**
+//     * @param position the position to set
+//     */
+//    public static void setPosition(int position) {
+//        ListCursorCardFragment.position = position;
+//    }
 
     /**
      * ****************
@@ -149,66 +160,86 @@ public class ListCursorCardFragment extends MyBaseFragment implements
         //int filter = getArguments().getInt(FILTER_STRING);
         int filter = position;
 
-        MyDebug.MakeLog(0, "init被執行");
-
+        MyDebug.MakeLog(0, "ListCursorCardFragment-init");
         switch (filter) {
-            case 0:// 待辦清單
-                //setTaskSelection("due_date_string = 'null'");
-                setTaskSelection("checked != 1");
+            case 0:// 智慧待辦清單
+                setTaskSelection(ColumnTask.KEY.status+" == 0");
+                taskSortOrder = ColumnTask.KEY.priority+" DESC";
                 break;
-            case 1:// 靠近我的
-                MyPreferences.mPreferences = PreferenceManager
-                        .getDefaultSharedPreferences(getActivity());
-
-                int val_radiated_distance = MyPreferences.getValueOfRadiatedDistance();
-                ;
-                // setTaskSelection("distance <= '" + val_radiated_distance + "' ");
+            case 1:// 按照時間
+                setTaskSelection(ColumnTask.KEY.location_id+" == 0" +
+                        " AND " + ColumnTask.KEY.status + " == 0");
+                taskSortOrder = ColumnTask.KEY.priority+" DESC";
                 break;
-            case 2:// 已完成
-                setTaskSelection("checked = 1");
+            case 2:// 按照地點
+                //MyPreferences.mPreferences = PreferenceManager
+                //        .getDefaultSharedPreferences(getActivity());
+                //int val_radiated_distance = MyPreferences.getValueOfRadiatedDistance();
+                setTaskSelection(ColumnTask.KEY.location_id+" != 0" +
+                        " AND " + ColumnTask.KEY.status + " == 0");
+                taskSortOrder = ColumnTask.KEY.priority+" DESC";
                 break;
             case 3:// 地圖檢視
-
+                // 切換fragment
                 break;
-            case 4:// 距離檢視
+            case 4:// 已完成
                 //setProjection(projection)
-                setTaskSelection("distance IS NOT '0'");
+                setTaskSelection(ColumnTask.KEY.status+" == 1");
+                taskSortOrder = ColumnTask.KEY.checked+" DESC";
                 break;
-            case 5:// 地圖檢視
-
+            case 5:// 垃圾桶
+                setTaskSelection(ColumnTask.KEY.status+" == 2");
+                taskSortOrder = ColumnTask.KEY.due_date_millis+" DESC";
                 break;
-            case 6:// 標籤
-                setTaskSelection("TAG IS NOT 'null'");
+            case 6:// 測試功能
+                // 切換fragment
                 break;
             default:
                 break;
         }
 
-
-        mAdapter = MyCursorCardAdapter.newInstance(getActivity());
-        mListView = (CardListView) getActivity().findViewById(
+        //
+        viewHolder.mAdapter = MyCursorCardAdapter.newInstance(getActivity(),position);
+        viewHolder.mListView = (CardListView) getActivity().findViewById(
                 R.id.carddemo_list_cursor);
 
-        if (mListView != null) {
-            mListView.setAdapter(mAdapter);
+        if (viewHolder.mListView != null) {
+            viewHolder.mListView.setAdapter(viewHolder.mAdapter);
 
-            final View fab_add = getActivity().findViewById(R.id.fab_add);
-            fab_add.setOnClickListener(new View.OnClickListener() {
+            // faBtn
+            final FloatingActionButton faBtn_add
+                    = (FloatingActionButton) getActivity().findViewById(R.id.faBtn_mainView_add);
+            faBtn_add.attachToListView(viewHolder.mListView);
+            faBtn_add.setType(FloatingActionButton.TYPE_NORMAL);
+            faBtn_add.setColorNormalResId(R.color.card_background_color2);
+            faBtn_add.setColorPressedResId(R.color.card_background_color_red_light);
+            faBtn_add.setColorRipple(Color.BLUE);
+            faBtn_add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-
                     Intent intent = new Intent();
                     intent.setClass(getActivity(), TaskEditorTabFragment.class);
                     startActivity(intent);
-                    //fab_add.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color2));
-
-                    //Toast.makeText(v.getContext(), R.string.TaskEditor_Field_Inbox, Toast.LENGTH_SHORT).show();
                 }
             });
+            // final View fab_add = getActivity().findViewById(R.id.fab_add);
+            //  fab_add.setOnClickListener(new View.OnClickListener() {
+            //      @Override
+            //    public void onClick(View v) {
+            //        Intent intent = new Intent();
+            //        intent.setClass(getActivity(), TaskEditorTabFragment.class);
+            //        startActivity(intent);
+            //fab_add.setBackgroundColor(getResources().getColor(R.color.demo_card_background_color2));
+
+            //Toast.makeText(v.getContext(), R.string.TaskEditor_Field_Inbox, Toast.LENGTH_SHORT).show();
+            //    }
+            //});
 
 
-            mListView.setOnTouchListener(new ShowHideOnScroll(fab_add));
+            //mListView.setOnTouchListener(new ShowHideOnScroll(fab_add));
+
+            //
+            viewHolder.txtIfTaskListIsEmpty=(TextView) getActivity().findViewById(R.id.txtIfListEmpty);
 
         }
 
@@ -227,12 +258,19 @@ public class ListCursorCardFragment extends MyBaseFragment implements
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            position = getArguments().getInt(CommonVar.STRING_DRAWER_POSITION);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceStat) {
-        View root = inflater.inflate(R.layout.card_fragment_list_cursor,
+        viewHolder.inflater = inflater;
+        return viewHolder.inflater.inflate(R.layout.card_fragment_list_cursor,
                 container, false);
-
-        return root;
     }
 
     @Override
@@ -240,21 +278,19 @@ public class ListCursorCardFragment extends MyBaseFragment implements
         super.onActivityCreated(savedInstanceState);
 
         getLoaderManager().initLoader(101, savedInstanceState, this);
-        //getLoaderManager().initLoader(201, null, this);
-        //getLoaderManager().initLoader(301, null, this);
+        //getLoaderManager().initLoader(201, savedInstanceState, this);
+        //getLoaderManager().initLoader(301, savedInstanceState, this);
         init();
 
         //----------------------------------------------------------//
-        //callout service position                                  //
-        BroadcastSender.send(getActivity().getApplicationContext(),BroadcastSender.KEY_POSITION);        //
+        PriorityUpdater PrU = new PriorityUpdater(getActivity());
+        PrU.PirorityUpdate();
         //----------------------------------------------------------//
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-
         Loader<Cursor> loader = null;
-
         switch (id) {
             case 101:
                 loader = new CursorLoader(getActivity(), ColumnTask.URI,
@@ -262,17 +298,16 @@ public class ListCursorCardFragment extends MyBaseFragment implements
                 break;
             case 201:
                 loader = new CursorLoader(getActivity(), ColumnAlert.URI,
-                        projectionAlert, alertSelection, selectionArgs, alertSortOrder);
+                        projectionAlert, alertSelection, selectionArgs, taskSortOrder);
                 break;
             case 301:
                 loader = new CursorLoader(getActivity(), ColumnLocation.URI,
-                        projectionLoc, LocSelection, selectionArgs, LocSortOrder);
+                        projectionLoc, LocSelection, selectionArgs, taskSortOrder);
                 break;
 
             default:
                 break;
         }
-
         return loader;
     }
 
@@ -281,15 +316,39 @@ public class ListCursorCardFragment extends MyBaseFragment implements
         if (getActivity() == null) {
             return;
         }
+/*
+        if (data.moveToFirst())
+        {
+            do
+            {
+                String str = data.getString(ColumnTask.KEY.INDEX.due_date_millis);
+                MyDebug.MakeLog(2,str);
+            }while(data.moveToNext());
+        }
+*/
+        viewHolder.mAdapter.swapCursor(data);
 
-        mAdapter.swapCursor(data);
+        if(data.getCount()==0){
+            viewHolder.txtIfTaskListIsEmpty.setVisibility(View.VISIBLE);
+            viewHolder.txtIfTaskListIsEmpty.setText(getView().getContext().
+                    getResources().
+                    getString(R.string.String_If_Task_List_Is_Empty));
+            viewHolder.txtIfTaskListIsEmpty.setShadowLayer(10, 0, 0, Color.BLUE);
+        }else {
+            viewHolder.txtIfTaskListIsEmpty.setVisibility(View.GONE);
+            viewHolder.txtIfTaskListIsEmpty.setText("");
+        }
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        mAdapter.swapCursor(null);
+        viewHolder.mAdapter.swapCursor(null);
     }
 
-
+    static class ViewHolder{
+         CardListView mListView;
+         MyCursorCardAdapter mAdapter;
+         TextView txtIfTaskListIsEmpty;
+         LayoutInflater inflater;
+    }
 }
-

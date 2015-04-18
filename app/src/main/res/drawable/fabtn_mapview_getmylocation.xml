@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:color="@color/fabtn_mapview_getlocation_normal"  android:state_pressed="true"/>
+    <item android:color="@color/fabtn_mapview_getlocation_deep"  android:state_focused="true"/>
+    <item android:color="@color/fabtn_mapview_getlocation_light"/>
+
+    <!--<item android:color="@color/card_background_color_red_deep"  android:state_pressed="true"/>-->
+    <!--<item android:color="@color/card_background_color_red_deep"  android:state_focused="true"/>-->
+    <!--<item android:color="@color/card_background_color_red_light"/>-->
+
+
+
+</selector>

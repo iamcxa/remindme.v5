@@ -15,33 +15,34 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.geodoer.geotodo.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.melnykov.fab.FloatingActionButton;
+import com.melnykov.fab.ObservableScrollView;
 
-import tw.geodoer.mGeoInfo.controller.GeocodingAPI;
+import fud.geodoermap.GeoInfo;
+import fud.geodoermap.GeoStatus;
+import fud.geodoermap.MapController;
+import tw.geodoer.mGeoInfo.API.CurrentLocation;
+import tw.geodoer.mGeoInfo.controller.onBtnSaveClick;
+import tw.geodoer.mPriority.controller.NeoGeoInfo;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
-import tw.moretion.geodoer.R;
 
 /**
  * This is a custom dialog class that will hold a tab view with 2 tabs.
  * Tab 1 will be a list view. Tab 2 will be a list view.
  */
-public class LocationCustomDialog extends DialogFragment implements
-        OnMarkerClickListener,
-        OnInfoWindowClickListener,
-        OnMarkerDragListener {
+public class LocationCustomDialog extends DialogFragment implements MapController.onGeoLoadLisitener,
+        View.OnClickListener{
     private static CommonEditorVar mEditorVar = CommonEditorVar.GetInstance();
+    private static  ObservableScrollView mScrollView;
 
     /**
      * Default constructor.
@@ -53,54 +54,23 @@ public class LocationCustomDialog extends DialogFragment implements
     private static TextView PlaceName;
     private static EditText SearchText;
     private static Button Search;
+    private static Button save;
     private View mContentView;
     private String locationName;
     private double Lat;
     private double Lon;
-    private GoogleMap.OnCameraChangeListener listener = new GoogleMap.OnCameraChangeListener() {
+    MapController mapController;
+    private GeoInfo geo;
 
-        @Override
-        public void onCameraChange(CameraPosition position) {
-            // TODO Auto-generated method stub
-//			map.clear();
-//			LatLng now = new LatLng(position.target.latitude, position.target.longitude);
-//			map.addMarker(new MarkerOptions()
-//            .title("目的地")
-//            .position(now));
-        }
-    };
-    private GoogleMap.OnMapClickListener mapclickListener = new GoogleMap.OnMapClickListener() {
-
-        @Override
-        public void onMapClick(LatLng point) {
-            // TODO Auto-generated method stub
-            map.clear();
-            LatLng now = new LatLng(point.latitude, point.longitude);
-            map.addMarker(new MarkerOptions()
-                    .title("目的地")
-                    .position(now)
-                    .draggable(true));
-        }
-    };
-    private Button.OnClickListener SearchPlace = new Button.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            // TODO Auto-generated method stub
-            if (v.getId() == R.id.Search)
-                SearchPlace();
-        }
-
-    };
 
     public LocationCustomDialog newInstance() {
         return new LocationCustomDialog();
-
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setCancelable(true);
     }
 
     @Override
@@ -108,10 +78,82 @@ public class LocationCustomDialog extends DialogFragment implements
                              Bundle savedInstanceState) {
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         mContentView = inflater.inflate(R.layout.activity_task_editor_tab_location, container, false);
+
+        // faBtn
+//        final FloatingActionButton faBtn_getMyLocation
+//                = (FloatingActionButton) getActivity().findViewById(R.id.faBtn_mainView_add);
+//        faBtn_getMyLocation.attachToListView(mContentView);
+//        faBtn_getMyLocation.attachToScrollView(mContentView);
+//        faBtn_getMyLocation.setType(FloatingActionButton.TYPE_NORMAL);
+//        faBtn_getMyLocation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent();
+//                intent.setClass(getActivity(), TaskEditorTabFragment.class);
+//                startActivity(intent);
+//            }
+//        });
+
+        mScrollView =
+                (ObservableScrollView) mContentView.findViewById(R.id.scrollViewMap);
+        // faBtn
+        final FloatingActionButton faBtn_add
+                = (FloatingActionButton) mContentView.findViewById(R.id.faBtn_nowLoc);
+        faBtn_add.attachToScrollView(mScrollView);
+        faBtn_add.setType(FloatingActionButton.TYPE_MINI);
+        faBtn_add.setColorNormalResId(R.color.card_background_white);
+        faBtn_add.setColorPressedResId(R.color.card_background_color_red_light);
+        faBtn_add.setColorRipple(R.color.card_backgroundExpand);
+        faBtn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                map.clear();
+                CurrentLocation mNowGeo = new CurrentLocation(getActivity());
+                mNowGeo.setOnLocListenerSetGps("-1", new CurrentLocation.onDistanceListener() {
+                    @Override
+                    public void onGetLatLng(Double lat, Double lng) {
+                        LatLng nowLoacation;
+                        nowLoacation = new LatLng(lat, lng);
+                        map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
+                                .position(nowLoacation)).showInfoWindow();
+                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(nowLoacation,
+                                map.getCameraPosition().zoom));
+                    }
+                });
+            }
+        });
+
+
+
+//                final View fab_add = mContentView.findViewById(R.id.faBtn_nowLoc);
+//        fab_add.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                map.clear();
+//                CurrentLocation mNowGeo = new CurrentLocation(getActivity());
+//                mNowGeo.setOnLocListenerSetGps("-1", new CurrentLocation.onDistanceListener() {
+//                    @Override
+//                    public void onGetLatLng(Double lat, Double lng) {
+//                        LatLng nowLoacation;
+//                        nowLoacation = new LatLng(lat, lng);
+//                        map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
+//                                .position(nowLoacation)).showInfoWindow();
+//                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(nowLoacation,
+//                                map.getCameraPosition().zoom));
+//                    }
+//                });
+//            }
+//        });
+
+
         PlaceName = (TextView) mContentView.findViewById(R.id.PlaceName);
         SearchText = (EditText) mContentView.findViewById(R.id.SearchText);
         Search = (Button) mContentView.findViewById(R.id.Search);
-        Search.setOnClickListener(SearchPlace);
+        Search.setOnClickListener(this);
+
+        save = (Button) mContentView.findViewById(R.id.save);
+        save.setOnClickListener(this);
+
         MapsInitializer.initialize(getActivity().getApplicationContext());
 
         switch (GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity())) {
@@ -119,7 +161,6 @@ public class LocationCustomDialog extends DialogFragment implements
 //	                 Toast.makeText(getActivity(), "SUCCESS", Toast.LENGTH_SHORT).show();
                 mapView = (MapView) mContentView.findViewById(R.id.map);
                 mapView.onCreate(savedInstanceState);
-                // Gets to GoogleMap from the MapView and does initialization stuff
                 if (mapView != null) {
                     mapView.onResume();
                     setUpMapIfNeeded();
@@ -134,76 +175,43 @@ public class LocationCustomDialog extends DialogFragment implements
             default:
                 Toast.makeText(getActivity(), GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity()), Toast.LENGTH_SHORT).show();
         }
-
-//    	     map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
-
-
         return mContentView;
     }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onActivityCreated(savedInstanceState);
-//			PlaceName = (TextView) mContentView.findViewById(R.id.PlaceName);
     }
 
     private void setUpMapIfNeeded() {
-//	    if(map == null)
-//	    {
         map = mapView.getMap();
         if (map == null) {
             Log.d("", "googleMap is null !!!!!!!!!!!!!!!");
         } else {
-            map.setMyLocationEnabled(true);
-            map.getUiSettings().setZoomControlsEnabled(false);
-            map.setMyLocationEnabled(true);
-            map.setOnCameraChangeListener(listener);
-            map.setOnMapClickListener(mapclickListener);
-//	        	map.setOnMarkerClickListener(MarkerClickListener);
-            LatLng nowLoacation;
-//	    		if (gpsManager.LastLocation() != null) {
-//	    			nowLoacation = new LatLng(gpsManager.LastLocation().getLatitude(),
-//	    					gpsManager.LastLocation().getLongitude());
-//	    			map.moveCamera((CameraUpdateFactory.newLatLngZoom(nowLoacation,
-//	    					map.getMaxZoomLevel() - 4)));
-//	    		} else {
-            nowLoacation = new LatLng(23.6978, 120.961);
-            map.moveCamera((CameraUpdateFactory.newLatLngZoom(nowLoacation,
-                    map.getMinZoomLevel() + 7)));
-//	    		}
-            map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
-                    .position(nowLoacation));
+//            map gps不會停止Bug使用自幹的GPS成
+//            map.setMyLocationEnabled(true);
+            map.getUiSettings().setZoomControlsEnabled(true);
+            CurrentLocation mNowGeo = new CurrentLocation(getActivity());
+            mNowGeo.setOnLocListenerSetGps("-1", new CurrentLocation.onDistanceListener() {
+                @Override
+                public void onGetLatLng(Double lat, Double lng) {
+                    LatLng nowLoacation;
+                    nowLoacation = new LatLng(lat, lng);
+                    map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
+                            .position(nowLoacation)).showInfoWindow();
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(nowLoacation,
+                            map.getMaxZoomLevel() - 8));
+                }
+            });
+
+            mapController = new MapController(getActivity(),map,PlaceName);
+            mapController.isMoveGet(true);
+            mapController.setOnGeoLoadedLisitener(this);
         }
-//	    }
     }
 
-    private void SearchPlace() {
-        if (!SearchText.getText().toString().equals("")) {
-            GeocodingAPI LoacationAddress2 = null;
-            LatLng SearchLocation = null;
-            LoacationAddress2 = new GeocodingAPI(getActivity(),
-                    SearchText.getText().toString());
-            // textView2.setText("");
-            // locationName=LoacationAddress2.GeocodingApiAddressGet();
-            // textView2.setText(textView2.getText()+"\n"+Address);
-            SearchLocation = LoacationAddress2.GeocodingApiLatLngGet();
-            Lat = SearchLocation.latitude;
-            Lon = SearchLocation.longitude;
-            // textView2.setText(textView2.getText()+"\n"+SearchLocation);
-            locationName = LoacationAddress2.GeocodingApiAddressGet();
-            PlaceName.setText(locationName);
-            if (SearchLocation != null) {
-                map.animateCamera((CameraUpdateFactory.newLatLngZoom(
-                        SearchLocation, map.getMaxZoomLevel() - 4)));
-                map.addMarker(new MarkerOptions().title("搜尋的位置")
-                        .snippet(locationName).position(SearchLocation));
-            } else {
-                Toast.makeText(getActivity(), "查無地點哦,換個詞試試看",
-                        Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 
     /**
      * This is called when a long press occurs on our listView02 items.
@@ -230,33 +238,63 @@ public class LocationCustomDialog extends DialogFragment implements
         return true;
     }
 
+    /**
+     * 當會傳地理資訊的時候觸發
+     *
+     * @param geo    地理資訊，包含name,latlng
+     * @param status
+     */
     @Override
-    public void onMarkerDrag(Marker marker) {
-        // TODO Auto-generated method stub
-
+    public void onGeoLoaded(GeoInfo geo, int status) {
+        if(status == GeoStatus.NETWORK_FAIL){
+            save.setEnabled(true);
+            Log.e("fail","位置："+geo.name+",座標："+geo.latlng+",沒有網路");
+        }else if(status == GeoStatus.WIFI_FAIL){
+            save.setEnabled(true);
+            Log.e("fail","位置："+geo.name+",座標："+geo.latlng+",只有3G,沒有wifi");
+        }else if(status == GeoStatus.SUCESS){
+            save.setEnabled(true);
+            Log.d("Loaded","位置："+geo.name+",座標："+geo.latlng+",載入完成");
+        }
+        this.geo = geo;
     }
 
+    /**
+     * 開始載入資料的時候觸發
+     */
     @Override
-    public void onMarkerDragEnd(Marker marker) {
-        // TODO Auto-generated method stub
-
+    public void onGeoLoading() {
+        save.setEnabled(false);
+        Log.d("Loading","開始載入");
     }
 
+    /**
+     * Called when a view has been clicked.
+     *
+     * @param v The view that was clicked.
+     */
     @Override
-    public void onMarkerDragStart(Marker marker) {
-        // TODO Auto-generated method stub
+    public void onClick(View v) {
+        if(v.getId() == R.id.Search){
+            mapController.searchPlace(SearchText.getText().toString());
+        }
+        else if(v.getId() == R.id.save){
+            NeoGeoInfo saveGeo = new NeoGeoInfo();
+            saveGeo.setName(geo.name);
+            saveGeo.setLatlng(geo.latlng);
 
-    }
 
-    @Override
-    public void onInfoWindowClick(Marker marker) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-        // TODO Auto-generated method stub
-        return false;
+            onBtnSaveClick a = new onBtnSaveClick(saveGeo,getActivity().getApplicationContext());
+//            OnBtnSaveClick.saveDB(geo);
+            Toast.makeText(getActivity(),geo.name,Toast.LENGTH_SHORT).show();
+            getDialog().dismiss();
+//            CurrentLocation b = new CurrentLocation(getActivity());
+//            b.setOnDistanceListener(geo.latlng.latitude,geo.latlng.longitude,new CurrentLocation.onDistanceListener() {
+//                @Override
+//                public void onGetDistance(Double mDistance) {
+//                    Toast.makeText(getActivity(),mDistance+"",Toast.LENGTH_SHORT).show();
+//                }
+//            });
+        }
     }
 }

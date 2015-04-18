@@ -12,18 +12,18 @@ import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.widget.Toast;
 
+import com.geodoer.geotodo.R;
+
 import java.util.ArrayList;
 
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.mGeoInfo.view.TaskEditorLocation;
 import tw.geodoer.main.taskEditor.adapter.MyFragmentPagerAdapter;
 import tw.geodoer.main.taskEditor.controller.ActionReadDbBeforeSaveDb;
 import tw.geodoer.main.taskEditor.controller.ActionSaveDataToDb;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.utils.MyDebug;
 import tw.geodoer.utils.view.MySlidingTabLayout;
-import tw.moretion.geodoer.R;
 
 public class TaskEditorTabFragment extends ActionBarActivity
         implements
@@ -93,7 +93,7 @@ public class TaskEditorTabFragment extends ActionBarActivity
         // 設置 ViewPager
         fragments = new ArrayList<Fragment>();
         fragments.add(new TaskEditorMainFragment());
-        fragments.add(new TaskEditorLocation());
+//        fragments.add(new TaskEditorLocation());
         viewPager_Adapter = new MyFragmentPagerAdapter(
                 getSupportFragmentManager()
                 , fragments);
@@ -144,11 +144,12 @@ public class TaskEditorTabFragment extends ActionBarActivity
             try {
 
                 // 取得最
-
                 mSaveOrUpdate = new ActionSaveDataToDb(
-                        getApplicationContext()
-                        , 0//mEditorVar.Task.
-                        , lastTaskID(), lastLocID());
+                        this
+                        , mEditorVar.Task.getTaskId()
+                        , lastTaskID()+1
+                        , 0//lastLocID()
+                );
 
                 finish();
             } catch (Exception e) {
@@ -171,8 +172,8 @@ public class TaskEditorTabFragment extends ActionBarActivity
 
             btnActionAdd();
 
-            lastTaskID();
-            lastLocID();
+            //lastTaskID();
+            //lastLocID();
 
         } else if (itemName.contentEquals("action_refresh")) {
             //btnActionCancel();//暫時取消此功能
@@ -207,7 +208,7 @@ public class TaskEditorTabFragment extends ActionBarActivity
         if (c != null) {
             if (c.moveToLast()) {
                 if (!c.isNull(0)) data = c.getInt(0);
-                MyDebug.MakeLog(2, "lastTaskID=" + data);
+                //MyDebug.MakeLog(2, "lastTaskID=" + data);
             }
             c.close();
         }

@@ -14,6 +14,10 @@ public final class ColumnTask implements BaseColumns {
 
     // 預設排序常數
     public static final String DEFAULT_SORT_ORDER = "created DESC";
+    //
+    public static final int TASK_STATUS_NORMAL = 0;
+    public static final int TASK_STATUS_FINISHED = 1;
+    public static final int TASK_STATUS_TRASHED = 2;
     // 資料表名稱常數
     public static final String TABLE_NAME = "tasks";
     // 存取Uri
@@ -67,28 +71,7 @@ public final class ColumnTask implements BaseColumns {
             // 已完成
             KEY.checked
     };
-    // 查詢欄位陣列
-    public static final int[] ALL_COLUMN_INDEX = new int[]{
-            KEY.INDEX._id,
-            //主要內容
-            KEY.INDEX.title,
-            KEY.INDEX.status,
-            KEY.INDEX.content,
-            KEY.INDEX.due_date_millis,
-            KEY.INDEX.due_date_string,
-            KEY.INDEX.color,
-            KEY.INDEX.priority,
-            KEY.INDEX.created,
-            //分類,標籤與優先
-            KEY.INDEX.category_id,
-            KEY.INDEX.tag_id,
-            KEY.INDEX.project_id,
-            KEY.INDEX.collaborator_id,
-            KEY.INDEX.sync_id,
-            KEY.INDEX.location_id,
-            // 已完成
-            KEY.INDEX.checked
-    };
+
 
     private ColumnTask() {
     }

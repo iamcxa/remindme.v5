@@ -5,78 +5,45 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import java.util.Calendar;
 
-import tw.geodoer.mPriority.receiver.GeoBroadcastReceiver_TaskAlert;
-import tw.geodoer.utils.MyDebug;
+import tw.geodoer.mPriority.receiver.BroadcastReceiver_TaskAlert;
 
 public class ActionSetAlarm {
-    Context context;
-    int mYear;
-    int mMonth;
-    int mDay;
-    int mHour;
-    int mMinute;
-    long alertTime, taskID;
+    private final String BC_ACTION = "me.iamcxa.remindme.TaskReceiver";
+    private final String MSG = "me.iamcxa.remindme.alarm";
+    private final int FLAG = PendingIntent.FLAG_CANCEL_CURRENT;
+    private final int TYPE = AlarmManager.RTC_WAKEUP;
 
-    public ActionSetAlarm(Context context, long alertTime, int taskID) {
+    private Context context;
+    private int taskID;
+
+    private AlarmManager AM;
+    private Intent intent;
+    private PendingIntent pi;
+
+    public ActionSetAlarm(Context cont, int taskID)
+    {
         // TODO Auto-generated constructor stub
         super();
-        this.context = context;
-        this.alertTime = alertTime;
+
+        this.context = cont;
         this.taskID = taskID;
+
+        this.AM = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        this.intent = new Intent(this.context, BroadcastReceiver_TaskAlert.class);
+        this.intent.setAction(BC_ACTION);
+        this.intent.putExtra("msg", MSG);
+        this.intent.putExtra("taskID", this.taskID);
+        this.pi = PendingIntent.getBroadcast(context, 1, intent, FLAG);
     }
-
-    // 設定通知提示
-    public void SetIt() {
-        MyDebug.MakeLog(2, "@SetAlarm");
-        MyDebug.MakeLog(2, "@SetAlarm check taskID=" + taskID);
-
-        // 保存內容、日期與時間字串
-        //String content = null;
-
-        final String BC_ACTION = "me.iamcxa.remindme.TaskReceiver";
-
-        // 取得AlarmManager實例
-        final AlarmManager am = (AlarmManager) context
-                .getSystemService(Context.ALARM_SERVICE);
-
-        // 實例化Intent
-        Intent intent = new Intent(context, GeoBroadcastReceiver_TaskAlert.class);
-
-        // 設定Intent action屬性
-        intent.setAction(BC_ACTION);
-        intent.putExtra("msg", "me.iamcxa.remindme.alarm");
-        intent.putExtra("taskID", taskID);
-
-        // 實例化PendingIntent
-        final PendingIntent pi =
-                PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-
-        Calendar cal = Calendar.getInstance();
-        // 設定於 3 分鐘後執行
-        cal.add(Calendar.SECOND, 10);
-
-
-        // 取得系統時間
-        final long time1 = System.currentTimeMillis();
-        //Calendar c = Calendar.getInstance();
-
-        //c.set(mYear, mMonth, mDay, mHour, mMinute);
-        //long time2 = c.getTimeInMillis();
-        if ((alertTime - time1) > 0) {
-
-            am.set(AlarmManager.RTC_WAKEUP, alertTime, pi);
-
-            //MyDebug.MakeLog(2, "@SetAlarm set="+alertTime);
-            MyDebug.MakeLog(2, "@SetAlarm alertTime=" + alertTime);
-            MyDebug.MakeLog(2, "@SetAlarm cal 1min=" + cal.getTimeInMillis());
-        } else {
-            MyDebug.MakeLog(2, "@SetAlarm set failed");
-            am.cancel(pi);
-        }
-
+    public void SetIt(long due_time_millis)
+    {
+        if(due_time_millis == 0 )CancelIt();
+        else AM.set(TYPE,due_time_millis,pi);
+    }
+    public void CancelIt()
+    {
+        this.AM.cancel(this.pi);
     }
 
 }

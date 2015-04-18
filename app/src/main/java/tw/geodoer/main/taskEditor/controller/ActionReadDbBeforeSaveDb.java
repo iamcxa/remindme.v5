@@ -9,12 +9,13 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.geodoer.geotodo.R;
+
 import java.util.ArrayList;
 
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.utils.MyDebug;
-import tw.moretion.geodoer.R;
 
 
 public class ActionReadDbBeforeSaveDb {

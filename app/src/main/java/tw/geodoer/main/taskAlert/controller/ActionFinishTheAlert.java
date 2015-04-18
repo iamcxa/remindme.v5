@@ -9,6 +9,14 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import tw.geodoer.mDatabase.API.DBAlertHelper;
+import tw.geodoer.mDatabase.API.DBTasksHelper;
+import tw.geodoer.mDatabase.columns.ColumnAlert;
+import tw.geodoer.mDatabase.columns.ColumnTask;
+import tw.geodoer.utils.MyDebug;
+
 public class ActionFinishTheAlert extends IntentService {
 
     public ActionFinishTheAlert() {
@@ -25,13 +33,12 @@ public class ActionFinishTheAlert extends IntentService {
         String taskID = b.getString("taskID");
 
         NotificationManager nm =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                (NotificationManager)getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
-        nm.cancel("remindme", Integer.valueOf(taskID));
+        nm.cancel(AlertHandler.TAG, Integer.valueOf(taskID));
 
-        AlertHandler alertHandler = AlertHandler.getInstance();
-
-        ShowToastInIntentService("任務 " + alertHandler.getTaskName(this, taskID) + "完成！");
+        DBTasksHelper mBDT = new DBTasksHelper(getApplicationContext());
+        mBDT.setItem( Integer.valueOf(taskID) ,ColumnTask.KEY.status,1);
 
     }
 
@@ -40,7 +47,7 @@ public class ActionFinishTheAlert extends IntentService {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                Toast toast1 = Toast.makeText(MyContext, sText, 5);
+                Toast toast1 = Toast.makeText(MyContext, sText, Toast.LENGTH_SHORT);
                 toast1.show();
             }
         });
