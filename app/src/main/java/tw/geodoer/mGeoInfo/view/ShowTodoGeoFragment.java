@@ -238,18 +238,20 @@ public class ShowTodoGeoFragment extends Fragment implements MapController.onGeo
 
             DBtoGeoinfo getEvent = new DBtoGeoinfo(getActivity());
             ArrayList<NeoGeoInfo> list = getEvent.getArraylistNeoGeoInfoofTasks();
-            for (int i = 0; i < list.size(); i++) {
-                NeoGeoInfo event = list.get(i);
-                if(event.getFlag()==2){
-                    map.addMarker(new MarkerOptions()
-                            .title(event.getName())
-                            .position(event.getLatlng())
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
-                }else if(event.getFlag()==3){
-                    map.addMarker(new MarkerOptions()
-                            .title(event.getName())
-                            .position(event.getLatlng())
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            if(list!=null){
+                for (int i = 0; i < list.size(); i++) {
+                    NeoGeoInfo event = list.get(i);
+                    if(event.getFlag()==2){
+                        map.addMarker(new MarkerOptions()
+                                .title(event.getName())
+                                .position(event.getLatlng())
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
+                    }else if(event.getFlag()==3){
+                        map.addMarker(new MarkerOptions()
+                                .title(event.getName())
+                                .position(event.getLatlng())
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                    }
                 }
             }
 
