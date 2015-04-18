@@ -97,7 +97,7 @@ public class ShowTodoGeoFragment extends Fragment implements MapController.onGeo
         View v =
                 inflater.inflate(R.layout.activity_task_editor_parts_dialog_location,
                                 container, false);
-
+        MapsInitializer.initialize(getActivity().getApplicationContext());
        ObservableScrollView mScrollView =
                 (ObservableScrollView) v.findViewById(R.id.scrollViewMap);
 
@@ -130,18 +130,20 @@ public class ShowTodoGeoFragment extends Fragment implements MapController.onGeo
                     });
                     DBtoGeoinfo getEvent = new DBtoGeoinfo(getActivity());
                     ArrayList<NeoGeoInfo> list = getEvent.getArraylistNeoGeoInfoofTasks();
-                    for (int i = 0; i < list.size(); i++) {
-                        NeoGeoInfo event = list.get(i);
-                        if (event.getFlag() == 2) {
-                            map.addMarker(new MarkerOptions()
-                                    .title(event.getName())
-                                    .position(event.getLatlng())
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
-                        } else if (event.getFlag() == 3) {
-                            map.addMarker(new MarkerOptions()
-                                    .title(event.getName())
-                                    .position(event.getLatlng())
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                    if(list!=null){
+                        for (int i = 0; i < list.size(); i++) {
+                            NeoGeoInfo event = list.get(i);
+                            if (event.getFlag() == 2) {
+                                map.addMarker(new MarkerOptions()
+                                        .title(event.getName())
+                                        .position(event.getLatlng())
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
+                            } else if (event.getFlag() == 3) {
+                                map.addMarker(new MarkerOptions()
+                                        .title(event.getName())
+                                        .position(event.getLatlng())
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                            }
                         }
                     }
                     //====================================//
@@ -190,7 +192,6 @@ public class ShowTodoGeoFragment extends Fragment implements MapController.onGeo
 //        });
 
         PlaceName = (TextView) v.findViewById(R.id.PlaceName);
-        MapsInitializer.initialize(getActivity().getApplicationContext());
         switch (GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity())) {
             case ConnectionResult.SUCCESS:
 //	                 Toast.makeText(getActivity(), "SUCCESS", Toast.LENGTH_SHORT).show();
