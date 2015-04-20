@@ -31,34 +31,21 @@ public class BroadcastReceiver_TaskAlert extends BroadcastReceiver
             switch (msg)
             {
                 case "me.iamcxa.remindme.alarm":
-                    //if(msg.equals("me.iamcxa.remindme.alarm"))
-                    //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //
 
                     it.setClass(context, AlertHandler.class);
-                    //
-
                     newB.putString("taskID", b.get("taskID").toString());
-
                     it.putExtras(newB);
-
                     context.startService(it);
+
                     break;
 
                 case "me.iamcxa.remindme.location":
-                    //if(msg.equals("me.iamcxa.remindme.location"))
-                    //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //------------------------------------------------------------------------
-                    //set location handler
+
                     it.setClass(context, LocationAlertHandler.class);
-
-                    //------------------------------------------------------------------------
-
                     newB.putString("taskID", b.get("taskID").toString());
-
                     it.putExtras(newB);
-
                     context.startService(it);
+
                     break;
 
                 default:

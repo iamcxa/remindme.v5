@@ -38,7 +38,7 @@ public class ActionSetLocationAlarm {
         this.intent.setAction(BC_ACTION);
         this.intent.putExtra("msg", MSG);
         this.intent.putExtra("taskID", this.taskID);
-        this.pi =  PendingIntent.getBroadcast(context, 1, intent, FLAG);
+        this.pi =  PendingIntent.getBroadcast(context, taskID, intent, FLAG);
 
     }
     public void SetIt(long due_date_millis , double lat,double lon)

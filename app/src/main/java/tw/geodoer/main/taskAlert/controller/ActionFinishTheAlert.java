@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -29,16 +30,16 @@ public class ActionFinishTheAlert extends IntentService {
         // TODO Auto-generated method stub
 
         Bundle b = intent.getExtras();
-
         String taskID = b.getString("taskID");
+        int task_id = Integer.valueOf(taskID);
 
-        NotificationManager nm =
-                (NotificationManager)getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager nm =(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        nm.cancel(AlertHandler.TAG, task_id);
 
-        nm.cancel(AlertHandler.TAG, Integer.valueOf(taskID));
+        DBTasksHelper mBDT = new DBTasksHelper(this);
+        mBDT.setItem( task_id , ColumnTask.KEY.status , 1 );
 
-        DBTasksHelper mBDT = new DBTasksHelper(getApplicationContext());
-        mBDT.setItem( Integer.valueOf(taskID) ,ColumnTask.KEY.status,1);
+        Log.wtf("AFA", "done to " + taskID);
 
     }
 

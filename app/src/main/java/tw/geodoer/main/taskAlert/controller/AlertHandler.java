@@ -44,12 +44,11 @@ public class AlertHandler extends IntentService {
         // TODO Auto-generated method stub
 
         Bundle b = intent.getExtras();
-
         String taskID = b.getString("taskID");
 
         MyDebug.MakeLog(2, "@alertHandler taskID=" + taskID);
 
-        setNotification(getApplicationContext(), taskID);
+        setNotification(this, taskID);
 
     }
 
@@ -66,7 +65,7 @@ public class AlertHandler extends IntentService {
         Intent intentMain = new Intent(context, AppMainActivity.class);
         intentMain.putExtra("taskID", taskID);
         intentMain.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent pedingIntentMain = PendingIntent.getActivity(context, 0,
+        PendingIntent pedingIntentMain = PendingIntent.getActivity(context, Integer.valueOf(taskID),
                 intentMain, PendingIntent.FLAG_ONE_SHOT);
 
         Intent intentDialog = new Intent(context, AlertNotiDialog.class);
@@ -76,12 +75,12 @@ public class AlertHandler extends IntentService {
 
         Intent intentDelay = new Intent(context, ActionDelayTheAlert.class);
         intentDelay.putExtra("taskID", taskID);
-        PendingIntent pedingIntentDelay = PendingIntent.getService(context, 0,
+        PendingIntent pedingIntentDelay = PendingIntent.getService(context, Integer.valueOf(taskID),
                 intentDelay, PendingIntent.FLAG_ONE_SHOT);
 
         Intent intentFinish = new Intent(context, ActionFinishTheAlert.class);
         intentFinish.putExtra("taskID", taskID);
-        PendingIntent pedingIntentFinish = PendingIntent.getService(context, 0,
+        PendingIntent pedingIntentFinish = PendingIntent.getService(context, Integer.valueOf(taskID),
                 intentFinish, PendingIntent.FLAG_ONE_SHOT);
 
         MyPreferences.mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -105,17 +104,15 @@ public class AlertHandler extends IntentService {
                         //.setFullScreenIntent(pedingIntentDialog, true)
                 .setContentIntent(pedingIntentMain)
                 .setVibrate(tVibrate)
-                //.setOngoing(true)
-                .setPriority(16)
+                .setOngoing(true)
+                .setPriority(Notification.PRIORITY_MAX)
                 .setSound(Uri.parse(MyPreferences.mPreferences.getString("ringtonePref", context.getFilesDir().getAbsolutePath() + "/fallbackring.ogg")))
                 .build();
 
-        NotificationManager nm =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager nm =(NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         nm.notify(TAG, Integer.valueOf(taskID), noti);
 
     }
-
     public void ShowToastInIntentService(final String sText) {
         final Context MyContext = this;
         new Handler(Looper.getMainLooper()).post(new Runnable() {

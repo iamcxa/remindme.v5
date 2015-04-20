@@ -182,7 +182,6 @@ public class ActionSaveDataToDb {
         if( locId == 0) ASLA.CancelIt();
         else ASLA.SetIt(mEditorVar.Task.getDue_date_millis(),lat,lon);
 
-
         ActionSetAlarm AA =new ActionSetAlarm(this.context , this.taskId);
         AA.SetIt(mEditorVar.Task.getDue_date_millis());
     }

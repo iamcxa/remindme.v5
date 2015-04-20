@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -28,21 +29,19 @@ public class ActionDelayTheAlert extends IntentService {
         // TODO Auto-generated method stub
 
         Bundle b = intent.getExtras();
-
         String taskID = b.getString("taskID");
+        int task_id = Integer.valueOf(taskID);
 
-        MyDebug.MakeLog(2, "@Delay Alert taskID=" + taskID);
-
-        NotificationManager nm =
-                (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        nm.cancel(AlertHandler.TAG, Integer.valueOf(taskID));
+        NotificationManager nm =(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        nm.cancel(AlertHandler.TAG, task_id);
 
         Calendar calendar = Calendar.getInstance();
-
         calendar.add(Calendar.MINUTE, 5);
 
-        ActionSetAlarm AA = new ActionSetAlarm( this, Integer.valueOf(taskID));
+        ActionSetAlarm AA = new ActionSetAlarm( this, task_id);
         AA.SetIt(calendar.getTimeInMillis());
+
+        Log.wtf("AFA", "done to " + taskID);
 
     }
 

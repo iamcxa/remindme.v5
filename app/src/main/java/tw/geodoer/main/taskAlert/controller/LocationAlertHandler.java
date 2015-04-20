@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.geodoer.geotodo.R;
@@ -45,9 +46,9 @@ public class LocationAlertHandler extends IntentService {
 
         String taskID = b.getString("taskID");
 
-        //MyDebug.MakeLog(2, "@locationalertHandler taskID=" + taskID);
+        Log.wtf("LAH", "@locationalertHandler taskID=" + taskID);
 
-        setNotification(getApplicationContext(), taskID);
+        setNotification(this, taskID);
 
     }
 
@@ -64,17 +65,12 @@ public class LocationAlertHandler extends IntentService {
         Intent intentMain = new Intent(context, AppMainActivity.class);
         intentMain.putExtra("taskID", taskID);
         intentMain.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent pedingIntentMain = PendingIntent.getActivity(context, 0,
+        PendingIntent pedingIntentMain = PendingIntent.getActivity(context, Integer.valueOf(taskID),
                 intentMain, PendingIntent.FLAG_ONE_SHOT);
-
-        Intent intentDialog = new Intent(context, AlertNotiDialog.class);
-        intentDialog.putExtra("taskID", taskID);
-        PendingIntent pedingIntentDialog = PendingIntent.getActivity(context, 0,
-                intentDialog, PendingIntent.FLAG_ONE_SHOT);
 
         Intent intentFinish = new Intent(context, ActionFinishAndDeleyTheLocationAlert.class);
         intentFinish.putExtra("taskID", taskID);
-        PendingIntent pedingIntentFinish = PendingIntent.getService(context, 0,
+        PendingIntent pedingIntentFinish = PendingIntent.getService(context, Integer.valueOf(taskID),
                 intentFinish, PendingIntent.FLAG_ONE_SHOT);
 
         MyPreferences.mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -88,7 +84,6 @@ public class LocationAlertHandler extends IntentService {
                 .setContentTitle("接近待辦任務地點")
                 .setContentText(getTaskName(context, taskID))
                         //.setContentInfo("ContentInfo")
-                //.addAction(R.drawable.ic_action_alarms, "延遲", pedingIntentDelay)
                 .addAction(R.drawable.ic_action_accept, "我知道了 下次再提醒我", pedingIntentFinish)
                 .setNumber(1)
                 .setAutoCancel(false)
@@ -98,8 +93,8 @@ public class LocationAlertHandler extends IntentService {
                         //.setFullScreenIntent(pedingIntentDialog, true)
                 .setContentIntent(pedingIntentMain)
                 .setVibrate(tVibrate)
-                //.setOngoing(true)
-                .setPriority(16)
+                .setOngoing(true)
+                .setPriority(Notification.PRIORITY_MAX)
                 .setSound(Uri.parse(MyPreferences.mPreferences.getString("ringtonePref", context.getFilesDir().getAbsolutePath() + "/fallbackring.ogg")))
                 .build();
 

@@ -22,7 +22,7 @@
 
     <string name="TaskEditor_btnTaskDueDate_Title">期日を選んでください</string>
     <string name="TaskEditor_Title_Is_Empty">任務名を書いてください</string>
-    <string name="TaskEditor_Field_Title_Hint">任務</string>
+    <string name="TaskEditor_Field_Title_Hint">任務名</string>
     <string name="TaskEditor_Field_Content_Hint">附注</string>
     <string name="TaskEditor_Field_Category_Hint">分類</string>
     
@@ -30,20 +30,20 @@
    
     <string name="TaskEditor_Field_Project_Hint">プロジェクト</string>
     <string name="TaskEditor_Field_Tag_Hint">タッグ</string>
-    <string name="TaskEditor_Field_Priority_Hint">優先等級</string>
+    <string name="TaskEditor_Field_Priority_Hint">優先レベル</string>
     
     <string name="TaskEditor_Field_Inbox">任務箱</string>
     
     <string name="TaskEditor_Field_Location">場所</string>
-    <string name="TaskEditor_Field_Location_Is_Empty">最近使用した場所がありません</string>
+    <string name="TaskEditor_Field_Location_Is_Empty">最近使用した場所</string>
     <string name="TaskEditor_Field_Location_Spinner_Hint">場所を選ばない</string>
     <string name="TaskEditor_Field_Location_DB_Default_Msg">選ばない</string>
     <string name="TaskEditor_Field_Location_Tittle">アドレスを書いてください</string>
     
     <string name="TaskEditor_Field_Alarm">時間を設置する</string>
     
-    <string name="btnMore_More">もっと</string>
-    <string name="btnMore_Less">少ない</string>
+    <string name="btnMore_More">展開</string>
+    <string name="btnMore_Less">閉め</string>
 
     <!-- Card Long Clcik Menu -->
     <!-- String -->
@@ -78,8 +78,8 @@
     <string name="String_Task_Editor_Dialog_Pick_A_Time">時間選択</string>
     
     <string name="String_Task_Editor_Dialog_BUTTON_POSITIVE">決めた！</string>
-    <string name="String_Task_Editor_Dialog_BUTTON_NEGATIVE">諦め</string>
-    <string name="String_Task_Editor_Dialog_BUTTON_NEUTRAL">時間が要らない</string>
+    <string name="String_Task_Editor_Dialog_BUTTON_NEGATIVE">戻す</string>
+    <string name="String_Task_Editor_Dialog_BUTTON_NEUTRAL">必要はない</string>
     
 
     <string name="String_Task_Editor_Date_Year">年</string>

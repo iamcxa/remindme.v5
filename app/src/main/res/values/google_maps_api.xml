@@ -15,7 +15,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     --></string>
 
     <!--耀德-->
-    <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyAeTrHg5lpG9n0WFZRYo47v_jsiNxNqq</string>
+    <!--<string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyAeTrHg5lpG9n0WFZRYo47v_jsiNxNqq</string>-->
     <!--耀德桌機-->
     <!--<string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyDrKH0wDVEUz3PwgZmn1ajSYXovwp_Ok0w</string>-->
 
@@ -23,5 +23,5 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     <!--<string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyC-Y60UoFtkrasIrhDGrvBgysdiU_Mg9R4</string>-->
 
     <!--君平-->
-    <!--<string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyD1pBtLbkw-9r63tZxNqxHY6bP_xlQmdCE</string>-->
+    <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyD1pBtLbkw-9r63tZxNqxHY6bP_xlQmdCE</string>
 </resources>

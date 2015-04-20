@@ -24,13 +24,11 @@ public class PriorityUpdater
 
     private DBTasksHelper dbTaskHelper;
 
-    private PriorityCalculatorNew Cal;
 
 
     public PriorityUpdater(Context context)
     {
         this.mContext = context;
-        this.Cal = new PriorityCalculatorNew();
         this.dbTaskHelper = new DBTasksHelper(mContext);
     }
     public void PirorityUpdate()
@@ -44,9 +42,9 @@ public class PriorityUpdater
         Handler mHandler = new Handler(mHandlerThread.getLooper());
         Runnable r =new update_thread_2(mContext);
         Thread mThread = new Thread(r);
-        mHandler.post(mThread);
 
-        mHandler.post(new Thread(new update_thread_setalert(mContext)));
+        mHandler.post(mThread);
+        //mHandler.post(new Thread(new update_thread_setalert(mContext)));
 
     }
 
