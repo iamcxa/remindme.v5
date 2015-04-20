@@ -79,20 +79,6 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         mContentView = inflater.inflate(R.layout.activity_task_editor_tab_location, container, false);
 
-        // faBtn
-//        final FloatingActionButton faBtn_getMyLocation
-//                = (FloatingActionButton) getActivity().findViewById(R.id.faBtn_mainView_add);
-//        faBtn_getMyLocation.attachToListView(mContentView);
-//        faBtn_getMyLocation.attachToScrollView(mContentView);
-//        faBtn_getMyLocation.setType(FloatingActionButton.TYPE_NORMAL);
-//        faBtn_getMyLocation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent();
-//                intent.setClass(getActivity(), TaskEditorTabFragment.class);
-//                startActivity(intent);
-//            }
-//        });
 
         mScrollView =
                 (ObservableScrollView) mContentView.findViewById(R.id.scrollViewMap);
@@ -122,28 +108,6 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
                 });
             }
         });
-
-
-
-//                final View fab_add = mContentView.findViewById(R.id.faBtn_nowLoc);
-//        fab_add.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                map.clear();
-//                CurrentLocation mNowGeo = new CurrentLocation(getActivity());
-//                mNowGeo.setOnLocListenerSetGps("-1", new CurrentLocation.onDistanceListener() {
-//                    @Override
-//                    public void onGetLatLng(Double lat, Double lng) {
-//                        LatLng nowLoacation;
-//                        nowLoacation = new LatLng(lat, lng);
-//                        map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
-//                                .position(nowLoacation)).showInfoWindow();
-//                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(nowLoacation,
-//                                map.getCameraPosition().zoom));
-//                    }
-//                });
-//            }
-//        });
 
 
         PlaceName = (TextView) mContentView.findViewById(R.id.PlaceName);

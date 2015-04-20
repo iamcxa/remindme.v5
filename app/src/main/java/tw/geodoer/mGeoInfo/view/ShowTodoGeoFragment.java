@@ -152,45 +152,6 @@ public class ShowTodoGeoFragment extends Fragment implements MapController.onGeo
         }
 
 
-//        final View faBtn_add = v.findViewById(R.id.faBtn_nowLoc);
-//        faBtn_add.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//            //====================================//
-//                map.clear();
-//                CurrentLocation mNowGeo = new CurrentLocation(getActivity());
-//                mNowGeo.setOnLocListenerSetGps("-1", new CurrentLocation.onDistanceListener() {
-//                    @Override
-//                    public void onGetLatLng(Double lat, Double lng) {
-//                        LatLng nowLocation;
-//                        nowLocation = new LatLng(lat, lng);
-//                        map.addMarker(new MarkerOptions().title("當前位置").draggable(true)
-//                                .position(nowLocation)
-//                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))).showInfoWindow();
-//                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(nowLocation,
-//                                map.getCameraPosition().zoom));
-//                    }
-//                });
-//                DBtoGeoinfo getEvent = new DBtoGeoinfo(getActivity());
-//                ArrayList<NeoGeoInfo> list = getEvent.getArraylistNeoGeoInfoofTasks();
-//                for (int i = 0; i < list.size(); i++) {
-//                    NeoGeoInfo event = list.get(i);
-//                    if(event.getFlag()==2){
-//                        map.addMarker(new MarkerOptions()
-//                                .title(event.getName())
-//                                .position(event.getLatlng())
-//                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
-//                    }else if(event.getFlag()==3){
-//                        map.addMarker(new MarkerOptions()
-//                                .title(event.getName())
-//                                .position(event.getLatlng())
-//                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-//                    }
-//                }
-//            }
-//            //====================================//
-//        });
-
         PlaceName = (TextView) v.findViewById(R.id.PlaceName);
         switch (GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity())) {
             case ConnectionResult.SUCCESS:

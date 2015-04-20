@@ -15,7 +15,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     --></string>
 
     <!--耀德-->
-    <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyCU0JwSoGubc7YF9LZ-UQDyog6JC7qmWSU</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyAeTrHg5lpG9n0WFZRYo47v_jsiNxNqq</string>
     <!--耀德桌機-->
     <!--<string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyDrKH0wDVEUz3PwgZmn1ajSYXovwp_Ok0w</string>-->
 
