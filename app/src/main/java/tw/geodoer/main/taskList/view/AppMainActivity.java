@@ -25,6 +25,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.geodoer.geotodo.R;
+import com.splunk.mint.Mint;
 
 import tw.geodoer.mGeoInfo.view.ShowTodoGeoFragment;
 import tw.geodoer.mPriority.controller.PriorityUpdater;
@@ -131,6 +132,8 @@ public class AppMainActivity extends ActionBarActivity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Mint.initAndStartSession(this, "10c3062b");
 
         viewHolder = new ViewHolder();
 
