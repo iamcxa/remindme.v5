@@ -21,11 +21,11 @@ import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskEditor.controller.ActionSetLocationAlarm;
 import tw.geodoer.utils.MyDebug;
 
-public class ActionFinishAndDeleyTheLocationAlert extends IntentService {
+public class ActionDeleyTheLocationAlert extends IntentService {
 
     private int task_ID;
 
-    public ActionFinishAndDeleyTheLocationAlert() {
+    public ActionDeleyTheLocationAlert() {
         super(null);
         // TODO Auto-generated constructor stub
     }
@@ -38,8 +38,7 @@ public class ActionFinishAndDeleyTheLocationAlert extends IntentService {
 
         String taskID = b.getString("taskID");
 
-        NotificationManager nm =
-                (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager nm =(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 
         nm.cancel(LocationAlertHandler.TAG, Integer.valueOf(taskID));
 
