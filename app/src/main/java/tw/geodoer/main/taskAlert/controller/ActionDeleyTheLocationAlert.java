@@ -10,16 +10,11 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
-import tw.geodoer.mDatabase.API.DBAlertHelper;
 import tw.geodoer.mDatabase.API.DBLocationHelper;
 import tw.geodoer.mDatabase.API.DBTasksHelper;
-import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskEditor.controller.ActionSetLocationAlarm;
-import tw.geodoer.utils.MyDebug;
 
 public class ActionDeleyTheLocationAlert extends IntentService {
 
@@ -38,7 +33,8 @@ public class ActionDeleyTheLocationAlert extends IntentService {
 
         String taskID = b.getString("taskID");
 
-        NotificationManager nm =(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager nm =
+                (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 
         nm.cancel(LocationAlertHandler.TAG, Integer.valueOf(taskID));
 
@@ -55,9 +51,9 @@ public class ActionDeleyTheLocationAlert extends IntentService {
                 DBTasksHelper mDBT = new DBTasksHelper(getApplicationContext());
                 DBLocationHelper mDBL =new DBLocationHelper(getApplicationContext());
                 ActionSetLocationAlarm ASA = new ActionSetLocationAlarm(getApplicationContext(),task_ID);
-                long due_date_millis =mDBT.getItemLong(task_ID,ColumnTask.KEY.due_date_millis);
+                long due_date_millis =mDBT.getItemLong(task_ID, ColumnTask.KEY.due_date_millis);
                 int loc_ID = mDBT.getItemInt(task_ID,ColumnTask.KEY.location_id);
-                double lat = mDBL.getItemDouble(loc_ID,ColumnLocation.KEY.lat);
+                double lat = mDBL.getItemDouble(loc_ID, ColumnLocation.KEY.lat);
                 double lon = mDBL.getItemDouble(loc_ID,ColumnLocation.KEY.lon);
                 ASA.SetIt(due_date_millis,lat,lon);
             }

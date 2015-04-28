@@ -122,8 +122,14 @@
         <service android:name="tw.geodoer.main.taskAlert.controller.AlertHandler" />
         <service android:name="tw.geodoer.main.taskAlert.controller.ActionDelayTheAlert" />
         <service android:name="tw.geodoer.main.taskAlert.controller.ActionFinishTheAlert" />
+
         <service android:name="tw.geodoer.main.taskAlert.controller.LocationAlertHandler" />
-        <service android:name="tw.geodoer.main.taskAlert.controller.ActionFinishAndDeleyTheLocationAlert" />
+        <service android:name="tw.geodoer.main.taskAlert.controller.ActionDeleyTheLocationAlert" />
+        <service android:name="tw.geodoer.main.taskAlert.controller.ActionCancelTheLocationAlert"/>
+
+        <service android:name="tw.geodoer.main.taskAlert.controller.ActionFastCheck"/>
+
+        <activity android:name="tw.geodoer.mPriority.view.mTestActivity"/>
 
     </application>
 

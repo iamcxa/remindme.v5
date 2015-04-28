@@ -62,21 +62,27 @@ public class AlertHandler extends IntentService {
     //
     public void setNotification(Context context, String taskID) {
 
-        Intent intentMain = new Intent(context, AppMainActivity.class);
-        intentMain.putExtra("taskID", taskID);
-        intentMain.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent pedingIntentMain = PendingIntent.getActivity(context, Integer.valueOf(taskID),
-                intentMain, PendingIntent.FLAG_ONE_SHOT);
+//        Intent intentMain = new Intent(context, AppMainActivity.class);
+//        intentMain.putExtra("taskID", taskID);
+//        intentMain.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//        PendingIntent pedingIntentMain = PendingIntent.getActivity(context, Integer.valueOf(taskID),
+//                intentMain, PendingIntent.FLAG_ONE_SHOT);
 
-        Intent intentDialog = new Intent(context, AlertNotiDialog.class);
-        intentDialog.putExtra("taskID", taskID);
-        PendingIntent pedingIntentDialog = PendingIntent.getActivity(context, 0,
-                intentDialog, PendingIntent.FLAG_ONE_SHOT);
+        Intent intentMain = new Intent(context, ActionFastCheck.class);
+        intentMain.putExtra("taskID", taskID);
+        intentMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pedingIntentMain = PendingIntent.getService(context, Integer.valueOf(taskID),
+                intentMain, PendingIntent.FLAG_CANCEL_CURRENT);
 
         Intent intentDelay = new Intent(context, ActionDelayTheAlert.class);
         intentDelay.putExtra("taskID", taskID);
         PendingIntent pedingIntentDelay = PendingIntent.getService(context, Integer.valueOf(taskID),
                 intentDelay, PendingIntent.FLAG_ONE_SHOT);
+
+//        Intent intentDialog = new Intent(context, AlertNotiDialog.class);
+//        intentDialog.putExtra("taskID", taskID);
+//        PendingIntent pedingIntentDialog = PendingIntent.getActivity(context, Integer.valueOf(taskID),
+//                intentDialog, PendingIntent.FLAG_ONE_SHOT);
 
         Intent intentFinish = new Intent(context, ActionFinishTheAlert.class);
         intentFinish.putExtra("taskID", taskID);
@@ -93,15 +99,16 @@ public class AlertHandler extends IntentService {
         Notification noti = new Notification.Builder(context)
                 .setContentTitle("待辦任務到期")
                 .setContentText(getTaskName(context, taskID))
-                        //.setContentInfo("ContentInfo")
+                //.setContentInfo("ContentInfo")
                 .addAction(R.drawable.ic_action_alarms, "延遲5分鐘", pedingIntentDelay)
-                .addAction(R.drawable.ic_action_accept, "完成了!!", pedingIntentFinish)
-                .setNumber(1)
+                //.addAction(R.drawable.ic_action_edit,   "快速查看",  pedingIntentDialog)
+                .addAction(R.drawable.ic_action_accept, "完成了!!",    pedingIntentFinish)
+                //.setNumber(1)
                 .setAutoCancel(false)
                 .setSmallIcon(R.drawable.remindme_logo)
                 .setLargeIcon(bm)
                 .setWhen(System.currentTimeMillis())
-                        //.setFullScreenIntent(pedingIntentDialog, true)
+                //.setFullScreenIntent(pedingIntentDialog, false)
                 .setContentIntent(pedingIntentMain)
                 .setVibrate(tVibrate)
                 .setOngoing(true)

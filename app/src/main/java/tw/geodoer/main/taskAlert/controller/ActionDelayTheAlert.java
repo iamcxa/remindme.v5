@@ -7,15 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.widget.Toast;
-
 import java.util.Calendar;
 
-import tw.geodoer.mDatabase.API.DBTasksHelper;
-import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskEditor.controller.ActionSetAlarm;
-import tw.geodoer.utils.MyDebug;
 
 public class ActionDelayTheAlert extends IntentService {
 
@@ -40,8 +35,6 @@ public class ActionDelayTheAlert extends IntentService {
 
         ActionSetAlarm AA = new ActionSetAlarm( this, task_id);
         AA.SetIt(calendar.getTimeInMillis());
-
-        Log.wtf("AFA", "done to " + taskID);
 
     }
 

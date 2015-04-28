@@ -2,6 +2,7 @@ package tw.geodoer.main.taskList.view;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +13,9 @@ import android.widget.Button;
 import com.geodoer.geotodo.R;
 import tw.geodoer.mDatabase.API.Example_DBAlertHelper;
 import tw.geodoer.mDatabase.API.Example_DBLocationHelper;
+import tw.geodoer.mPriority.view.ScheduleDialog;
+import tw.geodoer.mPriority.view.mTestActivity;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -79,11 +83,15 @@ public class APITestingFragment extends android.support.v4.app.Fragment {
         btnTestingLocation = (Button) v.findViewById(R.id.btnLocation);
         btnTestingLocation.setText("執行DB-Location-API範例");
         btnTestingLocation.setOnClickListener(mExample_DBLocationHelper);
-
-        Example_DBAlertHelper mExample_DBAlertHelper = new Example_DBAlertHelper();
+//-----------------------------------------------------------------------------------------
+//        Example_DBAlertHelper mExample_DBAlertHelper = new Example_DBAlertHelper();
+//        btnTestingAlert = (Button) v.findViewById(R.id.btnAlert);
+//        btnTestingAlert.setOnClickListener(mExample_DBAlertHelper);
+//        btnTestingAlert.setText("執行DB-Alert-API範例");
+//-----------------------------------------------------------------------------------------
         btnTestingAlert = (Button) v.findViewById(R.id.btnAlert);
-        btnTestingAlert.setOnClickListener(mExample_DBAlertHelper);
-        btnTestingAlert.setText("執行DB-Alert-API範例");
+        btnTestingAlert.setOnClickListener(MydialogTest);
+        btnTestingAlert.setText("MydialogTest");
         return v;
     }
 
@@ -127,5 +135,17 @@ public class APITestingFragment extends android.support.v4.app.Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
+
+    private View.OnClickListener MydialogTest = new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View v)
+        {
+//            ScheduleDialog sd = new ScheduleDialog(getActivity());
+//            sd.show();
+            Intent it = new Intent(getActivity(),mTestActivity.class);
+            getActivity().startActivity(it);
+        }
+    };
 
 }

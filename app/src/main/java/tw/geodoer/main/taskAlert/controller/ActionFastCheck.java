@@ -1,13 +1,14 @@
 package tw.geodoer.main.taskAlert.controller;
 
 import android.app.IntentService;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
+
+import tw.geodoer.main.taskAlert.view.dialog.AlertNotiDialog;
 
 public class ActionFastCheck extends IntentService {
 
@@ -22,27 +23,13 @@ public class ActionFastCheck extends IntentService {
         // TODO Auto-generated method stub
 
         Bundle b = intent.getExtras();
-
         String taskID = b.getString("taskID");
 
-        NotificationManager nm =
-                (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        nm.cancel(LocationAlertHandler.TAG, Integer.valueOf(taskID));
+        Intent it = new Intent(this,AlertNotiDialog.class);
+        it.putExtra("taskID", taskID);
+        it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(it);
 
     }
-
-    public void ShowToastInIntentService(final String sText) {
-        final Context MyContext = this;
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                Toast toast1 = Toast.makeText(MyContext, sText, Toast.LENGTH_SHORT);
-                toast1.show();
-            }
-        });
-    }
-
-    ;
 
 }

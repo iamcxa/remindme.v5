@@ -14,10 +14,14 @@ import android.support.v4.view.ViewPager;
 public class mSchedulePagerAdapter extends SmartFragmentStatePagerAdapter implements ViewPager.OnPageChangeListener
 {
     private int max = 200;
+    private int startpoint;
 
-    public mSchedulePagerAdapter(FragmentManager fragmentManager)
+    public mSchedulePagerAdapter(FragmentManager fragmentManager,int startpoint,int max)
     {
         super(fragmentManager);
+        this.max = max;
+        this.startpoint = startpoint;
+        notifyDataSetChanged();
     }
 
     // Returns total number of pages
@@ -37,7 +41,7 @@ public class mSchedulePagerAdapter extends SmartFragmentStatePagerAdapter implem
     @Override
     public Fragment getItem(int position)
     {
-        return mScheduleFragment.newInstance(position);
+        return mScheduleFragment.newInstance(position-startpoint);
         //return fragments.get(position);
 
     }
@@ -59,11 +63,11 @@ public class mSchedulePagerAdapter extends SmartFragmentStatePagerAdapter implem
     {
 
 
-        if( position  +2 >=  max )
-        {
-            max++;
-            notifyDataSetChanged();
-        }
+//        if( position  +2 >=  max )
+//        {
+//            max++;
+//            notifyDataSetChanged();
+//        }
 
     }
 

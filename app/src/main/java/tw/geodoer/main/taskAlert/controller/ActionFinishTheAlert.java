@@ -10,13 +10,8 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
-import tw.geodoer.mDatabase.API.DBAlertHelper;
 import tw.geodoer.mDatabase.API.DBTasksHelper;
-import tw.geodoer.mDatabase.columns.ColumnAlert;
 import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.utils.MyDebug;
 
 public class ActionFinishTheAlert extends IntentService {
 
