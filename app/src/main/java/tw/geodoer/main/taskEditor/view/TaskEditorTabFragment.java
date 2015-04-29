@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.main.taskEditor.adapter.MyFragmentPagerAdapter;
-import tw.geodoer.main.taskEditor.controller.ActionReadDbBeforeSaveDb;
 import tw.geodoer.main.taskEditor.controller.ActionSaveDataToDb;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
 import tw.geodoer.utils.MyDebug;
@@ -29,14 +28,25 @@ public class TaskEditorTabFragment extends ActionBarActivity
         implements
         OnMenuItemClickListener {
 
+    static class ViewHolder{
+        ActionBar actionBar;
+        Toolbar toolbar;
+        MySlidingTabLayout mySlidingTabLayout;
+        ViewPager viewPager;
+        MyFragmentPagerAdapter viewPager_Adapter;
+        MenuItem actionAdd;
+    }
+
+//    private static Toolbar toolbar;
+//    private static MySlidingTabLayout mySlidingTabLayout;
+//    private static ViewPager viewPager;
+//    private MyFragmentPagerAdapter viewPager_Adapter;
+
+    private ViewHolder vH=new ViewHolder();
     protected static ActionSaveDataToDb mSaveOrUpdate;
-    private static Toolbar toolbar;
-    private static MySlidingTabLayout mySlidingTabLayout;
-    private static ViewPager viewPager;
-    CommonEditorVar mEditorVar = CommonEditorVar.GetInstance();
-    private ActionReadDbBeforeSaveDb readDB;
+    //private ActionReadDbBeforeSaveDb readDB;
     private ArrayList<Fragment> fragments;
-    private MyFragmentPagerAdapter viewPager_Adapter;
+    CommonEditorVar mEditorVar = CommonEditorVar.GetInstance();
 
     /**
      * Called when the activity is first created.
@@ -57,15 +67,15 @@ public class TaskEditorTabFragment extends ActionBarActivity
         getMenuInflater().inflate(R.menu.editor_activity_actionbar, menu);
 
         // 啟用action bar返回首頁箭頭
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(getResources().getString(R.string.TaskEditor_ActionBar_Title));
+        vH.actionBar = getSupportActionBar();
+        vH.actionBar.setDisplayHomeAsUpEnabled(true);
+        vH.actionBar.setDisplayUseLogoEnabled(true);
+        vH.actionBar.setDisplayShowTitleEnabled(true);
+        vH.actionBar.setTitle(getResources().getString(R.string.TaskEditor_ActionBar_Title));
 
         // actionAdd
-        MenuItem actionAdd = menu.findItem(R.id.action_add);
-        actionAdd.setOnMenuItemClickListener(this);
+        vH.actionAdd = menu.findItem(R.id.action_add);
+        vH.actionAdd.setOnMenuItemClickListener(this);
 
         return true;
     }
@@ -86,22 +96,22 @@ public class TaskEditorTabFragment extends ActionBarActivity
     private void setupViewComponent() {
 
         // 實例化介面物件
-        toolbar = (Toolbar) findViewById(R.id.taskeditor_toolbar);
-        mySlidingTabLayout = (MySlidingTabLayout) findViewById(R.id.taskeditor_tab);
-        viewPager = (ViewPager) findViewById(R.id.taskeditor_viewpage);
+        vH.toolbar = (Toolbar) findViewById(R.id.taskeditor_toolbar);
+        vH.mySlidingTabLayout = (MySlidingTabLayout) findViewById(R.id.taskeditor_tab);
+        vH.viewPager = (ViewPager) findViewById(R.id.taskeditor_viewpage);
 
         // 設置 ViewPager
-        fragments = new ArrayList<Fragment>();
+        fragments = new ArrayList<>();
         fragments.add(new TaskEditorMainFragment());
 //        fragments.add(new TaskEditorLocation());
-        viewPager_Adapter = new MyFragmentPagerAdapter(
+        vH.viewPager_Adapter = new MyFragmentPagerAdapter(
                 getSupportFragmentManager()
                 , fragments);
-        viewPager.setOffscreenPageLimit(fragments.size());
-        viewPager.setAdapter(viewPager_Adapter);
+        vH.viewPager.setOffscreenPageLimit(fragments.size());
+        vH.viewPager.setAdapter(vH.viewPager_Adapter);
         // 設置SlidingTab
-        mySlidingTabLayout.setViewPager(viewPager);
-        setSupportActionBar(toolbar);
+        vH.mySlidingTabLayout.setViewPager(vH.viewPager);
+        setSupportActionBar(vH.toolbar);
 
 
         //	final ActionBar actBar = getSupportActionBar();
@@ -159,7 +169,6 @@ public class TaskEditorTabFragment extends ActionBarActivity
             String EmptyMsg = getString(R.string.TaskEditor_Title_Is_Empty);
             Toast.makeText(getApplicationContext(), EmptyMsg, Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override
@@ -228,7 +237,6 @@ public class TaskEditorTabFragment extends ActionBarActivity
             //contents.add(data.getString(data.getColumnIndex("title")));
             //contents.add(data.getString(data.getColumnIndex("title")));
             data.moveToLast();
-
 
             String content = contents.toArray().toString();
             MyDebug.MakeLog(2, "content=" + contents);

@@ -6,7 +6,7 @@
     <dimen name="tabPaddingLeftRight">50dp</dimen>
 
     <!-- Card -->
-    <dimen name="card_base_empty_height">40dp</dimen>
+    <dimen name="card_base_empty_height">20dp</dimen>
     <dimen name="card_background_default_radius">2dip</dimen>
 
     <!-- Main -->

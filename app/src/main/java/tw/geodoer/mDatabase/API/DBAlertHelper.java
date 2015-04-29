@@ -58,13 +58,16 @@ public class DBAlertHelper {
      * <br> false, if any error was occurred.
      */
     public boolean closeCursor(Cursor cursor) {
-        try {
-            if (!cursor.isClosed()) cursor.close();
+        if(cursor!=null) {
+            try {
+                if (!cursor.isClosed()) cursor.close();
+                return true;
+            } catch (Exception e) {
+                logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
+                return false;
+            }
+        }else
             return true;
-        } catch (Exception e) {
-            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
-            return false;
-        }
     }
 
 
@@ -111,7 +114,7 @@ public class DBAlertHelper {
                             selectionArgs,
                             shortOrder);
         } catch (Exception e) {
-             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return null;
         }
     }
@@ -124,12 +127,17 @@ public class DBAlertHelper {
      * <br> (int) -1, if any error was occurred.
      */
     public int getCount() {
-        Cursor thisCursor = getCursor();
-        int thisCount = thisCursor.getCount();
-        if (closeCursor(thisCursor))
-            return thisCount;
-        else
+        Cursor thisCursor = null;
+        try {
+            thisCursor = getCursor();
+            return thisCursor.getCount();
+        } catch (Exception e) {
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1;
+        }
+        finally {
+            closeCursor(thisCursor);
+        }
     }
 
 
@@ -141,17 +149,17 @@ public class DBAlertHelper {
      */
     public int getCountOfUnFinishedTask() {
         String[] projection = {"_id", "state"};
+        Cursor thisCursor = null;
         // 0-> 未完成 1->已完成
         try {
-            Cursor thisCursor = getCursor(projection, "state == 0", null, "_id DESC");
-            int thisCount = thisCursor.getCount();
-            if (closeCursor(thisCursor))
-                return thisCount;
-            else
-                return -1;
+            thisCursor = getCursor(projection, "state == 0", null, "_id DESC");
+            return thisCursor.getCount();
         } catch (Exception e) {
-             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1;
+        }
+        finally {
+            closeCursor(thisCursor);
         }
     }
 
@@ -164,28 +172,29 @@ public class DBAlertHelper {
      */
     public ArrayList<Integer> getIDArrayListOfUnFinishedTask() {
         String[] projection = {"_id", "state"};
+        Cursor thisCursor = null;
         // 0-> 未完成 1->已完成
         try {
-            Cursor thisCursor = getCursor(projection, "state == 0", null, "_id DESC");
+            thisCursor = getCursor(projection, "state == 0", null, "_id DESC");
             int i,thisCount=thisCursor.getCount();
             ArrayList<Integer> thisArray =new ArrayList<>();
             //setMethodName("getIDArrayListOfUnFinishedTask");
-           // logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),"thisCount="+thisCount);
+            // logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),"thisCount="+thisCount);
             if(thisCursor.moveToFirst()){
                 for (i=0;i<(thisCount);i++) {
                     //logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),"value="+thisCursor.getInt(0)+",position="+ thisCursor.getPosition());
                     thisArray.add(thisCursor.getInt(0));
                     if(i<(thisCount)) thisCursor.moveToNext();
                 }
-                if (closeCursor(thisCursor))
-                    return thisArray;
-                else
-                    return null;
+                return thisArray;
             }else
                 return null;
         } catch (Exception e) {
             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return null;
+        }
+        finally {
+            closeCursor(thisCursor);
         }
     }
 
@@ -198,17 +207,17 @@ public class DBAlertHelper {
      */
     public int getCountOfFinishedTask() {
         String[] projection = {"_id", "state"};
+        Cursor thisCursor = null;
         // 0-> 未完成 1->已完成
         try {
-            Cursor thisCursor = getCursor(projection, "state == 1", null, "_id DESC");
-            int thisCount = thisCursor.getCount();
-            if (closeCursor(thisCursor))
-                return thisCount;
-            else
-                return -1;
+            thisCursor = getCursor(projection, "state == 1", null, "_id DESC");
+            return thisCursor.getCount();
         } catch (Exception e) {
-             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1;
+        }
+        finally {
+            closeCursor(thisCursor);
         }
     }
 
@@ -221,9 +230,10 @@ public class DBAlertHelper {
      */
     public ArrayList<Integer> getIDArrayListOfFinishedTask() {
         String[] projection = {"_id", "state"};
+        Cursor thisCursor = null;
         // 0-> 未完成 1->已完成
         try {
-            Cursor thisCursor = getCursor(projection, "state == 1", null, "_id DESC");
+            thisCursor = getCursor(projection, "state == 1", null, "_id DESC");
             int i,thisCount=thisCursor.getCount();
             ArrayList<Integer> thisArray =new ArrayList<>();
             //setMethodName("getIDArrayListOfUnFinishedTask");
@@ -234,15 +244,15 @@ public class DBAlertHelper {
                     thisArray.add(thisCursor.getInt(0));
                     if(i<(thisCount)) thisCursor.moveToNext();
                 }
-                if (closeCursor(thisCursor))
-                    return thisArray;
-                else
-                    return null;
+                return thisArray;
             }else
                 return null;
         } catch (Exception e) {
             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return null;
+        }
+        finally {
+            closeCursor(thisCursor);
         }
     }
 
@@ -255,17 +265,18 @@ public class DBAlertHelper {
      */
     public int getCountOfTimeAlertTask() {
         String[] projection = {"_id", "type"};
+        Cursor thisCursor = null;
         // 0-> 無提醒 1->到期提醒 2->提醒 3->到期+靠近提醒
         try {
-            Cursor thisCursor = getCursor(projection, "type == 1", null, "_id DESC");
-            int thisCount = thisCursor.getCount();
-            if (closeCursor(thisCursor))
-                return thisCount;
-            else
-                return -1;
+            thisCursor = getCursor(projection, "type == 1", null, "_id DESC");
+
+            return thisCursor.getCount();
         } catch (Exception e) {
-             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1;
+        }
+        finally {
+            closeCursor(thisCursor);
         }
     }
 
@@ -278,9 +289,10 @@ public class DBAlertHelper {
      */
     public ArrayList<Integer> getIDArrayListOfTimeAlertTask() {
         String[] projection = {"_id", "state"};
+        Cursor thisCursor = null;
         // 0-> 未完成 1->已完成
         try {
-            Cursor thisCursor = getCursor(projection, "type == 1", null, "_id DESC");
+            thisCursor = getCursor(projection, "type == 1", null, "_id DESC");
             int i,thisCount=thisCursor.getCount();
             ArrayList<Integer> thisArray =new ArrayList<>();
             //setMethodName("getIDArrayListOfUnFinishedTask");
@@ -291,15 +303,15 @@ public class DBAlertHelper {
                     thisArray.add(thisCursor.getInt(0));
                     if(i<(thisCount)) thisCursor.moveToNext();
                 }
-                if (closeCursor(thisCursor))
-                    return thisArray;
-                else
-                    return null;
+                return thisArray;
             }else
                 return null;
         } catch (Exception e) {
             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return null;
+        }
+        finally {
+            closeCursor(thisCursor);
         }
     }
 
@@ -312,17 +324,18 @@ public class DBAlertHelper {
      */
     public int getCountOfLocationAlertTask() {
         String[] projection = {"_id", "type"};
+        Cursor thisCursor = null;
         // 0-> 無提醒 1->到期提醒 2->提醒 3->到期+靠近提醒
         try {
-            Cursor thisCursor = getCursor(projection, "type == 2", null, "_id DESC");
-            int thisCount = thisCursor.getCount();
-            if (closeCursor(thisCursor))
-                return thisCount;
-            else
-                return -1;
+            thisCursor = getCursor(projection, "type == 2", null, "_id DESC");
+
+            return thisCursor.getCount();
         } catch (Exception e) {
-             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1;
+        }
+        finally {
+            closeCursor(thisCursor);
         }
     }
 
@@ -335,9 +348,10 @@ public class DBAlertHelper {
      */
     public ArrayList<Integer> getIDArrayListOfLocationAlertTask() {
         String[] projection = {"_id", "state"};
+        Cursor thisCursor = null;
         // 0-> 未完成 1->已完成
         try {
-            Cursor thisCursor = getCursor(projection, "type == 2", null, "_id DESC");
+            thisCursor = getCursor(projection, "type == 2", null, "_id DESC");
             int i,thisCount=thisCursor.getCount();
             ArrayList<Integer> thisArray =new ArrayList<>();
             //setMethodName("getIDArrayListOfUnFinishedTask");
@@ -348,15 +362,15 @@ public class DBAlertHelper {
                     thisArray.add(thisCursor.getInt(0));
                     if(i<(thisCount)) thisCursor.moveToNext();
                 }
-                if (closeCursor(thisCursor))
-                    return thisArray;
-                else
-                    return null;
+                return thisArray;
             }else
                 return null;
         } catch (Exception e) {
             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return null;
+        }
+        finally {
+            closeCursor(thisCursor);
         }
     }
 
@@ -369,17 +383,18 @@ public class DBAlertHelper {
      */
     public int getCountOfSmartAlertTask() {
         String[] projection = {"_id", "type"};
+        Cursor thisCursor = null;
         // 0-> 無提醒 1->到期提醒 2->提醒 3->到期+靠近提醒
         try {
-            Cursor thisCursor = getCursor(projection, "type == 3", null, "_id DESC");
-            int thisCount = thisCursor.getCount();
-            if (closeCursor(thisCursor))
-                return thisCount;
-            else
-                return -1;
+            thisCursor = getCursor(projection, "type == 3", null, "_id DESC");
+
+            return thisCursor.getCount();
         } catch (Exception e) {
-             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1;
+        }
+        finally {
+            closeCursor(thisCursor);
         }
     }
 
@@ -392,9 +407,10 @@ public class DBAlertHelper {
      */
     public ArrayList<Integer> getIDArrayListOfSmartAlertTask() {
         String[] projection = {"_id", "state"};
+        Cursor thisCursor = null;
         // 0-> 未完成 1->已完成
         try {
-            Cursor thisCursor = getCursor(projection, "type == 2", null, "_id DESC");
+            thisCursor = getCursor(projection, "type == 2", null, "_id DESC");
             int i,thisCount=thisCursor.getCount();
             ArrayList<Integer> thisArray =new ArrayList<>();
             //setMethodName("getIDArrayListOfUnFinishedTask");
@@ -405,15 +421,15 @@ public class DBAlertHelper {
                     thisArray.add(thisCursor.getInt(0));
                     if(i<(thisCount)) thisCursor.moveToNext();
                 }
-                if (closeCursor(thisCursor))
-                    return thisArray;
-                else
-                    return null;
+                return thisArray;
             }else
                 return null;
         } catch (Exception e) {
             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return null;
+        }
+        finally {
+            closeCursor(thisCursor);
         }
     }
 
@@ -431,10 +447,10 @@ public class DBAlertHelper {
     public String getItemString(int itemId, String columnName) {
         String[] projection = {"_id", columnName};
         String[] argStrings = {String.valueOf(itemId)};
+        Cursor thisCursor = null;
         try {
-            Cursor thisCursor = getCursor(projection, "_id=?", argStrings, "_id DESC");
-            thisCursor.moveToFirst();
-            if (thisCursor.getCount() > 0) {
+            thisCursor = getCursor(projection, "_id=?", argStrings, "_id DESC");
+            if (thisCursor.moveToFirst()) {
                 // columns => {"_id", columnName}
                 // column0->"_id"
                 // column1->"columnName"->target.
@@ -443,8 +459,11 @@ public class DBAlertHelper {
                 return "error";
             }
         } catch (Exception e) {
-             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return "error";
+        }
+        finally {
+            closeCursor(thisCursor);
         }
     }
 
@@ -463,10 +482,10 @@ public class DBAlertHelper {
     public int getItemInt(int itemId, String columnName) {
         String[] projection = {"_id", columnName};
         String[] argStrings = {String.valueOf(itemId)};
+        Cursor thisCursor = null;
         try {
-            Cursor thisCursor = getCursor(projection, "_id=?", argStrings, "_id DESC");
-            thisCursor.moveToFirst();
-            if (thisCursor.getCount() > 0) {
+            thisCursor = getCursor(projection, "_id=?", argStrings, "_id DESC");
+            if (thisCursor.moveToFirst()) {
                 // columns => {"_id", columnName}
                 // column 0->"_id"
                 // column 1->"columnName"->target.
@@ -475,8 +494,11 @@ public class DBAlertHelper {
                 return -1;
             }
         } catch (Exception e) {
-             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1;
+        }
+        finally {
+            closeCursor(thisCursor);
         }
     }
 
@@ -495,10 +517,11 @@ public class DBAlertHelper {
     public Double getItemDouble(int itemId, String columnName) {
         String[] projection = {"_id", columnName};
         String[] argStrings = {String.valueOf(itemId)};
+        Cursor thisCursor = null;
         try {
-            Cursor thisCursor = getCursor(projection, "_id=?", argStrings, "_id DESC");
-            thisCursor.moveToFirst();
-            if (thisCursor.getCount() > 0) {
+            thisCursor = getCursor(projection, "_id=?", argStrings, "_id DESC");
+
+            if (thisCursor.moveToFirst()) {
                 // columns => {"_id", columnName}
                 // column 0->"_id"
                 // column 1->"columnName"->target.
@@ -507,8 +530,11 @@ public class DBAlertHelper {
                 return -1d;
             }
         } catch (Exception e) {
-             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1d;
+        }
+        finally {
+            closeCursor(thisCursor);
         }
     }
 
@@ -527,10 +553,10 @@ public class DBAlertHelper {
     public long getItemLong(int itemId, String columnName) {
         String[] projection = {"_id", columnName};
         String[] argStrings = {String.valueOf(itemId)};
+        Cursor thisCursor = null;
         try {
-            Cursor thisCursor = getCursor(projection, "_id=?", argStrings, "_id DESC");
-            thisCursor.moveToFirst();
-            if (thisCursor.getCount() > 0) {
+            thisCursor = getCursor(projection, "_id=?", argStrings, "_id DESC");
+            if (thisCursor.moveToFirst()) {
                 // columns => {"_id", columnName}
                 // column 0->"_id"
                 // column 1->"columnName"->target.
@@ -539,8 +565,11 @@ public class DBAlertHelper {
                 return -1l;
             }
         } catch (Exception e) {
-             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1l;
+        }
+        finally {
+            closeCursor(thisCursor);
         }
     }
 
@@ -601,7 +630,7 @@ public class DBAlertHelper {
             context.getContentResolver().update(thisUri, values, null, null);
             return true;
         } catch (Exception e) {
-             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return false;
         }
     }
@@ -624,7 +653,7 @@ public class DBAlertHelper {
             context.getContentResolver().update(thisUri, values, null, null);
             return true;
         } catch (Exception e) {
-             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return false;
         }
     }
@@ -647,7 +676,7 @@ public class DBAlertHelper {
             context.getContentResolver().update(thisUri, values, null, null);
             return true;
         } catch (Exception e) {
-             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return false;
         }
     }
@@ -670,7 +699,7 @@ public class DBAlertHelper {
             context.getContentResolver().update(thisUri, values, null, null);
             return true;
         } catch (Exception e) {
-             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return false;
         }
     }
@@ -690,7 +719,7 @@ public class DBAlertHelper {
                     .delete(mUri, "_id = ?", new String[]{String.valueOf(itemId)});
             return true;
         } catch (Exception e) {
-             logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return false;
         }
     }

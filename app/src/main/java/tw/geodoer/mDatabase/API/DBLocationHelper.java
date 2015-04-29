@@ -56,13 +56,16 @@ public class DBLocationHelper {
      * false, if any error was occurred.
      */
     public boolean closeCursor(Cursor cursor) {
-        try {
-            if (!cursor.isClosed()) cursor.close();
+        if(cursor!=null) {
+            try {
+                if (!cursor.isClosed()) cursor.close();
+                return true;
+            } catch (Exception e) {
+                logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
+                return false;
+            }
+        }else
             return true;
-        } catch (Exception e) {
-            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
-            return false;
-        }
     }
 
 
@@ -124,12 +127,17 @@ public class DBLocationHelper {
      * (int) -1, if any error was occurred.
      */
     public int getCount() {
-        Cursor thisCursor = getCursor();
-        int thisCount = thisCursor.getCount();
-        if (closeCursor(thisCursor))
-            return thisCount;
-        else
+        Cursor thisCursor = null;
+        try {
+            thisCursor = getCursor();
+            return thisCursor.getCount();
+        } catch (Exception e) {
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1;
+        }
+        finally {
+            closeCursor(thisCursor);
+        }
     }
 
 
@@ -146,10 +154,10 @@ public class DBLocationHelper {
     public String getItemString(int itemId, String columnName) {
         String[] projection = {"_id", columnName};
         String[] argStrings = {String.valueOf(itemId)};
+        Cursor thisCursor = null;
         try {
-            Cursor thisCursor = getCursor(projection, "_id=?", argStrings, "_id DESC");
-            thisCursor.moveToFirst();
-            if (thisCursor.getCount() > 0) {
+            thisCursor = getCursor(projection, "_id=?", argStrings, "_id DESC");
+            if (thisCursor.moveToFirst()) {
                 // columns => {"_id", columnName}
                 // column0->"_id"
                 // column1->"columnName"->target.
@@ -158,8 +166,11 @@ public class DBLocationHelper {
                 return "error";
             }
         } catch (Exception e) {
-            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return "error";
+        }
+        finally {
+            closeCursor(thisCursor);
         }
     }
 
@@ -178,10 +189,10 @@ public class DBLocationHelper {
     public int getItemInt(int itemId, String columnName) {
         String[] projection = {"_id", columnName};
         String[] argStrings = {String.valueOf(itemId)};
+        Cursor thisCursor = null;
         try {
-            Cursor thisCursor = getCursor(projection, "_id=?", argStrings, "_id DESC");
-            thisCursor.moveToFirst();
-            if (thisCursor.getCount() > 0) {
+            thisCursor = getCursor(projection, "_id=?", argStrings, "_id DESC");
+            if (thisCursor.moveToFirst()) {
                 // columns => {"_id", columnName}
                 // column 0->"_id"
                 // column 1->"columnName"->target.
@@ -190,8 +201,11 @@ public class DBLocationHelper {
                 return -1;
             }
         } catch (Exception e) {
-            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1;
+        }
+        finally {
+            closeCursor(thisCursor);
         }
     }
 
@@ -210,10 +224,11 @@ public class DBLocationHelper {
     public Double getItemDouble(int itemId, String columnName) {
         String[] projection = {"_id", columnName};
         String[] argStrings = {String.valueOf(itemId)};
+        Cursor thisCursor = null;
         try {
-            Cursor thisCursor = getCursor(projection, "_id=?", argStrings, "_id DESC");
-            thisCursor.moveToFirst();
-            if (thisCursor.getCount() > 0) {
+            thisCursor = getCursor(projection, "_id=?", argStrings, "_id DESC");
+
+            if (thisCursor.moveToFirst()) {
                 // columns => {"_id", columnName}
                 // column 0->"_id"
                 // column 1->"columnName"->target.
@@ -222,8 +237,11 @@ public class DBLocationHelper {
                 return -1d;
             }
         } catch (Exception e) {
-            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1d;
+        }
+        finally {
+            closeCursor(thisCursor);
         }
     }
 
@@ -242,10 +260,10 @@ public class DBLocationHelper {
     public long getItemLong(int itemId, String columnName) {
         String[] projection = {"_id", columnName};
         String[] argStrings = {String.valueOf(itemId)};
+        Cursor thisCursor = null;
         try {
-            Cursor thisCursor = getCursor(projection, "_id=?", argStrings, "_id DESC");
-            thisCursor.moveToFirst();
-            if (thisCursor.getCount() > 0) {
+            thisCursor = getCursor(projection, "_id=?", argStrings, "_id DESC");
+            if (thisCursor.moveToFirst()) {
                 // columns => {"_id", columnName}
                 // column 0->"_id"
                 // column 1->"columnName"->target.
@@ -254,8 +272,11 @@ public class DBLocationHelper {
                 return -1l;
             }
         } catch (Exception e) {
-            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(), e.toString());
+            logOut(Thread.currentThread().getStackTrace()[2].getMethodName(),e.toString());
             return -1l;
+        }
+        finally {
+            closeCursor(thisCursor);
         }
     }
 

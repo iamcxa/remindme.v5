@@ -14,7 +14,7 @@ public class CommonVar {
     // 授權常數
     public static final String AUTHORITY = "com.geodoer.geotodo";
     // 資料庫版本
-    public static final int DB_VERSION = 6;
+    public static final int DB_VERSION = 7;
     // URI常數
     public static final String TASKLIST = "geotodo";
     public static final String CONTENT_TYPE =
