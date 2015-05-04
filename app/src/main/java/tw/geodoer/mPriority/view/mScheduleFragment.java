@@ -17,19 +17,19 @@ import java.util.Random;
 public class mScheduleFragment extends Fragment
 {
     // Store instance variables
-    private int page;
+    public int page;
 
     //newInstance constructor for creating fragment with arguments
     public static mScheduleFragment newInstance(int page)
     {
-        mScheduleFragment fragmentFirst = new mScheduleFragment(page);
+        mScheduleFragment fragmentFirst = new mScheduleFragment();
+        fragmentFirst.page=page;
         return fragmentFirst;
     }
 
-    public mScheduleFragment(int page)
+    public mScheduleFragment()
     {
         super();
-        this.page = page;
     }
 
     // Store instance variables based on arguments passed

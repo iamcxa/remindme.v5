@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Page Task Editor Main -->
+    <!-- String -->
+    <string-array name="Array_TaskEditor_btnTaskDueDate_String">
+        <item>今天</item>
+        <item>明天</item>
+        <item>下週</item>
+        <item>一個月內</item>
+        <item>選擇日期‧‧‧</item>
+    </string-array>
+    <!-- Value -->
+    <string-array name="Array_TaskEditor_btnTaskDueDate_Value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string name="TaskEditor_btnTaskDueDate_Title">請選擇日期</string>
+    <string name="TaskEditor_Title_Is_Empty">您需要輸入任務名稱。</string>
+    <string name="TaskEditor_Field_Title_Hint">任務</string>
+    <string name="TaskEditor_Field_Content_Hint">備註</string>
+    <string name="TaskEditor_Field_Category_Hint">類別</string>
+    
+    <string name="TaskEditor_Field_DueDate_Hint">到期日</string>
+   
+    <string name="TaskEditor_Field_Project_Hint">專案</string>
+    <string name="TaskEditor_Field_Tag_Hint">標籤</string>
+    <string name="TaskEditor_Field_Priority_Hint">優先等級</string>
+    
+    <string name="TaskEditor_Field_Inbox">任務盒</string>
+    
+    <string name="TaskEditor_Field_Location">地點</string>
+    <string name="TaskEditor_Field_Location_Is_Empty">沒有最近使用過的地點</string>
+    <string name="TaskEditor_Field_Location_Spinner_Hint">不使用任務地點…</string>
+    <string name="TaskEditor_Field_Location_DB_Default_Msg">不使用</string>
+    <string name="TaskEditor_Field_Location_Tittle">請輸入地址…</string>
+    
+    <string name="TaskEditor_Field_Alarm">設定提醒時間</string>
+    
+    <string name="btnMore_More">更多</string>
+    <string name="btnMore_Less">較少</string>
+
+    <!-- Card Long Clcik Menu -->
+    <!-- String -->
+    <string-array name="Array_Task_Editor_Date_Basic_Meaning_String">
+        <item>今天</item>
+        <item>明天</item>
+        <item>後天</item>
+        <item>每天</item>
+        <item>周一</item>
+        <item>周二</item>
+        <item>周三</item>
+        <item>周四</item>
+        <item>周五</item>
+        <item>周六</item>
+        <item>周日</item>
+        <item>週一</item>
+        <item>週二</item>
+        <item>週三</item>
+        <item>週四</item>
+        <item>週五</item>
+        <item>週六</item>
+        <item>週日</item>
+    </string-array>
+
+    <!-- 重複性前綴 -->
+    <string-array name="Array_Task_Editor_Date_Repeat_Meaning_String">
+        <item>下</item>
+        <item>每</item>
+    </string-array>
+    
+    
+    <string name="String_Task_Editor_Dialog_Pick_A_Time">挑個時間</string>
+    
+    <string name="String_Task_Editor_Dialog_BUTTON_POSITIVE">我決定了</string>
+    <string name="String_Task_Editor_Dialog_BUTTON_NEGATIVE">放棄</string>
+    <string name="String_Task_Editor_Dialog_BUTTON_NEUTRAL">不要時間</string>
+    
+
+    <string name="String_Task_Editor_Date_Year">年</string>
+    <string name="String_Task_Editor_Date_Month">月</string>
+    <string name="String_Task_Editor_Date_Day">日</string>
+</resources>

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="title_activity_apitesting">APITestingActivity</string>
 
@@ -16,5 +17,70 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_example">Example action</string>
+
+    <!-- Basic theme information -->
+    <string name="app_name">智慧提醒</string>
+
+    <string name="TaskEditor_ActionBar_Title">建立待辦事項</string>
+
+
+    <!-- 電力選項 -->
+    <string-array name="PowerUsageOptionString">
+        <item>精準</item>
+        <item>平衡</item>
+        <item>省電</item>
+    </string-array>
+    <string-array name="PowerUsageOptionValue">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="String_If_Task_List_Is_Empty">這個分類沒有您待辦事項。</string>
+
+    <string name="PowerUsageOptionDefaultValue">0</string>
+    <string name="PowerUsageOptionTittle">位置偵測模式</string>
+
+    <!-- 左邊側滑選單 -->
+    <string-array name="drawer_array">
+        <item>智慧待辦清單</item>
+        <item>按照時間</item>
+        <item>按照地點</item>
+        <item>地圖檢視</item>
+        <item>已完成</item>
+        <item>垃圾桶</item>
+        <item>測試功能</item>
+    </string-array>
+
+
+    <!-- Card Long Clcik Menu -->
+    <!-- String -->
+    <string-array name="Array_Task_List_Card_Long_Clcik_String_Normal">
+        <item>我完成了!</item>
+        <item>修改</item>
+        <item>帶我去</item>
+        <item>丟到垃圾桶</item>
+    </string-array>
+
+    <!-- String -->
+    <string-array name="Array_Task_List_Card_Long_Clcik_String_TrashCan">
+        <item>移回清單</item>
+        <item>永久刪除</item>
+    </string-array>
+
+    <!-- Value -->
+    <string-array name="Array_Task_List_Card_Long_Clcik_Value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_websearch">Web search</string>
+    <string name="action_setting">設定</string>
+    <string name="app_not_available">Sorry, there\'s no web browser available</string>
 
 </resources>

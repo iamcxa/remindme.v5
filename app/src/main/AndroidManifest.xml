@@ -4,10 +4,10 @@
     package="com.geodoer.geotodo"
     android:installLocation="internalOnly">
     <!-- ====================================================================== -->
-    <uses-sdk
-        android:maxSdkVersion="19" />
+    <!--   <uses-sdk
+         android:maxSdkVersion="22" /> -->
 
-    <!-- ====================================================================== -->
+     <!-- ====================================================================== -->
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
