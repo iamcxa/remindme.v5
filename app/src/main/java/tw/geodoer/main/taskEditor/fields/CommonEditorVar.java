@@ -11,13 +11,13 @@ public class CommonEditorVar {
     //public final int TIME_DIALOG_ID = 1;
 
     //切割分類
-    public static DateFields TaskDate = new DateFields();
-    public static LocationFields TaskLocation = new LocationFields();
-    public static TaskFields Task = new TaskFields();
-    public static AlertFields TaskAlert = new AlertFields();
-    public static TaskColorFields TaskCardColor = new TaskColorFields();
-    public static GetDBdata getDBdata = new GetDBdata();
-    public static CommonEditorVar EditorVarInstance = new CommonEditorVar();
+    public  DateFields TaskDate = new DateFields();
+    public  LocationFields TaskLocation = new LocationFields();
+    public  TaskFields Task = new TaskFields();
+    public  AlertFields TaskAlert = new AlertFields();
+    public  TaskColorFields TaskCardColor = new TaskColorFields();
+    public  GetDBdata getDBdata = new GetDBdata();
+    public  static CommonEditorVar EditorVarInstance = new CommonEditorVar();
 
     public CommonEditorVar() {
     }

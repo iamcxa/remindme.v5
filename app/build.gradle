@@ -1,25 +1,47 @@
 apply plugin: 'com.android.application'
+
+//===============================================//
+//                                               //
+//                   Android                     //
+//                                               //
+//===============================================//
 android {
-    compileSdkVersion 21
-    buildToolsVersion '21.1.2'
-    defaultConfig {
-        applicationId 'com.godoer.geotodo'
-        minSdkVersion 16
-        targetSdkVersion 18
-        versionCode 5
-        versionName '5.0'
+    //==================================keystore簽名
+    signingConfigs {
+        config {
+            keyAlias 'geodoer'
+            keyPassword 'lab403'
+            storeFile file('C:/_github/remindme.v5/geodoer.keystore')
+            storePassword 'lab403'
+        }
     }
+    //==================================對應sdk版本號
+    compileSdkVersion 22
+    buildToolsVersion '22.0.0'
+    //==================================預設build設定
+    defaultConfig {
+        signingConfig signingConfigs.config
+        applicationId 'com.godoer.geotodo'
+        testApplicationId 'com.godoer.geotodo.test'
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionName '1.0.0'
+        versionCode 7
+    }
+    //=====================================編譯設定檔
     buildTypes {
+        //======================================發行
         release {
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             debuggable false
             jniDebuggable false
             renderscriptDebuggable false
             renderscriptOptimLevel 3
-            minifyEnabled false
+            minifyEnabled true
             versionNameSuffix '_release'
             zipAlignEnabled true
         }
+        //======================================除錯
         debug {
             debuggable true
             renderscriptOptimLevel 3
@@ -28,26 +50,56 @@ android {
             zipAlignEnabled true
         }
     }
-    productFlavors {
+    //===================================忽略lint錯誤
+    lintOptions {
+        abortOnError false
+    }
+    //=====================================產品渠道名
+    productFlavors {}
+    //==================================格式化輸出APK
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(
+                    output.outputFile.parent,
+                    defaultConfig.applicationId + "-" +
+                            buildType.name + "-v" +
+                            defaultConfig.versionName + "-" +
+                            defaultConfig.versionCode + ".apk" );
+        }
     }
 }
 
+//===============================================//
+//                                               //
+//                 repositories                  //
+//                                               //
+//===============================================//
 repositories {
     maven {
         url "https://mint.splunk.com/gradle/"
     }
 }
 
+//===============================================//
+//                                               //
+//                 dependencies                  //
+//                                               //
+//===============================================//
 dependencies {
-    compile 'com.google.android.gms:play-services:6.5.87'
-    //Core card library
-    compile 'com.github.gabrielemariotti.cards:library:1.9.1'
+    compile 'com.google.android.gms:play-services:7.0.0'
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.android.support:support-v4:22.1.1'
+    // cards-lib
+    compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
+    compile 'com.github.gabrielemariotti.cards:cardslib-core:2.0.1'
+    compile 'com.github.gabrielemariotti.cards:cardslib-recyclerview:2.0.1'
+    compile 'com.github.gabrielemariotti.cards:cardslib-cards:2.0.1'
+    // fab
     compile 'com.melnykov:floatingactionbutton:1.3.0'
     compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
-    compile 'com.github.johnkil.android-progressfragment:progressfragment:1.4.+'
-    compile 'com.android.support:appcompat-v7:21.0.2'
-    compile 'com.android.support:support-v4:21.0.2'
+    // progress-fragment
+    compile 'com.github.johnkil.android-progressfragment:progressfragment:1.4.0'
     compile project(':MapController_v1.15.7')
-    //splunk ACRA
-    compile "com.splunk.mint:mint:4.1"
+    // splunk ACRA
+    compile 'com.splunk.mint:mint:4.1'
 }

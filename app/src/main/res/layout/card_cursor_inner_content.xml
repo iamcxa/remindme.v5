@@ -19,18 +19,17 @@
   -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginLeft="3dp" >
 
     <TextView
         android:id="@+id/card_cursor_main_inner_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:lines="1"
         android:maxEms="15"
         android:maxLines="1"
-        android:text="card_cursor_main_inner_title"
         android:textColor="@color/card_ThirdTittle"
         android:textSize="15sp"
         android:textStyle="bold" />
@@ -44,7 +43,6 @@
         android:lines="1"
         android:maxEms="30"
         android:maxLines="1"
-        android:text="card_cursor_main_inner_subtitle"
         android:textColor="@color/card_SubTittle"
         android:textSize="12sp"
         />
@@ -55,7 +53,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/card_cursor_main_inner_subtitle"
         android:layout_below="@+id/card_cursor_main_inner_subtitle"
-        android:text="card_cursor_main_inner_thirdtitle"
         android:textColor="@color/PagerSlidingTabStrip_dividerColor"
         android:lines="1"
         android:maxEms="30"

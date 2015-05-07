@@ -14,6 +14,10 @@ import it.gmariotti.cardslib.library.internal.Card;
  */
 public class MyCursorCard extends Card {
 
+    TextView mTitleTextView;
+    TextView mSecondaryTitleTextView;
+    TextView mThirdTitleTextView;
+
     public String dueDate;
     public String LocationName;
     public String Notifications;
@@ -25,42 +29,23 @@ public class MyCursorCard extends Card {
     }
 
     @Override
-    public void setShadow(boolean shadow) {
-        super.setShadow(shadow);
-        if(shadow){
-            getCardView()
-                    .getInternalShadowLayout()
-                    .getInternalOuterView()
-                    .setBackgroundResource(R.drawable.card_shadow_hightlight);
-    }
-    }
-
-    @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
 
-        ViewHolder viewHolder = new ViewHolder();
-
         // Retrieve elements
-        viewHolder.mTitleTextView = (TextView) parent
+        mTitleTextView = (TextView) parent
                 .findViewById(R.id.card_cursor_main_inner_title);
-        viewHolder.mSecondaryTitleTextView = (TextView) parent
+        mSecondaryTitleTextView = (TextView) parent
                 .findViewById(R.id.card_cursor_main_inner_subtitle);
-        viewHolder.mThirdTitleTextView = (TextView) parent
+        mThirdTitleTextView = (TextView) parent
                 .findViewById(R.id.card_cursor_main_inner_thirdtitle);
 
-        if (viewHolder.mTitleTextView != null)
-            viewHolder.mTitleTextView.setText(dueDate);
+        if (mTitleTextView != null)
+            mTitleTextView.setText(dueDate);
 
-        if (viewHolder.mSecondaryTitleTextView != null)
-            viewHolder.mSecondaryTitleTextView.setText(LocationName);
+        if (mSecondaryTitleTextView != null)
+            mSecondaryTitleTextView.setText(LocationName);
 
-        if (viewHolder.mThirdTitleTextView != null)
-            viewHolder.mThirdTitleTextView.setText(Notifications);
-    }
-
-    static class ViewHolder{
-        TextView mTitleTextView;
-        TextView mSecondaryTitleTextView;
-        TextView mThirdTitleTextView;
+        if (mThirdTitleTextView != null)
+            mThirdTitleTextView.setText(Notifications);
     }
 }

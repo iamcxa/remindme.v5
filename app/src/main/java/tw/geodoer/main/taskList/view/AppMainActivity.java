@@ -113,19 +113,6 @@ public class AppMainActivity extends ActionBarActivity
         }
     };
 
-
-    /*************************/
-    /** setNavigationDrawer **/
-//    public void setLoadingEnd() {
-//        viewHolder.loading_Frame.setVisibility(View.GONE);
-//        viewHolder.content_Frame.setVisibility(View.VISIBLE);
-//    }
-//
-//    public void setLoadingStart() {
-//        viewHolder.content_Frame.setVisibility(View.GONE);
-//        viewHolder.loading_Frame.setVisibility(View.VISIBLE);
-//    }
-
     /**********************************************/
     /** NavigationDrawer  DrawerItemClickListener**/
     @Override
@@ -229,7 +216,9 @@ public class AppMainActivity extends ActionBarActivity
         // setLoadingStart();
 
         viewHolder.fragmentManager = getSupportFragmentManager();
-        viewHolder.targetFragment = getSupportFragmentManager().findFragmentById(R.id.content_frame);
+        viewHolder.targetFragment =
+                getSupportFragmentManager()
+                .findFragmentById(R.id.content_frame);
 
         // 傳遞所按位置索引
         viewHolder.targetFragment = MyProgressFragment.newInstance(position);

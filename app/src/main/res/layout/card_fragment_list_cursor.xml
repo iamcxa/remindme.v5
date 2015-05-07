@@ -20,8 +20,6 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:fab="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -30,7 +28,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
         android:id="@+id/txtIfListEmpty"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -40,48 +37,34 @@
         android:visibility="gone"
         android:shadowColor="#ffa2ffff" />
 
-    <it.gmariotti.cardslib.library.view.CardListView
-        android:id="@+id/carddemo_list_cursor"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:paddingTop="10dp"
-        card:list_card_layout_resourceID="@layout/card_list_cursor_layout" >
-    </it.gmariotti.cardslib.library.view.CardListView>
-
-    <!--
-    <com.shamanland.fab.FloatingActionButton
-        android:id="@+id/fab_add"
-        style="@drawable/mainview_fabtn_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:src="@drawable/ic_action_write_50_white"
-        app:floatingActionButtonColor="@drawable/mainview_fabtn_add"
-        app:floatingActionButtonSize="normal" />
-    -->
-
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/faBtn_mainView_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:src="@drawable/ic_action_write_50_white"
-        fab:fab_colorNormal="@color/background_tab_pressed"
-        fab:fab_colorPressed="@color/card_background_color2"
-        fab:fab_colorRipple="@color/smart_ampm"
-        android:layout_marginRight="56dp"
-        android:layout_marginBottom="56dp"
+
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="40dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="56dp" />
+        android:layout_marginEnd="40dp" />
+
+    <FrameLayout
+        android:id="@+id/carddemo_listContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <it.gmariotti.cardslib.library.view.CardListView
+        android:id="@+id/carddemo_list_cursor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="10dp"
+        style="@style/native_list_external"
+        card:list_card_layout_resourceID="@layout/card_list_cursor_layout" >
+    </it.gmariotti.cardslib.library.view.CardListView>
+
+    </FrameLayout>
 
 </RelativeLayout>

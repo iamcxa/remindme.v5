@@ -1,14 +1,11 @@
 package tw.geodoer.main.taskList.cardsui;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.widget.ImageButton;
 
 import it.gmariotti.cardslib.library.view.component.CardHeaderView;
 
-/**
- * *******************
- */
+
 // implment the clickable card thumbnail.
 public class MyCardHeader extends CardHeaderView {
 
@@ -18,7 +15,6 @@ public class MyCardHeader extends CardHeaderView {
     }
 
     @Override
-    @SuppressLint("NewApi")
     protected void setupButtons() {
         // TODO Auto-generated method stub
         super.setupButtons();

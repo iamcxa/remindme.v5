@@ -3,7 +3,6 @@ package tw.geodoer.main.taskEditor.view;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -24,7 +23,6 @@ import android.widget.Toast;
 
 import com.geodoer.geotodo.R;
 
-import tw.geodoer.mDatabase.API.DBLocationHelper;
 import tw.geodoer.mDatabase.columns.ColumnLocation;
 import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.mGeoInfo.view.LocationCustomDialog;
@@ -35,57 +33,39 @@ import tw.geodoer.utils.MyDebug;
 public class TaskEditorMainFragment extends Fragment implements
         OnClickListener,
         LoaderManager.LoaderCallbacks<Cursor>{
-    /**
-     * Called when the fragment is visible to the user and actively running.
-     * This is generally
-     * tied to {@link Activity#onResume() Activity.onResume} of the containing
-     * Activity's lifecycle.
-     */
+
+    static class ViewHolder{
+        MultiAutoCompleteTextView taskTitle;    // 任務標題
+
+        // 任務日期
+        EditText taskDueDate;                    // 任務到期日
+        ImageButton taskBtnDueDate;
+
+        // 設定地點相關
+        Spinner spinnerTaskLocation;
+        ImageButton taskBtnSetLocation;
+        ImageButton taskBtnUnSetLocation;
+
+        //
+        EditText taskContent;
+
+        // 其他
+        Spinner taskCategory;                       // 類別
+        Spinner taskPriority;                       // 優先
+        Spinner taskTag;                            // tag
+        Spinner taskProject;                        // 專案
+        Button btnMore;                             // more按鈕
+    }
 
     // flag - 被地圖dialog呼叫
     public static boolean calledByDialog = false;
-
     private static Loader<Cursor> loader;
-
-    // private static Cursor cursor;
-
-    private static MultiAutoCompleteTextView taskTitle;    // 任務標題
-
-    // 任務日期
-    private static EditText taskDueDate;                    // 任務到期日
-    private static ImageButton taskBtnDueDate;
-
-    // 設定地點相關
-    private static Spinner spinnerTaskLocation;
-    private static ImageButton taskBtnSetLocation;
-    private static ImageButton taskBtnUnSetLocation;
-
-    //
-    private static EditText taskContent;
-
-    // 其他
-    private static Spinner taskCategory;                       // 類別
-    private static Spinner taskPriority;                       // 優先
-    private static Spinner taskTag;                            // tag
-    private static Spinner taskProject;                        // 專案
-    private static Button btnMore;                             // more按鈕
+    private static ViewHolder vH = new ViewHolder();
 
     //
     private static String nullString = "null";
     private static CommonEditorVar mEditorVar = CommonEditorVar.GetInstance();
-    private Handler mHandler;
-    private Runnable mShowContentRunnable = new Runnable() {
-        @Override
-        public void run() {
-        }
-    };
 
-    /**
-     * Called when the fragment is visible to the user and actively running.
-     * This is generally
-     * tied to {@link Activity#onResume() Activity.onResume} of the containing
-     * Activity's lifecycle.
-     */
     @Override
     public void onResume() {
         super.onResume();
@@ -138,8 +118,7 @@ public class TaskEditorMainFragment extends Fragment implements
     };
 
     public static TaskEditorMainFragment newInstance() {
-        TaskEditorMainFragment fragment = new TaskEditorMainFragment();
-        return fragment;
+        return new TaskEditorMainFragment();
     }
 
     //------------------------------------- 由資料庫初始化變數
@@ -184,15 +163,15 @@ public class TaskEditorMainFragment extends Fragment implements
     public static String getTaskTitle() {
         String TaskTitleString = nullString;
         // 如果欄位不為空則放入使用者輸入數值
-        if (!(taskTitle.getText().toString().isEmpty())) {
-            TaskTitleString = taskTitle.getText().toString().trim();
+        if (!(vH.taskTitle.getText().toString().isEmpty())) {
+            TaskTitleString = vH.taskTitle.getText().toString().trim();
         }
         //MyDebug.MakeLog(0,"getTaskTitle:"+ TaskTitleString+"" +",TaskTitle.len="+TaskTitleString.length());
         return TaskTitleString;
     }
 
     public static void setTaskTitle(String taskTitle) {
-        TaskEditorMainFragment.taskTitle.setText(taskTitle);
+        vH.taskTitle.setText(taskTitle);
     }
 
     //-----------------TaskDueDate------------------//
@@ -200,8 +179,8 @@ public class TaskEditorMainFragment extends Fragment implements
     public static String getTaskDueDateString() {
         String taskDueDateString = nullString;
         // 如果欄位不為空則放入使用者輸入數值
-        if (!(taskDueDate.getText().toString().isEmpty())) {
-            taskDueDateString = taskDueDate.getText().toString().trim();
+        if (!(vH.taskDueDate.getText().toString().isEmpty())) {
+            taskDueDateString = vH.taskDueDate.getText().toString().trim();
         }
         return taskDueDateString;
     }
@@ -210,90 +189,69 @@ public class TaskEditorMainFragment extends Fragment implements
     public static int getTaskDueDateStringLength() {
         int taskDueDateStringLength = 0;
         // 如果欄位不為空則放入使用者輸入數值
-        if (!(taskDueDate.getText().toString().isEmpty())) {
-            taskDueDateStringLength = taskDueDate.getText().length();
+        if (!(vH.taskDueDate.getText().toString().isEmpty())) {
+            taskDueDateStringLength = vH.taskDueDate.getText().length();
         }
         return taskDueDateStringLength;
     }
 
-    //--------------任務地點選擇器---------------//
-    //	@SuppressLint("InflateParams")
-    //	private TaskEditorMain ShowTaskLocationSelectMenu() {
-    //		LayoutInflater inflater = LayoutInflater.from(getActivity());
-    //		View mview = inflater.inflate(
-    //				R.layout.activity_task_editor_tab_location,	null);
-    //		new AlertDialog.Builder(getActivity())
-    //		.setTitle(getResources().getString(R.string.TaskEditor_Field_Location_Tittle))
-    //		.setView(mview)
-    //
-    //		//		.setItems(R.array.Array_TaskEditor_btnTaskDueDate_String,
-    //		//				new DialogInterface.OnClickListener() {
-    //		//			public void onClick(DialogInterface dialog,
-    //		//					int which) {
-    //		//
-    //		//			}})
-    //
-    //		.show();
-    //		return this;
-    //	}
-
     // 設定文字
     public static void setTaskDueDate(String taskDueDateString) {
-        TaskEditorMainFragment.taskDueDate.setText(taskDueDateString);
+        vH.taskDueDate.setText(taskDueDateString);
     }
 
     //-----------------TaskContent------------------//
     public static String getTaskContent() {
         String taskContentString = nullString;
         // 如果欄位不為空則放入使用者輸入數值
-        if (!(taskContent.getText().toString().isEmpty())) {
-            taskContentString = taskContent.getText().toString().trim();
+        if (!(vH.taskContent.getText().toString().isEmpty())) {
+            taskContentString = vH.taskContent.getText().toString().trim();
         }
         return taskContentString;
     }
 
     public static void setTaskContent(String taskContentString) {
-        TaskEditorMainFragment.taskContent.setText(taskContentString);
+        vH.taskContent.setText(taskContentString);
     }
 
     //-----------------TaskCategory------------------//
     //TODO 處理spinner對應資料
     public static Spinner getTaskCategory() {
-        return taskCategory;
+        return vH.taskCategory;
     }
 
     public static void setTaskCategory(Spinner taskCategory) {
-        TaskEditorMainFragment.taskCategory = taskCategory;
+        vH.taskCategory = taskCategory;
     }
 
     //-----------------TaskTag------------------//
     //TODO 處理spinner對應資料
     public static Spinner getTaskTag() {
-        return taskTag;
+        return vH.taskTag;
     }
 
     public static void setTaskTag(Spinner taskTag) {
-        TaskEditorMainFragment.taskTag = taskTag;
+        vH.taskTag = taskTag;
     }
 
     //-----------------TaskPriority------------------//
     //TODO 處理spinner對應資料
     public static Spinner getTaskPriority() {
-        return taskPriority;
+        return vH.taskPriority;
     }
 
     public static void setTaskPriority(Spinner taskPriority) {
-        TaskEditorMainFragment.taskPriority = taskPriority;
+        vH.taskPriority = taskPriority;
     }
 
     //-----------------TaskLocation------------------//
     //TODO
     public static Spinner getTaskLocation() {
-        return spinnerTaskLocation;
+        return vH.spinnerTaskLocation;
     }
 
     public static void setTaskLocation(Spinner taskLocation) {
-        TaskEditorMainFragment.spinnerTaskLocation = taskLocation;
+        vH.spinnerTaskLocation = taskLocation;
     }
 
     @Override
@@ -324,25 +282,25 @@ public class TaskEditorMainFragment extends Fragment implements
 
     private void setupViewComponent() {
         // 標題 - 輸入框
-        taskTitle = (MultiAutoCompleteTextView) getView().
+        vH.taskTitle = (MultiAutoCompleteTextView) getActivity().
                 findViewById(R.id.multiAutoCompleteTextViewTitle);
-        taskTitle.setHint(getResources().getString(R.string.TaskEditor_Field_Title_Hint));
+        vH.taskTitle.setHint(getResources().getString(R.string.TaskEditor_Field_Title_Hint));
         //taskTitle.setText(mEditorVar.Task.getTitle());
 
         // 期限 - 輸入框
-        taskDueDate = (EditText) getView().findViewById(R.id.editTextDueDate);
-        taskDueDate.setHint(getResources().getString(R.string.TaskEditor_Field_DueDate_Hint));
+        vH.taskDueDate = (EditText) getActivity().findViewById(R.id.editTextDueDate);
+        vH.taskDueDate.setHint(getResources().getString(R.string.TaskEditor_Field_DueDate_Hint));
         //taskDueDate.setText(mEditorVar.Task.getDueDate());
         //taskDueDate.setEnabled(false);  // 關閉欄位暫時避免輸入偵測判斷
         //taskDueDate.setClickable(false);// 關閉選取暫時避免輸入偵測判斷
 
         // 期限 - 選擇按鈕
-        taskBtnDueDate = (ImageButton) getView().findViewById(R.id.imageButtonResetDate);
-        taskBtnDueDate.setOnClickListener(this);
+        vH.taskBtnDueDate = (ImageButton) getActivity().findViewById(R.id.imageButtonResetDate);
+        vH.taskBtnDueDate.setOnClickListener(this);
 
         // taskContent
-        taskContent = (EditText) getView().findViewById(R.id.editTextContent);
-        taskContent.setHint(getResources().getString(R.string.TaskEditor_Field_Content_Hint));
+        vH.taskContent = (EditText) getActivity().findViewById(R.id.editTextContent);
+        vH.taskContent.setHint(getResources().getString(R.string.TaskEditor_Field_Content_Hint));
 
         // 地點選擇
         Cursor c = getActivity().getContentResolver().
@@ -350,45 +308,45 @@ public class TaskEditorMainFragment extends Fragment implements
                         ColumnLocation.DEFAULT_SORT_ORDER);
 
         //
-        spinnerTaskLocation = (Spinner) getView().findViewById(R.id.spinnerTextLocation);
-        spinnerTaskLocation.setAdapter(setLocationArray(c));
-        spinnerTaskLocation.setOnItemSelectedListener(test);
-        spinnerTaskLocation.setEnabled(true);
+        vH.spinnerTaskLocation = (Spinner) getActivity().findViewById(R.id.spinnerTextLocation);
+        vH.spinnerTaskLocation.setAdapter(setLocationArray(c));
+        vH.spinnerTaskLocation.setOnItemSelectedListener(test);
+        vH.spinnerTaskLocation.setEnabled(true);
 
         // 設定地點按鈕
-        taskBtnSetLocation = (ImageButton) getView().findViewById(R.id.imageButtonSetLocation);
-        taskBtnSetLocation.setOnClickListener(this);
-        taskBtnSetLocation.setEnabled(true);
+        vH.taskBtnSetLocation = (ImageButton) getActivity().findViewById(R.id.imageButtonSetLocation);
+        vH.taskBtnSetLocation.setOnClickListener(this);
+        vH.taskBtnSetLocation.setEnabled(true);
 
         // 取消設定地點
-        taskBtnUnSetLocation=(ImageButton) getView().findViewById(R.id.imageButtonUnSetLocation);
-        taskBtnUnSetLocation.setOnClickListener(this);
-        taskBtnUnSetLocation.setEnabled(true);
+        vH.taskBtnUnSetLocation=(ImageButton) getActivity().findViewById(R.id.imageButtonUnSetLocation);
+        vH.taskBtnUnSetLocation.setOnClickListener(this);
+        vH.taskBtnUnSetLocation.setEnabled(true);
 
         // btnMore
-        btnMore = (Button) getView().findViewById(R.id.btnMore);
-        btnMore.setOnClickListener(this);
-        btnMore.setEnabled(true);
+        vH.btnMore = (Button) getActivity().findViewById(R.id.btnMore);
+        vH.btnMore.setOnClickListener(this);
+        vH.btnMore.setEnabled(true);
 
         // 類別選擇框
-        taskCategory = (Spinner) getActivity().findViewById(R.id.spinnerCategory);
-        taskCategory.setPrompt(getResources().getString(R.string.TaskEditor_Field_Category_Hint));
-        taskCategory.setVisibility(View.GONE);
+        vH.taskCategory = (Spinner) getActivity().findViewById(R.id.spinnerCategory);
+        vH.taskCategory.setPrompt(getResources().getString(R.string.TaskEditor_Field_Category_Hint));
+        vH.taskCategory.setVisibility(View.GONE);
 
         // 優先度選擇
-        taskPriority = (Spinner) getView().findViewById(R.id.spinnerPriority);
-        taskPriority.setPrompt(getResources().getString(R.string.TaskEditor_Field_Priority_Hint));
-        taskPriority.setVisibility(View.GONE);
+        vH.taskPriority = (Spinner) getActivity().findViewById(R.id.spinnerPriority);
+        vH.taskPriority.setPrompt(getResources().getString(R.string.TaskEditor_Field_Priority_Hint));
+        vH.taskPriority.setVisibility(View.GONE);
 
         // tag
-        taskTag = (Spinner) getView().findViewById(R.id.spinnerTag);
-        taskTag.setPrompt(getResources().getString(R.string.TaskEditor_Field_Tag_Hint));
-        taskTag.setVisibility(View.GONE);
+        vH.taskTag = (Spinner) getActivity().findViewById(R.id.spinnerTag);
+        vH.taskTag.setPrompt(getResources().getString(R.string.TaskEditor_Field_Tag_Hint));
+        vH.taskTag.setVisibility(View.GONE);
 
         // project
-        taskProject = (Spinner) getView().findViewById(R.id.spinnerProject);
-        taskProject.setPrompt(getResources().getString(R.string.TaskEditor_Field_Project_Hint));
-        taskProject.setVisibility(View.GONE);
+        vH.taskProject = (Spinner) getActivity().findViewById(R.id.spinnerProject);
+        vH.taskProject.setPrompt(getResources().getString(R.string.TaskEditor_Field_Project_Hint));
+        vH.taskProject.setVisibility(View.GONE);
     }
 
     //-----------------obtainData------------------//
@@ -410,7 +368,7 @@ public class TaskEditorMainFragment extends Fragment implements
         // TODO Auto-generated method stub
         switch (v.getId()) {
             case R.id.imageButtonResetDate:
-                new DueDateCustomDialog(getView().getContext()).show();
+                new DueDateCustomDialog(this.getActivity()).show();
                 break;
 
             case R.id.imageButtonSetLocation:
@@ -418,24 +376,24 @@ public class TaskEditorMainFragment extends Fragment implements
                 break;
 
             case R.id.imageButtonUnSetLocation:
-                spinnerTaskLocation.setSelection(0);
+                vH.spinnerTaskLocation.setSelection(0);
                 mEditorVar.TaskLocation.locationId=0;
                 mEditorVar.Task.setLocation_id(0);
                 break;
 
             case R.id.btnMore:
-                if (taskCategory.getVisibility() == View.GONE) {
-                    taskCategory.setVisibility(View.VISIBLE);
-                    taskPriority.setVisibility(View.VISIBLE);
-                    taskProject.setVisibility(View.VISIBLE);
-                    taskTag.setVisibility(View.VISIBLE);
-                    btnMore.setText(getResources().getString(R.string.btnMore_Less));
+                if (vH.taskCategory.getVisibility() == View.GONE) {
+                    vH.taskCategory.setVisibility(View.VISIBLE);
+                    vH.taskPriority.setVisibility(View.VISIBLE);
+                    vH.taskProject.setVisibility(View.VISIBLE);
+                    vH.taskTag.setVisibility(View.VISIBLE);
+                    vH.btnMore.setText(getResources().getString(R.string.btnMore_Less));
                 } else {
-                    taskCategory.setVisibility(View.GONE);
-                    taskPriority.setVisibility(View.GONE);
-                    taskProject.setVisibility(View.GONE);
-                    taskTag.setVisibility(View.GONE);
-                    btnMore.setText(getResources().getString(R.string.btnMore_More));
+                    vH.taskCategory.setVisibility(View.GONE);
+                    vH.taskPriority.setVisibility(View.GONE);
+                    vH.taskProject.setVisibility(View.GONE);
+                    vH.taskTag.setVisibility(View.GONE);
+                    vH.btnMore.setText(getResources().getString(R.string.btnMore_More));
                 }
                 break;
 
@@ -447,7 +405,7 @@ public class TaskEditorMainFragment extends Fragment implements
     //-----------------設定任務地點陣列------------------//
     private ArrayAdapter<String> setLocationArray(Cursor data) {
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item);
+                new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         if (data != null) {
             if (data.getCount() > 0) {
@@ -456,10 +414,10 @@ public class TaskEditorMainFragment extends Fragment implements
                 do {
                     adapter.add(data.getString(data.getColumnIndex("name")));
                 } while (data.moveToNext());
-                if (spinnerTaskLocation != null) spinnerTaskLocation.setEnabled(true);
+                if (vH.spinnerTaskLocation != null) vH.spinnerTaskLocation.setEnabled(true);
             } else {
                 adapter.add(getResources().getString(R.string.TaskEditor_Field_Location_Is_Empty));
-                if (spinnerTaskLocation != null) spinnerTaskLocation.setEnabled(false);
+                if (vH.spinnerTaskLocation != null) vH.spinnerTaskLocation.setEnabled(false);
             }
         }
         return adapter;
@@ -485,53 +443,15 @@ public class TaskEditorMainFragment extends Fragment implements
         return loader;
     }
 
-    /**
-     * Called when a previously created loader has finished its load.  Note
-     * that normally an application is <em>not</em> allowed to commit fragment
-     * transactions while in this call, since it can happen after an
-     * activity's state is saved.  See {@link FragmentManager#beginTransaction()
-     * FragmentManager.openTransaction()} for further discussion on this.
-     * <p/>
-     * <p>This function is guaranteed to be called prior to the release of
-     * the last data that was supplied for this Loader.  At this point
-     * you should remove all use of the old data (since it will be released
-     * soon), but should not do your own release of the data since its Loader
-     * owns it and will take care of that.  The Loader will take care of
-     * management of its data so you don't have to.  In particular:
-     * <p/>
-     * <ul>
-     * <li> <p>The Loader will monitor for changes to the data, and report
-     * them to you through new calls here.  You should not monitor the
-     * data yourself.  For example, if the data is a {@link android.database.Cursor}
-     * and you place it in a {@link android.widget.CursorAdapter}, use
-     * the {@link android.widget.CursorAdapter#CursorAdapter(android.content.Context,
-     * android.database.Cursor, int)} constructor <em>without</em> passing
-     * in either {@link android.widget.CursorAdapter#FLAG_AUTO_REQUERY}
-     * or {@link android.widget.CursorAdapter#FLAG_REGISTER_CONTENT_OBSERVER}
-     * (that is, use 0 for the flags argument).  This prevents the CursorAdapter
-     * from doing its own observing of the Cursor, which is not needed since
-     * when a change happens you will get a new Cursor throw another call
-     * here.
-     * <li> The Loader will release the data once it knows the application
-     * is no longer using it.  For example, if the data is
-     * a {@link android.database.Cursor} from a {@link android.content.CursorLoader},
-     * you should not call close() on it yourself.  If the Cursor is being placed in a
-     * {@link android.widget.CursorAdapter}, you should use the
-     * {@link android.widget.CursorAdapter#swapCursor(android.database.Cursor)}
-     * method so that the old Cursor is not closed.
-     * </ul>
-     *
-     * @param loader The Loader that has finished.
-     * @param data   The data generated by the Loader.
-     */
+
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        spinnerTaskLocation.setAdapter(setLocationArray(data));
-        spinnerTaskLocation.setOnItemSelectedListener(test);
+        vH. spinnerTaskLocation.setAdapter(setLocationArray(data));
+        vH. spinnerTaskLocation.setOnItemSelectedListener(test);
 
-        if (this.calledByDialog) {
-            spinnerTaskLocation.setSelection(spinnerTaskLocation.getCount() - 1);
-            this.calledByDialog = false;
+        if (calledByDialog) {
+            vH.spinnerTaskLocation.setSelection(vH.spinnerTaskLocation.getCount() - 1);
+            calledByDialog = false;
         }
 
         if (mEditorVar.Task.getTaskId() != 0) {
@@ -540,9 +460,9 @@ public class TaskEditorMainFragment extends Fragment implements
                 MyDebug.MakeLog(2, "location_id=" + b.getString(ColumnTask.KEY.location_id));
                 mEditorVar.Task.setLocation_id(Integer.valueOf(b.getString(ColumnTask.KEY.location_id)));
                 MyDebug.MakeLog(2, "location_id@mEditorVar=" + mEditorVar.Task.getLocation_id());
-                MyDebug.MakeLog(2, "spinnerTaskLocation count=" + spinnerTaskLocation.getCount());
-                spinnerTaskLocation.setSelection(mEditorVar.Task.getLocation_id());
-                MyDebug.MakeLog(2, "spinnerTaskLocation selected=" + spinnerTaskLocation.getSelectedItemPosition());
+                MyDebug.MakeLog(2, "spinnerTaskLocation count=" + vH.spinnerTaskLocation.getCount());
+                vH. spinnerTaskLocation.setSelection(mEditorVar.Task.getLocation_id());
+                MyDebug.MakeLog(2, "spinnerTaskLocation selected=" + vH.spinnerTaskLocation.getSelectedItemPosition());
             }
         }
     }
