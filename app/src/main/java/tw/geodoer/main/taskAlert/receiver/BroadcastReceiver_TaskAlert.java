@@ -1,4 +1,4 @@
-package tw.geodoer.mPriority.receiver;
+package tw.geodoer.main.taskAlert.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import tw.geodoer.main.taskAlert.controller.AlertHandler;
 import tw.geodoer.main.taskAlert.controller.LocationAlertHandler;
+import tw.geodoer.main.taskAlert.view.dialog.AlertNotiDialog;
 import tw.geodoer.utils.MyDebug;
 
 /**
@@ -14,6 +15,8 @@ import tw.geodoer.utils.MyDebug;
  */
 public class BroadcastReceiver_TaskAlert extends BroadcastReceiver
 {
+    private static String BC_action = "me.iamcxa.remindme.TaskReceiver";
+    private static boolean lock = false;
     @Override
     public void onReceive(Context context, Intent intent)
     {
@@ -26,31 +29,35 @@ public class BroadcastReceiver_TaskAlert extends BroadcastReceiver
         Bundle newB = new Bundle();
         Intent it = new Intent();
 
-        if (action.equals("me.iamcxa.remindme.TaskReceiver"))
+        if (action.equals(BC_action))
         {
-            switch (msg)
-            {
-                case "me.iamcxa.remindme.alarm":
+//            switch (msg)
+//            {
+//                case "me.iamcxa.remindme.alarm":
+//
+//                    it.setClass(context, AlertHandler.class);
+//                    newB.putString("taskID", b.get("taskID").toString());
+//                    it.putExtras(newB);
+//                    context.startService(it);
+//
+//                    break;
+//
+//                case "me.iamcxa.remindme.location":
+//
+//                    it.setClass(context, LocationAlertHandler.class);
+//                    newB.putString("taskID", b.get("taskID").toString());
+//                    it.putExtras(newB);
+//                    context.startService(it);
+//
+//                    break;
+//
+//                default:
+//                    break;
+//            }
 
-                    it.setClass(context, AlertHandler.class);
-                    newB.putString("taskID", b.get("taskID").toString());
-                    it.putExtras(newB);
-                    context.startService(it);
-
-                    break;
-
-                case "me.iamcxa.remindme.location":
-
-                    it.setClass(context, LocationAlertHandler.class);
-                    newB.putString("taskID", b.get("taskID").toString());
-                    it.putExtras(newB);
-                    context.startService(it);
-
-                    break;
-
-                default:
-                    break;
-            }
+            Intent new_it = new Intent(context,AlertNotiDialog.class);
+            it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(new_it);
         }
         else if(action.equals("android.intent.action.BOOT_COMPLETED"))
         {

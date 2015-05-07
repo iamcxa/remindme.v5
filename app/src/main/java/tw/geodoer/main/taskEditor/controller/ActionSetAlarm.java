@@ -6,13 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 
 
-import tw.geodoer.mPriority.receiver.BroadcastReceiver_TaskAlert;
+import tw.geodoer.main.taskAlert.receiver.BroadcastReceiver_TaskAlert;
 
 public class ActionSetAlarm {
-    private final String BC_ACTION = "me.iamcxa.remindme.TaskReceiver";
-    private final String MSG = "me.iamcxa.remindme.alarm";
-    private final int FLAG = PendingIntent.FLAG_CANCEL_CURRENT;
-    private final int TYPE = AlarmManager.RTC_WAKEUP;
+    private static final String BC_ACTION = "me.iamcxa.remindme.TaskReceiver";
+    private static final String MSG = "me.iamcxa.remindme.alarm";
+    private static final int FLAG = PendingIntent.FLAG_CANCEL_CURRENT;
+    private static final int TYPE = AlarmManager.RTC_WAKEUP;
 
     private Context context;
     private int taskID;
