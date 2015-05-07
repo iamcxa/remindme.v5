@@ -20,7 +20,6 @@ android {
     buildToolsVersion '22.0.0'
     //==================================預設build設定
     defaultConfig {
-        signingConfig signingConfigs.config
         applicationId 'com.godoer.geotodo'
         testApplicationId 'com.godoer.geotodo.test'
         minSdkVersion 15
@@ -32,6 +31,7 @@ android {
     buildTypes {
         //======================================發行
         release {
+            signingConfig signingConfigs.config
             //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             debuggable false
             jniDebuggable false
