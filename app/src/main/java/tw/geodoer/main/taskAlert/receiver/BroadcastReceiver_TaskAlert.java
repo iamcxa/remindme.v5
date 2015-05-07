@@ -4,9 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.PowerManager;
 
-import tw.geodoer.main.taskAlert.controller.AlertHandler;
-import tw.geodoer.main.taskAlert.controller.LocationAlertHandler;
+import tw.geodoer.main.taskAlert.Neocontroller.BootResetAlarm;
+import tw.geodoer.main.taskAlert.Neocontroller.NeoAlertHandler;
 import tw.geodoer.main.taskAlert.view.dialog.AlertNotiDialog;
 import tw.geodoer.utils.MyDebug;
 
@@ -16,7 +18,8 @@ import tw.geodoer.utils.MyDebug;
 public class BroadcastReceiver_TaskAlert extends BroadcastReceiver
 {
     private static String BC_action = "me.iamcxa.remindme.TaskReceiver";
-    private static boolean lock = false;
+    public static boolean lock = false;
+    public static int lock_time = 3000;
     @Override
     public void onReceive(Context context, Intent intent)
     {
@@ -24,7 +27,7 @@ public class BroadcastReceiver_TaskAlert extends BroadcastReceiver
         String msg = (b.getString("msg") == null) ? "no msg" : b.getString("msg");
         String action = intent.getAction();
 
-        MyDebug.MakeLog(2, "@ Receiver onReceive: "+msg);
+//        MyDebug.MakeLog(2, "@ Receiver onReceive: "+msg);
 
         Bundle newB = new Bundle();
         Intent it = new Intent();
@@ -39,29 +42,52 @@ public class BroadcastReceiver_TaskAlert extends BroadcastReceiver
 //                    newB.putString("taskID", b.get("taskID").toString());
 //                    it.putExtras(newB);
 //                    context.startService(it);
-//
 //                    break;
-//
 //                case "me.iamcxa.remindme.location":
 //
 //                    it.setClass(context, LocationAlertHandler.class);
 //                    newB.putString("taskID", b.get("taskID").toString());
 //                    it.putExtras(newB);
 //                    context.startService(it);
-//
 //                    break;
-//
 //                default:
 //                    break;
 //            }
+            if(!lock)
+            {
+                lock = true;
+                Handler mHandler = new Handler();
+                //Log.wtf("receiver", "lock");
 
-            Intent new_it = new Intent(context,AlertNotiDialog.class);
-            it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(new_it);
+                //wake up screen
+                mHandler.post(new wake_screen(context));
+
+                //noti
+                Intent intentNeoAlert = new Intent(context, NeoAlertHandler.class);
+                intentNeoAlert.putExtras(b);
+                context.startService(intentNeoAlert);
+
+                //check dialog
+                Intent intentFastCheck = new Intent(context, AlertNotiDialog.class);
+                intentFastCheck.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intentFastCheck.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                context.startActivity(intentFastCheck);
+
+                //unlock
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        BroadcastReceiver_TaskAlert.lock = false;
+                        //Log.wtf("receiver", "unlock");
+                    }
+                }, lock_time);
+            }
         }
         else if(action.equals("android.intent.action.BOOT_COMPLETED"))
         {
-            MyDebug.MakeLog(2, "智慧提醒＠開機啟動完成！");
+            //MyDebug.MakeLog(2, "智慧提醒＠開機啟動完成！");
+            Intent intentBootResetAlarm = new Intent(context, BootResetAlarm.class);
+            context.startService(intentBootResetAlarm);
         }
         else if(action.equals("android.net.wifi.supplicant.STATE_CHANGE"))
         {
@@ -74,4 +100,24 @@ public class BroadcastReceiver_TaskAlert extends BroadcastReceiver
 
 
     }
+
+    private static class wake_screen implements Runnable
+    {
+        private Context mContext;
+        public  wake_screen(Context context)
+        {
+            mContext = context;
+        }
+        @Override
+        public void run()
+        {
+            PowerManager pm = (PowerManager)mContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock WL= pm.newWakeLock((PowerManager.SCREEN_BRIGHT_WAKE_LOCK|
+                    PowerManager.FULL_WAKE_LOCK |
+                    PowerManager.ACQUIRE_CAUSES_WAKEUP),"TAG");
+            WL.acquire();
+        }
+    }
+
+
 }
