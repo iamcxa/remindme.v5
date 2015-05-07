@@ -11,7 +11,7 @@ import android.graphics.BitmapFactory;
 import android.os.IBinder;
 
 import com.geodoer.geotodo.R;
-import tw.geodoer.main.taskList.view.AppMainActivity;
+import tw.geodoer.main.taskList.view.MainActivity;
 
 /**
  * Created by MurasakiYoru on 2015/1/20.
@@ -52,7 +52,7 @@ public class GeoServiceNotification extends Service {
         long when = System.currentTimeMillis();
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.remindme_logo);
 
-        Intent notificationIntent = new Intent(getBaseContext(), AppMainActivity.class);
+        Intent notificationIntent = new Intent(getBaseContext(), MainActivity.class);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 

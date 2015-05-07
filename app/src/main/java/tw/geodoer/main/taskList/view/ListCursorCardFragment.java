@@ -38,6 +38,7 @@ import tw.geodoer.mDatabase.columns.ColumnTask;
 import tw.geodoer.mPriority.controller.PriorityUpdater;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
 import tw.geodoer.main.taskList.adapter.MyCursorCardAdapter;
+import tw.geodoer.main.taskList.controller.FixListviewHeight;
 import tw.geodoer.utils.CommonVar;
 
 /**
@@ -122,6 +123,8 @@ public class ListCursorCardFragment
         // Force start background query to load sessions
         getLoaderManager().restartLoader(101, null, this);
         LoaderManager.enableDebugLogging(true);
+
+        FixListviewHeight.setListViewHeightBasedOnChildren(mListView);
     }
 
     private void setFaBtnAdd(){
@@ -144,7 +147,7 @@ public class ListCursorCardFragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.card_fragment_list_cursor, container, false);
+        return inflater.inflate(R.layout.fragment_main_cursor_card, container, false);
     }
 
     @Override

@@ -1,1 +1,1 @@
-include ':app', ':MapController_v1.15.7'
+include ':app', ':MapController_v1.15.7', ':Taurus_v1.0'

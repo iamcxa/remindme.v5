@@ -1,0 +1,83 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:elevation="10dp"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:minHeight="?attr/actionBarSize" />
+
+        <github.chenupt.dragtoplayout.DragTopLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:background="@color/colorPrimary"
+            android:id="@+id/drag_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <!--top view-->
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:name="tw.geodoer.mGeoInfo.view.ShowTodoGeoFragment"
+                android:id="@+id/MapFragment"
+                android:layout_gravity="center_horizontal"
+                tools:layout="@layout/fragment_map" />
+
+
+
+            <!--content view-->
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/drag_content_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <com.astuetz.PagerSlidingTabStrip
+                    android:id="@+id/tabs"
+                    app:pstsShouldExpand="false"
+                    app:pstsIndicatorColor="@color/white"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary" />
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/view_pager"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </android.support.v4.view.ViewPager>
+
+            </LinearLayout>
+
+            <com.melnykov.fab.FloatingActionButton
+                android:id="@+id/faBtn_getMyLoc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:src="@mipmap/ic_action_getmylocation"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="23dp"
+                android:layout_marginTop="23dp" />
+
+        </github.chenupt.dragtoplayout.DragTopLayout>
+    </LinearLayout>
+</RelativeLayout>

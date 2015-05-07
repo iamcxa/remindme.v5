@@ -45,7 +45,9 @@ public class MyProgressFragment extends ProgressFragment {
                     break;
 
                 default:
-                    viewHolder.targetFragment = ListCursorCardFragment.newInstance(viewHolder.position);
+                    viewHolder.targetFragment = PlaceholderFragment.newInstance(viewHolder.position);
+
+                    // viewHolder.targetFragment = ListCursorCardFragment.newInstance(viewHolder.position);
                     viewHolder.fragmentTag="ListCursorCardFragment";
                     break;
             }
