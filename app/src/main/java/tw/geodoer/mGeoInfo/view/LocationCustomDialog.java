@@ -1,7 +1,11 @@
 package tw.geodoer.mGeoInfo.view;
 
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -10,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,11 +24,18 @@ import android.widget.Toast;
 import com.geodoer.geotodo.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBuffer;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.melnykov.fab.FloatingActionButton;
 import com.melnykov.fab.ObservableScrollView;
@@ -31,6 +44,7 @@ import fud.geodoermap.GeoInfo;
 import fud.geodoermap.GeoStatus;
 import fud.geodoermap.MapController;
 import tw.geodoer.mGeoInfo.API.CurrentLocation;
+import tw.geodoer.mGeoInfo.controller.PlaceAutocompleteAdapter;
 import tw.geodoer.mGeoInfo.controller.onBtnSaveClick;
 import tw.geodoer.mPriority.controller.NeoGeoInfo;
 import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
@@ -40,7 +54,8 @@ import tw.geodoer.main.taskEditor.fields.CommonEditorVar;
  * Tab 1 will be a list view. Tab 2 will be a list view.
  */
 public class LocationCustomDialog extends DialogFragment implements MapController.onGeoLoadLisitener,
-        View.OnClickListener{
+        View.OnClickListener,
+        GoogleApiClient.OnConnectionFailedListener{
     private static CommonEditorVar mEditorVar = CommonEditorVar.GetInstance();
     private static  ObservableScrollView mScrollView;
 
@@ -62,6 +77,14 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
     MapController mapController;
     private GeoInfo geo;
 
+    //****自動補齊地點*****
+    protected GoogleApiClient mGoogleApiClient;
+    private PlaceAutocompleteAdapter mAdapter;
+    private AutoCompleteTextView mAutocompleteView;
+    private static final LatLngBounds BOUNDS_GREATER_SYDNEY = new LatLngBounds(
+            new LatLng(-34.041458, 150.790100), new LatLng(-33.682247, 151.383362));
+    //********************
+
 
     public LocationCustomDialog newInstance() {
         return new LocationCustomDialog();
@@ -71,6 +94,10 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setCancelable(true);
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                .addApi(Places.GEO_DATA_API)
+                .build();
+        mGoogleApiClient.connect();
     }
 
     @Override
@@ -109,11 +136,18 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
             }
         });
 
+        //****自動補齊地點*****
+        mAutocompleteView = (AutoCompleteTextView)mContentView.findViewById(R.id.autocomplete_places);
+        mAutocompleteView.setOnItemClickListener(mAutocompleteClickListener);
+        mAdapter = new PlaceAutocompleteAdapter(getActivity(), android.R.layout.simple_list_item_1,
+                mGoogleApiClient, BOUNDS_GREATER_SYDNEY,null);
+        mAutocompleteView.setAdapter(mAdapter);
+        //*********************
 
         PlaceName = (TextView) mContentView.findViewById(R.id.PlaceName);
-        SearchText = (EditText) mContentView.findViewById(R.id.SearchText);
-        Search = (Button) mContentView.findViewById(R.id.Search);
-        Search.setOnClickListener(this);
+//        SearchText = (EditText) mContentView.findViewById(R.id.SearchText);
+//        Search = (Button) mContentView.findViewById(R.id.Search);
+//        Search.setOnClickListener(this);
 
         save = (Button) mContentView.findViewById(R.id.save);
         save.setOnClickListener(this);
@@ -232,6 +266,13 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
         Log.d("Loading","開始載入");
     }
 
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mGoogleApiClient.disconnect();
+    }
+
     /**
      * Called when a view has been clicked.
      *
@@ -239,10 +280,11 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
      */
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.Search){
-            mapController.searchPlace(SearchText.getText().toString());
-        }
-        else if(v.getId() == R.id.save){
+//        if(v.getId() == R.id.Search){
+////            mapController.searchPlace(SearchText.getText().toString());
+//        }
+//        else
+        if(v.getId() == R.id.save){
             NeoGeoInfo saveGeo = new NeoGeoInfo();
             saveGeo.setName(geo.name);
             saveGeo.setLatlng(geo.latlng);
@@ -261,4 +303,81 @@ public class LocationCustomDialog extends DialogFragment implements MapControlle
 //            });
         }
     }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Toast.makeText(getActivity(),
+                "Could not connect to Google API Client: Error " + connectionResult.getErrorCode(),
+                Toast.LENGTH_SHORT).show();
+        mAdapter.setGoogleApiClient(null);
+    }
+
+
+    /**
+     * Listener that handles selections from suggestions from the AutoCompleteTextView that
+     * displays Place suggestions.
+     * Gets the place id of the selected item and issues a request to the Places Geo Data API
+     * to retrieve more details about the place.
+     *
+     * @see com.google.android.gms.location.places.GeoDataApi#getPlaceById(com.google.android.gms.common.api.GoogleApiClient,
+     * String...)
+     */
+    private AdapterView.OnItemClickListener mAutocompleteClickListener
+            = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            /*
+             Retrieve the place ID of the selected item from the Adapter.
+             The adapter stores each Place suggestion in a PlaceAutocomplete object from which we
+             read the place ID.
+              */
+            final PlaceAutocompleteAdapter.PlaceAutocomplete item = mAdapter.getItem(position);
+            final String placeId = String.valueOf(item.placeId);
+
+            /*
+             Issue a request to the Places Geo Data API to retrieve a Place object with additional
+              details about the place.
+              */
+            PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi
+                    .getPlaceById(mGoogleApiClient, placeId);
+            placeResult.setResultCallback(mUpdatePlaceDetailsCallback);
+        }
+    };
+
+    /**
+     * Callback for results from a Places Geo Data API query that shows the first place result in
+     * the details view on screen.
+     */
+    private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback
+            = new ResultCallback<PlaceBuffer>() {
+        @Override
+        public void onResult(PlaceBuffer places) {
+            if (!places.getStatus().isSuccess()) {
+                // Request did not complete successfully
+                places.release();
+                return;
+            }
+            // Get the Place object from the buffer.
+            final Place place = places.get(0);
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(),
+                    map.getMaxZoomLevel() - 8));
+            // Format details of the place for display and show it in a TextView.
+//            mPlaceDetailsText.setText(formatPlaceDetails(getResources(), place.getName(),
+//                    place.getId(), place.getAddress(), place.getPhoneNumber(),
+//                    place.getWebsiteUri()));
+
+//            // Display the third party attributions if set.
+//            final CharSequence thirdPartyAttribution = places.getAttributions();
+//            if (thirdPartyAttribution == null) {
+//                mPlaceDetailsAttribution.setVisibility(View.GONE);
+//            } else {
+//                mPlaceDetailsAttribution.setVisibility(View.VISIBLE);
+//                mPlaceDetailsAttribution.setText(Html.fromHtml(thirdPartyAttribution.toString()));
+//            }
+
+//            Log.i(TAG, "Place details received: " + place.getName());
+
+            places.release();
+        }
+    };
 }
