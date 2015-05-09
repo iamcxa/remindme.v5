@@ -5,21 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
 
-import tw.geodoer.mDatabase.API.DBLocationHelper;
-import tw.geodoer.mDatabase.API.DBTasksHelper;
-import tw.geodoer.mDatabase.columns.ColumnLocation;
-import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.mPriority.receiver.BroadcastReceiver_TaskAlert;
+import tw.geodoer.main.taskAlert.receiver.BroadcastReceiver_TaskAlert;
 
 public class ActionSetLocationAlarm {
-    private final String BC_ACTION = "me.iamcxa.remindme.TaskReceiver";
-    private final String MSG = "me.iamcxa.remindme.location";
-    private final int FLAG = PendingIntent.FLAG_CANCEL_CURRENT;
-    private final float radius = 1000f;
+    private static final String BC_ACTION = "me.iamcxa.remindme.TaskReceiver";
+    private static final String MSG = "me.iamcxa.remindme.location";
+    private static final int FLAG = PendingIntent.FLAG_CANCEL_CURRENT;
+    private static final float radius = 1000f;
 
     private Context context;
     private int taskID;
-    private int locID;
 
     private LocationManager LM;
     private Intent intent;

@@ -5,16 +5,15 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.geodoer.geotodo.R;
-import tw.geodoer.mDatabase.API.Example_DBAlertHelper;
 import tw.geodoer.mDatabase.API.Example_DBLocationHelper;
-import tw.geodoer.mPriority.view.ScheduleDialog;
-import tw.geodoer.mPriority.view.mTestActivity;
+import tw.geodoer.main.taskAlert.Neocontroller.BootResetAlarm;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -141,10 +140,6 @@ public class APITestingFragment extends android.support.v4.app.Fragment {
         @Override
         public void onClick(View v)
         {
-//            ScheduleDialog sd = new ScheduleDialog(getActivity());
-//            sd.show();
-            Intent it = new Intent(getActivity(),mTestActivity.class);
-            getActivity().startActivity(it);
         }
     };
 

@@ -33,6 +33,7 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <!-- ====================================================================== -->
     <application
         android:allowBackup="true"
@@ -94,13 +95,13 @@
 
         <!-- ================================================================== -->
         <receiver
-            android:name="tw.geodoer.mPriority.receiver.BroadcastReceiver_TaskAlert"
+            android:name="tw.geodoer.main.taskAlert.receiver.BroadcastReceiver_TaskAlert"
             android:exported="false" >
             <intent-filter>
 
                 <!-- msg -->
                 <action android:name="me.iamcxa.remindme.TaskReceiver" />
-
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
@@ -110,28 +111,26 @@
 
 
         <!-- ================================================================== -->
-        <service android:name="tw.geodoer.mPriority.service.GeoServiceNotification" />
+        <!--<service android:name="tw.geodoer.main.taskAlert.controller.AlertHandler" />-->
+        <!--<service android:name="tw.geodoer.main.taskAlert.controller.ActionDelayTheAlert" />-->
+        <!--<service android:name="tw.geodoer.main.taskAlert.controller.ActionFinishTheAlert" />-->
 
+        <!--<service android:name="tw.geodoer.main.taskAlert.controller.LocationAlertHandler" />-->
+        <!--<service android:name="tw.geodoer.main.taskAlert.controller.ActionDeleyTheLocationAlert" />-->
+        <service android:name="tw.geodoer.main.taskAlert.Neocontroller.ActionCancelTheNotification"/>
+        <service android:name="tw.geodoer.main.taskAlert.Neocontroller.ActionFastCheck"/>
+        <service android:name="tw.geodoer.main.taskAlert.Neocontroller.NeoAlertHandler"/>
+        <service android:name="tw.geodoer.main.taskAlert.Neocontroller.BootResetAlarm"/>
         <activity
             android:name="tw.geodoer.main.taskAlert.view.dialog.AlertNotiDialog"
-            android:theme="@style/MyDialogStyle"
+            android:theme="@android:style/Theme.Dialog"
             android:uiOptions="none" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
-        <service android:name="tw.geodoer.main.taskAlert.controller.AlertHandler" />
-        <service android:name="tw.geodoer.main.taskAlert.controller.ActionDelayTheAlert" />
-        <service android:name="tw.geodoer.main.taskAlert.controller.ActionFinishTheAlert" />
 
-        <service android:name="tw.geodoer.main.taskAlert.controller.LocationAlertHandler" />
-        <service android:name="tw.geodoer.main.taskAlert.controller.ActionDeleyTheLocationAlert" />
-        <service android:name="tw.geodoer.main.taskAlert.controller.ActionCancelTheLocationAlert"/>
-
-        <service android:name="tw.geodoer.main.taskAlert.controller.ActionFastCheck"/>
-
-        <activity android:name="tw.geodoer.mPriority.view.mTestActivity"/>
 
     </application>
 
