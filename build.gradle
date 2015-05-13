@@ -3,12 +3,20 @@ buildscript {
     repositories {
         jcenter()
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.1.0'
+        classpath 'com.android.tools.build:gradle:1.2.3'
+        classpath 'com.jakewharton.sdkmanager:gradle-plugin:0.12.0'
     }
 }
 
+ext {
+    compileSdkVersion = 22
+    buildToolsVersion = "22.0.0"
+}
+
 allprojects {
+    version = VERSION_NAME
     repositories {
         jcenter()
     }
