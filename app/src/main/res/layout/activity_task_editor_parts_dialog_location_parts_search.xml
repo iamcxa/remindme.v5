@@ -3,31 +3,42 @@
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="10"
         android:orientation="horizontal" >
 
-            <EditText
-                android:id="@+id/SearchText"
-                android:layout_width="191dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="輸入搜尋地點" >
+            <!--<EditText-->
+                <!--android:id="@+id/SearchText"-->
+                <!--android:layout_width="191dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:ems="10"-->
+                <!--android:hint="輸入搜尋地點" >-->
 
-                <requestFocus />
-            </EditText>
+                <!--<requestFocus />-->
+            <!--</EditText>-->
 
-    <Button
-                android:id="@+id/Search"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:text="搜尋" />
+    <AutoCompleteTextView
+        android:id="@+id/autocomplete_places"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:hint="輸入搜尋地點"
+        android:layout_weight="8"
+        android:textColor="@android:color/primary_text_light"
+        android:layout_width="wrap_content" />
+
+
+    <!--<Button-->
+        <!--android:id="@+id/Search"-->
+        <!--style="?android:attr/buttonStyleSmall"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:text="搜尋" />-->
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="儲存"
-        android:layout_weight="3"
+        android:layout_weight="1"
         android:id="@+id/save" />
 
     <!-- <ImageButton

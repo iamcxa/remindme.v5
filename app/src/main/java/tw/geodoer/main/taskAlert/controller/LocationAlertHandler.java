@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.geodoer.geotodo.R;
 import tw.geodoer.mDatabase.API.DBTasksHelper;
 import tw.geodoer.mDatabase.columns.ColumnTask;
+import tw.geodoer.main.taskAlert.Neocontroller.ActionCancelTheNotification;
+import tw.geodoer.main.taskAlert.Neocontroller.ActionFastCheck;
 import tw.geodoer.main.taskPreference.controller.MyPreferences;
 
 public class LocationAlertHandler extends IntentService {
@@ -83,7 +85,7 @@ public class LocationAlertHandler extends IntentService {
 //        PendingIntent pedingIntentDialog = PendingIntent.getService(context, Integer.valueOf(taskID),
 //                intentDialog, PendingIntent.FLAG_ONE_SHOT);
 
-        Intent intentCancel = new Intent(context, ActionCancelTheLocationAlert.class);
+        Intent intentCancel = new Intent(context, ActionCancelTheNotification.class);
         intentCancel.putExtra("taskID", taskID);
         PendingIntent pedingIntentCancel = PendingIntent.getService(context, Integer.valueOf(taskID)+dis,
                 intentCancel, PendingIntent.FLAG_ONE_SHOT);

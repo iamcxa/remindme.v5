@@ -6,19 +6,19 @@ apply plugin: 'com.android.application'
 //                                               //
 //===============================================//
 android {
-    //==================================keystoreÃ±¦W
+    //==================================keystoreÃ±ï¿½W
     signingConfigs {
         config {
             keyAlias 'geodoer'
             keyPassword 'lab403'
-            storeFile file('C:/_github/remindme.v5/geodoer.keystore')
-            storePassword 'lab403'
+//            storeFile file('C:/_github/remindme.v5/geodoer.keystore')
+//            storePassword 'lab403'
         }
     }
-    //==================================¹ïÀ³sdkª©¥»¸¹
+    //==================================ï¿½ï¿½ï¿½ï¿½sdkï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     compileSdkVersion 22
     buildToolsVersion '22.0.0'
-    //==================================¹w³]build³]©w
+    //==================================ï¿½wï¿½]buildï¿½]ï¿½w
     defaultConfig {
         applicationId 'com.godoer.geotodo'
         testApplicationId 'com.godoer.geotodo.test'
@@ -27,9 +27,9 @@ android {
         versionName '1.0.0'
         versionCode 7
     }
-    //=====================================½sÄ¶³]©wÀÉ
+    //=====================================ï¿½sÄ¶ï¿½]ï¿½wï¿½ï¿½
     buildTypes {
-        //======================================µo¦æ
+        //======================================ï¿½oï¿½ï¿½
         release {
             signingConfig signingConfigs.config
             //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
@@ -41,7 +41,7 @@ android {
             versionNameSuffix '_release'
             zipAlignEnabled true
         }
-        //======================================°£¿ù
+        //======================================ï¿½ï¿½ï¿½ï¿½
         debug {
             debuggable true
             renderscriptOptimLevel 3
@@ -50,13 +50,13 @@ android {
             zipAlignEnabled true
         }
     }
-    //===================================©¿²¤lint¿ù»~
+    //===================================ï¿½ï¿½ï¿½ï¿½lintï¿½ï¿½~
     lintOptions {
         abortOnError false
     }
-    //=====================================²£«~´ë¹D¦W
+    //=====================================ï¿½ï¿½ï¿½~ï¿½ï¿½Dï¿½W
     productFlavors {}
-    //==================================®æ¦¡¤Æ¿é¥XAPK
+    //==================================ï¿½æ¦¡ï¿½Æ¿ï¿½XAPK
     android.applicationVariants.all { variant ->
         variant.outputs.each { output ->
             output.outputFile = new File(
