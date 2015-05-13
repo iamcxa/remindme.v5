@@ -11,7 +11,7 @@ import android.graphics.BitmapFactory;
 import android.os.IBinder;
 
 import com.geodoer.geotodo.R;
-import tw.geodoer.main.taskList.view.MainActivity;
+import tw.geodoer.main.MainActivity;
 
 /**
  * Created by MurasakiYoru on 2015/1/20.

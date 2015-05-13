@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import com.geodoer.geotodo.R;
 import com.yalantis.taurus.PullToRefreshView;
 
+import tw.geodoer.main.MainActivity;
+
 /**
  * A placeholder fragment containing a simple view.
  */
