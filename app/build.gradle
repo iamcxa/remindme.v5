@@ -1,3 +1,4 @@
+apply plugin: 'android-sdk-manager'
 apply plugin: 'com.android.application'
 
 //===============================================//
@@ -6,33 +7,35 @@ apply plugin: 'com.android.application'
 //                                               //
 //===============================================//
 android {
-    //==================================簽章
-    signingConfigs {
-        release
-    }
-    //==================================SDK版本
-    compileSdkVersion 22
-    buildToolsVersion '22.0.0'
-    //==================================default-build-setting
+    // compile-sdk-version
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
     defaultConfig {
         applicationId 'com.godoer.geotodo'
         testApplicationId 'com.godoer.geotodo.test'
-        minSdkVersion 15
-        targetSdkVersion 22
-        versionName '1.0.0'
-        versionCode 7
+        // target-sdk-version
+        minSdkVersion project.minSdkVersion
+        targetSdkVersion project.targetSdkVersion
+        // app-version
+        versionName project.VERSION_NAME
+        versionCode Integer.parseInt(project.VERSION_CODE)
     }
-    //=====================================build-types
+
+    signingConfigs {
+        release
+    }
+
     buildTypes {
         release {
             signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
             debuggable false
             jniDebuggable false
             renderscriptDebuggable false
             renderscriptOptimLevel 3
             minifyEnabled true
-            versionNameSuffix '_release'
             zipAlignEnabled true
         }
         debug {
@@ -43,13 +46,14 @@ android {
             zipAlignEnabled true
         }
     }
+
     // This is important, it will run lint checks but won't abort build
     lintOptions {
         abortOnError false
     }
 
     productFlavors {}
-    //==================================輸出多版本APK
+
     android.applicationVariants.all { variant ->
         variant.outputs.each { output ->
             output.outputFile = new File(
@@ -64,7 +68,7 @@ android {
 
 //===============================================//
 //                                               //
-//               signing.properties              //
+//                    Signing                    //
 //                                               //
 //===============================================//
 def Properties props = new Properties()
@@ -96,7 +100,7 @@ if (propFile.canRead()){
 
 //===============================================//
 //                                               //
-//                 repositories                  //
+//                 Repositories                  //
 //                                               //
 //===============================================//
 repositories {
@@ -107,7 +111,7 @@ repositories {
 
 //===============================================//
 //                                               //
-//                 dependencies                  //
+//                 Dependencies                  //
 //                                               //
 //===============================================//
 dependencies {
@@ -128,12 +132,4 @@ dependencies {
     compile 'com.github.johnkil.android-progressfragment:progressfragment:1.4.0'
     // splunk ACRA
     compile 'com.splunk.mint:mint:4.1'
-    // changelog
-    compile 'com.github.gabrielemariotti.changeloglib:library:1.5.2'
-    // ParallaxScroll
-    compile 'com.github.nirhart:parallaxscroll:1.0'
-    // dragtop-layout
-    compile 'com.github.chenupt.android:dragtoplayout:1.2.1@aar'
-
-    compile 'com.jpardogo.materialtabstrip:library:1.0.8'
 }
