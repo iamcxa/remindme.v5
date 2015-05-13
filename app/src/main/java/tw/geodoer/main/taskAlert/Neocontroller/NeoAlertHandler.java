@@ -16,7 +16,7 @@ import com.geodoer.geotodo.R;
 
 import tw.geodoer.mDatabase.API.DBTasksHelper;
 import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.main.taskList.view.AppMainActivity;
+import tw.geodoer.main.taskList.view.MainActivity;
 import tw.geodoer.main.taskPreference.controller.MyPreferences;
 
 public class NeoAlertHandler extends IntentService
@@ -47,7 +47,7 @@ public class NeoAlertHandler extends IntentService
     public void setNotification(Context context)
     {
 
-        Intent intentMain = new Intent(context, AppMainActivity.class);
+        Intent intentMain = new Intent(context, MainActivity.class);
         intentMain.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pedingIntentMain = PendingIntent.getActivity(context, ID,
                 intentMain, PendingIntent.FLAG_ONE_SHOT);

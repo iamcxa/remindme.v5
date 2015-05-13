@@ -6,19 +6,14 @@ apply plugin: 'com.android.application'
 //                                               //
 //===============================================//
 android {
-    //==================================keystoreñ�W
+    //==================================簽章
     signingConfigs {
-        config {
-            keyAlias 'geodoer'
-            keyPassword 'lab403'
-//            storeFile file('C:/_github/remindme.v5/geodoer.keystore')
-//            storePassword 'lab403'
-        }
+        release
     }
-    //==================================����sdk������
+    //==================================SDK版本
     compileSdkVersion 22
     buildToolsVersion '22.0.0'
-    //==================================�w�]build�]�w
+    //==================================default-build-setting
     defaultConfig {
         applicationId 'com.godoer.geotodo'
         testApplicationId 'com.godoer.geotodo.test'
@@ -27,12 +22,11 @@ android {
         versionName '1.0.0'
         versionCode 7
     }
-    //=====================================�sĶ�]�w��
+    //=====================================build-types
     buildTypes {
-        //======================================�o��
         release {
-            signingConfig signingConfigs.config
-            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             debuggable false
             jniDebuggable false
             renderscriptDebuggable false
@@ -41,7 +35,6 @@ android {
             versionNameSuffix '_release'
             zipAlignEnabled true
         }
-        //======================================����
         debug {
             debuggable true
             renderscriptOptimLevel 3
@@ -50,13 +43,13 @@ android {
             zipAlignEnabled true
         }
     }
-    //===================================����lint��~
+    // This is important, it will run lint checks but won't abort build
     lintOptions {
         abortOnError false
     }
-    //=====================================���~��D�W
+
     productFlavors {}
-    //==================================�榡�ƿ�XAPK
+    //==================================輸出多版本APK
     android.applicationVariants.all { variant ->
         variant.outputs.each { output ->
             output.outputFile = new File(
@@ -67,6 +60,38 @@ android {
                             defaultConfig.versionCode + ".apk" );
         }
     }
+}
+
+//===============================================//
+//                                               //
+//               signing.properties              //
+//                                               //
+//===============================================//
+def Properties props = new Properties()
+def propFile = file('signing.properties')
+if (propFile.canRead()){
+    props.load(new FileInputStream(propFile))
+
+    if (props!=null &&
+            props.containsKey('STORE_FILE') &&
+            props.containsKey('STORE_PASSWORD') &&
+            props.containsKey('KEY_ALIAS') &&
+            props.containsKey('KEY_PASSWORD')) {
+
+        println 'RELEASE BUILD SIGNING'
+
+        android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
+        android.signingConfigs.release.storePassword = props['STORE_PASSWORD']
+        android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
+        android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
+    } else {
+        println 'RELEASE BUILD NOT FOUND SIGNING PROPERTIES'
+
+        android.buildTypes.release.signingConfig = null
+    }
+}else {
+    println 'RELEASE BUILD NOT FOUND SIGNING FILE'
+    android.buildTypes.release.signingConfig = null
 }
 
 //===============================================//
