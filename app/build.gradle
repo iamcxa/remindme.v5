@@ -1,3 +1,4 @@
+apply plugin: 'android-sdk-manager'
 apply plugin: 'com.android.application'
 
 //===============================================//
@@ -6,6 +7,7 @@ apply plugin: 'com.android.application'
 //                                               //
 //===============================================//
 android {
+<<<<<<< HEAD
     //==================================簽章
     signingConfigs {
         release
@@ -14,25 +16,45 @@ android {
     compileSdkVersion 22
     buildToolsVersion '22.0.0'
     //==================================default-build-setting
+=======
+    // compile-sdk-version
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+>>>>>>> master
     defaultConfig {
         applicationId 'com.godoer.geotodo'
         testApplicationId 'com.godoer.geotodo.test'
-        minSdkVersion 15
-        targetSdkVersion 22
-        versionName '1.0.0'
-        versionCode 7
+        // target-sdk-version
+        minSdkVersion project.minSdkVersion
+        targetSdkVersion project.targetSdkVersion
+        // app-version
+        versionName project.VERSION_NAME
+        versionCode Integer.parseInt(project.VERSION_CODE)
     }
+
+    signingConfigs {
+        release
+    }
+<<<<<<< HEAD
     //=====================================build-types
     buildTypes {
         release {
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+=======
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+>>>>>>> master
             debuggable false
             jniDebuggable false
             renderscriptDebuggable false
             renderscriptOptimLevel 3
             minifyEnabled true
-            versionNameSuffix '_release'
             zipAlignEnabled true
         }
         debug {
@@ -43,13 +65,21 @@ android {
             zipAlignEnabled true
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
     // This is important, it will run lint checks but won't abort build
     lintOptions {
         abortOnError false
     }
 
     productFlavors {}
+<<<<<<< HEAD
     //==================================輸出多版本APK
+=======
+
+>>>>>>> master
     android.applicationVariants.all { variant ->
         variant.outputs.each { output ->
             output.outputFile = new File(
@@ -64,7 +94,11 @@ android {
 
 //===============================================//
 //                                               //
+<<<<<<< HEAD
 //               signing.properties              //
+=======
+//                    Signing                    //
+>>>>>>> master
 //                                               //
 //===============================================//
 def Properties props = new Properties()
@@ -96,7 +130,11 @@ if (propFile.canRead()){
 
 //===============================================//
 //                                               //
+<<<<<<< HEAD
 //                 repositories                  //
+=======
+//                 Repositories                  //
+>>>>>>> master
 //                                               //
 //===============================================//
 repositories {
@@ -107,7 +145,7 @@ repositories {
 
 //===============================================//
 //                                               //
-//                 dependencies                  //
+//                 Dependencies                  //
 //                                               //
 //===============================================//
 dependencies {
@@ -116,8 +154,11 @@ dependencies {
     compile 'com.android.support:support-v4:22.1.1'
     // MAP
     compile project(':MapController_v1.15.7')
+<<<<<<< HEAD
     //
     compile project(':Taurus_v1.0')
+=======
+>>>>>>> master
     // cards-lib
     compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
     compile 'com.github.gabrielemariotti.cards:cardslib-core:2.0.1'
