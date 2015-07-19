@@ -1,4 +1,4 @@
-package tw.geodoer.main.taskList.view;/*
+package tw.geodoer.main;/*
  *
  */
 
@@ -30,6 +30,8 @@ import com.splunk.mint.Mint;
 import tw.geodoer.mGeoInfo.view.ShowTodoGeoFragment;
 import tw.geodoer.mPriority.controller.PriorityUpdater;
 import tw.geodoer.main.taskEditor.view.TaskEditorTabFragment;
+import tw.geodoer.main.taskList.view.APITestingFragment;
+import tw.geodoer.main.taskList.view.MyProgressFragment;
 import tw.geodoer.main.taskPreference.controller.MyPreferences;
 import tw.geodoer.main.taskPreference.view.AppPreferenceActivity;
 import tw.geodoer.utils.MyDebug;

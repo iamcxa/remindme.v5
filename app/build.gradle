@@ -7,6 +7,7 @@ apply plugin: 'com.android.application'
 //                                               //
 //===============================================//
 android {
+
     // compile-sdk-version
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -64,6 +65,21 @@ android {
                             defaultConfig.versionCode + ".apk" );
         }
     }
+
+    // separate layouts
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res',
+                    'src/main/res/layouts/tasklist',
+                    'src/main/res/layouts/preference',
+                    'src/main/res/layouts/editor',
+                    'src/main/res/layouts/editor/parts',
+                    'src/main/res/layouts/card'
+            ]
+        }
+    }
+
 }
 
 //===============================================//
@@ -132,4 +148,5 @@ dependencies {
     compile 'com.github.johnkil.android-progressfragment:progressfragment:1.4.0'
     // splunk ACRA
     compile 'com.splunk.mint:mint:4.1'
+    compile 'com.jakewharton:butterknife:7.0.1'
 }

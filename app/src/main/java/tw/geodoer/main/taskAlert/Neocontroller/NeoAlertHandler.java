@@ -16,7 +16,7 @@ import com.geodoer.geotodo.R;
 
 import tw.geodoer.mDatabase.API.DBTasksHelper;
 import tw.geodoer.mDatabase.columns.ColumnTask;
-import tw.geodoer.main.taskList.view.AppMainActivity;
+import tw.geodoer.main.AppMainActivity;
 import tw.geodoer.main.taskPreference.controller.MyPreferences;
 
 public class NeoAlertHandler extends IntentService
